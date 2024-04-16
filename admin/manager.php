@@ -6,11 +6,12 @@
     <title>Hub mangers</title>
 </head>
 <body>
-    <h1>Hub managers</h1>
-    <li><a href="#">Hub manager 1</a></li>
-    <li><a href="#">Hub manager 2</a></li>
-    <li><a href="#">Hub manager 3</a></li>
+    <h1>Hub manager 1</h1>
+    <p>Location 1</p>
+    <p>Name</p>
+    <p>E-mail</p>
+    <p>Password</p>
 
-    <button>Add new hub manager</button>
+    <button>Edit</button>
 </body>
 </html>
