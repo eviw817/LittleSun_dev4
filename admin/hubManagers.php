@@ -1,4 +1,21 @@
 <?php
+    include_once(__DIR__ . "/../classes/HubManagers.php"); 
+
+    if(!empty($_POST)){
+        try {
+          $manager1 = new HubManagers();
+          $manager1->setFirstname($_POST['firstname']);
+          $manager1->setLastname($_POST['lastname']);
+          
+         
+        }
+        catch(Exception $e){
+          //$error = $e->getMessage();
+          
+        }
+    }
+
+
     include_once("data.inc.php");
 
 ?><!DOCTYPE html>
@@ -18,6 +35,6 @@
     <li><a href="#">Hub manager 2</a></li>
     <li><a href="#">Hub manager 3</a></li> -->
 
-    <button>Add new hub manager</button>
+    <button onclick="window.location.href='addManager.php'">Add new hub manager</button>
 </body>
 </html>
