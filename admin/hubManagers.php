@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<?php
+    include_once("data.inc.php");
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,9 +10,13 @@
 </head>
 <body>
     <h1>Hub managers</h1>
-    <li><a href="#">Hub manager 1</a></li>
+    <?php foreach($managers as $key => $manager) : ?> 
+        <a href="manager.php?id=<?php echo $key ?>" class="manager_detail"> <p><?php echo $manager['name']; ?></p> 
+        </a>
+    <?php endforeach; ?>
+    <!-- <li><a href="#">Hub manager 1</a></li>
     <li><a href="#">Hub manager 2</a></li>
-    <li><a href="#">Hub manager 3</a></li>
+    <li><a href="#">Hub manager 3</a></li> -->
 
     <button>Add new hub manager</button>
 </body>
