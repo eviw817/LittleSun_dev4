@@ -6,6 +6,11 @@
     <title>Hub Location</title>
 </head>
 <body>
-    
+    <h1>Hub location</h1>
+    <p>Location 1</p>
+    <p>Location 2</p>
+    <p>Location 3</p>
+
+    <button>Edit</button>
 </body>
 </html>
