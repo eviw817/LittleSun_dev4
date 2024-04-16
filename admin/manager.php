@@ -12,6 +12,6 @@
     <p>E-mail</p>
     <p>Password</p>
 
-    <button>Edit</button>
+    <button onclick="window.location.href='editManager.php'">Edit</button>
 </body>
 </html>

@@ -35,7 +35,7 @@
             
 
             <div class="form__field">
-                <input type="submit" value="Save" class="btn-save">	
+                <input type="submit" value="Save" class="btn-save" onclick="window.location.href='manager.php'">	
             </div>
 		</form>
 	</div>
