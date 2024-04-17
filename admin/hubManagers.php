@@ -1,4 +1,24 @@
-<!DOCTYPE html>
+<?php
+    include_once(__DIR__ . "/../classes/HubManagers.php"); 
+
+    if(!empty($_POST)){
+        try {
+          $manager1 = new HubManagers();
+          $manager1->setFirstname($_POST['firstname']);
+          $manager1->setLastname($_POST['lastname']);
+          
+         
+        }
+        catch(Exception $e){
+          //$error = $e->getMessage();
+          
+        }
+    }
+
+
+    include_once("data.inc.php");
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,10 +27,14 @@
 </head>
 <body>
     <h1>Hub managers</h1>
-    <p>Hub manger 1</p>
-    <p>Hub manger 2</p>
-    <p>Hub manger 3</p>
+    <?php foreach($managers as $key => $manager) : ?> 
+        <a href="manager.php?id=<?php echo $key ?>" class="manager_detail"> <p><?php echo $manager['name']; ?></p> 
+        </a>
+    <?php endforeach; ?>
+    <!-- <li><a href="#">Hub manager 1</a></li>
+    <li><a href="#">Hub manager 2</a></li>
+    <li><a href="#">Hub manager 3</a></li> -->
 
-    <button>Add</button>
+    <button onclick="window.location.href='addManager.php'">Add new hub manager</button>
 </body>
 </html>

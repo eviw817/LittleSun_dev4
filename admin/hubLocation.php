@@ -7,10 +7,10 @@
 </head>
 <body>
     <h1>Hub location</h1>
-    <p>Location 1</p>
-    <p>Location 2</p>
-    <p>Location 3</p>
+    <li><a href="location.php">Location 1</a></li>
+    <li><a href="#">Location 2</a></li>
+    <li><a href="#">Location 3</a></li>
 
-    <button>Edit</button>
+    <button onclick="window.location.href='editLocation.php'">Edit</button>
 </body>
 </html>

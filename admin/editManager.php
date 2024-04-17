@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add managers</title>
+    <title>Edit hub manager</title>
 </head>
 <body>
-    <div class="form new_manager">
+    <div class="form edit_manager">
 		<form action="" method="post">
-			<h2 form__title>New hub manager</h2>
+			<h2 form__title>Edit hub manager</h2>
 
             <div class="form__field">
                 <label for="Name">Name</label>
@@ -22,6 +22,7 @@
                 <label for="Password">Password</label>
                 <input type="password" name="password">
             </div>
+           
             <div class="form__field">
                 <label for="location">Choose location:</label>
                 <select id="location" name="location">
@@ -34,7 +35,7 @@
             
 
             <div class="form__field">
-                <input type="submit" value="Add manager" class="btn-add">	
+                <input type="submit" value="Save" class="btn-save" onclick="window.location.href='manager.php'">	
             </div>
 		</form>
 	</div>
