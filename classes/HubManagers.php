@@ -1,10 +1,14 @@
 <?php
-    class HubManagers {
-        private string $firstname;
-        private string $lastname;
-        private string $email;
-        private string $password;
-        private string $location;
+
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../interfaces/iBooking.php");
+
+    abstract class HubManagers implements iNewManager{
+        protected string $firstname;
+        protected string $lastname;
+        protected string $email;
+        protected string $password;
+        protected string $location;
+        protected string $profile_pic;
         
 
         /**
@@ -66,7 +70,7 @@
          *
          * @return  self
          */ 
-        public function setEmail($email)
+        public function setEmail($pEmail)
         {
             if(!empty($pEmail)){
                 $this->email = $pEmail; //this: het huidige object dat je mee werkt
@@ -89,7 +93,7 @@
          *
          * @return  self
          */ 
-        public function setPassword($password)
+        public function setPassword($pPassword)
         {
             if(!empty($pPassword)){
                 $this->password = $pPassword; //this: het huidige object dat je mee werkt
@@ -118,20 +122,33 @@
 
                 return $this;
         }
-    }
-//nog doen
-    // public function save(){
-    //     //PDO connection
-    //     $conn = new PDO('mysql:host=localhost;dbname=studentcards', 'root', 'root');
-    //     //prepare query (INSERT) + bind
-    //     $statement = $conn->prepare("INSERT into students (firstname, lastname) values (:firstname, :lastname)");
-    //     $statement->bindValue("firstname", $this->firstname);
-    //     $statement->bindValue("lastname", $this->lastname);
-    //     //excute
-    //     return $statement->execute();//terug geven het resultaat van die query
-    //     //result return
-    // }
 
+        /**
+         * Get the value of profile_pic
+         */ 
+        public function getProfile_pic()
+        {
+                return $this->profile_pic;
+        }
+
+        /**
+         * Set the value of profile_pic
+         *
+         * @return  self
+         */ 
+        public function setProfile_pic($pProfile_pic)
+        {
+            if(!empty($pProfile_pic)){
+                $this->profile_pic = $pProfile_pic; //this: het huidige object dat je mee werkt
+            }
+            else{
+                throw new Exception("profile_pic connot be empty");
+            }
+        }
+   
+
+   
+}
     // public static function getAll(){
     //     $conn = new PDO('mysql:host=localhost;dbname=studentcards', 'root', 'root');
     //     $statement = $conn->prepare("SELECT * FROM students"); //prepare is niet altijd nodig omdat je hier niets moet bonden

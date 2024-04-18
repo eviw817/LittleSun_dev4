@@ -1,19 +1,13 @@
 <?php
-    include_once(__DIR__ . "/../classes/HubManagers.php"); 
+    include_once("bootstrap.php");
 
-    if(!empty($_POST)){
-        try {
-          $manager1 = new HubManagers();
-          $manager1->setFirstname($_POST['firstname']);
-          $manager1->setLastname($_POST['lastname']);
-          
-         
-        }
-        catch(Exception $e){
-          //$error = $e->getMessage();
-          
-        }
-    }
+    $manager1 = new HubManagers();
+    $manager->setFirstname($_POST['firstname']);
+    $manager->setLastname($_POST['lastname']);
+    $manager->setEmail($_POST['email']);
+    $manager->setPassword($_POST['password']);
+    $manager->setLocation($_POST['location']);
+  
 
 
     include_once("data.inc.php");

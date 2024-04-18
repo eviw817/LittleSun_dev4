@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<?php
+   
+
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,8 +15,12 @@
 			<h2 form__title>New hub manager</h2>
 
             <div class="form__field">
-                <label for="Name">Name</label>
-                <input type="text" name="name">
+                <label for="Firstname">Firstname</label>
+                <input type="text" name="firstname">
+            </div>
+            <div class="form__field">
+                <label for="Lastname">Lastname</label>
+                <input type="text" name="lastname">
             </div>
             <div class="form__field">
                 <label for="Email">Email</label>
@@ -21,6 +29,10 @@
             <div class="form__field">
                 <label for="Password">Password</label>
                 <input type="password" name="password">
+            </div>
+            <div class="form__field">
+                <label for="Profile_pic">Profile picture:</label>
+                <input type="file" id="profile_pic" name="profile_pic" accept="image/*">
             </div>
             <div class="form__field">
                 <label for="location">Choose location:</label>
