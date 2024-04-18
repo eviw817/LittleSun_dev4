@@ -21,6 +21,8 @@
     <li><a href="#">Location 2</a></li>
     <li><a href="#">Location 3</a></li> -->
 
-    <button onclick="window.location.href='editLocation.php'">Edit</button>
+    <a href="editLocation.php">Edit locations</a>
+
+    
 </body>
 </html>
