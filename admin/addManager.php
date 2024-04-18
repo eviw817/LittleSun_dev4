@@ -18,7 +18,7 @@
     }
 
   
-    $allManagers = Hubmanagers::getAll();
+   //$allManagers = Hubmanagers::getAll();
 
 
 ?><!DOCTYPE html>

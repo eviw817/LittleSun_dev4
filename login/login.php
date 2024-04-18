@@ -2,7 +2,7 @@
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Db.php");
 
     function getAuthorizationDetailsByUsername($pUsername){
-        $conn = Db::getInstance();
+        $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT username, password, role FROM users WHERE username = :tUsername");
         $statement->execute([":tUsername" => $pUsername]);
         return $statement->fetch(PDO::FETCH_ASSOC);

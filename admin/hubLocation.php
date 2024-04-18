@@ -1,7 +1,13 @@
 <?php
-   
-
-    include_once("data.inc.php");
+ 
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Db.php");
+    //database geeft mij de zaken die er al in staan voor location
+    function getLocationName(){
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT name FROM locations");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -13,8 +19,8 @@
 </head>
 <body>
     <h1>Hub location</h1>
-    <?php foreach($locations as $key => $location) : ?> 
-        <li><a href="location.php?id=<?php echo $key ?>" class="location_detail"><?php echo $location['location']; ?> 
+    <?php foreach(getLocationName() as $key => $location) : ?> 
+        <li><a href="location.php?id=<?php echo $key ?>" class="location_detail"><?php echo $location['name']; ?> 
         </a></li>
     <?php endforeach; ?>
     <!-- <li><a href="location.php">Location 1</a></li>

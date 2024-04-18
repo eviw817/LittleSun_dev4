@@ -23,25 +23,6 @@
 
 	];
 
-	$locations = [
-		[
-			"title" => "Location1",
-			"location" 	=>	"location1",
-			"manager" 	=>	" hub manager 1",
-          
-		],
-		[
-			"title" => "Location2",
-			"location" 	=>	"location2",
-			"manager" 	=>	" hub manager 2",
-           
-		],
-		[
-			"title" => "Location3",
-			"location" 	=>	"location3",
-			"manager" 	=>	" hub manager 3",
-           
-		],
-	]
+
 
 ?>

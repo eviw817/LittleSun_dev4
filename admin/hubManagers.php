@@ -2,6 +2,15 @@
    
 
     include_once("data.inc.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Db.php");
+    //database geeft mij de zaken die er al in staan voor location
+    function getHubManagerName(){
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT username FROM users WHERE role = 'manager'");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -12,8 +21,8 @@
 </head>
 <body>
     <h1>Hub managers</h1>
-    <?php foreach($managers as $key => $manager) : ?> 
-        <a href="manager.php?id=<?php echo $key ?>" class="manager_detail"> <p><?php echo $manager['name']; ?></p> 
+    <?php foreach(getHubManagerName() as $key => $manager) : ?> 
+        <a href="manager.php?id=<?php echo $key ?>" class="manager_detail"> <p><?php echo $manager['username']; ?></p> 
         </a>
     <?php endforeach; ?>
     <!-- <li><a href="#">Hub manager 1</a></li>
