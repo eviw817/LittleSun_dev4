@@ -27,9 +27,9 @@
                 <label for="location">Choose location:</label>
                 <select id="location" name="location">
                     <option value="location1">Location1</option>
-                    <option value="location2">location2</option>
-                    <option value="location3">location3</option>
-                    <option value="location4">location4</option>
+                    <option value="location2">Location2</option>
+                    <option value="location3">Location3</option>
+                    <option value="location4">Location4</option>
                 </select>
             </div>
             
