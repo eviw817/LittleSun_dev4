@@ -1,35 +1,25 @@
-<?php
-    include_once("data.inc.php");
-
-    // Controleer of het formulier is ingediend om een nieuwe locatie toe te voegen
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Controleer of de locatienaam is ingevuld
-        if (!empty($_POST["new_location"])) {
-            // Voeg de nieuwe locatie toe aan de lijst
-            $newLocation = $_POST["new_location"];
-            $locations[] = array("location" => $newLocation);
-            // Bewaar de bijgewerkte lijst van locaties
-            file_put_contents("data.inc.php", "<?php \$locations = " . var_export($locations, true) . "; ?>");
-        }
-    }
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Locations</title>
-    <link rel="stylesheet" href="styles/location.css">
+    <title>Edit location</title>
 </head>
 <body>
-    <h1>Edit Locations</h1>
-    <h2>Existing Locations</h2>
-    <ul class="location_list">
-    <?php foreach($locations as $key => $location) : ?> 
-        <li><?php echo $location['location']; ?></li>
-    <?php endforeach; ?>
+<h1>Hub location</h1>
+    <ul id="locationList">
+        <li><a href="#" onclick="removeLocation(this)">Location 1</a></li>
+        <li><a href="#" onclick="removeLocation(this)">Location 2</a></li>
+        <li><a href="#" onclick="removeLocation(this)">Location 3</a></li>
     </ul>
 
-    <h2>Add New Location</h2>
-    <a href="addLocation.php">Add locations</a>
+    <button onclick="window.location.href='addLocation.php'">Add location</button>
+
+    <script>
+        function removeLocation(element) {
+            var listItem = element.parentNode;
+            listItem.parentNode.removeChild(listItem);
+        }
+    </script>
 </body>
 </html>
