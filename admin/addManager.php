@@ -1,5 +1,24 @@
 <?php
-   
+    include_once(__DIR__ . "/../classes/Hubmanagers.php");
+
+    if(!empty($_POST)){
+        try {
+            $manager = new Hubmanagers();
+            $manager->setFirstname($_POST['firstname']);
+            $manager->setLastname($_POST['lastname']);
+            $manager->setEmail($_POST['email']);
+            $manager->setPassword($_POST['password']);
+           // $manager->setLocation($_POST['location']);
+         
+        }
+        catch(Exception $e){
+          $error = $e->getMessage();
+          
+        }
+    }
+
+  
+    $allManagers = Hubmanagers::getAll();
 
 
 ?><!DOCTYPE html>
@@ -10,28 +29,32 @@
     <title>Add managers</title>
 </head>
 <body>
+    <?php if(isset($error)): ?>
+      <div class="text-red-500">Error: <?php echo $error; ?></div>
+    <?php endif; ?> 
+
     <div class="form new_manager">
 		<form action="" method="post">
 			<h2 form__title>New hub manager</h2>
 
             <div class="form__field">
-                <label for="Firstname">Firstname</label>
+                <label for="firstname">Firstname</label>
                 <input type="text" name="firstname">
             </div>
             <div class="form__field">
-                <label for="Lastname">Lastname</label>
+                <label for="lastname">Lastname</label>
                 <input type="text" name="lastname">
             </div>
             <div class="form__field">
-                <label for="Email">Email</label>
+                <label for="email">Email</label>
                 <input type="text" name="email">
             </div>
             <div class="form__field">
-                <label for="Password">Password</label>
+                <label for="password">Password</label>
                 <input type="password" name="password">
             </div>
             <div class="form__field">
-                <label for="Profile_pic">Profile picture:</label>
+                <label for="profile_pic">Profile picture:</label>
                 <input type="file" id="profile_pic" name="profile_pic" accept="image/*">
             </div>
             <div class="form__field">
@@ -46,7 +69,7 @@
             
 
             <div class="form__field">
-                <input type="submit" value="Add manager" class="btn-add">	
+                <input type="submit" value="Add new manager" class="btn-add">	
             </div>
 		</form>
 	</div>

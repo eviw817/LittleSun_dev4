@@ -1,14 +1,21 @@
 <?php
+    include_once(__DIR__ . "/Db.php");
+    //include_once(__DIR__ . DIRECTORY_SEPARATOR . "/../interfaces/iNewmanager.php");
 
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../interfaces/iBooking.php");
-
-    abstract class HubManagers implements iNewManager{
-        protected string $firstname;
-        protected string $lastname;
-        protected string $email;
-        protected string $password;
-        protected string $location;
-        protected string $profile_pic;
+    //abstract class HubManagers implements iNewmanager{
+         // protected string $firstname;
+        // protected string $lastname;
+        // protected string $email;
+        // protected string $password;
+        // protected string $location;
+       // protected string $profile_pic;
+    class Hubmanagers{
+        private string $firstname;
+        private string $lastname;
+        private string $email;
+        private string $password;
+        //private array $location;
+       
         
 
         /**
@@ -103,56 +110,76 @@
             }
         }
 
-        /**
-         * Get the value of location
-         */ 
-        public function getLocation()
-        {
-                return $this->location ;
-        }
+        // /**
+        //  * Get the value of location
+        //  */ 
+        // public function getLocation()
+        // {
+        //         return $this->location ;
+        // }
 
-        /**
-         * Set the value of location
-         *
-         * @return  self
-         */ 
-        public function setLocation()
-        {
-                $this->location = array("Location 1", "Location 2", "Location 3");
-
-                return $this;
-        }
+        // /**
+        //  * Set the value of location
+        //  *
+        //  * @return  self
+        //  */ 
+        // public function setLocation($pLocation)
+        // {
+        //     if (is_array($pLocation)) {
+        //         $this->location = $pLocation;
+        //     } else {
+        //         throw new Exception("Location must be an array.");
+        //     }
+        //     return $this;
+        // }
 
         /**
          * Get the value of profile_pic
          */ 
-        public function getProfile_pic()
-        {
-                return $this->profile_pic;
-        }
+        // public function getProfile_pic()
+        // {
+        //         return $this->profile_pic;
+        // }
 
-        /**
-         * Set the value of profile_pic
-         *
-         * @return  self
-         */ 
-        public function setProfile_pic($pProfile_pic)
-        {
-            if(!empty($pProfile_pic)){
-                $this->profile_pic = $pProfile_pic; //this: het huidige object dat je mee werkt
-            }
-            else{
-                throw new Exception("profile_pic connot be empty");
-            }
-        }
+        // /**
+        //  * Set the value of profile_pic
+        //  *
+        //  * @return  self
+        //  */ 
+        // public function setProfile_pic($pProfile_pic)
+        // {
+        //     if(!empty($pProfile_pic)){
+        //         $this->profile_pic = $pProfile_pic; //this: het huidige object dat je mee werkt
+        //     }
+        //     else{
+        //         throw new Exception("profile_pic connot be empty");
+        //     }
+        // }
    
 
+        public function save(){
+            //PDO connection
+            $conn = new PDO('mysql:host=localhost;dbname=little sun', 'root', 'root');
+            //prepare query (INSERT) + bind
+            $statement = $conn->prepare("INSERT into users (firstname, lastname, email, password, location) values (:firstname, :lastname, :email, :password, :location)");
+            $statement->bindValue("firstname", $this->firstname);
+            $statement->bindValue("lastname", $this->lastname);
+            $statement->bindValue("firstname", $this->email);
+            $statement->bindValue("lastname", $this->password);
+           // $statement->bindValue("location", implode(',', $this->location));
+            //excute
+            return $statement->execute();//terug geven het resultaat van die query
+            //result return
+        }
+
+        public static function getAll(){
+            $conn =  Db::getConnection();
+            $statement = $conn->prepare("select * from users where role = 'manager'");
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        
    
 }
-    // public static function getAll(){
-    //     $conn = new PDO('mysql:host=localhost;dbname=studentcards', 'root', 'root');
-    //     $statement = $conn->prepare("SELECT * FROM students"); //prepare is niet altijd nodig omdat je hier niets moet bonden
-    //     $statement->execute();
-    //     $arrResult = $statement->fetchAll(PDO::FETCH_ASSOC);
-    //     return $arrResult;
-    // }
+    

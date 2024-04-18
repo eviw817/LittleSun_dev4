@@ -1,14 +1,5 @@
 <?php
-    include_once("bootstrap.php");
-
-    $manager1 = new HubManagers();
-    $manager->setFirstname($_POST['firstname']);
-    $manager->setLastname($_POST['lastname']);
-    $manager->setEmail($_POST['email']);
-    $manager->setPassword($_POST['password']);
-    $manager->setLocation($_POST['location']);
-  
-
+   
 
     include_once("data.inc.php");
 
@@ -17,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hub mangers</title>
+    <title>Hub managers</title>
 </head>
 <body>
     <h1>Hub managers</h1>
