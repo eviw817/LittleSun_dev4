@@ -3,7 +3,7 @@
      //database geeft mij de zaken die er al in staan voor location
      function getLocationName(){
          $conn = Db::getConnection();
-         $statement = $conn->prepare("SELECT name FROM locations");
+         $statement = $conn->prepare("DELETE name FROM locations");
          $statement->execute();
          return $statement->fetchAll(PDO::FETCH_ASSOC);
      }

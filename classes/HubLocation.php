@@ -1,5 +1,5 @@
 <?php
-   include_once(__DIR__ . DIRECTORY_SEPARATOR . "/Db.php");
+   include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
    
 
     class HubLocation {
@@ -30,7 +30,7 @@
                 $this->name = $name; //this: het huidige object dat je mee werkt
             }
             else{
-                throw new Exception("name connot be empty");
+                throw new Exception("name cannot be empty");
             }
         }
 
@@ -53,7 +53,7 @@
                 $this->street = $street; //this: het huidige object dat je mee werkt
             }
             else{
-                throw new Exception("street connot be empty");
+                throw new Exception("street cannot be empty");
             }
         }
 
@@ -76,7 +76,7 @@
                 $this->streetnumber = $streetnumber; //this: het huidige object dat je mee werkt
             }
             else{
-                throw new Exception("streetnumber connot be empty");
+                throw new Exception("streetnumber cannot be empty");
             }
         }
 
@@ -99,7 +99,7 @@
                 $this->city = $city; //this: het huidige object dat je mee werkt
             }
             else{
-                throw new Exception("city connot be empty");
+                throw new Exception("city cannot be empty");
             }
         }
 
@@ -122,7 +122,7 @@
                 $this->country = $country; //this: het huidige object dat je mee werkt
             }
             else{
-                throw new Exception("country connot be empty");
+                throw new Exception("country cannot be empty");
             }
         }
 
@@ -145,7 +145,7 @@
                 $this->postalcode = $postalcode; //this: het huidige object dat je mee werkt
             }
             else{
-                throw new Exception("postalcode connot be empty");
+                throw new Exception("postalcode cannot be empty");
             }
         }
 
@@ -154,12 +154,12 @@
             
             // Prepare query (INSERT) + bind
             $statement = $conn->prepare("INSERT INTO locations (name, street, streetNumber, city, country, postalCode) VALUES (:name, :street, :streetNumber, :city, :country, :postalCode);");
-            $statement->bindValue("name", $this->name);
-            $statement->bindValue("street", $this->street);
-            $statement->bindValue("streetnumber", $this->streetnumber);
-            $statement->bindValue("city", $this->city);
-            $statement->bindValue("country", $this->country);
-            $statement->bindValue("postalcode", $this->postalcode);
+            $statement->bindValue(":name", $this->name);
+            $statement->bindValue(":street", $this->street);
+            $statement->bindValue(":streetNumber", $this->streetnumber);
+            $statement->bindValue(":city", $this->city);
+            $statement->bindValue(":country", $this->country);
+            $statement->bindValue(":postalCode", $this->postalcode);
             
             // Execute
             return $statement->execute();
