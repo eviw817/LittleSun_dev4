@@ -1,5 +1,6 @@
 <?php
-   include_once(__DIR__ . "/../classes/Db.php");
+   include_once(__DIR__ . "../../classes/Db.php");
+   
 
     class Hublocation {
         private string $name;
@@ -148,9 +149,9 @@
             }
         }
 
-        public function save(){
+        public function newLocation(){
             //PDO connection
-            $conn = new PDO('mysql:host=localhost;dbname=little sun', 'root', 'root');
+            $conn =  Db::getConnection();
             //prepare query (INSERT) + bind
             $statement = $conn->prepare("INSERT INTO locations (name, street, streetnumber, city, country, postalcode) VALUES (:name, :street, :streetnumber, :city, :country, :postalcode);");
             $statement->bindValue("name", $this->name);

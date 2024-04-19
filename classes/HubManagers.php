@@ -1,8 +1,8 @@
 <?php
-    include_once(__DIR__ . "/Db.php");
-    //include_once(__DIR__ . DIRECTORY_SEPARATOR . "/../interfaces/iNewmanager.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Db.php");
+    
 
-    //abstract class HubManagers implements iNewmanager{
+    //abstract class HubManagers implements iNewmanager
          // protected string $firstname;
         // protected string $lastname;
         // protected string $email;
@@ -109,6 +109,7 @@
                 throw new Exception("password connot be empty");
             }
         }
+   
 
         // /**
         //  * Get the value of location
@@ -159,27 +160,29 @@
 
         public function save(){
             //PDO connection
-            $conn = new PDO('mysql:host=localhost;dbname=little sun', 'root', 'root');
+            $conn = Db::getConnection();
             //prepare query (INSERT) + bind
             $statement = $conn->prepare("INSERT into users (firstname, lastname, email, password, location) values (:firstname, :lastname, :email, :password, :location)");
             $statement->bindValue("firstname", $this->firstname);
             $statement->bindValue("lastname", $this->lastname);
-            $statement->bindValue("firstname", $this->email);
-            $statement->bindValue("lastname", $this->password);
+            $statement->bindValue("email", $this->email);
+            $statement->bindValue("password", $this->password);
            // $statement->bindValue("location", implode(',', $this->location));
             //excute
             return $statement->execute();//terug geven het resultaat van die query
             //result return
         }
 
-        public static function getAll(){
-            $conn =  Db::getConnection();
-            $statement = $conn->prepare("select * from users where role = 'manager'");
-            $statement->execute();
-            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-            return $result;
-        }
+        // public static function getAll(){
+        //     $conn =  Db::getConnection();
+        //     $statement = $conn->prepare("select * from users where role = 'manager'");
+        //     $statement->execute();
+        //     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        //     return $result;
+        // }
         
    
+
+        
 }
     
