@@ -21,7 +21,7 @@
     <h1 class="title">Hub location</h1>
     <ul id="locationList">
         <?php foreach(getLocationName() as $key => $location) : ?> 
-            <li><a href="location.php?id=<?php echo $key ?>" class="location_detail"><?php echo $location['name']; ?> 
+            <li><a href="location.php?id=<?php echo ($key+1) ?>" class="location_detail"><?php echo $location['name']; ?> 
             </a></li>
         <?php endforeach; ?>
     </ul>

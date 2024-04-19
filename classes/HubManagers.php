@@ -37,7 +37,7 @@
                 $this->firstname = $pFirstname; 
             }
             else{
-                throw new Exception("Firstname connot be empty");
+                throw new Exception("Firstname cannot be empty");
             }
         }
 
@@ -60,7 +60,7 @@
                 $this->lastname = $pLastname; //this: het huidige object dat je mee werkt
             }
             else{
-                throw new Exception("lastname connot be empty");
+                throw new Exception("lastname cannot be empty");
             }
         }
 
@@ -83,7 +83,7 @@
                 $this->email = $pEmail; //this: het huidige object dat je mee werkt
             }
             else{
-                throw new Exception("email connot be empty");
+                throw new Exception("email cannot be empty");
             }
         }
 
@@ -106,7 +106,7 @@
                 $this->password = $pPassword; //this: het huidige object dat je mee werkt
             }
             else{
-                throw new Exception("password connot be empty");
+                throw new Exception("password cannot be empty");
             }
         }
    
