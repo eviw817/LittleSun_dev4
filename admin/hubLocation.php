@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="styles/location.css">
 </head>
 <body>
-    <h1>Hub location</h1>
+    <h1 class="title">Hub location</h1>
     <?php foreach(getLocationName() as $key => $location) : ?> 
         <li><a href="location.php?id=<?php echo $key ?>" class="location_detail"><?php echo $location['name']; ?> 
         </a></li>
