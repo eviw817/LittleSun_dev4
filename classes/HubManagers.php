@@ -1,5 +1,5 @@
 <?php
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Db.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
     
 
     //abstract class HubManagers implements iNewmanager
@@ -158,27 +158,38 @@
         // }
    
 
-        public function save(){
+        public function newManager(){
             //PDO connection
             $conn = Db::getConnection();
             //prepare query (INSERT) + bind
-            $statement = $conn->prepare("INSERT into users (firstname, lastname, email, password, location) values (:firstname, :lastname, :email, :password, :location)");
-            $statement->bindValue("firstname", $this->firstname);
-            $statement->bindValue("lastname", $this->lastname);
-            $statement->bindValue("email", $this->email);
-            $statement->bindValue("password", $this->password);
+            $statement = $conn->prepare("INSERT INTO users (username, email, password, role, location, firstName, lastName) VALUES (:username, :email, :password, :role, :location, :firstName, :lastName);");
+            $statement->bindValue("u:sername", $this->username);
+            $statement->bindValue(":email", $this->email);
+            $statement->bindValue(":password", $this->password);
+            $statement->bindValue(":role", $this->role);
+            $statement->bindValue(":location", $this->location);
+            $statement->bindValue(":firstName", $this->firstName);
+            $statement->bindValue(":lastName", $this->lastName);
            // $statement->bindValue("location", implode(',', $this->location));
             //excute
             return $statement->execute();//terug geven het resultaat van die query
             //result return
         }
 
-        // public static function getAll(){
-        //     $conn =  Db::getConnection();
-        //     $statement = $conn->prepare("select * from users where role = 'manager'");
-        //     $statement->execute();
-        //     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        //     return $result;
+        // public function newLocation() {
+        //     $conn = Db::getConnection();
+            
+        //     // Prepare query (INSERT) + bind
+        //     $statement = $conn->prepare("INSERT INTO locations (name, street, streetNumber, city, country, postalCode) VALUES (:name, :street, :streetNumber, :city, :country, :postalCode);");
+        //     $statement->bindValue(":name", $this->name);
+        //     $statement->bindValue(":street", $this->street);
+        //     $statement->bindValue(":streetNumber", $this->streetnumber);
+        //     $statement->bindValue(":city", $this->city);
+        //     $statement->bindValue(":country", $this->country);
+        //     $statement->bindValue(":postalCode", $this->postalcode);
+            
+        //     // Execute
+        //     return $statement->execute();
         // }
         
    

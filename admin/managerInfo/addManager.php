@@ -1,16 +1,20 @@
 <?php
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/Hubmanagers.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "/../../classes/HubManagers.php");
     
 
     if(!empty($_POST)){
         try {
-            $manager = new Hubmanagers();
+            $manager = new HubManagers();
             $manager->setFirstname($_POST['firstname']);
             $manager->setLastname($_POST['lastname']);
             $manager->setEmail($_POST['email']);
             $manager->setPassword($_POST['password']);
            // $manager->setLocation($_POST['location']);
          
+           $manager->newManager();
+
+           header("Location: hubManagers.php");
+            exit();
         }
         catch(Exception $e){
           $error = $e->getMessage();
