@@ -1,0 +1,62 @@
+main {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+main h2 {
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.full__form {
+    margin-bottom: 20px;
+}
+
+.form__field {
+    margin-bottom: 20px;
+}
+
+.form__field label {
+    display: block;
+    margin-bottom: 5px;
+    color: #000;
+}
+
+.form__field input[type="text"],
+.form__field input[type="password"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.input__button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffdd00;
+    border: none;
+    border-radius: 5px;
+    color: #000;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.input__button:hover {
+    background-color: #ffee81;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.checkbox input[type="checkbox"] {
+    margin-right: 5px;
+    margin-top: -1px;
+}

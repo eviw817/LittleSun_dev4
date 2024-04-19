@@ -15,9 +15,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hub Location</title>
-    <link rel="stylesheet" href="styles/location.css">
+    <link rel="stylesheet" href="../css/algemeen.css">
+    <link rel="stylesheet" href="../css/hubLocation.css">
 </head>
 <body>
+<header>
+    <div class="logo">
+        <img src="../images/logo.png" alt="Logo">
+    </div>
+</header>
+<main>
     <h1 class="title">Hub location</h1>
     <ul id="locationList">
         <?php foreach(getLocationName() as $key => $location) : ?> 
@@ -31,6 +38,6 @@
 
     <a href="editLocation.php">Edit locations</a>
 
-    
+</main>   
 </body>
 </html>

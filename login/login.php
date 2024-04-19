@@ -46,7 +46,8 @@
             echo $redirectTag;
         }
     ?>
-    <link rel="stylesheet" href="loginStylesheet.css">
+    <link rel="stylesheet" href="../css/algemeen.css">
+    <link rel="stylesheet" href="../css/login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
@@ -54,6 +55,12 @@
 </head>
 
 <body>
+<header>
+    <div class="logo">
+        <img src="../images/logo.png" alt="Logo">
+    </div>
+</header>
+<main>
     <p><?php if(!empty($error)){echo $error;} ?>
     <form action="" method="post">
         <h2>Welcome, please log in</h2>
@@ -76,7 +83,7 @@
             </div>
         </div>
     </form>
-
+</main>
 </body>
 
 </html>
