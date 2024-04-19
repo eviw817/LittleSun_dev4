@@ -6,7 +6,9 @@
     <title>Admin Dashboard</title>
 </head>
 <body>
-    <h1>Dashboard</h1>
+    <h1>Admin Dashboard</h1>
+
+    <a href="../login/login.php">Log Out</a>
     
 </body>
 </html>
