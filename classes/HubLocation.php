@@ -1,8 +1,8 @@
 <?php
-   include_once(__DIR__ . "../../classes/Db.php");
+   include_once(__DIR__ . DIRECTORY_SEPARATOR . "/Db.php");
    
 
-    class Hublocation {
+    class HubLocation {
         private string $name;
         private string $street;
         private string $streetnumber;
@@ -149,29 +149,22 @@
             }
         }
 
-        public function newLocation(){
-            //PDO connection
-            $conn =  Db::getConnection();
-            //prepare query (INSERT) + bind
-            $statement = $conn->prepare("INSERT INTO locations (name, street, streetnumber, city, country, postalcode) VALUES (:name, :street, :streetnumber, :city, :country, :postalcode);");
+        public function newLocation() {
+            $conn = Db::getConnection();
+            
+            // Prepare query (INSERT) + bind
+            $statement = $conn->prepare("INSERT INTO locations (name, street, streetNumber, city, country, postalCode) VALUES (:name, :street, :streetNumber, :city, :country, :postalCode);");
             $statement->bindValue("name", $this->name);
             $statement->bindValue("street", $this->street);
             $statement->bindValue("streetnumber", $this->streetnumber);
             $statement->bindValue("city", $this->city);
             $statement->bindValue("country", $this->country);
             $statement->bindValue("postalcode", $this->postalcode);
-            //excute
-            return $statement->execute();//terug geven het resultaat van die query
-            //result return
+            
+            // Execute
+            return $statement->execute();
         }
-
-        public static function getAll(){
-            $conn =  Db::getConnection();
-            $statement = $conn->prepare("SELECT * FROM `locations`");
-            $statement->execute();
-            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-            return $result;
-        }
-
+        
+       
      
     }

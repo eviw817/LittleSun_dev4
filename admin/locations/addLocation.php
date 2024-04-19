@@ -1,11 +1,11 @@
 <?php
-    include_once(__DIR__ . "/../../classes/hubLocation.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "/../../classes/HubLocation.php");
     
    
 
     if(!empty($_POST)){
         try {
-            $location = new Hublocation();
+            $location = new HubLocation();
             $location -> setName($_POST['name']);
             $location -> setStreet($_POST['street']);
             $location -> setStreetnumber($_POST['streetNumber']);
@@ -13,6 +13,7 @@
             $location -> setCountry($_POST['country']);
             $location -> setPostalcode($_POST['postalCode']);
             //var_dump($location);
+            $location->newLocation();
        
         }
         catch(Exception $e){
@@ -20,10 +21,6 @@
           
         }
     }
-
-  
-    $allLocations = Hublocation::getAll();
-
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -51,7 +48,7 @@
             </div>
             <div class="form__field">
                 <label for="streetnumber">Streetnumber</label>
-                <input type="text" name="streetnumber">
+                <input type="text" name="streetNumber">
             </div>
             <div class="form__field">
                 <label for="city">City</label>
@@ -63,11 +60,11 @@
             </div>
             <div class="form__field">
                 <label for="postalcode">Postalcode</label>
-                <input type="text" name="postalcode">
+                <input type="text" name="postalCode">
             </div>
            
 		</form>
-        <button onclick="window.location.href='hubLocation.php'" class="btn-save">save</button>	
+        <button onclick="window.location.href='hubLocation.php'" class="btn-save">Save</button>	
 	</div>
 </body>
 </html>
