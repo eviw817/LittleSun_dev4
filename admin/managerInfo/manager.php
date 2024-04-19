@@ -1,14 +1,31 @@
 <?php
-    if(isset($_GET['id'])){
-        $id = $_GET['id'];
-        include_once("data.inc.php");
-        $head = $managers[$id];
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/Db.php");
+
+    function getManagerById($id)
+    {
         
-      }
-      else{
-        echo "go away";
-        die(); 
-      }
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT l.*, u.firstName, u.lastName FROM locations l LEFT JOIN users u ON l.id = u.location WHERE l.id = :id");
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+    
+        if ($result) {
+            return $result;
+        } else {
+            return false; 
+        }
+    }
+    
+    
+    
+    if (isset($_GET['id'])) {
+      $id = $_GET['id'];
+      $manager = getManagerById($id);
+  } else {
+      echo "No location ID specified";
+      die();
+  }
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -20,15 +37,13 @@
 </head>
 <body>
 
-    <h1><?php echo $head['name']?></h1>
-    <p><?php echo $head['email']?></p>
-    <p><?php echo $head['password']?></p>
-    <p><?php echo $head['location']?></p>
-    <!-- <h1>Hub manager 1</h1>
-    <p>Location 1</p>
-   
-    <p>E-mail</p>
-    <p>Password</p> -->
+  <h1>Username: <?php if($manager){echo $manager["username"]; }?></h1>
+  <p> Email: <?php if($manager){echo $manager["email"]; } ?></p>
+  <p> Password: <?php if($manager){echo $manager["password"]; } ?></p>
+  <p> Role: <?php if($manager){echo $manager["role"]; } ?></p>
+  <p> Location: <?php if($manager){echo $manager["location"]; } ?></p>
+  <p> Firstname: <?php if($manager){echo $manager["firstName"]; } ?></p>
+  <p> Lastname: <?php if($manager){echo $manager["lastName"]; } ?></p>
 
     <button onclick="window.location.href='editManager.php'">Edit</button>
 </body>
