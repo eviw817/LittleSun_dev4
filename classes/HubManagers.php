@@ -1,66 +1,35 @@
 <?php
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
     
-
-    //abstract class HubManagers implements iNewmanager
-         // protected string $firstname;
-        // protected string $lastname;
-        // protected string $email;
-        // protected string $password;
-        // protected string $location;
-       // protected string $profile_pic;
     class Hubmanagers{
-        private string $firstname;
-        private string $lastname;
+        private string $username;  
         private string $email;
         private string $password;
-        //private array $location;
-       
-        
-
+        private string $role;
+        // private string $location;
+        private string $firstName;
+        private string $lastName;
+    
         /**
-         * Get the value of firstname
+         * Get the value of username
          */ 
-        public function getFirstname()
+        public function getUsername()
         {
-                return $this->firstname;
+                return $this->username;
         }
 
         /**
-         * Set the value of firstname
+         * Set the value of username
          *
          * @return  self
          */ 
-        public function setFirstname($pFirstname)
+        public function setUsername($username)
         {
-            if(!empty($pFirstname)){
-                $this->firstname = $pFirstname; 
+            if(!empty($username)){
+                $this->username = $username; //this: het huidige object dat je mee werkt
             }
             else{
-                throw new Exception("Firstname cannot be empty");
-            }
-        }
-
-        /**
-         * Get the value of lastname
-         */ 
-        public function getLastname()
-        {
-                return $this->lastname;
-        }
-
-        /**
-         * Set the value of lastname
-         *
-         * @return  self
-         */ 
-        public function setLastname($pLastname)
-        {
-            if(!empty($pLastname)){
-                $this->lastname = $pLastname; //this: het huidige object dat je mee werkt
-            }
-            else{
-                throw new Exception("lastname cannot be empty");
+                throw new Exception("username cannot be empty");
             }
         }
 
@@ -77,10 +46,10 @@
          *
          * @return  self
          */ 
-        public function setEmail($pEmail)
+        public function setEmail($email)
         {
-            if(!empty($pEmail)){
-                $this->email = $pEmail; //this: het huidige object dat je mee werkt
+            if(!empty($email)){
+                $this->email = $email; //this: het huidige object dat je mee werkt
             }
             else{
                 throw new Exception("email cannot be empty");
@@ -100,23 +69,45 @@
          *
          * @return  self
          */ 
-        public function setPassword($pPassword)
+        public function setPassword($password)
         {
-            if(!empty($pPassword)){
-                $this->password = $pPassword; //this: het huidige object dat je mee werkt
+            if(!empty($password)){
+                $this->password = $password; //this: het huidige object dat je mee werkt
             }
             else{
                 throw new Exception("password cannot be empty");
             }
         }
-   
+
+        /**
+         * Get the value of role
+         */ 
+        public function getRole()
+        {
+                return $this->role;
+        }
+
+        /**
+         * Set the value of role
+         *
+         * @return  self
+         */ 
+        public function setRole($role)
+        {
+            if(!empty($role)){
+                $this->role = $role; //this: het huidige object dat je mee werkt
+            }
+            else{
+                throw new Exception("role cannot be empty");
+            }
+        }
 
         // /**
         //  * Get the value of location
         //  */ 
         // public function getLocation()
         // {
-        //         return $this->location ;
+        //         return $this->location;
         // }
 
         // /**
@@ -124,50 +115,71 @@
         //  *
         //  * @return  self
         //  */ 
-        // public function setLocation($pLocation)
+        // public function setLocation($location)
         // {
-        //     if (is_array($pLocation)) {
-        //         $this->location = $pLocation;
-        //     } else {
-        //         throw new Exception("Location must be an array.");
-        //     }
-        //     return $this;
-        // }
-
-        /**
-         * Get the value of profile_pic
-         */ 
-        // public function getProfile_pic()
-        // {
-        //         return $this->profile_pic;
-        // }
-
-        // /**
-        //  * Set the value of profile_pic
-        //  *
-        //  * @return  self
-        //  */ 
-        // public function setProfile_pic($pProfile_pic)
-        // {
-        //     if(!empty($pProfile_pic)){
-        //         $this->profile_pic = $pProfile_pic; //this: het huidige object dat je mee werkt
+        //     if(!empty($location)){
+        //         $this->location = $location; //this: het huidige object dat je mee werkt
         //     }
         //     else{
-        //         throw new Exception("profile_pic connot be empty");
+        //         throw new Exception("location cannot be empty");
         //     }
         // }
-   
+        /**
+         * Get the value of firstName
+         */ 
+        public function getFirstName()
+        {
+                return $this->firstName;
+        }
+
+        /**
+         * Set the value of firstName
+         *
+         * @return  self
+         */ 
+        public function setFirstName($firstName)
+        {
+            if(!empty($firstName)){
+                $this->firstName = $firstName; //this: het huidige object dat je mee werkt
+            }
+            else{
+                throw new Exception("firstName cannot be empty");
+            }
+        }
+
+        /**
+         * Get the value of lastName
+         */ 
+        public function getLastName()
+        {
+                return $this->lastName;
+        }
+
+        /**
+         * Set the value of lastName
+         *
+         * @return  self
+         */ 
+        public function setLastName($lastName)
+        {
+            if(!empty($lastName)){
+                $this->lastName = $lastName; //this: het huidige object dat je mee werkt
+            }
+            else{
+                throw new Exception("lastName cannot be empty");
+            }
+        }
 
         public function newManager(){
             //PDO connection
             $conn = Db::getConnection();
             //prepare query (INSERT) + bind
-            $statement = $conn->prepare("INSERT INTO users (username, email, password, role, location, firstName, lastName) VALUES (:username, :email, :password, :role, :location, :firstName, :lastName);");
-            $statement->bindValue("u:sername", $this->username);
+            $statement = $conn->prepare("INSERT INTO users (username, email, password, role, firstName, lastName) VALUES (:username, :email, :password, :role, :firstName, :lastName);"); //locatie nog toevoegen
+            $statement->bindValue(":username", $this->username);
             $statement->bindValue(":email", $this->email);
             $statement->bindValue(":password", $this->password);
             $statement->bindValue(":role", $this->role);
-            $statement->bindValue(":location", $this->location);
+            // $statement->bindValue(":location", $this->location);
             $statement->bindValue(":firstName", $this->firstName);
             $statement->bindValue(":lastName", $this->lastName);
            // $statement->bindValue("location", implode(',', $this->location));
@@ -191,9 +203,5 @@
         //     // Execute
         //     return $statement->execute();
         // }
-        
-   
-
-        
 }
     
