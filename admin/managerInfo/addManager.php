@@ -1,5 +1,6 @@
 <?php
-    include_once(__DIR__ . "/../classes/Hubmanagers.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/Hubmanagers.php");
+    
 
     if(!empty($_POST)){
         try {
@@ -38,19 +39,19 @@
 			<h2 form__title>New hub manager</h2>
 
             <div class="form__field">
-                <label for="firstname">Firstname</label>
+                <label for="firstname">Firstname:</label>
                 <input type="text" name="firstname">
             </div>
             <div class="form__field">
-                <label for="lastname">Lastname</label>
+                <label for="lastname">Lastname:</label>
                 <input type="text" name="lastname">
             </div>
             <div class="form__field">
-                <label for="email">Email</label>
+                <label for="email">Email:</label>
                 <input type="text" name="email">
             </div>
             <div class="form__field">
-                <label for="password">Password</label>
+                <label for="password">Password:</label>
                 <input type="password" name="password">
             </div>
             <div class="form__field">

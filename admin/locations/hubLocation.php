@@ -1,6 +1,6 @@
 <?php
  
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Db.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/Db.php");
     //database geeft mij de zaken die er al in staan voor location
     function getLocationName(){
         $conn = Db::getConnection();
@@ -19,10 +19,12 @@
 </head>
 <body>
     <h1 class="title">Hub location</h1>
-    <?php foreach(getLocationName() as $key => $location) : ?> 
-        <li><a href="location.php?id=<?php echo $key ?>" class="location_detail"><?php echo $location['name']; ?> 
-        </a></li>
-    <?php endforeach; ?>
+    <ul id="locationList">
+        <?php foreach(getLocationName() as $key => $location) : ?> 
+            <li><a href="location.php?id=<?php echo $key ?>" class="location_detail"><?php echo $location['name']; ?> 
+            </a></li>
+        <?php endforeach; ?>
+    </ul>
     <!-- <li><a href="location.php">Location 1</a></li>
     <li><a href="#">Location 2</a></li>
     <li><a href="#">Location 3</a></li> -->

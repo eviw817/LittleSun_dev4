@@ -1,17 +1,17 @@
 <?php
-    include_once(__DIR__ . "/../classes/Hublocation.php");
+    include_once(__DIR__ . "/../../classes/hubLocation.php");
     
-    
+   
 
     if(!empty($_POST)){
         try {
             $location = new Hublocation();
             $location -> setName($_POST['name']);
             $location -> setStreet($_POST['street']);
-            $location -> setStreetnumber($_POST['streetnumber']);
+            $location -> setStreetnumber($_POST['streetNumber']);
             $location -> setCity($_POST['city']);
             $location -> setCountry($_POST['country']);
-            $location -> setPostalcode($_POST['postalcode']);
+            $location -> setPostalcode($_POST['postalCode']);
             //var_dump($location);
        
         }

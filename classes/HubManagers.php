@@ -1,8 +1,8 @@
 <?php
-    include_once(__DIR__ . "/Db.php");
-    //include_once(__DIR__ . DIRECTORY_SEPARATOR . "/../interfaces/iNewmanager.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Db.php");
+    
 
-    //abstract class HubManagers implements iNewmanager{
+    //abstract class HubManagers implements iNewmanager
          // protected string $firstname;
         // protected string $lastname;
         // protected string $email;
@@ -160,7 +160,7 @@
 
         public function save(){
             //PDO connection
-            $conn =  Db::getConnection();
+            $conn = Db::getConnection();
             //prepare query (INSERT) + bind
             $statement = $conn->prepare("INSERT into users (firstname, lastname, email, password, location) values (:firstname, :lastname, :email, :password, :location)");
             $statement->bindValue("firstname", $this->firstname);
