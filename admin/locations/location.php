@@ -1,44 +1,40 @@
 <?php
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/Db.php");
 
-function getLocationById($id)
-{
-    
-    $conn = Db::getConnection();
-    $statement = $conn->prepare("SELECT l.*, u.firstName, u.lastName FROM locations l LEFT JOIN users u ON l.id = u.location WHERE l.id = :id");
-    $statement->bindParam(':id', $id, PDO::PARAM_INT);
-    $statement->execute();
-    $result = $statement->fetch(PDO::FETCH_ASSOC);
-
-    if ($result) {
-        return $result;
+/* Zoekt voor alle managers in een locatie gebaseerd op de Location ID*/
+function getManagersByLocation($locationId){
+    $con = Db::getConnection();
+    $statement = $con->prepare("SELECT * FROM users WHERE location = :id AND role = 'manager'");
+    $statement->execute([":id" => $locationId]);
+    $results = $statement->fetchAll();
+    if(!$results){
+        return null;
     } else {
-        return false; 
+        return $results;
     }
 }
 
-function getRole(){
-    $conn = Db::getConnection();
-    $statement = $conn->prepare("SELECT * FROM users WHERE role = 'manager'");
-    $statement->execute();
+/* Geeft Hub details terug gebaseerd op de meegegeven ID*/
+function getHubLocationById($hubId){
+    $con = Db::getConnection();
+    $statement = $con->prepare("SELECT * FROM locations WHERE id = :id");
+    $statement->execute([":id" => $hubId]);
     $result = $statement->fetch(PDO::FETCH_ASSOC);
-
-    if ($result) {
-        return $result;
+    if(!$result){
+        return null;
     } else {
-        return false; 
+        return $result;
     }
 }
 
-
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $role = $_GET['id'];
-    $location = getLocationById($id);
-    $roleManager = getRole($role);
-} else {
-    echo "No location ID specified";
-    die();
+$error = null;
+$managersAssigned = false;
+$hub = getHubLocationById($_GET["id"]);
+$managers = getManagersByLocation($_GET["id"]);
+if(!isset($hub)){
+   $error = "The asked hub doesn't exist";
+} else if(isset($managers)){
+   $managersAssigned = true;
 }
 
 ?><!DOCTYPE html>
@@ -51,13 +47,22 @@ if (isset($_GET['id'])) {
 </head>
 <body>
     
-    <h1>Hub: <?php if($location){echo $location["name"]; }?></h1>
-    <p> Street: <?php if($location){echo $location["street"]; } ?></p>
-    <p> Streetnumber: <?php if($location){echo $location["streetNumber"]; } ?></p>
-    <p> City: <?php if($location){echo $location["city"]; } ?></p>
-    <p> Country: <?php if($location){echo $location["country"]; } ?></p>
-    <p> Postalcode: <?php if($location){echo $location["postalCode"]; } ?></p>
-    <p> Hub manager: <?php if($roleManager) {if($location){echo $location["firstName"] . " " . $location["lastName"]; } }?></p>
+    <h1>Hub: <?php if($hub){echo $hub["name"]; }?></h1>
+    <p> Street: <?php if($hub){echo $hub["street"]; } ?></p>
+    <p> Streetnumber: <?php if($hub){echo $hub["streetNumber"]; } ?></p>
+    <p> City: <?php if($hub){echo $hub["city"]; } ?></p>
+    <p> Country: <?php if($hub){echo $hub["country"]; } ?></p>
+    <p> Postalcode: <?php if($hub){echo $hub["postalCode"]; } ?></p>
+    <p> Hub manager: 
+        <?php 
+        if ($managers) {
+            foreach ($managers as $manager) {
+                echo $manager["firstName"] . " " . $manager["lastName"] . "<br>";
+            }
+        } else {
+            echo "No manager assigned";
+        }
+        ?>
     
 </body>
 </html>
