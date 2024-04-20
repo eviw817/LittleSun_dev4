@@ -20,8 +20,9 @@
 </head>
 <body>
     <h1>Hub managers</h1>
+    
     <?php foreach(getHubManagerName() as $key => $manager) : ?> 
-        <a href="manager.php?id=<?php echo $key ?>" class="manager_detail"> <p><?php echo $manager['username']; ?></p> 
+        <a href="manager.php?id=<?php echo ($key+1) ?>" class="manager_detail"> <p><?php echo $manager['username']; ?></p> 
         </a>
     <?php endforeach; ?>
     <!-- <li><a href="#">Hub manager 1</a></li>

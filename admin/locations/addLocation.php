@@ -46,7 +46,7 @@ if(!empty($_POST)){
         <?php endif; ?> 
 
         <form action="addLocation.php" method="post">
-            <h2 form__title>New location</h2>
+            <h2 class="form__title">New location</h2>
 
             <div class="form__field">
                 <label for="name">Name</label>
