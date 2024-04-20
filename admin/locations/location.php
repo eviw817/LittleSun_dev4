@@ -38,6 +38,7 @@ if(!isset($hub)){
    $managersAssigned = true;
 }
 
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>

@@ -26,6 +26,7 @@ if (isset($_GET['id'])) {
     die(); 
 }
 
+
 if(isset($_POST['submit'])){
     // Verwerk de formuliargegevens en update de gegevens in de database
     $con = Db::getConnection();

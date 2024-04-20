@@ -2,6 +2,7 @@
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
     
     class Hubmanagers{
+        private string $id;
         private string $username;  
         private string $email;
         private string $password;
@@ -189,5 +190,25 @@
 
         
 
+
+        /**
+         * Get the value of id
+         */ 
+        public function getId()
+        {
+                return $this->id;
+        }
+
+        /**
+         * Set the value of id
+         *
+         * @return  self
+         */ 
+        public function setId($id)
+        {
+                $this->id = $id;
+
+                return $this;
+        }
 }
     

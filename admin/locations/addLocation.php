@@ -28,6 +28,7 @@ if(!empty($_POST)){
         // Vang eventuele fouten op en toon ze
         $error = $e->getMessage();
     }
+    
 }
 ?>
 
