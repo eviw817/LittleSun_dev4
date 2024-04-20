@@ -3,7 +3,7 @@
     
     function getLocation(){
         $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT name FROM locations");
+        $statement = $conn->prepare("SELECT name FROM users");
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -82,14 +82,7 @@
                 <input type="text" name="role">
             </div>
           
-            <!-- <div class="form__field">
-                <label for="location">Choose location:</label>
-                <select id="location" name="location">
-                    <?php foreach(getLocation() as $key => $location) : ?>
-                        <option value="<?php echo $location['id']; ?>"><?php echo $location['name']; ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div> -->
+           
            
             <div class="form__field">
                 <input type="submit" value="Add new manager" class="btn-add">	

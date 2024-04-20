@@ -1,7 +1,6 @@
 <?php
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/Db.php");
 
-
 /* Zoekt voor alle managers in een locatie gebaseerd op de Location ID*/
 function getManagersByLocation($locationId){
     $con = Db::getConnection();
@@ -27,7 +26,6 @@ function getHubLocationById($hubId){
     } else {
         return $result;
     }
-    
 }
 
 $error = null;
@@ -39,7 +37,6 @@ if(!isset($hub)){
 } else if(isset($managers)){
    $managersAssigned = true;
 }
-
 
 ?><!DOCTYPE html>
 <html lang="en">

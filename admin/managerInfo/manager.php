@@ -3,7 +3,7 @@
 
     function getManagerById($managerId){
         $con = Db::getConnection();
-        $statement = $con->prepare("SELECT l.*, u.username, u.email, u.password, u.role, u.firstName, u.lastName FROM locations l LEFT JOIN users u ON l.id = u.location WHERE l.id = :id AND role = 'manager'");
+        $statement = $con->prepare("SELECT l.*, u.id, u.username, u.email, u.location, u.password, u.role, u.firstName, u.lastName FROM locations l LEFT JOIN users u ON l.id = u.location WHERE l.id = :id AND role = 'manager'");
         $statement->execute([":id" => $managerId]);
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         if(!$result){
@@ -18,9 +18,13 @@
         $id = $_GET['id'];
         // Haal de manager op met de opgegeven ID
         $manager = getManagerById($id);
+        if (!$manager) {
+            echo "Manager not found";
+            die(); // Stop verdere uitvoering van de code
+        }
     } else {
         // Als er geen ID is, geef dan een foutmelding weer
-        echo "No location ID specified";
+        echo "No manager ID specified";
         die(); // Stop verdere uitvoering van de code
     }
 
@@ -43,6 +47,9 @@
 <p>Lastname: <?php echo isset($manager["lastName"]) ? $manager["lastName"] : ""; ?></p>
 
 
-    <button onclick="window.location.href='editManager.php'">Edit</button>
+<a href="editManager.php?id=<?php echo $manager['id']; ?>">Edit</a>
+
+
+
 </body>
 </html>

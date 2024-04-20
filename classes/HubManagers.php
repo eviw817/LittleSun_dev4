@@ -182,26 +182,12 @@
             // $statement->bindValue(":location", $this->location);
             $statement->bindValue(":firstName", $this->firstName);
             $statement->bindValue(":lastName", $this->lastName);
-           // $statement->bindValue("location", implode(',', $this->location));
-            //excute
+          
             return $statement->execute();//terug geven het resultaat van die query
             //result return
         }
 
-        // public function newLocation() {
-        //     $conn = Db::getConnection();
-            
-        //     // Prepare query (INSERT) + bind
-        //     $statement = $conn->prepare("INSERT INTO locations (name, street, streetNumber, city, country, postalCode) VALUES (:name, :street, :streetNumber, :city, :country, :postalCode);");
-        //     $statement->bindValue(":name", $this->name);
-        //     $statement->bindValue(":street", $this->street);
-        //     $statement->bindValue(":streetNumber", $this->streetnumber);
-        //     $statement->bindValue(":city", $this->city);
-        //     $statement->bindValue(":country", $this->country);
-        //     $statement->bindValue(":postalCode", $this->postalcode);
-            
-        //     // Execute
-        //     return $statement->execute();
-        // }
+        
+
 }
     
