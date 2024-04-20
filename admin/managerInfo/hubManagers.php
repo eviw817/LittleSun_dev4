@@ -29,5 +29,6 @@
     <li><a href="#">Hub manager 3</a></li> -->
 
     <button onclick="window.location.href='addManager.php'">Add new hub manager</button>
+    
 </body>
 </html>
