@@ -30,9 +30,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hub managers</title>
-    <link rel="stylesheet" href="../css/algemeen.css">
+    <link rel="stylesheet" href="../../css/algemeen.css">
 </head>
 <body>
+<?php include_once("../header2.inc.php"); ?>
     <h1>Manager details</h1>
     <p>Username: <?php echo isset($manager["username"]) ? $manager["username"] : ""; ?></p>
     <p>Email: <?php echo isset($manager["email"]) ? $manager["email"] : ""; ?></p>

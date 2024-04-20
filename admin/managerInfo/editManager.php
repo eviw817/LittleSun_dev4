@@ -54,9 +54,10 @@ if(isset($_POST['submit'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit hub manager</title>
-    <link rel="stylesheet" href="../css/algemeen.css">
+    <link rel="stylesheet" href="../../css/algemeen.css">
 </head>
 <body>
+<?php include_once("../header2.inc.php"); ?>
     <div class="form edit_manager">
         <form action="editManager.php?id=<?php echo $manager['id']; ?>" method="post">
             <h2 form__title>Edit hub manager</h2>

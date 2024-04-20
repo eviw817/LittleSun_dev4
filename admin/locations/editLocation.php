@@ -53,9 +53,10 @@ if(isset($_POST['submit'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit hub location</title>
-    <link rel="stylesheet" href="../css/algemeen.css">
+    <link rel="stylesheet" href="../../css/algemeen.css">
 </head>
 <body>
+    <?php include_once("../header2.inc.php"); ?>
     <div class="form edit_location">
     <form action="editLocation.php?id=<?php echo $location['id']; ?>" method="post">
 

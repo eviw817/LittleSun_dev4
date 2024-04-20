@@ -1,0 +1,46 @@
+/* hubLocation.css */
+
+/* Titel van de pagina */
+.title {
+    text-align: center;
+}
+
+/* Lijst van locaties */
+#locationList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#locationList li {
+    margin-bottom: 10px;
+}
+
+/* Stijl voor locatie-links */
+.location_detail {
+    display: block;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+}
+
+.location_detail:hover {
+    background-color: #ccc;
+}
+
+/* Stijl voor de link om locaties toe te voegen/verwijderen */
+.add_remove_link {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.add_remove_link a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.add_remove_link a:hover {
+    text-decoration: underline;
+}

@@ -55,11 +55,7 @@
 </head>
 
 <body>
-<header>
-    <div class="logo">
-        <img src="../images/logo.png" alt="Logo">
-    </div>
-</header>
+    <?php include_once("../header.inc.php"); ?>
 <main>
     <p><?php if(!empty($error)){echo $error;} ?>
     <form action="" method="post">

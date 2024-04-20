@@ -45,9 +45,10 @@ if(!isset($hub)){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Location</title>
-    <link rel="stylesheet" href="../css/algemeen.css">
+    <link rel="stylesheet" href="../../css/algemeen.css">
 </head>
 <body>
+    <?php include_once("../header2.inc.php"); ?>
     
     <h1>Hub: <?php if($hub){echo $hub["name"]; }?></h1>
     <p> Street: <?php if($hub){echo $hub["street"]; } ?></p>

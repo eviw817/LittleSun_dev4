@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="../css/algemeen.css">
 </head>
 <body>
-    <h1>Manager sDashboard</h1>
+<?php include_once("../header.inc.php"); ?>
+    <h1>Manager Dashboard</h1>
 
     <a href="../login/login.php">Log Out</a>
     

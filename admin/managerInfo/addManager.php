@@ -39,9 +39,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add managers</title>
-    <link rel="stylesheet" href="../css/algemeen.css">
+    <link rel="stylesheet" href="../../css/algemeen.css">
 </head>
 <body>
+<?php include_once("../header2.inc.php"); ?>
     <?php if(isset($error)): ?>
       <div class="text-red-500">Error: <?php echo $error; ?></div>
     <?php endif; ?> 
