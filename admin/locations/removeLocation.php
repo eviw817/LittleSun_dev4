@@ -32,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit location</title>
     <link rel="stylesheet" href="../../css/algemeen.css">
+    <link rel="stylesheet" href="../../css/removeLocation.css">
 </head>
 <body>
 <?php include_once("../header2.inc.php"); ?>
@@ -41,17 +42,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
   
     <?php foreach(getLocationName() as $key => $location) : ?> 
         <li>
+        <div class="location_container">
+        <a href="location.php?id=<?php echo ($key +1) ?>" class="location_detail"><?php echo $location['name']; ?> </a>
             <form action="" method="post" onsubmit="return confirm('Are you sure you want to delete this location?')">
-            <a href="location.php?id=<?php echo ($key +1) ?>" class="location_detail"><?php echo $location['name']; ?> </a>
                 <input type="hidden" name="id" value="<?php echo $location['id']; ?>">
                 <button type="submit">Remove location</button>
             </form>
+            </div>
         </li>
     <?php endforeach; ?>
     </ul>
 
-    <button onclick="window.location.href='addLocation.php'">Add location</button>
-    <button onclick="window.location.href='hubLocation.php'">Back</button>
+<button class="add_location_button" onclick="window.location.href='addLocation.php'">Add location +</button>
+<button class="back_button" onclick="window.location.href='hubLocation.php'">Back</button>
+
 </body>
 </html>
 

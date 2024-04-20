@@ -21,7 +21,7 @@
 <body>
 <?php include_once("../header2.inc.php"); ?>
 <main>
-    <h1 class="title">Hub location</h1>
+    <h1 class="title">Hub locations</h1>
     <ul id="locationList">
         <?php foreach(getLocationName() as $key => $location) : ?> 
             <li><a href="location.php?id=<?php echo ($key+1) ?>" class="location_detail"><?php echo $location['name']; ?> 
@@ -32,8 +32,9 @@
     <li><a href="#">Location 2</a></li>
     <li><a href="#">Location 3</a></li> -->
 
-    <a href="removeLocation.php">Add/remove locations</a>
-
+    <div class="button">
+    <a href="removeLocation.php" class="add_remove_link">Add or remove locations</a>
+    </div>
 </main>   
 </body>
 </html>
