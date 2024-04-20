@@ -36,7 +36,7 @@
     <li><a href="#">Location 2</a></li>
     <li><a href="#">Location 3</a></li> -->
 
-    <a href="editLocation.php">Edit locations</a>
+    <a href="removeLocation.php">Add/remove locations</a>
 
 </main>   
 </body>
