@@ -1,23 +1,24 @@
 <?php
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/Db.php");
 
-// Functie om managergegevens op te halen op basis van ID
+// Functie om locatiegegevens op te halen op basis van ID
 function getLocationById($locationId){
     $con = Db::getConnection();
-    $statement = $con->prepare("SELECT * FROM locations" );
+    $statement = $con->prepare("SELECT l.id, l.name, l.street, l.streetNumber, l.city, l.country, l.postalCode FROM users u LEFT JOIN locations l ON u.id = u.users WHERE l.id = :id AND role = 'manager'");
     $statement->execute([":id" => $locationId]);
     $result = $statement->fetch(PDO::FETCH_ASSOC);
     return $result;
+    var_dump($con);
 }
 
-// Controleren of er een manager ID is opgegeven in de URL
+// Controleren of er een locatie ID is opgegeven in de URL
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    // Managergegevens ophalen
+    // Locatiegegevens ophalen
     $location = getLocationById($id);
-    // Controleren of de manager bestaat
+    // Controleren of de locatie bestaat
     if(!$location){
-        echo "location not found";
+        echo "Location not found";
         die();
     }
 } else {
@@ -56,8 +57,9 @@ if(isset($_POST['submit'])){
 </head>
 <body>
     <div class="form edit_location">
-        <form action="editManager.php?id=<?php echo $manager['id']; ?>" method="post">
-            <h2 form__title>Edit hub manager</h2>
+    <form action="editLocation.php?id=<?php echo $location['id']; ?>" method="post">
+
+            <h2 class="form__title">Edit hub location</h2>
 
             <div class="form__field">
                 <label for="name">Name</label>
@@ -68,8 +70,8 @@ if(isset($_POST['submit'])){
                 <input type="text" name="street" value="<?php echo isset($location['street']) ? $location['street'] : ''; ?>">
             </div>
             <div class="form__field">
-                <label for="streetNumber">streetNumber</label>
-                <input type="streetNumber" name="streetNumber" value="<?php echo isset($location['streetNumber']) ? $location['streetNumber'] : ''; ?>">
+                <label for="streetNumber">Street Number</label>
+                <input type="text" name="streetNumber" value="<?php echo isset($location['streetNumber']) ? $location['streetNumber'] : ''; ?>">
             </div>
             <div class="form__field">
                 <label for="city">City</label>
@@ -80,7 +82,7 @@ if(isset($_POST['submit'])){
                 <input type="text" name="country" value="<?php echo isset($location['country']) ? $location['country'] : ''; ?>">
             </div>
             <div class="form__field">
-                <label for="postalCode">PostalCode</label>
+                <label for="postalCode">Postal Code</label>
                 <input type="text" name="postalCode" value="<?php echo isset($location['postalCode']) ? $location['postalCode'] : ''; ?>">
             </div>
 

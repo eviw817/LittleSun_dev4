@@ -49,6 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
     <?php endforeach; ?>
     </ul>
 
+    <button onclick="window.location.href='addLocation.php'">Add location</button>
     <button onclick="window.location.href='hubLocation.php'">Back</button>
 </body>
 </html>
