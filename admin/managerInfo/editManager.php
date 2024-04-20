@@ -26,12 +26,23 @@ if (isset($_GET['id'])) {
     die(); 
 }
 
-// Controleren of het formulier is ingediend om de manager bij te werken
 if(isset($_POST['submit'])){
-    // Hier kun je de code toevoegen om de managergegevens bij te werken in de database
-    // Verwijzing naar de juiste script om de bewerking af te handelen
-    // Redirect naar een andere pagina na het bijwerken
-    header("Location: manager.php?id=$id"); // bijvoorbeeld manager.php
+    // Verwerk de formuliargegevens en update de gegevens in de database
+    $con = Db::getConnection();
+    $statement = $con->prepare("UPDATE users SET username = :username, email = :email, password = :password, role = :role, location = :location, firstName = :firstName, lastName = :lastName WHERE id = :id");
+    $statement->execute([
+        ":username" => $_POST['username'],
+        ":email" => $_POST['email'],
+        ":password" => $_POST['password'],
+        ":role" => $_POST['role'],
+        ":location" => $_POST['location'],
+        ":firstName" => $_POST['firstName'],
+        ":lastName" => $_POST['lastName'],
+        ":id" => $id
+    ]);
+    
+    // Redirect naar de detailpagina met de bijgewerkte gegevens
+    header("Location: manager.php?id=$id");
     exit();
 }
 ?>
