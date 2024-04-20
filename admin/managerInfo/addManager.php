@@ -31,8 +31,6 @@
         }
     }
 
-  
-   //$allManagers = Hubmanagers::getAll();
 
 
 ?><!DOCTYPE html>
