@@ -38,12 +38,13 @@ if (isset($_GET['id'])) {
 if(isset($_POST['submit'])){
     // Verwerk de formuliargegevens en update de gegevens in de database
     $conn = Db::getConnection();
+    $image64 = 'data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name']));
     if($_POST['location'] = "-1"){
         $location = null;
     } else{
         $location = $_POST["location"];
     }
-    $statement = $conn->prepare("UPDATE users SET username = :username, email = :email, role = :role, location = :location, firstName = :firstName, lastName = :lastName WHERE id = :id");
+    $statement = $conn->prepare("UPDATE users SET username = :username, email = :email, role = :role, location = :location, firstName = :firstName, lastName = :lastName, WHERE id = :id");
     $statement->execute([
         ":username" => $_POST['username'],
         ":email" => $_POST['email'],
@@ -59,6 +60,15 @@ if(isset($_POST['submit'])){
         $statement = $conn->prepare("UPDATE users SET password = :password WHERE id = :id");
         $statement->execute([
             ":password" => password_hash($_POST['password'], PASSWORD_BCRYPT, ['cost' => 12]),
+            ":id" => $id
+        ]);
+    }
+
+    if(!isset($_POST["img"])){
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("UPDATE users SET image = :image WHERE id = :id");
+        $statement->execute([
+            ":image" => $image64,
             ":id" => $id
         ]);
     }
@@ -80,7 +90,7 @@ if(isset($_POST['submit'])){
 <body>
 <?php include_once("../header2.inc.php"); ?>
     <div class="form edit_manager">
-        <form action="editManager.php?id=<?php echo $manager['id']; ?>" method="post">
+        <form action="editManager.php?id=<?php echo $manager['id']; ?>" method="post" enctype="multipart/form-data">
             <h2 form__title>Edit hub manager</h2>
 
             <div class="form__field">
@@ -116,6 +126,11 @@ if(isset($_POST['submit'])){
             <div class="form__field">
                 <label for="lastname">Lastname</label>
                 <input type="text" name="lastName" value="<?php echo isset($manager['lastName']) ? $manager['lastName'] : ''; ?>">
+            </div>
+
+            <div class="form__field">
+                <label for="img">Select image:</label>
+                <input type="file" id="img" name="img" accept="image/jpg, png">
             </div>
 
             <div class="form__field">

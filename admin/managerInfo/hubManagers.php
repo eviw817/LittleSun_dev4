@@ -4,7 +4,7 @@
     // Functie om de lijst van hub managers op te halen
     function getHubManagerName(){
         $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT id, username FROM users WHERE role = 'manager'");
+        $statement = $conn->prepare("SELECT id, username, image FROM users WHERE role = 'manager'");
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -25,6 +25,7 @@
     <?php foreach(getHubManagerName() as $manager) : ?> 
         <a href="manager.php?id=<?php echo $manager['id']; ?>" class="manager_detail"> <p><?php echo $manager['username']; ?></p> 
         </a>
+        <img src="<?php echo $manager["image"]; ?>"></img>
     <?php endforeach; ?>
 
 
