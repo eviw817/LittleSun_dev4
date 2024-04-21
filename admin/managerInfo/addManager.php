@@ -18,7 +18,10 @@
             // $manager->setLocation($_POST['location']);
             $manager->setFirstName($_POST['firstName']);
             $manager->setLastName($_POST['lastName']);
-
+            
+            if(isset($_POST["img"])){
+                $manager->setImage('data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])));
+            }
          
            $manager->newManager();
 
@@ -48,7 +51,7 @@
     <?php endif; ?> 
 
     <div class="form new_manager">
-		<form action="addManager.php" method="post">
+		<form action="addManager.php" method="post" enctype="multipart/form-data">
 			<h2 form__title>New hub manager</h2>
 
             <div class="form__field">
@@ -81,7 +84,10 @@
                 <input type="text" name="role">
             </div>
           
-           
+            <div class="form__field">
+                <label for="img">Select image:</label>
+                <input type="file" id="img" name="img" accept="image/jpg, png">
+            </div>           
            
             <div class="form__field">
                 <input type="submit" value="Add new manager" class="btn-add">	

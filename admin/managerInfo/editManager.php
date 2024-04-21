@@ -38,13 +38,12 @@ if (isset($_GET['id'])) {
 if(isset($_POST['submit'])){
     // Verwerk de formuliargegevens en update de gegevens in de database
     $conn = Db::getConnection();
-    $image64 = 'data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name']));
     if($_POST['location'] = "-1"){
         $location = null;
     } else{
         $location = $_POST["location"];
     }
-    $statement = $conn->prepare("UPDATE users SET username = :username, email = :email, role = :role, location = :location, firstName = :firstName, lastName = :lastName, WHERE id = :id");
+    $statement = $conn->prepare("UPDATE users SET username = :username, email = :email, role = :role, location = :location, firstName = :firstName, lastName = :lastName WHERE id = :id");
     $statement->execute([
         ":username" => $_POST['username'],
         ":email" => $_POST['email'],
@@ -68,7 +67,7 @@ if(isset($_POST['submit'])){
         $conn = Db::getConnection();
         $statement = $conn->prepare("UPDATE users SET image = :image WHERE id = :id");
         $statement->execute([
-            ":image" => $image64,
+            ":image" => 'data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])),
             ":id" => $id
         ]);
     }
