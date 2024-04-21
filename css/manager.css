@@ -1,17 +1,23 @@
 .edit{
-    padding: 10px 20px;
-    background-color: #ffdd00;
-    color: #000;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-    margin-top: 20px;
+    width: 20%;
+    padding: 10px;
+    background-color: #fff; 
+    color: #3d3d3d; 
     text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    border: 1px solid #3d3d3d; 
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px; 
+    margin-top: 20px;
     margin-left: 20px;
     
 }
 
+.edit:hover {
+    background-color: #3d3d3d; 
+    color: #fff;
+}
 p {
     margin: 25px 20px;
 }
@@ -20,3 +26,4 @@ h1{
     margin-left: 15px;
     font-size: 24px;
 }
+

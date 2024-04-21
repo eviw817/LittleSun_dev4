@@ -21,7 +21,7 @@
 </head>
 <body>
 <?php include_once("../header2.inc.php"); ?>
-    <h1>Hub managers</h1>
+    <h1 class="title">Hub managers</h1>
     <div class="inline">
     <?php foreach(getHubManagerName() as $manager) : ?> 
         <div class="flex">

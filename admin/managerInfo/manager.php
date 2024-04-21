@@ -41,7 +41,7 @@
     <p>Location: <?php echo isset($manager["name"]) ? $manager["name"] : ""; ?></p>
     <p>Firstname: <?php echo isset($manager["firstName"]) ? $manager["firstName"] : ""; ?></p>
     <p>Lastname: <?php echo isset($manager["lastName"]) ? $manager["lastName"] : ""; ?></p>
-    <a class="edit" href="editManager.php?id=<?php echo $manager['id']; ?>">Edit</a>
+    <a class="edit" href="editManager.php?id=<?php echo $manager['id']; ?>">Edit manager</a>
 
 </body>
 </html>
