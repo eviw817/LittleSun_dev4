@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit location</title>
-    <link rel="stylesheet" href="../../css/algemeen.css">
+    <link rel="stylesheet" href="../../css/general.css">
     <link rel="stylesheet" href="../../css/removeLocation.css">
 </head>
 <body>

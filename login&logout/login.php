@@ -46,7 +46,7 @@
             echo $redirectTag;
         }
     ?>
-    <link rel="stylesheet" href="../css/algemeen.css">
+    <link rel="stylesheet" href="../css/general.css">
     <link rel="stylesheet" href="../css/login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
