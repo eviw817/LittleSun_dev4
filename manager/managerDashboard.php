@@ -10,7 +10,7 @@
 <?php include_once("../header.inc.php"); ?>
     <h1>Manager Dashboard</h1>
 
-    <a href="../login&logout/logout.php">Log Out</a>
+    <a href="../login_logout/logout.php">Log Out</a>
     
 </body>
 </html>

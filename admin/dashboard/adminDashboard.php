@@ -11,7 +11,11 @@
 <?php include_once("../header2.inc.php"); ?>
     <h1>Admin Dashboard</h1>
 
-    <a href="../login&logout/logout.php">Log Out</a>
+    <a href="../locations/hubLocation.php">Hub Locations</a>
+
+    <a href="../managerInfo/hubManagers.php">Hub Managers</a>
+
+    <a href="../../login_logout/logout.php">Log Out</a>
     
 </body>
 </html>

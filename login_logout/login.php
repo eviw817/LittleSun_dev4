@@ -21,7 +21,7 @@
             $baseTag = '<meta http-equiv="refresh" content="0; url=';
             switch ($user["role"] ) {
                 case "admin":
-                    $redirectTag = $baseTag . '../admin/adminDashboard.php" />';
+                    $redirectTag = $baseTag . '../admin/dashboard/adminDashboard.php" />';
                     break;
                 case "manager":
                     $redirectTag = $baseTag . '../manager/managerDashboard.php" />';

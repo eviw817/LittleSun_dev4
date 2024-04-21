@@ -7,7 +7,7 @@ p {
     margin: 25px 20px;
 }
 
-button {
+.button {
     width: 20%;
     padding: 10px;
     background-color: #fff; 
@@ -21,7 +21,7 @@ button {
     margin-top: 20px;
 }
 
-button:hover {
+.button:hover {
     background-color: #3d3d3d; 
     color: #fff; 
 }

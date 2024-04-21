@@ -66,9 +66,9 @@ if(!isset($hub)){
         } else {
             echo "No manager assigned";
         }
-        ?>
+        ?></p>
     <div class="button-container">
-        <button onclick="window.location.href='editLocation.php'">Edit location</button>
+        <a class="button" href="./editLocation.php?id=<?php echo $hub["id"]; ?>">Edit location</a>
     </div>
      
     

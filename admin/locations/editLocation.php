@@ -4,7 +4,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/Db.php");
 // Functie om locatiegegevens op te halen op basis van ID
 function getLocationById($locationId){
     $con = Db::getConnection();
-    $statement = $con->prepare("SELECT l.id, l.name, l.street, l.streetNumber, l.city, l.country, l.postalCode FROM users u LEFT JOIN locations l ON u.id = u.users WHERE l.id = :id AND role = 'manager'");
+    $statement = $con->prepare("SELECT l.* FROM locations l LEFT JOIN users u ON l.id = u.location WHERE l.id = :id");
     $statement->execute([":id" => $locationId]);
     $result = $statement->fetch(PDO::FETCH_ASSOC);
     return $result;
