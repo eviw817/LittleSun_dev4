@@ -3,10 +3,19 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/Db.php");
 
 // Functie om managergegevens op te halen op basis van ID
 function getManagerById($managerId){
-    $con = Db::getConnection();
-    $statement = $con->prepare("SELECT l.*, u.id, u.username, u.email, u.location, u.password, u.role, u.firstName, u.lastName FROM locations l LEFT JOIN users u ON l.id = u.location WHERE u.id = :id AND role = 'manager'");
+    $conn = Db::getConnection();
+    $statement = $conn->prepare("SELECT u.*, l.name FROM users u LEFT JOIN locations l ON u.location = l.id WHERE u.id = :id AND role = 'manager'");
     $statement->execute([":id" => $managerId]);
     $result = $statement->fetch(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+// Functie om alle locatienamen en IDs op te halen
+function getLocations(){
+    $conn = Db::getConnection();
+    $statement = $conn->prepare("SELECT id, name FROM locations");
+    $statement->execute();
+    $result = $statement->fetchAll();
     return $result;
 }
 
@@ -26,21 +35,33 @@ if (isset($_GET['id'])) {
     die(); 
 }
 
-
 if(isset($_POST['submit'])){
     // Verwerk de formuliargegevens en update de gegevens in de database
-    $con = Db::getConnection();
-    $statement = $con->prepare("UPDATE users SET username = :username, email = :email, password = :password, role = :role, location = :location, firstName = :firstName, lastName = :lastName WHERE id = :id");
+    $conn = Db::getConnection();
+    if($_POST['location'] = "-1"){
+        $location = null;
+    } else{
+        $location = $_POST["location"];
+    }
+    $statement = $conn->prepare("UPDATE users SET username = :username, email = :email, role = :role, location = :location, firstName = :firstName, lastName = :lastName WHERE id = :id");
     $statement->execute([
         ":username" => $_POST['username'],
         ":email" => $_POST['email'],
-        ":password" => $_POST['password'],
         ":role" => $_POST['role'],
-        ":location" => $_POST['location'],
+        ":location" => $location,
         ":firstName" => $_POST['firstName'],
         ":lastName" => $_POST['lastName'],
         ":id" => $id
     ]);
+
+    if(!isset($_POST["password"])){
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("UPDATE users SET password = :password WHERE id = :id");
+        $statement->execute([
+            ":password" => password_hash($_POST['password'], PASSWORD_BCRYPT, ['cost' => 12]),
+            ":id" => $id
+        ]);
+    }
     
     // Redirect naar de detailpagina met de bijgewerkte gegevens
     header("Location: manager.php?id=$id");
@@ -71,8 +92,8 @@ if(isset($_POST['submit'])){
                 <input type="text" name="email" value="<?php echo isset($manager['email']) ? $manager['email'] : ''; ?>">
             </div>
             <div class="form__field">
-                <label for="password">Password</label>
-                <input type="password" name="password" value="<?php echo isset($manager['password']) ? $manager['password'] : ''; ?>">
+                <label for="new-password">Password</label>
+                <input type="password" name="new-password" value="">
             </div>
             <div class="form__field">
                 <label for="role">Role</label>
@@ -80,7 +101,13 @@ if(isset($_POST['submit'])){
             </div>
             <div class="form__field">
                 <label for="location">Location</label>
-                <input type="text" name="location" value="<?php echo isset($manager['location']) ? $manager['location'] : ''; ?>">
+                <select name="location" id="location">
+                    <option value="-1">No location</option>
+                    <?php foreach(getLocations() as $location) : ?>
+                    <option value="<?php echo $location["id"]?>" ><?php echo $location["name"] ?></option>
+                    <?php endforeach; ?>
+                </select>
+
             </div>
             <div class="form__field">
                 <label for="firstname">Firstname</label>

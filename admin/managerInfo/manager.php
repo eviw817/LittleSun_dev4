@@ -3,7 +3,7 @@
 
     function getManagerById($managerId){
         $con = Db::getConnection();
-        $statement = $con->prepare("SELECT * FROM users WHERE id = :id AND role = 'manager'");
+        $statement = $con->prepare("SELECT u.*, l.name FROM users u LEFT JOIN locations l ON u.location = l.id WHERE u.id = :id AND role = 'manager'");
         $statement->execute([":id" => $managerId]);
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         return $result;
@@ -22,9 +22,8 @@
         echo "No manager ID specified";
         die(); // Stop verdere uitvoering van de code
     }
-?>
 
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,9 +36,8 @@
     <h1>Manager details</h1>
     <p>Username: <?php echo isset($manager["username"]) ? $manager["username"] : ""; ?></p>
     <p>Email: <?php echo isset($manager["email"]) ? $manager["email"] : ""; ?></p>
-    <p>Password: <?php echo isset($manager["password"]) ? $manager["password"] : ""; ?></p>
     <p>Role: <?php echo isset($manager["role"]) ? $manager["role"] : ""; ?></p>
-    <p>Location: <?php echo isset($manager["location"]) ? $manager["location"] : ""; ?></p>
+    <p>Location: <?php echo isset($manager["name"]) ? $manager["name"] : ""; ?></p>
     <p>Firstname: <?php echo isset($manager["firstName"]) ? $manager["firstName"] : ""; ?></p>
     <p>Lastname: <?php echo isset($manager["lastName"]) ? $manager["lastName"] : ""; ?></p>
     <a href="editManager.php?id=<?php echo $manager['id']; ?>">Edit</a>

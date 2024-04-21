@@ -162,9 +162,11 @@
             $statement->bindValue(":postalCode", $this->postalcode);
             
             // Execute
-            return $statement->execute();
+            $processed = $statement->execute();
+            if($processed){
+                return $processed;
+            } else {
+                throw new Exception("Hub couldn't be added into the database");
+            }
         }
-        
-       
-     
     }

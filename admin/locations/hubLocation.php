@@ -4,7 +4,7 @@
     //database geeft mij de zaken die er al in staan voor location
     function getLocationName(){
         $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT name FROM locations");
+        $statement = $conn->prepare("SELECT id, name FROM locations");
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -23,8 +23,8 @@
 <main>
     <h1 class="title">Hub locations</h1>
     <ul id="locationList">
-        <?php foreach(getLocationName() as $key => $location) : ?> 
-            <li><a href="location.php?id=<?php echo ($key+1) ?>" class="location_detail"><?php echo $location['name']; ?> 
+        <?php foreach(getLocationName() as $location) : ?> 
+            <li><a href="location.php?id=<?php echo $location["id"] ?>" class="location_detail"><?php echo $location['name']; ?> 
             </a></li>
         <?php endforeach; ?>
     </ul>
