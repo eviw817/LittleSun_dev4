@@ -17,19 +17,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hub managers</title>
     <link rel="stylesheet" href="../../css/general.css">
+    <link rel="stylesheet" href="../../css/hubManager.css">
 </head>
 <body>
 <?php include_once("../header2.inc.php"); ?>
     <h1>Hub managers</h1>
-    
+    <div class="inline">
     <?php foreach(getHubManagerName() as $manager) : ?> 
-        <a href="manager.php?id=<?php echo $manager['id']; ?>" class="manager_detail"> <p><?php echo $manager['username']; ?></p> 
-        </a>
-        <img src="<?php echo $manager["image"]; ?>"></img>
+        <div class="flex">
+            <a href="manager.php?id=<?php echo $manager['id']; ?>" class="manager_detail">
+                <p><?php echo $manager['username']; ?></p>
+            </a>
+            <img src="<?php echo $manager["image"]; ?>"></img>
+        </div>
     <?php endforeach; ?>
-
-
-    <button onclick="window.location.href='addManager.php'">Add new hub manager</button>
-    
+    </div>
+    <div class="button-container">
+        <button class="newmanager" onclick="window.location.href='addManager.php'">Add new hub manager</button>
+    </div>
 </body>
 </html>

@@ -76,15 +76,14 @@ if(isset($_POST['submit'])){
     exit();
 }
 
-?>
-
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit hub manager</title>
     <link rel="stylesheet" href="../../css/general.css">
+    <link rel="stylesheet" href="../../css/editManager.css">
 </head>
 <body>
 <?php include_once("../header2.inc.php"); ?>
@@ -113,10 +112,9 @@ if(isset($_POST['submit'])){
                 <select name="location" id="location">
                     <option value="-1">No location</option>
                     <?php foreach(getLocations() as $location) : ?>
-                    <option value="<?php echo $location["id"]?>" ><?php echo $location["name"] ?></option>
+                    <option value="<?php echo $location["id"]?>" <?php echo ($location["id"] == $manager['location']) ? 'selected' : ''; ?>><?php echo $location["name"] ?></option>
                     <?php endforeach; ?>
                 </select>
-
             </div>
             <div class="form__field">
                 <label for="firstname">Firstname</label>
@@ -129,7 +127,7 @@ if(isset($_POST['submit'])){
 
             <div class="form__field">
                 <label for="img">Select image:</label>
-                <input type="file" id="img" name="img" accept="image/jpg, png">
+                <input type="file" id="img" name="img" accept="image/jpg, image/jpg">
             </div>
 
             <div class="form__field">

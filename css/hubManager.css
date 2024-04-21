@@ -1,0 +1,64 @@
+h1{
+    font-size: 24px;
+    margin-left: 20px;
+}
+
+p {
+    margin: 10px 20px;
+}
+
+img{
+    margin-left: 30px;
+    width: 90px;
+}
+
+
+.manager_detail {
+    color: black;
+    text-decoration: none; 
+}
+
+.manager_detail:hover {
+    color:chocolate;
+    text-decoration: none; 
+}
+
+.manager_detail img {
+    max-width: 100%; 
+    height: auto; 
+    margin-left: 30px;
+}
+
+
+.newmanager{
+    padding: 10px 20px;
+    background-color: #ffdd00;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.inline {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flex {
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+
+
+.button-container {
+    display: flex;
+    justify-content: center; 
+
+}
+
+
+

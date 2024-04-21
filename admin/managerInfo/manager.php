@@ -30,6 +30,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hub managers</title>
     <link rel="stylesheet" href="../../css/general.css">
+    <link rel="stylesheet" href="../../css/manager.css">
 </head>
 <body>
 <?php include_once("../header2.inc.php"); ?>
@@ -40,7 +41,7 @@
     <p>Location: <?php echo isset($manager["name"]) ? $manager["name"] : ""; ?></p>
     <p>Firstname: <?php echo isset($manager["firstName"]) ? $manager["firstName"] : ""; ?></p>
     <p>Lastname: <?php echo isset($manager["lastName"]) ? $manager["lastName"] : ""; ?></p>
-    <a href="editManager.php?id=<?php echo $manager['id']; ?>">Edit</a>
-    <button onclick="window.location.href='hubManagers.php'">Back</button>
+    <a class="edit" href="editManager.php?id=<?php echo $manager['id']; ?>">Edit</a>
+
 </body>
 </html>
