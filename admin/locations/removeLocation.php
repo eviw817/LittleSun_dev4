@@ -54,7 +54,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
     </ul>
 
 <button class="add_location_button" onclick="window.location.href='addLocation.php'">Add location +</button>
-<button class="back_button" onclick="window.location.href='hubLocation.php'">Back</button>
 
 </body>
 </html>

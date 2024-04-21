@@ -36,7 +36,6 @@ if (isset($_GET['id'])) {
 }
 
 if(isset($_POST['submit'])){
-    // Verwerk de formuliargegevens en update de gegevens in de database
     $conn = Db::getConnection();
     if($_POST['location'] = "-1"){
         $location = null;
@@ -54,23 +53,38 @@ if(isset($_POST['submit'])){
         ":id" => $id
     ]);
 
-    if(!isset($_POST["password"])){
+    if(!isset($_POST["new-password"])){
         $conn = Db::getConnection();
         $statement = $conn->prepare("UPDATE users SET password = :password WHERE id = :id");
         $statement->execute([
-            ":password" => password_hash($_POST['password'], PASSWORD_BCRYPT, ['cost' => 12]),
+            ":new-password" => password_hash($_POST['new-password'], PASSWORD_BCRYPT, ['cost' => 12]),
             ":id" => $id
         ]);
     }
 
-    if(!isset($_POST["img"])){
+    if(isset($_FILES['img']) && !empty($_FILES['img']['name'])){
         $conn = Db::getConnection();
         $statement = $conn->prepare("UPDATE users SET image = :image WHERE id = :id");
-        $statement->execute([
-            ":image" => 'data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])),
-            ":id" => $id
-        ]);
+        
+        //control for uploading image
+        if($_FILES['img']['error'] === UPLOAD_ERR_OK){
+            //read the image
+            $imageContent = file_get_contents($_FILES['img']['tmp_name']);
+    
+            // Controleer of het bestand correct is gelezen
+            if($imageContent !== false){
+                $statement->execute([
+                    ":image" => 'data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode($imageContent),
+                    ":id" => $id
+                ]);
+            } else {
+                echo "There is a problem with reading the image.";
+            }
+        } else {
+            echo "There is a problem with uploading the image";
+        }
     }
+    
     
     // Redirect naar de detailpagina met de bijgewerkte gegevens
     header("Location: manager.php?id=$id");
