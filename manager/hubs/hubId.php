@@ -42,12 +42,16 @@ if(!$hubData){
         <?php 
         if ($users) {
             foreach ($users as $user) {
-                echo $user["firstName"] . " " . $user["lastName"] . " " ;
+                echo "<p>" . $user["firstName"] . " " . $user["lastName"] . "</p>";
+                if (isset($user["image"])) {
+                    echo '<div class="image">';
+                    echo '<img width="70px" src="' . $user["image"] . '" alt="Profile Picture">';
+                    echo '</div>';
+                }
             }
         } else {
             echo "No user assigned";
-        }
-        ?></p>
+        }?>
     <?php endif; ?>
 </body>
 </html>

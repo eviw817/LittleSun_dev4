@@ -181,7 +181,7 @@
         //hubId.php
         public function getUsersByLocation($locationId){
             $con = Db::getConnection();
-            $statement = $con->prepare("SELECT * FROM users WHERE location = :id AND role = 'user'");
+            $statement = $con->prepare("SELECT firstName, lastName, image FROM users WHERE location = :id AND role = 'user' ");
             $statement->execute([":id" => $locationId]);
             $results = $statement->fetchAll();
             if(!$results){
@@ -192,7 +192,7 @@
             
         }
 
-
+        //hubId.php
         public function getHubLocationById($hubId){
             $con = Db::getConnection();
             $statement = $con->prepare("SELECT * FROM locations WHERE id = :id");
