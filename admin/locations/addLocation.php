@@ -53,27 +53,27 @@ if(!empty($_POST)){
 
             <div class="form__field">
                 <label for="name">Name</label>
-                <input type="text" name="name">
+                <input type="text" name="name" id="name">
             </div>
             <div class="form__field">
                 <label for="street">Street</label>
-                <input type="text" name="street">
+                <input type="text" name="street" id="street">
             </div>
             <div class="form__field">
                 <label for="streetnumber">Streetnumber</label>
-                <input type="text" name="streetNumber">
+                <input type="text" name="streetNumber" id="streetNumber">
             </div>
             <div class="form__field">
                 <label for="city">City</label>
-                <input type="text" name="city">
+                <input type="text" name="city" id="city">
             </div>
             <div class="form__field">
                 <label for="country">Country</label>
-                <input type="text" name="country">
+                <input type="text" name="country" id="country">
             </div>
             <div class="form__field">
                 <label for="postalcode">Postalcode</label>
-                <input type="text" name="postalCode">
+                <input type="text" name="postalCode" id="postalCode">
             </div>
 
             <button type="submit" class="btn-save">Save</button>  

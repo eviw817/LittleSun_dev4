@@ -1,10 +1,10 @@
 <?php
 
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "/../manager/user.php");
 
 class User{
     private string $id;
+    private string $username;
     private string $firstName;
     private string $lastName;
     private string $email;
@@ -28,6 +28,26 @@ class User{
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+     /**
+     * Get the value of username
+     */ 
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set the value of username
+     *
+     * @return  self
+     */ 
+    public function setUsername($username)
+    {
+        $this->username = $username;
 
         return $this;
     }
@@ -151,7 +171,8 @@ class User{
         //PDO connection
         $conn = Db::getConnection();
         //prepare query (INSERT) + bind
-        $statement = $conn->prepare("INSERT INTO users (firstName, lastName, email, password, image) VALUES (:firstName, :lastName, :email, :password, :image);"); //locatie nog toevoegen
+        $statement = $conn->prepare("INSERT INTO users (username, firstName, lastName, role, email, password, image) VALUES (:username, :firstName, :lastName, 'user', :email, :password, :image);"); //locatie nog toevoegen
+        $statement->bindValue(":username", $this->username);
         $statement->bindValue(":firstName", $this->firstName);
         $statement->bindValue(":lastName", $this->lastName);
         $statement->bindValue(":email", $this->email);
@@ -172,4 +193,6 @@ class User{
 
    
 
+
+   
 }

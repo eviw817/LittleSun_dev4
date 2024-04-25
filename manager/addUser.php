@@ -1,10 +1,17 @@
 <?php
+
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "/../classes/User.php");
     
    
     if(!empty($_POST)){
+
+        $options = [
+			'cost' => 15 //14² (dat is zoveel keer dat het gehashed wordt), dus je wilt dat het even duurt op in te loggen hoe moeilijker voor hacker
+		];
+ 		$password = password_hash($_POST['password'], PASSWORD_DEFAULT, $options);
         try {
             $user = new User();
+            $user->setUsername($_POST['username']);
             $user->setFirstName($_POST['firstName']);
             $user->setLastName($_POST['lastName']);
             $user->setEmail($_POST['email']);
@@ -14,7 +21,7 @@
                 $user->setImage('data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])));
             }
          
-           $manager->newUser();
+           $user->newUser();
 
             header("Location: user.php");
             exit();
@@ -43,28 +50,32 @@
     <?php endif; ?> 
 
     <div class="form new_user">
-		<form action="addManager.php" method="post" enctype="multipart/form-data">
+		<form action="addUser.php" method="post" enctype="multipart/form-data">
 			<h2 form__title>New user</h2>
 
             <div class="form__field">
             <div class="form__field">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username">
+            </div>
+            <div class="form__field">
                 <label for="firstName">Firstname:</label>
-                <input type="text" name="firstName">
+                <input type="text" name="firstName" id="firstName">
             </div>
 
             <div class="form__field">
                 <label for="lastName">Lastname:</label>
-                <input type="text" name="lastName">
+                <input type="text" name="lastName" id="lastName">
             </div>
 
             <div class="form__field">
                 <label for="email">Email:</label>
-                <input type="text" name="email">
+                <input type="text" name="email" id="email">
             </div>
 
             <div class="form__field">
                 <label for="password">Password:</label>
-                <input type="password" name="password">
+                <input type="password" name="password" id="password">
             </div>
       
             <div class="form__field">
@@ -73,7 +84,7 @@
             </div>           
            
             <div class="form__field">
-                <input type="submit" value="Add new user" class="btn-add">	
+                <input type="submit" value="Save" class="btn-add">	
             </div>
 		</form>
 	</div>
