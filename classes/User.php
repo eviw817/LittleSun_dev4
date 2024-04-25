@@ -167,6 +167,7 @@ class User{
         }
     }
 
+    //addUser.php
     public function newUser(){
         //PDO connection
         $conn = Db::getConnection();
@@ -183,12 +184,24 @@ class User{
         //result return
     }
 
+    //user.php
     public function getName(){
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT id, firstName, lastName, image FROM users WHERE role = 'user'");
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    //userId.php
+    public function getUserById($userId){
+        $con = Db::getConnection();
+        $statement = $con->prepare("SELECT u.*, l.name FROM users u LEFT JOIN locations l ON u.location = l.id WHERE u.id = :id AND role = 'user'");
+        $statement->execute([":id" => $userId]);
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+   
+
     
 
    

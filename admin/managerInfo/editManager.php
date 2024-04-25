@@ -125,10 +125,20 @@ if(isset($_POST['submit'])){
                 <input type="text" name="lastName" value="<?php echo isset($manager['lastName']) ? $manager['lastName'] : ''; ?>">
             </div>
 
+            
+            <div class="image">
+                <?php if (isset($manager["image"])): ?>
+                    <p>Current profile picture:</p>
+                    <img width="70px" src="<?php echo $manager["image"]; ?>" alt="Profile Picture">
+                <?php endif; ?>
+            </div>
             <div class="form__field">
                 <label for="img">Select image:</label>
                 <input type="file" id="img" name="img" accept="image/jpg, image/jpg">
             </div>
+            <input type="submit" value="Upload Image" name="submit">
+
+
 
             <div class="form__field">
                 <input type="submit" name="submit" value="Save" class="btn-save">  

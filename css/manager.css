@@ -27,3 +27,14 @@ h1{
     font-size: 24px;
 }
 
+
+
+.image img {
+    display: block;
+    margin-top: 10px;
+}
+
+.image p {
+    margin-top: 5px; /* Optioneel: voeg wat ruimte toe tussen de afbeelding en de paragraaf */
+}
+

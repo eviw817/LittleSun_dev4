@@ -1,14 +1,8 @@
 <?php
 
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . "/../classes/User.php");
-    
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/User.php");
    
     if(!empty($_POST)){
-
-        $options = [
-			'cost' => 15 //14² (dat is zoveel keer dat het gehashed wordt), dus je wilt dat het even duurt op in te loggen hoe moeilijker voor hacker
-		];
- 		$password = password_hash($_POST['password'], PASSWORD_DEFAULT, $options);
         try {
             $user = new User();
             $user->setUsername($_POST['username']);
@@ -40,11 +34,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add user</title>
-    <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="../../css/general.css">
     
 </head>
 <body>
-<?php include_once("../header.inc.php"); ?>
+<?php include_once("../../header.inc.php"); ?>
     <?php if(isset($error)): ?>
       <div class="text-red-500">Error: <?php echo $error; ?></div>
     <?php endif; ?> 

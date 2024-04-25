@@ -1,6 +1,6 @@
 <?php
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Db.php");
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/User.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/Db.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/User.php");
 
     $userName = new User();
  
@@ -13,11 +13,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users</title>
-    <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="../../css/general.css">
    
 </head>
 <body>
-<?php include_once("../header.inc.php"); ?>
+<?php include_once("../../header.inc.php"); ?>
     <h1 class="title">Users</h1>
     <div class="inline">
     <?php foreach($userName->getName()as $user) : ?> 
@@ -25,7 +25,7 @@
             <a href="userId.php?id=<?php echo $user['id']; ?>" class="user_detail">
                 <p><?php echo $user['firstName'] . " " . $user['lastName'] ; ?></p>
             </a>
-            <img src="<?php echo $user["image"]; ?>"></img>
+            <img width="70px" src="<?php echo $user["image"]; ?>"></img>
         </div>
     <?php endforeach; ?>
     </div>
