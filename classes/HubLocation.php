@@ -169,4 +169,39 @@
                 throw new Exception("Hub couldn't be added into the database");
             }
         }
+
+        //hub.php
+        public function getHubname(){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT id, name FROM locations");
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        //hubId.php
+        public function getUsersByLocation($locationId){
+            $con = Db::getConnection();
+            $statement = $con->prepare("SELECT * FROM users WHERE location = :id AND role = 'user'");
+            $statement->execute([":id" => $locationId]);
+            $results = $statement->fetchAll();
+            if(!$results){
+                return null;
+            } else {
+                return $results;
+            }
+            
+        }
+
+
+        public function getHubLocationById($hubId){
+            $con = Db::getConnection();
+            $statement = $con->prepare("SELECT * FROM locations WHERE id = :id");
+            $statement->execute([":id" => $hubId]);
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            if(!$result){
+                return null;
+            } else {
+                return $result;
+            }
+        }
     }

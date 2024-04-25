@@ -10,8 +10,8 @@
 <?php include_once("../header.inc.php"); ?>
     <h1>Manager Dashboard</h1>
 
-    <a href="user.php"><h2>Users</h2></a>
-    <a href="hubs.php"><h2>Hubs</h2></a>
+    <a href="users/user.php"><h2>Users</h2></a>
+    <a href="hubs/hub.php"><h2>Hubs</h2></a>
 
     <a href="../login_logout/logout.php">Log Out</a>
     
