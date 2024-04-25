@@ -35,6 +35,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/User.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add user</title>
     <link rel="stylesheet" href="../../css/general.css">
+    <link rel="stylesheet" href="../cssManager/addUser.css">
     
 </head>
 <body>

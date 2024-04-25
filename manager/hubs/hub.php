@@ -13,19 +13,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hubs</title>
     <link rel="stylesheet" href="../../css/general.css">
+    <link rel="stylesheet" href="../cssManager/hub.css">
    
 </head>
 <body>
 <?php include_once("../../header.inc.php"); ?>
     <h1 class="title">Hubs</h1>
     <div class="inline">
-    <?php foreach($hubName->getHubname()as $hub) : ?> 
-        <div class="flex">
+    <ul id="hubList">
+      <?php foreach($hubName->getHubname()as $hub) : ?> 
             <a href="hubId.php?id=<?php echo $hub['id']; ?>" class="hub_detail">
                 <p><?php echo $hub['name'] ; ?></p>
             </a>
-        </div>
-    <?php endforeach; ?>
+        <?php endforeach; ?>  
+    </ul>
+    
     </div>
     
 </body>

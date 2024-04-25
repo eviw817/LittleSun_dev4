@@ -1,0 +1,54 @@
+p {
+    margin: 25px 20px;
+}
+
+h1{
+    margin-left: 15px;
+    font-size: 24px;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    height: 30vh;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.user {
+    border: 2px solid #3d3d3d;
+    border-radius: 20px;
+    padding: 30px;
+    width: 100px;
+    height: 160px;
+    margin-bottom: 10px;
+   
+    text-align: center;
+}
+
+.image {
+    display: inline-block;
+    vertical-align: middle; /* Plaats de afbeelding verticaal in het midden */
+}
+
+.name {
+    margin: 0;
+}
+
+@media(min-width: 600px){
+    .image-container {
+        height: 180px;
+        margin-left: -80px;
+    }
+
+    .user {
+        
+        width: 150px;
+        padding-bottom: 50px;
+    }
+
+    
+}
+

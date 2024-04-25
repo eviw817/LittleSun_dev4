@@ -25,6 +25,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users details</title>
     <link rel="stylesheet" href="../../css/general.css">
+    <link rel="stylesheet" href="../cssManager/userId.css">
+
 
 </head>
 <body>
@@ -35,10 +37,11 @@
     <p>Lastname: <?php echo isset($user["lastName"]) ? $user["lastName"] : ""; ?></p>
     <p>Email: <?php echo isset($user["email"]) ? $user["email"] : ""; ?></p>
     <p>Location: <?php echo isset($user["name"]) ? $user["name"] : ""; ?></p>
-    <?php if (isset($user["image"])): ?>
-        <p>Profile picture: <img width="70px" src="<?php echo $user["image"]; ?>" alt="Profile Picture"></p>
-    <?php endif; ?>
-    
+    <div class="image">
+        <?php if (isset($user["image"])): ?>
+            <p >Profile picture: <img width="70px" src="<?php echo $user["image"]; ?>" alt="Profile Picture"></p>
+        <?php endif; ?>
+    </div>
     
 </body>
 </html>

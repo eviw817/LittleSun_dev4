@@ -25,6 +25,7 @@ if(!$hubData){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Location</title>
     <link rel="stylesheet" href="../../css/general.css">
+    <link rel="stylesheet" href="../cssManager/hubId.css">
 </head>
 <body>
     <?php include_once("../../header.inc.php"); ?>
@@ -39,19 +40,25 @@ if(!$hubData){
         <p> Country: <?php echo $hubData["country"]; ?></p>
         <p> Postalcode: <?php echo $hubData["postalCode"]; ?></p>
         <p> Users: 
-        <?php 
-        if ($users) {
-            foreach ($users as $user) {
-                echo "<p>" . $user["firstName"] . " " . $user["lastName"] . "</p>";
-                if (isset($user["image"])) {
-                    echo '<div class="image">';
-                    echo '<img width="70px" src="' . $user["image"] . '" alt="Profile Picture">';
-                    echo '</div>';
-                }
-            }
-        } else {
-            echo "No user assigned";
-        }?>
-    <?php endif; ?>
+        <div class="image-container">
+            <?php 
+                if ($users) {
+                    foreach ($users as $user) {
+                        echo '<div class="user">';
+                        if (isset($user["image"])) {
+                            echo '<div class="image">';
+                            echo '<img width="70px" src="' . $user["image"] . '" alt="Profile Picture">';
+                            echo '</div>';
+                        }
+                        echo "<p class='name'>" . $user["firstName"] . " " . $user["lastName"] . "</p>";
+                        echo '</div>';
+                    }
+                } else {
+                    echo "No user assigned";
+                }?>
+            <?php endif; ?> 
+            
+        </div>
+        
 </body>
 </html>
