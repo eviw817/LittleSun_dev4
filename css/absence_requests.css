@@ -1,0 +1,58 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+.-dashboard {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.-dashboard h1, .-dashboard h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.-dashboard form label {
+    display: block;
+    margin-bottom: 10px; 
+    color: #000;
+}
+
+.-dashboard form input[type="datetime-local"],
+.-dashboard form select,
+.-dashboard form input[type="text"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.-dashboard form select { 
+    width: 100%;
+}
+
+.-dashboard form button[type="submit"],
+.-dashboard form button[type="reset"] {
+    width: calc(50% - 5px); 
+    padding: 10px;
+    background-color: #ffdd00; 
+    border: none;
+    border-radius: 5px;
+    color: #000;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.-dashboard form button[type="submit"]:hover,
+.-dashboard form button[type="reset"]:hover {
+    background-color: #ffee81; 
+}
