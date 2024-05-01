@@ -33,6 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->execute()) {
       $resultMessage = "Absence request submitted successfully.";
+      header("Location: success.php");
+    exit; // Zorg ervoor dat het script stopt na de redirect
     } else {
       $resultMessage = "Error: Failed to submit absence request. Please try again later.";
     }
@@ -50,8 +52,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="-dashboard">
     <h1>User Dashboard</h1>
 
+    <?php if ($resultMessage): ?>
     <div class="success-message"><?php echo $resultMessage; ?></div>
-
+    <?php else: ?>
     <h2>Request Absence:</h2>
 
     <form id="timeOffRequestForm" method="post" action="">
@@ -89,8 +92,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="text" id="reason" name="reason" placeholder="Enter reason" required>
 
         <button type="submit">Submit</button>
-        <button type="reset">Cancel</button>
+        <button type="cancel" onclick="window.location.href = '../index.php';">Cancel</button>
+
     </form>
+    <?php endif; ?>
 </div>
 </body>
 </html>

@@ -51,7 +51,7 @@ body {
 }
 
 .-dashboard form button[type="submit"],
-.-dashboard form button[type="reset"] {
+.-dashboard form button[type="cancel"] {
     width: calc(50% - 5px);
     padding: 10px;
     background-color: #ffdd00;
@@ -65,8 +65,19 @@ body {
 }
 
 .-dashboard form button[type="submit"]:hover,
-.-dashboard form button[type="reset"]:hover {
+.-dashboard form button[type="cancel"]:hover {
     background-color: #ffee81;
+}
+
+.-dashboard form button[type="cancel"] {
+    background-color: #fff; 
+    color: #000; 
+    border: 1px solid #000; 
+}
+
+.-dashboard form button[type="cancel"]:hover {
+    background-color: #000; 
+    color: #fff; 
 }
 
 .-dashboard form input[type="text"] {
