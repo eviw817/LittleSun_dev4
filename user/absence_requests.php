@@ -23,8 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
   
   $typeOfAbsence = $_POST['typeOfAbsence'];
-  $reason = $_POST['reason'];
-  
+  $reason = $_POST['reason'];  
 
     // datum en tijd combineren
     $startDateTime = ($startTime != null) ? $startDate . ' ' . $startTime : $startDate;
