@@ -40,7 +40,7 @@ body {
 
 .-dashboard form button[type="submit"],
 .-dashboard form button[type="reset"] {
-    width: calc(50% - 5px); 
+    width: calc(50% - 3px); 
     padding: 10px;
     background-color: #ffdd00; 
     border: none;
