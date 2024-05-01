@@ -10,12 +10,21 @@ $resultMessage = '';
 // verzoek om verlof in te dienen wanneer het formulier wordt ingediend (POST-methode)
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $startDate = $_POST['startDate'];
-    $startTime = isset($_POST['startTime']) ? $_POST['startTime'] : null;
-    $endDate = $_POST['endDate'];
-    $endTime = isset($_POST['endTime']) ? $_POST['endTime'] : null;
-    $typeOfAbsence = $_POST['typeOfAbsence'];
-    $reason = $_POST['reason'];
+  $startDate = $_POST['startDate'];
+  $startTime = null;
+  if (isset($_POST['startTime'])) {
+      $startTime = $_POST['startTime'];
+  }
+  
+  $endDate = $_POST['endDate'];
+  $endTime = null;
+  if (isset($_POST['endTime'])) {
+      $endTime = $_POST['endTime'];
+  }
+  
+  $typeOfAbsence = $_POST['typeOfAbsence'];
+  $reason = $_POST['reason'];
+  
 
     // datum en tijd combineren
     $startDateTime = ($startTime != null) ? $startDate . ' ' . $startTime : $startDate;
@@ -34,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt->execute()) {
       $resultMessage = "Absence request submitted successfully.";
       header("Location: success.php");
-    exit; // Zorg ervoor dat het script stopt na de redirect
+      exit; // script stopt na de redirect
     } else {
       $resultMessage = "Error: Failed to submit absence request. Please try again later.";
     }
