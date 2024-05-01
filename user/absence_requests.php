@@ -10,10 +10,16 @@ $resultMessage = '';
 // verzoek om verlof in te dienen wanneer het formulier wordt ingediend (POST-methode)
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $startDateTime = $_POST['startDateTime'];
-    $endDateTime = $_POST['endDateTime'];
+    $startDate = $_POST['startDate'];
+    $startTime = isset($_POST['startTime']) ? $_POST['startTime'] : null;
+    $endDate = $_POST['endDate'];
+    $endTime = isset($_POST['endTime']) ? $_POST['endTime'] : null;
     $typeOfAbsence = $_POST['typeOfAbsence'];
     $reason = $_POST['reason'];
+
+    // datum en tijd combineren
+    $startDateTime = ($startTime != null) ? $startDate . ' ' . $startTime : $startDate;
+    $endDateTime = ($endTime != null) ? $endDate . ' ' . $endTime : $endDate;
 
     // SQL-query om het verzoek om verlof in de database in te voegen
     $sql = "INSERT INTO absence_requests (startDateTime, endDateTime, typeOfAbsence, reason) VALUES (:startDateTime, :endDateTime, :typeOfAbsence, :reason)";
@@ -49,11 +55,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <h2>Request Absence:</h2>
 
     <form id="timeOffRequestForm" method="post" action="">
-        <label for="startDateTime">Start Date & Time:</label>
-        <input type="datetime-local" id="startDateTime" name="startDateTime" required>
-        
-        <label for="endDateTime">End Date & Time:</label>
-        <input type="datetime-local" id="endDateTime" name="endDateTime" required>
+        <div class="form-group">
+            <div class="date-time-group">
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" name="startDate" required>
+            </div>
+            <div class="date-time-group">
+                <label for="startTime">Start Time:</label>
+                <input type="time" id="startTime" name="startTime">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="date-time-group">
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate" name="endDate" required>
+            </div>
+            <div class="date-time-group">
+                <label for="endTime">End Time:</label>
+                <input type="time" id="endTime" name="endTime">
+            </div>
+        </div>
 
         <label for="typeOfAbsence">Type of Absence:</label>
         <select id="typeOfAbsence" name="typeOfAbsence" required>

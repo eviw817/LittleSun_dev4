@@ -4,7 +4,7 @@ body {
 }
 
 .-dashboard {
-    max-width: 400px;
+    max-width: 600px;
     margin: 50px auto;
     padding: 20px;
     background-color: #fff;
@@ -18,31 +18,43 @@ body {
     color: #000;
 }
 
+.-dashboard form .form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.-dashboard form .date-time-group {
+    flex: 1;
+}
+
 .-dashboard form label {
-    display: block;
-    margin-bottom: 10px; 
     color: #000;
 }
 
-.-dashboard form input[type="datetime-local"],
 .-dashboard form select,
 .-dashboard form input[type="text"] {
-    width: calc(100% - 22px);
+    width: 99%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-.-dashboard form select { 
-    width: 100%;
+.-dashboard form input[type="date"],
+.-dashboard form input[type="time"]{
+    width: 91%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 .-dashboard form button[type="submit"],
 .-dashboard form button[type="reset"] {
-    width: calc(50% - 3px); 
+    width: calc(50% - 5px);
     padding: 10px;
-    background-color: #ffdd00; 
+    background-color: #ffdd00;
     border: none;
     border-radius: 5px;
     color: #000;
@@ -54,5 +66,9 @@ body {
 
 .-dashboard form button[type="submit"]:hover,
 .-dashboard form button[type="reset"]:hover {
-    background-color: #ffee81; 
+    background-color: #ffee81;
+}
+
+.-dashboard form input[type="text"] {
+    width: calc(96% - 3px);
 }
