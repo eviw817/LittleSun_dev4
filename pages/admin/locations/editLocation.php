@@ -1,0 +1,98 @@
+<?php
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
+
+// Functie om locatiegegevens op te halen op basis van ID
+function getLocationById($locationId){
+    $con = Db::getConnection();
+    $statement = $con->prepare("SELECT l.* FROM locations l LEFT JOIN users u ON l.id = u.location WHERE l.id = :id");
+    $statement->execute([":id" => $locationId]);
+    $result = $statement->fetch(PDO::FETCH_ASSOC);
+    return $result;
+    var_dump($con);
+}
+
+// Controleren of er een locatie ID is opgegeven in de URL
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    // Locatiegegevens ophalen
+    $location = getLocationById($id);
+    // Controleren of de locatie bestaat
+    if(!$location){
+        echo "Location not found";
+        die();
+    }
+} else {
+    // Als er geen ID is opgegeven, stop de uitvoering en geef een foutmelding weer
+    echo "No location ID specified";
+    die(); 
+}
+
+if(isset($_POST['submit'])){
+    // Verwerk de formuliargegevens en update de gegevens in de database
+    $con = Db::getConnection();
+    $statement = $con->prepare("UPDATE locations SET name = :name, street = :street, streetNumber = :streetNumber, city = :city, country = :country, postalCode = :postalCode WHERE id = :id");
+    $statement->execute([
+        ":name" => $_POST['name'],
+        ":street" => $_POST['street'],
+        ":streetNumber" => $_POST['streetNumber'],
+        ":city" => $_POST['city'],
+        ":country" => $_POST['country'],
+        ":postalCode" => $_POST['postalCode'],
+        ":id" => $id
+    ]);
+    
+    // Redirect naar de detailpagina met de bijgewerkte gegevens
+    header("Location: location.php?id=$id");
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit hub location</title>
+    <link rel="stylesheet" href="../../../reset.css">
+    <link rel="stylesheet" href="../../../shared.css">
+    <link rel="stylesheet" href="./editLocation.css">
+</head>
+<body>
+    <?php include_once("../../../components/header2.inc.php"); ?>
+    <div class="form edit_location">
+    <form action="editLocation.php?id=<?php echo $location['id']; ?>" method="post">
+
+            <h2 class="form__title">Edit hub location</h2>
+
+            <div class="form__field">
+                <label for="name">Name</label>
+                <input type="text" name="name" value="<?php echo isset($location['name']) ? $location['name'] : ''; ?>">
+            </div>
+            <div class="form__field">
+                <label for="street">Street</label>
+                <input type="text" name="street" value="<?php echo isset($location['street']) ? $location['street'] : ''; ?>">
+            </div>
+            <div class="form__field">
+                <label for="streetNumber">Street Number</label>
+                <input type="text" name="streetNumber" value="<?php echo isset($location['streetNumber']) ? $location['streetNumber'] : ''; ?>">
+            </div>
+            <div class="form__field">
+                <label for="city">City</label>
+                <input type="text" name="city" value="<?php echo isset($location['city']) ? $location['city'] : ''; ?>">
+            </div>
+            <div class="form__field">
+                <label for="country">Country</label>
+                <input type="text" name="country" value="<?php echo isset($location['country']) ? $location['country'] : ''; ?>">
+            </div>
+            <div class="form__field">
+                <label for="postalCode">Postal Code</label>
+                <input type="text" name="postalCode" value="<?php echo isset($location['postalCode']) ? $location['postalCode'] : ''; ?>">
+            </div>
+
+            <div class="form__field">
+                <input type="submit" name="submit" value="Save" class="btn-save">  
+            </div>
+        </form>
+    </div>
+</body>
+</html>

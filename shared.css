@@ -1,0 +1,59 @@
+/* VARIABLES */
+:root {
+    --font-nunito: 'Nunito', sans-serif;
+    --font-size-text: 16px;
+    --font-size-h2: 20px;
+    --font-size-h1: 24px;
+    --font-bold: bold;
+    --text-align: center;
+
+    --color-white: #fff;
+    --color-black: #000;
+    --color-off-white: #f5f5f5;
+    --color-gray: #ccc;
+    --color-off-black: #3d3d3d;
+    --color-primary: #ffdd00;
+    --color-light-primary: #ffee81;
+    
+    --border-radius: 5px;
+}
+
+/* SHARED */
+body, label, h2 {
+    font-family: var(--font-nunito);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    text-align: var(--text-align); 
+    background-color: #f4f4f4;
+}
+
+h1{
+    font-size: var(--font-size-h1);
+    color: var(--color-black);
+}
+
+h2 {
+    font-size: var(--font-size-h2);
+}
+
+.container {
+    max-width: 800px;
+    padding: 20px;
+}
+
+header {
+    background-color: #000;
+    padding: 20px 0;
+    color: #ffdd00;
+    text-align: left;
+}
+
+.logo img {
+    max-width: 120px;
+    height: auto;
+    margin-left: 25px;
+}
+
