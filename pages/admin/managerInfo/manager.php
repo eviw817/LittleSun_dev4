@@ -44,7 +44,7 @@
     <p>Lastname: <?php echo isset($manager["lastName"]) ? $manager["lastName"] : ""; ?></p>
     <div class="image">
         <?php if (isset($manager["image"])): ?>
-            <p >Profile picture: <img width="70px" src="<?php echo $manager["image"]; ?>" alt="Profile Picture"></p>
+            <p >Profile picture: <img width="4.375rem" src="<?php echo $manager["image"]; ?>" alt="Profile Picture"></p>
         <?php endif; ?>
     </div>
     <a class="edit" href="editManager.php?id=<?php echo $manager['id']; ?>">Edit manager</a>

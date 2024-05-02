@@ -27,7 +27,7 @@
             <a href="userId.php?id=<?php echo $user['id']; ?>" class="user_detail">
                 <p><?php echo $user['firstName'] . " " . $user['lastName'] ; ?></p>
             </a>
-            <img width="70px" src="<?php echo $user["image"]; ?>"></img>
+            <img width="4.4.375rem" src="<?php echo $user["image"]; ?>"></img>
         </div>
     <?php endforeach; ?>
     </div>

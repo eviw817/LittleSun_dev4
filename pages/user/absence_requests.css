@@ -4,24 +4,24 @@ body {
 }
 
 .-dashboard {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
+    max-width: 37.5rem;
+    margin: 3.125rem auto;
+    padding: 1.25rem;
     background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0.313rem;
+    box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
 }
 
 .-dashboard h1, .-dashboard h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
     color: #000;
 }
 
 .-dashboard form .form-group {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 0.625rem;
 }
 
 .-dashboard form .date-time-group {
@@ -35,30 +35,30 @@ body {
 .-dashboard form select,
 .-dashboard form input[type="text"] {
     width: 99%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 0.625rem;
+    margin-bottom: 0.625rem;
+    border: 0.063rem solid #ccc;
+    border-radius: 0.313rem;
 }
 
 .-dashboard form input[type="date"],
 .-dashboard form input[type="time"]{
     width: 91%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 0.625rem;
+    margin-bottom: 0.625rem;
+    border: 0.063rem solid #ccc;
+    border-radius: 0.313rem;
 }
 
 .-dashboard form button[type="submit"],
 .-dashboard form button[type="cancel"] {
-    width: calc(50% - 5px);
-    padding: 10px;
+    width: calc(50% - 0.313rem);
+    padding: 0.625rem;
     background-color: #ffdd00;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.313rem;
     color: #000;
-    font-size: 16px;
+    font-size: 1rem;
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s ease;
@@ -72,7 +72,7 @@ body {
 .-dashboard form button[type="cancel"] {
     background-color: #fff; 
     color: #000; 
-    border: 1px solid #000; 
+    border: 0.063rem solid #000; 
 }
 
 .-dashboard form button[type="cancel"]:hover {
@@ -81,5 +81,5 @@ body {
 }
 
 .-dashboard form input[type="text"] {
-    width: calc(96% - 3px);
+    width: calc(96% - 0.188rem);
 }

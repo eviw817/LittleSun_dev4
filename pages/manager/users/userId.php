@@ -40,7 +40,7 @@
     <p>Location: <?php echo isset($user["name"]) ? $user["name"] : ""; ?></p>
     <div class="image">
         <?php if (isset($user["image"])): ?>
-            <p >Profile picture: <img width="70px" src="<?php echo $user["image"]; ?>" alt="Profile Picture"></p>
+            <p >Profile picture: <img width="4.375rem" src="<?php echo $user["image"]; ?>" alt="Profile Picture"></p>
         <?php endif; ?>
     </div>
     

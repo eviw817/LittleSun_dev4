@@ -51,8 +51,9 @@ if(!isset($hub)){
 </head>
 <body>
     <?php include_once("../../../components/header2.inc.php"); ?>
+    <main>
     
-    <h1 class="location__h1">Hub: <?php if($hub){echo $hub["name"]; }?></h1>
+    <h1>Hub: <?php if($hub){echo $hub["name"]; }?></h1>
     <p> Street: <?php if($hub){echo $hub["street"]; } ?></p>
     <p> Streetnumber: <?php if($hub){echo $hub["streetNumber"]; } ?></p>
     <p> City: <?php if($hub){echo $hub["city"]; } ?></p>
@@ -71,6 +72,8 @@ if(!isset($hub)){
     <div class="button-container">
         <a class="button" href="./editLocation.php?id=<?php echo $hub["id"]; ?>">Edit location</a>
     </div>
+
+    </main>
      
     
 </body>

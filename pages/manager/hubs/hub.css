@@ -5,16 +5,16 @@ body {
 }
 
 .container {
-    max-width: 800px;
+    max-width: 50rem;
     margin: 0 auto;
-    padding: 20px;
+    padding: 1.25rem;
 }
 
 .title {
     text-align: center;
-    font-size: 27px;
-    margin-bottom: 30px;
-    margin-top: 50px;
+    font-size: 1.688rem;
+    margin-bottom: 1.875rem;
+    margin-top: 3.125rem;
 }
 
 #hubList {
@@ -27,27 +27,27 @@ body {
 }
 
 #hubList li {
-    margin-right: 10px;
+    margin-right: 0.625rem;
 }
 
 .hub_detail {
     display: inline-block;
-    width: 100px;
-    height: 100px;
-    line-height: 100px; 
+    width: 6.25rem;
+    height: 6.25rem;
+    line-height: 6.25rem; 
     border-radius: 50%; 
     background-color: #fff;
-    border: 1px solid #3d3d3d;
+    border: 0.063rem solid #3d3d3d;
     text-decoration: none;
     color: #3d3d3d;
     text-align: center;
-    margin-bottom: 20px;
-    margin-right: 20px;
+    margin-bottom: 1.25rem;
+    margin-right: 1.25rem;
     transition: background-color 0.3s ease;
 }
 
 .hub_detail p{
-    margin-top: 2px;
+    margin-top: 0.125rem;
 }
 
 .hub_detail:hover {

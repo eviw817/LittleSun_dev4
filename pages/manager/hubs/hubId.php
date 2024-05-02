@@ -48,7 +48,7 @@ if(!$hubData){
                         echo '<div class="user">';
                         if (isset($user["image"])) {
                             echo '<div class="image">';
-                            echo '<img width="70px" src="' . $user["image"] . '" alt="Profile Picture">';
+                            echo '<img width="4.375rem" src="' . $user["image"] . '" alt="Profile Picture">';
                             echo '</div>';
                         }
                         echo "<p class='name'>" . $user["firstName"] . " " . $user["lastName"] . "</p>";

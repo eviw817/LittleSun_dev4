@@ -130,7 +130,7 @@ if(isset($_POST['submit'])){
             <div class="image">
                 <?php if (isset($manager["image"])): ?>
                     <p>Current profile picture:</p>
-                    <img width="70px" src="<?php echo $manager["image"]; ?>" alt="Profile Picture">
+                    <img width="4.375rem" src="<?php echo $manager["image"]; ?>" alt="Profile Picture">
                 <?php endif; ?>
             </div>
             <div class="form__field">

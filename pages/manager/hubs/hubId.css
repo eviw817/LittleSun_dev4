@@ -1,10 +1,10 @@
 p {
-    margin: 25px 20px;
+    margin: 1.563rem 1.25rem;
 }
 
 h1{
-    margin-left: 15px;
-    font-size: 24px;
+    margin-left: 0.938rem;
+    font-size: 1.5rem;
 }
 
 .image-container {
@@ -18,12 +18,12 @@ h1{
 }
 
 .user {
-    border: 2px solid #3d3d3d;
-    border-radius: 20px;
-    padding: 30px;
-    width: 100px;
-    height: 160px;
-    margin-bottom: 10px;
+    border: 0.125rem solid #3d3d3d;
+    border-radius: 1.25rem;
+    padding: 1.875rem;
+    width: 6.25rem;
+    height: 10rem;
+    margin-bottom: 0.625rem;
    
     text-align: center;
 }
@@ -37,16 +37,16 @@ h1{
     margin: 0;
 }
 
-@media(min-width: 600px){
+@media(min-width: 37.5rem){
     .image-container {
-        height: 180px;
-        margin-left: -80px;
+        height: 11.25rem;
+        margin-left: -5rem
     }
 
     .user {
         
-        width: 150px;
-        padding-bottom: 50px;
+        width: 9.375 rem;
+        padding-bottom: 3.125rem;
     }
 
     

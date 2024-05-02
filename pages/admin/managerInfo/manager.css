@@ -1,16 +1,16 @@
 .edit{
     width: 20%;
-    padding: 10px;
+    padding: 0.625rem;
     background-color: #fff; 
     color: #3d3d3d; 
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 0.313rem;
     font-weight: bold;
-    border: 1px solid #3d3d3d; 
+    border: 0.063rem solid #3d3d3d; 
     transition: background-color 0.3s ease;
-    margin-bottom: 20px; 
-    margin-top: 20px;
-    margin-left: 20px;
+    margin-bottom: 1.25rem; 
+    margin-top: 1.25rem;
+    margin-left: 1.25rem;
     
 }
 
@@ -19,20 +19,20 @@
     color: #fff;
 }
 p {
-    margin: 25px 20px;
+    margin: 1.563rem 1.25rem;
 }
 
 h1{
-    margin-left: 15px;
-    font-size: 24px;
+    margin-left: 0.938rem;
+    font-size: 1.5rem;
 }
 
 .image img {
     display: block;
-    margin-top: 10px;
+    margin-top: 0.625rem;
 }
 
 .image p {
-    margin-top: 5px; 
+    margin-top: 0.313rem; 
 }
 

@@ -1,9 +1,9 @@
 /* VARIABLES */
 :root {
     --font-nunito: 'Nunito', sans-serif;
-    --font-size-text: 16px;
-    --font-size-h2: 20px;
-    --font-size-h1: 24px;
+    --font-size-text: 1rem;;
+    --font-size-h2: 1.25rem;
+    --font-size-h1: 1.5rem;
     --font-bold: bold;
     --text-align: center;
 
@@ -15,7 +15,7 @@
     --color-primary: #ffdd00;
     --color-light-primary: #ffee81;
     
-    --border-radius: 5px;
+    --border-radius: 0.313rem;
 }
 
 /* SHARED */
@@ -40,20 +40,20 @@ h2 {
 }
 
 .container {
-    max-width: 800px;
-    padding: 20px;
+    max-width: 50rem;
+    padding: 1.25rem;
 }
 
 header {
     background-color: #000;
-    padding: 20px 0;
+    padding: 1.25rem 0;
     color: #ffdd00;
     text-align: left;
 }
 
 .logo img {
-    max-width: 120px;
+    max-width: 7.5rem;
     height: auto;
-    margin-left: 25px;
+    margin-left: 1.563rem;
 }
 
