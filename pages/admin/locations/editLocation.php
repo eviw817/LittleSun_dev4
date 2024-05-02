@@ -46,7 +46,7 @@ if(isset($_POST['submit'])){
     <title>Edit hub location</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./editLocation.css">
+    <link rel="stylesheet" href="./add_editLocation.css">
 </head>
 <body>
     <?php include_once("../../../components/header2.inc.php"); ?>

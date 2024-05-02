@@ -22,8 +22,8 @@
 <body>
 <?php include_once("../../../components/header2.inc.php"); ?>
 <main>
-    <h1 class="title">Hub locations</h1>
-    <ul id="locationList">
+    <h1>Hub locations</h1>
+    <ul class="locationList">
         <?php foreach(getLocationName() as $location) : ?> 
             <li><a href="location.php?id=<?php echo $location["id"] ?>" class="location_detail"><?php echo $location['name']; ?> 
             </a></li>

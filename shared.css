@@ -3,13 +3,14 @@
     --font-nunito: 'Nunito', sans-serif;
     --font-size-text: 1rem;;
     --font-size-h2: 1.25rem;
-    --font-size-h1: 1.5rem;
+    --font-size-h1: 2rem;
     --font-bold: bold;
     --text-align: center;
 
     --color-white: #fff;
     --color-black: #000;
     --color-off-white: #f5f5f5;
+    --color-off-gray: #f0f0f0;
     --color-gray: #ccc;
     --color-off-black: #3d3d3d;
     --color-primary: #ffdd00;
@@ -49,6 +50,7 @@ header {
     padding: 1.25rem 0;
     color: #ffdd00;
     text-align: left;
+    height: 28px;
 }
 
 .logo img {

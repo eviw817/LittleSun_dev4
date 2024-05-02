@@ -1,5 +1,5 @@
 <?php
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "/../../../classes/HubLocation.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "/../../../classes/location.php");
 
 // Initialiseer de foutmelding
 $error = '';
@@ -40,13 +40,13 @@ if(!empty($_POST)){
     <title>Add location</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./addLocation.css">
+    <link rel="stylesheet" href="./add_editLocation.css">
 </head>
 <body>
 <?php include_once("../../../components/header2.inc.php"); ?>
-    <div class="form add_location">
+    <section class="form add_location">
         <?php if(!empty($error)): ?>
-        <div class="text-red-500">Error: <?php echo $error; ?></div>
+            <div class="error">Error: <?php echo $error; ?></div>
         <?php endif; ?> 
 
         <form action="addLocation.php" method="post">
@@ -79,6 +79,6 @@ if(!empty($_POST)){
 
             <button type="submit" class="btn-save">Save</button>  
         </form>
-    </div>
+    </section>
 </body>
 </html>

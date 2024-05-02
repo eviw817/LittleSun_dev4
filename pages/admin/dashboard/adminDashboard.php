@@ -9,14 +9,23 @@
     <link rel="stylesheet" href="./adminDashboard.css">
 </head>
 <body>
-<?php include_once("../../../components/header2.inc.php"); ?>
-    <h1>Admin Dashboard</h1>
+    <?php include_once("../../../components/header2.inc.php"); ?>
 
-    <a href="../locations/hubLocation.php">Hub Locations</a>
+    <main>
+        <h1>Admin Dashboard</h1>
 
-    <a href="../managerInfo/hubManagers.php">Hub Managers</a>
+        <section>
+            
+            <a href="../locations/hubLocation.php">Hub Locations</a>
 
-    <a href="../../login_logout/logout.php">Log Out</a>
+            <a href="../managerInfo/hubManagers.php">Hub Managers</a>
+
+            <a href="../../login_logout/logout.php">Log Out</a>
+
+        </section>
+
+        
     
+    </main>
 </body>
 </html>
