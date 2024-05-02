@@ -1,5 +1,5 @@
 .title {
-    text-align: center;
+    text-align: var(--text-align);
     font-size: 1.5rem;
     margin-bottom: 1.875rem;
     margin-top: 3.125rem;

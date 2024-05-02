@@ -7,7 +7,7 @@
 }
 
 .form__title {
-    text-align: center;
+    text-align: var(--text-align);
     margin-bottom: 1.25rem;
 }
 

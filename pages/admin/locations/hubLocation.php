@@ -23,18 +23,17 @@
 <?php include_once("../../../components/header2.inc.php"); ?>
 <main>
     <h1>Hub locations</h1>
-    <ul class="locationList">
-        <?php foreach(getLocationName() as $location) : ?> 
-            <li><a href="location.php?id=<?php echo $location["id"] ?>" class="location_detail"><?php echo $location['name']; ?> 
-            </a></li>
-        <?php endforeach; ?>
-    </ul>
-    <!-- <li><a href="location.php">Location 1</a></li>
-    <li><a href="#">Location 2</a></li>
-    <li><a href="#">Location 3</a></li> -->
+    <section>
+        <ul class="locationList">
+            <?php foreach(getLocationName() as $location) : ?> 
+                <a href="location.php?id=<?php echo $location["id"] ?>" class="locationDetail"><li><?php echo $location['name']; ?> 
+                </li></a>
+            <?php endforeach; ?>
+        </ul>
+    </section>
 
-    <div class="button">
-    <a href="removeLocation.php" class="add_remove_link">Add or remove locations</a>
+    <div class="button fixed-position">
+    <a href="removeLocation.php">Add or remove locations</a>
     </div>
 </main>   
 </body>

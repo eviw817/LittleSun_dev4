@@ -70,7 +70,7 @@ if(!isset($hub)){
                 echo "No manager assigned";
             }
             ?></p>
-        <a class="button" href="./editLocation.php?id=<?php echo $hub["id"]; ?>">Edit location</a>
+        <a class="button fixed-position" href="./editLocation.php?id=<?php echo $hub["id"]; ?>">Edit location</a>
     </section>
     </main>
      

@@ -1,4 +1,4 @@
-section {
+.form {
     max-width: 25rem;
     margin: 0 auto;
     padding: 1.25rem;
@@ -6,7 +6,7 @@ section {
     border-radius: 0.313rem;
 }
 
-h2 {
+.form__title {
     text-align: var(--text-align);
     margin-bottom: 1.25rem;
 }
@@ -26,10 +26,6 @@ h2 {
     padding: 0.5rem;
     border: 0.063rem solid #ccc;
     border-radius: 0.313rem;
-}
-
-#img{
-    padding: 20px;
 }
 
 .btn-save {
