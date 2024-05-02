@@ -1,21 +1,12 @@
 <?php
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
-
-// Functie om locatiegegevens op te halen op basis van ID
-function getLocationById($locationId){
-    $con = Db::getConnection();
-    $statement = $con->prepare("SELECT l.* FROM locations l LEFT JOIN users u ON l.id = u.location WHERE l.id = :id");
-    $statement->execute([":id" => $locationId]);
-    $result = $statement->fetch(PDO::FETCH_ASSOC);
-    return $result;
-    var_dump($con);
-}
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/location.php");
 
 // Controleren of er een locatie ID is opgegeven in de URL
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     // Locatiegegevens ophalen
-    $location = getLocationById($id);
+    $location = HubLocation::getLocationById($id);
     // Controleren of de locatie bestaat
     if(!$location){
         echo "Location not found";

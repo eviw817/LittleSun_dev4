@@ -54,25 +54,24 @@ if(!isset($hub)){
     <main>
     
     <h1>Hub: <?php if($hub){echo $hub["name"]; }?></h1>
-    <p> Street: <?php if($hub){echo $hub["street"]; } ?></p>
-    <p> Streetnumber: <?php if($hub){echo $hub["streetNumber"]; } ?></p>
-    <p> City: <?php if($hub){echo $hub["city"]; } ?></p>
-    <p> Country: <?php if($hub){echo $hub["country"]; } ?></p>
-    <p> Postalcode: <?php if($hub){echo $hub["postalCode"]; } ?></p>
-    <p> Hub manager: 
-        <?php 
-        if ($managers) {
-            foreach ($managers as $manager) {
-                echo $manager["firstName"] . " " . $manager["lastName"] . "<br>";
+    <section>
+        <p> Street: <?php if($hub){echo $hub["street"]; } ?></p>
+        <p> Streetnumber: <?php if($hub){echo $hub["streetNumber"]; } ?></p>
+        <p> City: <?php if($hub){echo $hub["city"]; } ?></p>
+        <p> Country: <?php if($hub){echo $hub["country"]; } ?></p>
+        <p> Postalcode: <?php if($hub){echo $hub["postalCode"]; } ?></p>
+        <p> Hub manager: 
+            <?php 
+            if ($managers) {
+                foreach ($managers as $manager) {
+                    echo $manager["firstName"] . " " . $manager["lastName"] . "<br>";
+                }
+            } else {
+                echo "No manager assigned";
             }
-        } else {
-            echo "No manager assigned";
-        }
-        ?></p>
-    <div class="button-container">
+            ?></p>
         <a class="button" href="./editLocation.php?id=<?php echo $hub["id"]; ?>">Edit location</a>
-    </div>
-
+    </section>
     </main>
      
     

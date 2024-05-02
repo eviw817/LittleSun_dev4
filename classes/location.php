@@ -204,4 +204,16 @@
                 return $result;
             }
         }
+
+        //editLocation
+        // Functie om locatiegegevens op te halen op basis van ID
+        public static function getLocationById($locationId){
+            $con = Db::getConnection();
+            $statement = $con->prepare("SELECT l.* FROM locations l LEFT JOIN users u ON l.id = u.location WHERE l.id = :id");
+            $statement->execute([":id" => $locationId]);
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            return $result;
+            var_dump($con); 
+        }
+        
     }

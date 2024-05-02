@@ -57,28 +57,28 @@
 
 <body>
     <?php include_once("../../components/header2.inc.php"); ?>
-<main class="login__main">
+<main>
     <p><?php if(!empty($error)){echo $error;} ?>
     <form action="" method="post">
         <h2>Welcome, please log in</h2>
 
-        <div class="full__form">
-            <div class="form__field">
+        <section>
+            <div>
                 <label for="Username">Username</label>
                 <input id="username" type="text" name="username">
             </div>
-            <div class="form__field">
+            <div>
                 <label for="Password">Password</label>
                 <input type="password" name="password">
             </div>
 
-            <div class="form__field">
+            <div>
                 <input type="submit" value="Log in" class="input__button">
                 <div class="checkbox">
                     <input type="checkbox" id="rememberMe"><label for="rememberMe" class="label__inline">Remember me</label>
                 </div>
             </div>
-        </div>
+        </section>
     </form>
 </main>
 </body>
