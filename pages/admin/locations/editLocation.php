@@ -20,8 +20,8 @@ if (isset($_GET['id'])) {
 
 if(isset($_POST['submit'])){
     // Verwerk de formuliargegevens en update de gegevens in de database
-    $con = Db::getConnection();
-    $statement = $con->prepare("UPDATE locations SET name = :name, street = :street, streetNumber = :streetNumber, city = :city, country = :country, postalCode = :postalCode WHERE id = :id");
+    $conn = Db::getConnection();
+    $statement = $conn->prepare("UPDATE locations SET name = :name, street = :street, streetNumber = :streetNumber, city = :city, country = :country, postalCode = :postalCode WHERE id = :id");
     $statement->execute([
         ":name" => $_POST['name'],
         ":street" => $_POST['street'],

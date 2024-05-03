@@ -15,7 +15,7 @@ body {
 .-dashboard h1, .-dashboard h2 {
     text-align: var(--text-align);
     margin-bottom: 1.25rem;
-    color: #000;
+    color: var(--color-black);
 }
 
 .-dashboard form .form-group {
