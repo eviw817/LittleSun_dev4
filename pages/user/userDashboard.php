@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../../shared.css">
 </head>
 <body>
-<?php include_once("../header.inc.php"); ?>
+<?php include_once("../../header2.inc.php"); ?>
     <h1>User Dashboard</h1>
 
     <a href="../login_logout/logout.php">Log Out</a>

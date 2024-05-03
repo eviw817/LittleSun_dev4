@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="text" id="reason" name="reason" placeholder="Enter reason" required>
 
         <button type="submit">Submit</button>
-        <button type="cancel" onclick="window.location.href = '../index.php';">Cancel</button>
+        <button type="cancel" onclick="window.location.href = 'userDashboard.php';">Cancel</button>
 
     </form>
     <?php endif; ?>
