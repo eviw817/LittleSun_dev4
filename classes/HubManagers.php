@@ -11,20 +11,8 @@
         private string $firstName;
         private string $lastName;
         private string $image;
-    
-        /**
-         * Get the value of username
-         */ 
-        public function getUsername()
-        {
-                return $this->username;
-        }
-
-        /**
-         * Set the value of username
-         *
-         * @return  self
-         */ 
+        
+        //Set the value of username
         public function setUsername($username)
         {
             if(!empty($username)){
@@ -34,20 +22,14 @@
                 throw new Exception("username cannot be empty");
             }
         }
-
-        /**
-         * Get the value of email
-         */ 
-        public function getEmail()
+    
+        //Get the value of username 
+        public function getUsername()
         {
-                return $this->email;
+                return $this->username;
         }
 
-        /**
-         * Set the value of email
-         *
-         * @return  self
-         */ 
+        //Set the value of email
         public function setEmail($email)
         {
             if(!empty($email)){
@@ -58,19 +40,13 @@
             }
         }
 
-        /**
-         * Get the value of password
-         */ 
-        public function getPassword()
+        //Get the value of email
+        public function getEmail()
         {
-                return $this->password;
+                return $this->email;
         }
 
-        /**
-         * Set the value of password
-         *
-         * @return  self
-         */ 
+        //Set the value of password
         public function setPassword($password)
         {
             if(!empty($password)){
@@ -80,20 +56,14 @@
                 throw new Exception("password cannot be empty");
             }
         }
-
-        /**
-         * Get the value of role
-         */ 
-        public function getRole()
+        
+        //Get the value of password
+        public function getPassword()
         {
-                return $this->role;
+                return $this->password;
         }
 
-        /**
-         * Set the value of role
-         *
-         * @return  self
-         */ 
+        //Set the value of role
         public function setRole($role)
         {
             if(!empty($role)){
@@ -102,6 +72,12 @@
             else{
                 throw new Exception("role cannot be empty");
             }
+        }
+        
+        //Get the value of role
+        public function getRole()
+        {
+                return $this->role;
         }
 
         // /**

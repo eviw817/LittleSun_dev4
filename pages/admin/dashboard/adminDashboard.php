@@ -20,6 +20,8 @@
 
             <a href="../managerInfo/hubManagers.php">Hub Managers</a>
 
+            <a href="../tasks/taskList.php">Task list</a>
+
             <a href="../../login_logout/logout.php">Log Out</a>
 
         </section>
