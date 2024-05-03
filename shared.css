@@ -46,9 +46,9 @@ h2 {
 }
 
 header {
-    background-color: #000;
+    background-color: var(--color-black);
     padding: 1.25rem 0;
-    color: #ffdd00;
+    color: var(--color-primary);
     text-align: left;
     height: 28px;
 }
