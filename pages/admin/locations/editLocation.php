@@ -6,7 +6,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/location.php");
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     // Locatiegegevens ophalen
-    $location = HubLocation::getLocationById($id);
+    $location = Location::getLocationById($id);
     // Controleren of de locatie bestaat
     if(!$location){
         echo "Location not found";
@@ -20,22 +20,15 @@ if (isset($_GET['id'])) {
 
 if(isset($_POST['submit'])){
     // Verwerk de formuliargegevens en update de gegevens in de database
-    $conn = Db::getConnection();
-    $statement = $conn->prepare("UPDATE locations SET name = :name, street = :street, streetNumber = :streetNumber, city = :city, country = :country, postalCode = :postalCode WHERE id = :id");
-    $statement->execute([
-        ":name" => $_POST['name'],
-        ":street" => $_POST['street'],
-        ":streetNumber" => $_POST['streetNumber'],
-        ":city" => $_POST['city'],
-        ":country" => $_POST['country'],
-        ":postalCode" => $_POST['postalCode'],
-        ":id" => $id
-    ]);
+    $location = new Location($_POST["name"], $_POST["street"], $_POST["streetnumber"], $_POST["city"], $_POST["country"], $_POST["postalCode"]);
+    $location->setId($id);
+    $location->updateLocation();
     
     // Redirect naar de detailpagina met de bijgewerkte gegevens
     header("Location: location.php?id=$id");
     exit();
 }
+
 ?>
 
 <!DOCTYPE html>

@@ -12,8 +12,8 @@
         protected string $lastName;
         protected string $image;
 
-        public function __construct($id, $username, $email, $password, $role, $location, $firstName, $lastName, $image){
-            $this->id = $id;
+        // contruct => geeft properties mee om in te vullen bij "new Manager", "new User", ...
+        public function __construct($username, $email, $password, $role, $location, $firstName, $lastName){
             $this->username = $username;
             $this->email = $email;
             $this->password = $password;
@@ -21,7 +21,6 @@
             $this->location = $location;
             $this->firstName = $firstName;
             $this->lastName = $lastName;
-            $this->image = $image;
         }
 
         //Set the value of id

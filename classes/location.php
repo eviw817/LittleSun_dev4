@@ -2,7 +2,7 @@
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
 
 
-    class HubLocation
+    class Location
     {
         private string $id;
         private string $name;
@@ -12,29 +12,31 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
         private string $country;
         private string $postalcode;
 
-        public function __construct($id, $name, $street, $streetnumber, $city, $country, $postalcode){
-            $this->id = $id;
+        public function __construct($name, $street, $streetnumber, $city, $country, $postalcode){
             $this->name = $name;
             $this->street = $street;
             $this->streetnumber = $streetnumber;
             $this->city = $city;
             $this->country = $country;
             $this->postalcode = $postalcode;
-        }
 
-        /**
-         * Get the value of name
-         */
-        public function getName()
+            return $this;
+        }
+        
+        //Set the value of id
+        public function setId($id)
         {
-            return $this->name;
+                $this->id = $id;
+
+                return $this;
+        }
+        //Get the value of id
+        public function getId()
+        {
+                return $this->id;
         }
 
-        /**
-         * Set the value of name
-         *
-         * @return  self
-         */
+        //Set the value of name
         public function setName($name)
         {
             if (!empty($name)) {
@@ -43,20 +45,13 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
                 throw new Exception("name cannot be empty");
             }
         }
-
-        /**
-         * Get the value of street
-         */
-        public function getStreet()
+        //Get the value of name
+        public function getName()
         {
-            return $this->street;
+            return $this->name;
         }
 
-        /**
-         * Set the value of street
-         *
-         * @return  self
-         */
+        //Set the value of street
         public function setStreet($street)
         {
             if (!empty($street)) {
@@ -65,20 +60,13 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
                 throw new Exception("street cannot be empty");
             }
         }
-
-        /**
-         * Get the value of streetnumber
-         */
-        public function getStreetnumber()
+        //Get the value of street
+        public function getStreet()
         {
-            return $this->streetnumber;
+            return $this->street;
         }
 
-        /**
-         * Set the value of streetnumber
-         *
-         * @return  self
-         */
+        //Set the value of streetnumber
         public function setStreetnumber($streetnumber)
         {
             if (!empty($streetnumber)) {
@@ -87,20 +75,13 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
                 throw new Exception("streetnumber cannot be empty");
             }
         }
-
-        /**
-         * Get the value of city
-         */
-        public function getCity()
+        //Get the value of streetnumber
+        public function getStreetnumber()
         {
-            return $this->city;
+            return $this->streetnumber;
         }
 
-        /**
-         * Set the value of city
-         *
-         * @return  self
-         */
+        //Set the value of city
         public function setCity($city)
         {
             if (!empty($city)) {
@@ -109,20 +90,13 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
                 throw new Exception("city cannot be empty");
             }
         }
-
-        /**
-         * Get the value of country
-         */
-        public function getCountry()
+        //Get the value of city
+        public function getCity()
         {
-            return $this->country;
+            return $this->city;
         }
 
-        /**
-         * Set the value of country
-         *
-         * @return  self
-         */
+        //Set the value of country
         public function setCountry($country)
         {
             if (!empty($country)) {
@@ -131,20 +105,13 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
                 throw new Exception("country cannot be empty");
             }
         }
-
-        /**
-         * Get the value of postalcode
-         */
-        public function getPostalcode()
+        //Get the value of country
+        public function getCountry()
         {
-            return $this->postalcode;
+            return $this->country;
         }
-
-        /**
-         * Set the value of postalcode
-         *
-         * @return  self
-         */
+        
+        //Set the value of postalcode
         public function setPostalcode($postalcode)
         {
             if (!empty($postalcode)) {
@@ -153,8 +120,13 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
                 throw new Exception("postalcode cannot be empty");
             }
         }
+        //Get the value of postalcode
+        public function getPostalcode()
+        {
+            return $this->postalcode;
+        }
 
-        public function newLocation()
+        public function saveLocation()
         {
             $conn = Db::getConnection();
 
@@ -173,6 +145,24 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
                 return $processed;
             } else {
                 throw new Exception("Hub couldn't be added into the database");
+            }
+        }
+
+        public function updateLocation(){
+            if(!empty($this->id)){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("UPDATE locations SET name = :name, street = :street, streetNumber = :streetNumber, city = :city, country = :country, postalCode = :postalCode WHERE id = :id");
+            $statement->execute([
+                ":name" => $this->name,
+                ":street" => $this->street,
+                ":streetNumber" => $this->streetnumber,
+                ":city" => $this->city,
+                ":country" => $this->country,
+                ":postalCode" => $this->postalcode,
+                ":id" => $this->id
+            ]);
+            } else{
+                throw new Exception("id is not set.");
             }
         }
 
@@ -224,4 +214,6 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
             return $result;
             var_dump($conn);
         }
+
+        
     }

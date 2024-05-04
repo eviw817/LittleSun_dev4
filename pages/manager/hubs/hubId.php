@@ -1,8 +1,8 @@
 <?php
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/HubLocation.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/location.php");
 
-$hub = new HubLocation();
+$hub = new Location($_POST["name"], $_POST["street"], $_POST["streetnumber"], $_POST["city"], $_POST["country"], $_POST["postalcode"]);
 
 $error = null;
 $managersAssigned = false;

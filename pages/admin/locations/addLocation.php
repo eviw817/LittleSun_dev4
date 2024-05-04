@@ -8,17 +8,11 @@ $error = '';
 if(!empty($_POST)){
     try {
         
-        // Maak een nieuw HubLocation object en stel de gegevens in
-        $location = new HubLocation();
-        $location -> setName($_POST['name']);
-        $location -> setStreet($_POST['street']);
-        $location -> setStreetnumber($_POST['streetNumber']);
-        $location -> setCity($_POST['city']);
-        $location -> setCountry($_POST['country']);
-        $location -> setPostalcode($_POST['postalCode']);
+        // Maak een nieuw Location object en stel de gegevens in
+        $location = new Location($_POST['name'], $_POST['street'], $_POST['streetNumber'], $_POST['city'], $_POST['country'], $_POST['postalCode']);
 
         // Voeg de locatie toe aan de database
-        $location->newLocation();
+        $location->saveLocation();
 
         // Redirect naar de gewenste pagina na succesvolle verwerking
         header("Location: hubLocation.php");

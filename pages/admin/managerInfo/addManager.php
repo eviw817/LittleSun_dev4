@@ -1,5 +1,5 @@
 <?php
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "/../../../classes/HubManagers.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 
 function getLocation()
 {
@@ -11,14 +11,7 @@ function getLocation()
 
 if (!empty($_POST)) {
     try {
-        $manager = new HubManagers();
-        $manager->setUsername($_POST['username']);
-        $manager->setEmail($_POST['email']);
-        $manager->setPassword($_POST['password']);
-        $manager->setRole($_POST['role']);
-        // $manager->setLocation($_POST['location']);
-        $manager->setFirstName($_POST['firstName']);
-        $manager->setLastName($_POST['lastName']);
+        $manager = new Manager($_POST['username'], $_POST['email'], $_POST['password'], $_POST['role'], $_POST['location'], $_POST['firstName'], $_POST['lastName']);
 
         if (isset($_POST["img"])) {
             $manager->setImage('data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])));

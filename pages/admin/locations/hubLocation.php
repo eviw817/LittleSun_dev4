@@ -1,6 +1,6 @@
 <?php
- 
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
+    
     //database geeft mij de zaken die er al in staan voor location
     function getLocationName(){
         $conn = Db::getConnection();
