@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // Inclusie van Db.php voor databaseverbinding
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/Db.php");
 
@@ -14,16 +16,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(':requestId', $requestId, PDO::PARAM_INT);
         if ($stmt->execute()) {
-            echo "Absence request approved successfully.";
+            $_SESSION['success_message'] = "Absence request approved successfully.";
         } else {
-            echo "Error updating record: " . $conn->error;
+            $_SESSION['error_message'] = "Error updating record: " . $conn->error;
         }
     } elseif(isset($_POST['reject'])) {
         $requestId = $_POST['requestId'];
         $reason = $_POST['reason_' . $requestId]; // Unieke identifier voor reden-veld
         // Zorg ervoor dat er een reden wordt ingevuld bij afwijzing
         if(empty($reason)) {
-            echo "Please provide a reason for rejection.";
+            $_SESSION['error_message'] = "Please provide a reason for rejection.";
         } else {
             // Query om de goedkeuringsstatus van de verlofaanvraag bij te werken naar afgewezen en de reden op te slaan
             $sql = "UPDATE absence_requests SET approvalStatus='Rejected', rejectionReason=:reason WHERE id=:requestId";
@@ -31,9 +33,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindValue(':requestId', $requestId, PDO::PARAM_INT);
             $stmt->bindValue(':reason', $reason, PDO::PARAM_STR);
             if ($stmt->execute()) {
-                echo "Absence request rejected successfully.";
+                $_SESSION['success_message'] = "Absence request rejected successfully.";
             } else {
-                echo "Error updating record: " . $conn->error;
+                $_SESSION['error_message'] = "Error updating record: " . $conn->error;
             }
         }
     }
@@ -59,6 +61,18 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <h1>Manager Dashboard</h1>
 
     <h2>Absence Requests:</h2>
+
+    <?php
+    if (isset($_SESSION['success_message'])) {
+        echo "<div class='success-message'>" . $_SESSION['success_message'] . "</div>";
+        unset($_SESSION['success_message']); // Verwijder de sessievariabele na weergave
+    }
+
+    if (isset($_SESSION['error_message'])) {
+        echo "<div class='error-message'>" . $_SESSION['error_message'] . "</div>";
+        unset($_SESSION['error_message']); // Verwijder de sessievariabele na weergave
+    }
+    ?>
 
     <table>
         <tr>
