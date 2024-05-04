@@ -194,8 +194,8 @@ class User{
 
     //userId.php
     public function getUserById($userId){
-        $con = Db::getConnection();
-        $statement = $con->prepare("SELECT u.*, l.name FROM users u LEFT JOIN locations l ON u.location = l.id WHERE u.id = :id AND role = 'user'");
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT u.*, l.name FROM users u LEFT JOIN locations l ON u.location = l.id WHERE u.id = :id AND role = 'user'");
         $statement->execute([":id" => $userId]);
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         return $result;

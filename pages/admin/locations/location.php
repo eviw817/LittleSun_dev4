@@ -4,8 +4,8 @@
 
 /* Geeft Hub details terug gebaseerd op de meegegeven ID*/
 function getHubLocationById($hubId){
-    $con = Db::getConnection();
-    $statement = $con->prepare("SELECT * FROM locations WHERE id = :id");
+    $conn = Db::getConnection();
+    $statement = $conn->prepare("SELECT * FROM locations WHERE id = :id");
     $statement->execute([":id" => $hubId]);
     $result = $statement->fetch(PDO::FETCH_ASSOC);
     if(!$result){

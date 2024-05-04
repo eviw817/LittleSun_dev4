@@ -2,8 +2,8 @@
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 
     function getManagerById($managerId){
-        $con = Db::getConnection();
-        $statement = $con->prepare("SELECT u.*, l.name FROM users u LEFT JOIN locations l ON u.location = l.id WHERE u.id = :id AND role = 'manager'");
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT u.*, l.name FROM users u LEFT JOIN locations l ON u.location = l.id WHERE u.id = :id AND role = 'manager'");
         $statement->execute([":id" => $managerId]);
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         return $result;
