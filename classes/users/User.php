@@ -43,7 +43,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
         }
 
         /* Zoekt voor alle users met een task gebaseerd op de Task ID*/
-        static function getByTask($taskId)
+        public static function getByTask($taskId)
         {
             $conn = Db::getConnection();
             $statement = $conn->prepare("SELECT u.*, t.name FROM users u LEFT JOIN users_tasks ut ON ut.task_id = u.id LEFT JOIN tasks t ON ut.task_id = t.id WHERE t.id =  :id");
@@ -58,5 +58,11 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
                 }
                 return $users;
             }
+        }
+
+        public static function getAllUsers(){
+            $conn = Db::getConnection();
+            $statement = $conn->query("SELECT * FROM users u WHERE role = 'user'");
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
     }
