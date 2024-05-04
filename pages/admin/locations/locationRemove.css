@@ -24,9 +24,9 @@ section {
     line-height: 4.375rem; 
     border-radius: 50%; 
     background-color: var(--color-light-primary);
-    border: 0.063rem solid #3d3d3d;
+    border: 0.063rem solid var(--color-off-black);
     text-decoration: none;
-    color: #3d3d3d;
+    color: var(--color-off-black);
     text-align: var(--text-align);
     margin-bottom: 0.625rem;
     transition: background-color 0.3s ease;
@@ -52,9 +52,14 @@ form button:hover {
     color: var(--color-white);
 }
 
-button {
-    margin-left: 1.25rem;
-    margin-bottom: 0.625rem; 
+a{
+    text-decoration: none;
+    color: var(--color-white);
+}
+
+a:hover{
+    text-decoration: none;
+    color: var(--color-primary);
 }
 
 .fixed-position{

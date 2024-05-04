@@ -16,7 +16,7 @@ img{
 
 
 .manager_detail {
-    color: black;
+    color: var(--color-black);
     text-decoration: none; 
 }
 
@@ -35,17 +35,17 @@ img{
 .newmanager{
     display: inline-block;
     padding: 0.938rem 2.5rem;
-    background-color: #fff; 
-    color: #3d3d3d; 
+    background-color: var(--color-white); 
+    color: var(--color-off-black); 
     text-decoration: none;
     border-radius: 0.313rem;
     font-weight: bold;
-    border: 0.063rem solid #3d3d3d; 
+    border: 0.063rem solid var(--color-off-black); 
     transition: background-color 0.3s ease;
 }
 .newmanager:hover{
-  background-color: #3d3d3d; 
-  color: #fff;   
+  background-color: var(--color-off-black); 
+  color: var(--color-white);   
 }
 
 .inline {
