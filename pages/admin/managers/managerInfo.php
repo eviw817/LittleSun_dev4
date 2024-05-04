@@ -1,18 +1,11 @@
 <?php
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
-
-    function getManagerById($managerId){
-        $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT u.*, l.name FROM users u LEFT JOIN locations l ON u.location = l.id WHERE u.id = :id AND role = 'manager'");
-        $statement->execute([":id" => $managerId]);
-        $result = $statement->fetch(PDO::FETCH_ASSOC);
-        return $result;
-    }
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
     
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
         // Haal de manager op met de opgegeven ID
-        $manager = getManagerById($id);
+        $manager = Manager::getManagerById($id);
         if (!$manager) {
             echo "Manager not found";
             die(); // Stop verdere uitvoering van de code

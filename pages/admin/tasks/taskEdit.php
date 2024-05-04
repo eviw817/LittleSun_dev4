@@ -60,9 +60,14 @@ if(isset($_POST['submit'])){
                 <label for="category">Category</label>
                 <input type="text" name="category" value="<?php echo isset($task['category']) ? $task['category'] : ''; ?>">
             </div>
-            <div class="form__field">
-                <label for="progress">Progress</label>
-                <input type="text" name="progress" value="<?php echo isset($task['progress']) ? $task['progress'] : ''; ?>">
+            <div class="form__field filter">
+                <label for="filter">Progress</label>
+                <select name="filter" id="filter">
+                    <option value="-1">No progress</option>
+                    <?php foreach (Task::fetchProgress() as $progress) : ?>
+                        <option value="<?php echo $progress["progress"] ?>"><?php echo $progress["progress"] ?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
             <div class="form__field">
                 <label for="startDate">Start Date</label>

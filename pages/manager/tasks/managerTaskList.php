@@ -10,7 +10,7 @@
     <title>Task List</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./taskList.css">
+    <link rel="stylesheet" href="./managerTaskList.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
@@ -32,15 +32,11 @@
 
         <ul class="taskList">
             <?php foreach(Task::getTasks() as $task) : ?> 
-                <a href="taskInfo.php?id=<?php echo $task["id"] ?>" class="taskDetail"><li><?php echo $task['name']; ?> 
+                <a href="managerTaskAssign.php?id=<?php echo $task["id"] ?>" class="taskDetail"><li><?php echo $task['name']; ?> 
                 </li></a>
             <?php endforeach; ?>
         </ul>
     </section>
-
-    <div class="button fixed-position">
-    <a href="taskRemove.php">Add or remove tasks</a>
-    </div>
 </main>   
 </body>
 </html>

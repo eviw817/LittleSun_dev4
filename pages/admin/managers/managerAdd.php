@@ -1,13 +1,14 @@
 <?php
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 
-function getLocation()
+// wat doet dit? - Evi
+/*function getLocation()
 {
     $conn = Db::getConnection();
     $statement = $conn->prepare("SELECT name FROM users");
     $statement->execute();
     return $statement->fetchAll(PDO::FETCH_ASSOC);
-}
+}*/
 
 if (!empty($_POST)) {
     try {

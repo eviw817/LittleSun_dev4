@@ -1,31 +1,13 @@
 <?php
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
-
-// Functie om managergegevens op te halen op basis van ID
-function getManagerById($managerId)
-{
-    $conn = Db::getConnection();
-    $statement = $conn->prepare("SELECT u.*, l.name FROM users u LEFT JOIN locations l ON u.location = l.id WHERE u.id = :id AND role = 'manager'");
-    $statement->execute([":id" => $managerId]);
-    $result = $statement->fetch(PDO::FETCH_ASSOC);
-    return $result;
-}
-
-// Functie om alle locatienamen en IDs op te halen
-function getLocations()
-{
-    $conn = Db::getConnection();
-    $statement = $conn->prepare("SELECT id, name FROM locations");
-    $statement->execute();
-    $result = $statement->fetchAll();
-    return $result;
-}
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Location.php");
 
 // Controleren of er een manager ID is opgegeven in de URL
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     // Managergegevens ophalen
-    $manager = getManagerById($id);
+    $manager = Manager::getManagerById($id);
     // Controleren of de manager bestaat
     if (!$manager) {
         echo "Manager not found";
@@ -38,22 +20,14 @@ if (isset($_GET['id'])) {
 }
 
 if (isset($_POST['submit'])) {
-    $conn = Db::getConnection();
     if ($_POST['location'] == "-1") {
         $location = null;
     } else {
         $location = $_POST["location"];
     }
-    $statement = $conn->prepare("UPDATE users SET username = :username, email = :email, role = :role, location = :location, firstName = :firstName, lastName = :lastName WHERE id = :id");
-    $statement->execute([
-        ":username" => $_POST['username'],
-        ":email" => $_POST['email'],
-        ":role" => $_POST['role'],
-        ":location" => $location,
-        ":firstName" => $_POST['firstName'],
-        ":lastName" => $_POST['lastName'],
-        ":id" => $id
-    ]);
+
+    $manager = new Manager($_POST["username"], $_POST["email"], $_POST["password"], $_POST["role"], $location, $_POST["firstName"], $_POST["lastName"]);
+    $manager->updateInfo($id);
 
     if (isset($_POST["new-password"])) {
         $newPassword = $_POST["new-password"];
@@ -121,7 +95,7 @@ if (isset($_POST['submit'])) {
                 <label for="location">Location:</label>
                 <select name="location" id="location">
                     <option value="-1">No location</option>
-                    <?php foreach (getLocations() as $location) : ?>
+                    <?php foreach (Location::getLocations() as $location) : ?>
                         <option value="<?php echo $location["id"] ?>" <?php echo ($location["id"] == $manager['location']) ? 'selected' : ''; ?>><?php echo $location["name"] ?></option>
                     <?php endforeach; ?>
                 </select>

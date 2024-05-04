@@ -40,4 +40,36 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
                 return $managers;
             }
         }
+
+        // Functie om managergegevens op te halen op basis van ID
+        public static function getManagerById($managerId)
+        {
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT u.*, l.name FROM users u LEFT JOIN locations l ON u.location = l.id WHERE u.id = :id AND role = 'manager'");
+            $statement->execute([":id" => $managerId]);
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        }
+
+        public function updateInfo($managerId){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("UPDATE users SET username = :username, email = :email, role = :role, location = :location, firstName = :firstName, lastName = :lastName WHERE id = :id");
+            $statement->execute([
+                ":username" => $this->username,
+                ":email" => $this->email,
+                ":role" => $this->role,
+                ":location" => $this->location,
+                ":firstName" => $this->firstName,
+                ":lastName" => $this->lastName,
+                ":id" => $managerId
+            ]);
+        }
+
+        // Functie om de lijst van hub managers op te halen
+        public function getHubManagerName(){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT id, username, image FROM users WHERE role = 'manager'");
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
     }

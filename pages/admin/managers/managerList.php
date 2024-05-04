@@ -1,13 +1,7 @@
 <?php
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
-
-    // Functie om de lijst van hub managers op te halen
-    function getHubManagerName(){
-        $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT id, username, image FROM users WHERE role = 'manager'");
-        $statement->execute();
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php.php");
+    
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +18,7 @@
 <?php include_once("../../../components/header2.inc.php"); ?>
     <h1 class="title">Hub managers</h1>
     <div class="inline">
-    <?php foreach(getHubManagerName() as $manager) : ?> 
+    <?php foreach(Manager::getHubManagerName() as $manager) : ?> 
         <div class="flex">
             <a href="manager.php?id=<?php echo $manager['id']; ?>" class="manager_detail">
                 <p><?php echo $manager['username']; ?></p>

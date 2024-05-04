@@ -46,7 +46,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
         static function getByTask($taskId)
         {
             $conn = Db::getConnection();
-            $statement = $conn->prepare("SELECT u.*, t.name FROM users u LEFT JOIN users_tasks ut ON ut.tasks_id = u.id LEFT JOIN tasks t ON ut.tasks_id = t.id");
+            $statement = $conn->prepare("SELECT u.*, t.name FROM users u LEFT JOIN users_tasks ut ON ut.task_id = u.id LEFT JOIN tasks t ON ut.task_id = t.id WHERE t.id =  :id");
             $statement->execute([":id" => $taskId]);
             $results = $statement->fetchAll();
             if (!$results) {

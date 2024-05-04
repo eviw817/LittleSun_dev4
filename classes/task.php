@@ -135,11 +135,11 @@
             $statement = $conn->prepare("UPDATE tasks SET name = :name, description = :description, category = :category, progress = :progress, startDate = :startDate, endDate = :endDate WHERE id = :id");
             $statement->execute([
                 ":name" => $this->name,
-                ":street" => $this->description,
-                ":streetNumber" => $this->category,
-                ":city" => $this->progress,
-                ":country" => $this->startDate,
-                ":postalCode" => $this->endDate,
+                ":description" => $this->description,
+                ":category" => $this->category,
+                ":progress" => $this->progress,
+                ":startDate" => $this->startDate,
+                ":endDate" => $this->endDate,
                 ":id" => $this->id
             ]);
             } else{
@@ -152,7 +152,7 @@
         public static function getTaskById($taskId)
         {
             $conn = Db::getConnection();
-            $statement = $conn->prepare("SELECT t.*, u.username FROM tasks t LEFT JOIN users_tasks ut ON ut.tasks_id = t.id LEFT JOIN users u ON ut.users_id = u.id");
+            $statement = $conn->prepare("SELECT t.*, u.username FROM tasks t LEFT JOIN users_tasks ut ON ut.task_id = t.id LEFT JOIN users u ON ut.user_id = u.id WHERE t.id = :id");
             $statement->execute([":id" => $taskId]);
             $result = $statement->fetch(PDO::FETCH_ASSOC);
             return $result;
@@ -171,6 +171,20 @@
             $conn = Db::getConnection();
             $statement = $conn->prepare("DELETE FROM tasks WHERE id = :id");
             $statement->execute([":id" => $taskId]);
+        }
+
+        public static function fetchAllCategories(){
+                $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT DISTINCT category FROM tasks");
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public static function fetchProgress(){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT DISTINCT progress FROM tasks");
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
         
     }

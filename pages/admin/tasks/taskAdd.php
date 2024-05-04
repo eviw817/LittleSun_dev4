@@ -59,9 +59,14 @@ if(!empty($_POST)){
                 <label for="category">Category</label>
                 <input type="text" name="category" id="category">
             </div>
-            <div class="form__field">
+            <div class="form__field filter">
                 <label for="progress">Progress</label>
-                <input type="text" name="progress" id="progress">
+                <select name="progress" id="progress">
+                    <option value="Unassigned">Unassiged</option>
+                    <option value="Not Started">Not Started</option>
+                    <option value="Ongoing">Ongoing</option>
+                    <option value="Done">Done</option>
+                </select>
             </div>
             <div class="form__field">
                 <label for="startDate">Start Date</label>

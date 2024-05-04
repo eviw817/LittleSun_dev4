@@ -2,22 +2,9 @@
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 
-/* Geeft Hub details terug gebaseerd op de meegegeven ID*/
-function getHubLocationById($hubId){
-    $conn = Db::getConnection();
-    $statement = $conn->prepare("SELECT * FROM locations WHERE id = :id");
-    $statement->execute([":id" => $hubId]);
-    $result = $statement->fetch(PDO::FETCH_ASSOC);
-    if(!$result){
-        return null;
-    } else {
-        return $result;
-    }
-}
-
 $error = null;
 $managersAssigned = false;
-$hub = getHubLocationById($_GET["id"]);
+$hub = Location::getLocationById($_GET["id"]);
 $managers = Manager::getByLocation($_GET["id"]);
 if(!isset($hub)){
    $error = "The asked hub doesn't exist";
