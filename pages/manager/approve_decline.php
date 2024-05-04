@@ -10,8 +10,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['approve'])) {
         $requestId = $_POST['requestId'];
         // Query om de goedkeuringsstatus van de verlofaanvraag bij te werken naar goedgekeurd
-        $sql = "UPDATE absence_requests SET approvalStatus='Approved' WHERE id=$requestId";
-        if ($conn->query($sql) === TRUE) {
+        $sql = "UPDATE absence_requests SET approvalStatus='Approved' WHERE id=:requestId";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':requestId', $requestId, PDO::PARAM_INT);
+        if ($stmt->execute()) {
             echo "Absence request approved successfully.";
         } else {
             echo "Error updating record: " . $conn->error;
@@ -19,19 +21,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif(isset($_POST['reject'])) {
         $requestId = $_POST['requestId'];
         $reason = $_POST['reason'];
-        // Query om de goedkeuringsstatus van de verlofaanvraag bij te werken naar afgewezen en de reden op te slaan
-        $sql = "UPDATE absence_requests SET approvalStatus='Rejected', rejectionReason='$reason' WHERE id=$requestId";
-        if ($conn->query($sql) === TRUE) {
-            echo "Absence request rejected successfully.";
+        // Zorg ervoor dat er een reden wordt ingevuld bij afwijzing
+        if(empty($reason)) {
+            echo "Please provide a reason for rejection.";
         } else {
-            echo "Error updating record: " . $conn->error;
+            // Query om de goedkeuringsstatus van de verlofaanvraag bij te werken naar afgewezen en de reden op te slaan
+            $sql = "UPDATE absence_requests SET approvalStatus='Rejected', rejectionReason=:reason WHERE id=:requestId";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':requestId', $requestId, PDO::PARAM_INT);
+            $stmt->bindParam(':reason', $reason, PDO::PARAM_STR);
+            if ($stmt->execute()) {
+                echo "Absence request rejected successfully.";
+            } else {
+                echo "Error updating record: " . $conn->error;
+            }
         }
     }
 }
 
 // Verlofaanvragen ophalen uit de database
 $sql = "SELECT * FROM absence_requests";
-$result = $conn->query($sql);
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -57,9 +69,9 @@ $result = $conn->query($sql);
             <th>Action</th>
         </tr>
         <?php
-        if ($result->rowCount() > 0) {
+        if ($result) {
             // Uitvoer van gegevens van elke rij
-            while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            foreach($result as $row) {
                 echo "<tr>";
                 echo "<td>" . $row["startDateTime"] . "</td>";
                 echo "<td>" . $row["endDateTime"] . "</td>";
@@ -69,7 +81,11 @@ $result = $conn->query($sql);
                 // Knoppen om goed te keuren of af te wijzen
                 echo "<form method='post' action=''>";
                 echo "<input type='hidden' name='requestId' value='" . $row["id"] . "'>";
-                echo "<input type='text' name='reason' placeholder='Reason for rejection' required>";
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['approve'])) {
+                    echo "<input type='hidden' name='reason' value=''>";
+                } else {
+                    echo "<input type='text' name='reason' placeholder='Reason for rejection'>";
+                }
                 echo "<button type='submit' name='approve'>Approve</button>";
                 echo "<button type='submit' name='reject'>Reject</button>";
                 echo "</form>";
