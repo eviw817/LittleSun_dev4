@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Query om de goedkeuringsstatus van de verlofaanvraag bij te werken naar goedgekeurd
         $sql = "UPDATE absence_requests SET approvalStatus='Approved' WHERE id=:requestId";
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':requestId', $requestId, PDO::PARAM_INT);
+        $stmt->bindValue(':requestId', $requestId, PDO::PARAM_INT);
         if ($stmt->execute()) {
             echo "Absence request approved successfully.";
         } else {
@@ -28,8 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Query om de goedkeuringsstatus van de verlofaanvraag bij te werken naar afgewezen en de reden op te slaan
             $sql = "UPDATE absence_requests SET approvalStatus='Rejected', rejectionReason=:reason WHERE id=:requestId";
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':requestId', $requestId, PDO::PARAM_INT);
-            $stmt->bindParam(':reason', $reason, PDO::PARAM_STR);
+            $stmt->bindValue(':requestId', $requestId, PDO::PARAM_INT);
+            $stmt->bindValue(':reason', $reason, PDO::PARAM_STR);
             if ($stmt->execute()) {
                 echo "Absence request rejected successfully.";
             } else {
