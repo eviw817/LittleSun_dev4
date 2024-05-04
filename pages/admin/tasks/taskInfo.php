@@ -44,7 +44,7 @@ if(!isset($task)){
                 echo "No user assigned";
             }
             ?></p>
-        <a class="button fixed-position" href="./editLocation.php?id=<?php echo $task["id"]; ?>">Edit location</a>
+        <a class="button fixed-position" href="./taskEdit.php?id=<?php echo $task["id"]; ?>">Edit task</a>
     </section>
     </main>
      

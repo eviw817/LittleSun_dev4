@@ -48,7 +48,7 @@
         <?php endforeach; ?>
     </ul>
 
-    <button class="button fixed-position" onclick="window.task.href='taskAdd.php'">Add task +</button>
+    <a class="button fixed-position" href="taskAdd.php">Add task +</a>
 
 </body>
 

@@ -7,15 +7,15 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
         private string $id;
         private string $name;
         private string $street;
-        private string $streetnumber;
+        private string $streetNumber;
         private string $city;
         private string $country;
         private string $postalcode;
 
-        public function __construct($name, $street, $streetnumber, $city, $country, $postalcode){
+        public function __construct($name, $street, $streetNumber, $city, $country, $postalcode){
             $this->name = $name;
             $this->street = $street;
-            $this->streetnumber = $streetnumber;
+            $this->streetNumber = $streetNumber;
             $this->city = $city;
             $this->country = $country;
             $this->postalcode = $postalcode;
@@ -66,19 +66,19 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
             return $this->street;
         }
 
-        //Set the value of streetnumber
-        public function setStreetnumber($streetnumber)
+        //Set the value of streetNumber
+        public function setStreetnumber($streetNumber)
         {
-            if (!empty($streetnumber)) {
-                $this->streetnumber = $streetnumber; //this: het huidige object dat je mee werkt
+            if (!empty($streetNumber)) {
+                $this->streetNumber = $streetNumber; //this: het huidige object dat je mee werkt
             } else {
                 throw new Exception("streetnumber cannot be empty");
             }
         }
-        //Get the value of streetnumber
-        public function getStreetnumber()
+        //Get the value of streetNumber
+        public function getStreetNumber()
         {
-            return $this->streetnumber;
+            return $this->streetNumber;
         }
 
         //Set the value of city
@@ -134,7 +134,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
             $statement = $conn->prepare("INSERT INTO locations (name, street, streetNumber, city, country, postalCode) VALUES (:name, :street, :streetNumber, :city, :country, :postalCode);");
             $statement->bindValue(":name", $this->name);
             $statement->bindValue(":street", $this->street);
-            $statement->bindValue(":streetNumber", $this->streetnumber);
+            $statement->bindValue(":streetNumber", $this->streetNumber);
             $statement->bindValue(":city", $this->city);
             $statement->bindValue(":country", $this->country);
             $statement->bindValue(":postalCode", $this->postalcode);
@@ -155,7 +155,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
             $statement->execute([
                 ":name" => $this->name,
                 ":street" => $this->street,
-                ":streetNumber" => $this->streetnumber,
+                ":streetNumber" => $this->streetNumber,
                 ":city" => $this->city,
                 ":country" => $this->country,
                 ":postalCode" => $this->postalcode,

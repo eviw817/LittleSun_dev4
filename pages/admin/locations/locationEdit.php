@@ -20,7 +20,7 @@ if (isset($_GET['id'])) {
 
 if(isset($_POST['submit'])){
     // Verwerk de formuliargegevens en update de gegevens in de database
-    $location = new Location($_POST["name"], $_POST["street"], $_POST["streetnumber"], $_POST["city"], $_POST["country"], $_POST["postalCode"]);
+    $location = new Location($_POST["name"], $_POST["street"], $_POST["streetNumber"], $_POST["city"], $_POST["country"], $_POST["postalCode"]);
     $location->setId($id);
     $location->updateLocation();
     

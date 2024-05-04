@@ -1,4 +1,5 @@
 <?php
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "/../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "/../../../classes/task.php");
 
 // Initialiseer de foutmelding
@@ -8,11 +9,11 @@ $error = '';
 if(!empty($_POST)){
     try {
         
-        // Maak een nieuw Location object en stel de gegevens in
-        $location = new Task($_POST['name'], $_POST['description'], $_POST['category'], $_POST['progress'], $_POST['startDate'], $_POST['endDate']);
+        // Maak een nieuw Task object en stel de gegevens in
+        $task = new Task($_POST['name'], $_POST['description'], $_POST['category'], $_POST['progress'], $_POST['startDate'], $_POST['endDate']);
 
-        // Voeg de locatie toe aan de database
-        $location->saveTask();
+        // Voeg de task toe aan de database
+        $task->saveTask();
 
         // Redirect naar de gewenste pagina na succesvolle verwerking
         header("Location: taskList.php");
@@ -38,12 +39,12 @@ if(!empty($_POST)){
 </head>
 <body>
 <?php include_once("../../../components/header2.inc.php"); ?>
-    <section class="form add_location">
+    <section class="form add_tasks">
         <?php if(!empty($error)): ?>
             <div class="error">Error: <?php echo $error; ?></div>
         <?php endif; ?> 
 
-        <form action="addLocation.php" method="post">
+        <form action="taskAdd.php" method="post">
             <h2 class="form__title">New task</h2>
 
             <div class="form__field">

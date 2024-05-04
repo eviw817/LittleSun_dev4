@@ -1,6 +1,6 @@
 <?php
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/task.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/location.php");
 
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
         $locationId = $_POST["id"];
@@ -42,7 +42,7 @@
         <?php endforeach; ?>
     </ul>
 
-    <button class="button fixed-position" onclick="window.location.href='locationAdd.php'">Add location +</button>
+    <a class="button fixed-position" href="./locationAdd.php?id=<?php echo $hub["id"]; ?>">Add location +</a>
 
 </body>
 
