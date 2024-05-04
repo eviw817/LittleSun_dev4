@@ -25,7 +25,7 @@ if(isset($_POST['submit'])){
     $location->updateLocation();
     
     // Redirect naar de detailpagina met de bijgewerkte gegevens
-    header("Location: location.php?id=$id");
+    header("Location: locationInfo.php?id=$id");
     exit();
 }
 
@@ -39,12 +39,12 @@ if(isset($_POST['submit'])){
     <title>Edit hub location</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./add_editLocation.css">
+    <link rel="stylesheet" href="./LocationAdd_Edit.css">
 </head>
 <body>
     <?php include_once("../../../components/header2.inc.php"); ?>
     <div class="form edit_location">
-    <form action="editLocation.php?id=<?php echo $location['id']; ?>" method="post">
+    <form action="locationEdit.php?id=<?php echo $location['id']; ?>" method="post">
 
             <h2 class="form__title">Edit hub location</h2>
 

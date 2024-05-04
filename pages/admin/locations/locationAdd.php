@@ -15,7 +15,7 @@ if(!empty($_POST)){
         $location->saveLocation();
 
         // Redirect naar de gewenste pagina na succesvolle verwerking
-        header("Location: hubLocation.php");
+        header("Location: locationList.php");
         exit();
     }
     catch(Exception $e){
@@ -34,7 +34,7 @@ if(!empty($_POST)){
     <title>Add location</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./add_editLocation.css">
+    <link rel="stylesheet" href="./LocationAdd_Edit.css">
 </head>
 <body>
 <?php include_once("../../../components/header2.inc.php"); ?>

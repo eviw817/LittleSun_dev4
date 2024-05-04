@@ -31,10 +31,10 @@ if(!isset($hub)){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Location</title>
+    <title>Location Information</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./location.css">
+    <link rel="stylesheet" href="./locationInfo.css">
 </head>
 <body>
     <?php include_once("../../../components/header2.inc.php"); ?>
@@ -57,7 +57,7 @@ if(!isset($hub)){
                 echo "No manager assigned";
             }
             ?></p>
-        <a class="button fixed-position" href="./editLocation.php?id=<?php echo $hub["id"]; ?>">Edit location</a>
+        <a class="button fixed-position" href="./locationEdit.php?id=<?php echo $hub["id"]; ?>">Edit location</a>
     </section>
     </main>
      

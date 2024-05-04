@@ -107,5 +107,70 @@
                 return $this->endDate;
         }
 
+        public function saveTask()
+        {
+            $conn = Db::getConnection();
+
+            // Prepare query (INSERT) + bind
+            $statement = $conn->prepare("INSERT INTO tasks (name, description, category, progress, startDate, endDate) VALUES (:name, :description, :category, :progress, :startDate, :endDate);");
+            $statement->bindValue(":name", $this->name);
+            $statement->bindValue(":description", $this->description);
+            $statement->bindValue(":category", $this->category);
+            $statement->bindValue(":progress", $this->progress);
+            $statement->bindValue(":startDate", $this->startDate);
+            $statement->bindValue(":endDate", $this->endDate);
+
+            // Execute
+            $processed = $statement->execute();
+            if ($processed) {
+                return $processed;
+            } else {
+                throw new Exception("Task couldn't be added into the database");
+            }
+        }
+
+        public function updateTask(){
+            if(!empty($this->id)){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("UPDATE tasks SET name = :name, description = :description, category = :category, progress = :progress, startDate = :startDate, endDate = :endDate WHERE id = :id");
+            $statement->execute([
+                ":name" => $this->name,
+                ":street" => $this->description,
+                ":streetNumber" => $this->category,
+                ":city" => $this->progress,
+                ":country" => $this->startDate,
+                ":postalCode" => $this->endDate,
+                ":id" => $this->id
+            ]);
+            } else{
+                throw new Exception("id is not set.");
+            }
+        }
+
+        //taskEdit
+        // Functie om taakgegevens op te halen op basis van ID
+        public static function getTaskById($taskId)
+        {
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT t.*, u.username FROM tasks t LEFT JOIN users_tasks ut ON ut.tasks_id = t.id LEFT JOIN users u ON ut.users_id = u.id");
+            $statement->execute([":id" => $taskId]);
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        }
+
+        //database geeft mij de zaken die er al in staan voor task
+        public static function getTasks(){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT id, name FROM tasks");
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public static function deleteTask($taskId)
+        {
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("DELETE FROM tasks WHERE id = :id");
+            $statement->execute([":id" => $taskId]);
+        }
         
     }

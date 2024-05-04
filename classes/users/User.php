@@ -41,4 +41,22 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
             $result = $statement->fetch(PDO::FETCH_ASSOC);
             return $result;
         }
+
+        /* Zoekt voor alle users met een task gebaseerd op de Task ID*/
+        static function getByTask($taskId)
+        {
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT u.*, t.name FROM users u LEFT JOIN users_tasks ut ON ut.tasks_id = u.id LEFT JOIN tasks t ON ut.tasks_id = t.id");
+            $statement->execute([":id" => $taskId]);
+            $results = $statement->fetchAll();
+            if (!$results) {
+                return null;
+            } else {
+                $users = [];
+                foreach ($results as $result) {
+                    array_push($users, new User($result["id"], $result["username"], $result["email"], $result["password"], $result["role"], $result["location"], $result["firstName"], $result["lastName"], $result["image"]));
+                }
+                return $users;
+            }
+        }
     }

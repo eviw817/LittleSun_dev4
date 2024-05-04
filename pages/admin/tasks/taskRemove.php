@@ -2,13 +2,19 @@
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/task.php");
 
+    
+
+    
+
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
-        $locationId = $_POST["id"];
-        Location::deleteLocation($locationId);
+        $taskId = $_POST["id"];
+        Task::deleteTask($taskId);
         // Reload the page to reflect the changes
         header("Location: " . $_SERVER['PHP_SELF']);
         exit();
     }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -17,32 +23,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit location</title>
+    <title>Edit task</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./locationRemove.css">
+    <link rel="stylesheet" href="./taskRemove.css">
 </head>
 
 <body>
     <?php include_once("../../../components/header2.inc.php"); ?>
 
-    <h1>Hub location</h1>
-    <ul>
+    <h1>Task</h1>
+    <ul class="taskList">
 
-        <?php foreach (Location::getLocationName() as $key => $location) : ?>
+        <?php foreach (Task::getTasks() as $key => $task) : ?>
             <li>
                 <section>
-                    <a href="locationInfo.php?id=<?php echo ($key + 1) ?>" class="location_detail"><?php echo $location['name']; ?> </a>
-                    <form action="" method="post" onsubmit="return confirm('Are you sure you want to delete this location?')">
-                        <input type="hidden" name="id" value="<?php echo $location['id']; ?>">
-                        <button type="submit">Remove location</button>
+                    <a href="taskInfo.php?id=<?php echo ($key + 1) ?>" class="task_detail"><?php echo $task['name']; ?> </a>
+                    <form action="" method="post" onsubmit="return confirm('Are you sure you want to delete this task?')">
+                        <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
+                        <button type="submit">Remove task</button>
                     </form>
                 </section>
             </li>
         <?php endforeach; ?>
     </ul>
 
-    <button class="button fixed-position" onclick="window.location.href='locationAdd.php'">Add location +</button>
+    <button class="button fixed-position" onclick="window.task.href='taskAdd.php'">Add task +</button>
 
 </body>
 

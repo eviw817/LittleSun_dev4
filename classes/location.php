@@ -203,7 +203,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
             }
         }
 
-        //editLocation
+        //locationEdit
         // Functie om locatiegegevens op te halen op basis van ID
         public static function getLocationById($locationId)
         {
@@ -212,8 +212,29 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
             $statement->execute([":id" => $locationId]);
             $result = $statement->fetch(PDO::FETCH_ASSOC);
             return $result;
-            var_dump($conn);
         }
 
+        //database geeft mij de zaken die er al in staan voor location
+        public static function getLocations(){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT id, name FROM locations");
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public static function getLocationName()
+        {
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT id, name FROM locations");
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public static function deleteLocation($locationId)
+        {
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("DELETE FROM locations WHERE id = :id");
+            $statement->execute([":id" => $locationId]);
+        }
         
     }
