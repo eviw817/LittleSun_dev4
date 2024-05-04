@@ -1,47 +1,64 @@
-/* CSS voor deze specifieke pagina (approve_decline.css) */
-
-.-dashboard {
-    margin: 20px auto;
-    padding: 20px;
-    max-width: 600px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+/* SHARED */
+body {
+    font-family: 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-color: #f4f4f4;
 }
 
 h1 {
-    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #000;
 }
 
 h2 {
-    margin-bottom: 10px;
+    font-size: 1.25rem;
 }
 
-.success-message {
-    margin-bottom: 10px;
-    color: green;
+.-dashboard {
+    padding: 2rem;
 }
 
-.request-actions {
-    margin-top: 20px;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
 }
 
-.approve-btn, .decline-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    margin-right: 10px;
-    border-radius: 5px;
-    text-decoration: none;
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+input[type='text'] {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.313rem;
+    border: 1px solid #ccc;
+    margin-bottom: 0.5rem;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.313rem;
+    cursor: pointer;
+}
+
+button[name='approve'] {
+    background-color: #ffdd00;
+    color: #000;
+    margin-right: 0.5rem;
+}
+
+button[name='reject'] {
+    background-color: #3d3d3d;
     color: #fff;
-    background-color: #007bff;
 }
-
-.decline-btn {
-    background-color: #dc3545;
-}
-
-.approve-btn:hover, .decline-btn:hover {
-    background-color: #0056b3;
-}
-
-/* Overige stijlen kunnen naar behoefte worden toegevoegd */
