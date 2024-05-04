@@ -12,6 +12,18 @@
         protected string $lastName;
         protected string $image;
 
+        public function __construct($id, $username, $email, $password, $role, $location, $firstName, $lastName, $image){
+            $this->id = $id;
+            $this->username = $username;
+            $this->email = $email;
+            $this->password = $password;
+            $this->role = $role;
+            $this->location = $location;
+            $this->firstName = $firstName;
+            $this->lastName = $lastName;
+            $this->image = $image;
+        }
+
         //Set the value of id
         public function setId($id)
         {
@@ -28,9 +40,12 @@
         //Set the value of username
         public function setUsername($username)
         {
-            $this->username = $username;
-
-            return $this;
+            if(!empty($username)){
+                $this->username = $username; //this: het huidige object dat je mee werkt
+            }
+            else{
+                throw new Exception("username cannot be empty");
+            }
         }
         //Get the value of username
         public function getUsername()
@@ -41,7 +56,7 @@
         //Set the value of email
         public function setEmail($email)
         {
-                $this->email = $email;
+            $this->email = $email;
 
                 return $this;
         }
@@ -54,9 +69,12 @@
         //Set the value of password
         public function setPassword($password)
         {
-                $this->password = $password;
-
-                return $this;
+            if(!empty($password)){
+                $this->password = $password; //this: het huidige object dat je mee werkt
+            }
+            else{
+                throw new Exception("password cannot be empty");
+            }
         }
         //Get the value of password
         public function getPassword()
@@ -67,9 +85,12 @@
         //Set the value of role
         public function setRole($role)
         {
-                $this->role = $role;
-
-                return $this;
+            if(!empty($role)){
+                $this->role = $role; //this: het huidige object dat je mee werkt
+            }
+            else{
+                throw new Exception("role cannot be empty");
+            }
         }
         //Get the value of role
         public function getRole()
@@ -93,9 +114,12 @@
         //Set the value of firstName
         public function setFirstName($firstName)
         {
-                $this->firstName = $firstName;
-
-                return $this;
+            if(!empty($firstName)){
+                $this->firstName = $firstName; //this: het huidige object dat je mee werkt
+            }
+            else{
+                throw new Exception("firstname cannot be empty");
+            }
         }
         //Get the value of firstName
         public function getFirstName()
@@ -106,9 +130,12 @@
         //Set the value of lastName
         public function setLastName($lastName)
         {
-                $this->lastName = $lastName;
-
-                return $this;
+            if(!empty($lastName)){
+                $this->lastName = $lastName; //this: het huidige object dat je mee werkt
+            }
+            else{
+                throw new Exception("lastname cannot be empty");
+            }
         }
         //Get the value of lastName
         public function getLastName()

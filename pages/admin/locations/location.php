@@ -1,19 +1,6 @@
 <?php
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
-
-/* Zoekt voor alle managers in een locatie gebaseerd op de Location ID*/
-function getManagersByLocation($locationId){
-    $con = Db::getConnection();
-    $statement = $con->prepare("SELECT * FROM users WHERE location = :id AND role = 'manager'");
-    $statement->execute([":id" => $locationId]);
-    $results = $statement->fetchAll();
-    if(!$results){
-        return null;
-    } else {
-        return $results;
-    }
-    
-}
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 
 /* Geeft Hub details terug gebaseerd op de meegegeven ID*/
 function getHubLocationById($hubId){
@@ -31,7 +18,7 @@ function getHubLocationById($hubId){
 $error = null;
 $managersAssigned = false;
 $hub = getHubLocationById($_GET["id"]);
-$managers = getManagersByLocation($_GET["id"]);
+$managers = Manager::getByLocation($_GET["id"]);
 if(!isset($hub)){
    $error = "The asked hub doesn't exist";
 } else if(isset($managers)){
@@ -64,7 +51,7 @@ if(!isset($hub)){
             <?php 
             if ($managers) {
                 foreach ($managers as $manager) {
-                    echo $manager["firstName"] . " " . $manager["lastName"] . "<br>";
+                    echo $manager->getFirstname() . " " . $manager->getLastname() . "<br>";
                 }
             } else {
                 echo "No manager assigned";
