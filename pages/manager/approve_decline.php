@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Verlofaanvragen ophalen uit de database
-$sql = "SELECT * FROM absence_requests";
+$sql = "SELECT * FROM absence_requests WHERE approvalStatus != 'Rejected' AND approvalStatus != 'Approved'";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
