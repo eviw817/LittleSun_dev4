@@ -1,0 +1,47 @@
+/* CSS voor deze specifieke pagina (approve_decline.css) */
+
+.-dashboard {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 600px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+.success-message {
+    margin-bottom: 10px;
+    color: green;
+}
+
+.request-actions {
+    margin-top: 20px;
+}
+
+.approve-btn, .decline-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+}
+
+.decline-btn {
+    background-color: #dc3545;
+}
+
+.approve-btn:hover, .decline-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Overige stijlen kunnen naar behoefte worden toegevoegd */
