@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     } elseif(isset($_POST['reject'])) {
         $requestId = $_POST['requestId'];
-        $reason = $_POST['reason'];
+        $reason = $_POST['reason_' . $requestId]; // Unieke identifier voor reden-veld
         // Zorg ervoor dat er een reden wordt ingevuld bij afwijzing
         if(empty($reason)) {
             echo "Please provide a reason for rejection.";
@@ -81,11 +81,8 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 // Knoppen om goed te keuren of af te wijzen
                 echo "<form method='post' action=''>";
                 echo "<input type='hidden' name='requestId' value='" . $row["id"] . "'>";
-                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['approve'])) {
-                    echo "<input type='hidden' name='reason' value=''>";
-                } else {
-                    echo "<input type='text' name='reason' placeholder='Reason for rejection'>";
-                }
+                // Unieke identifier voor reden-veld
+                echo "<input type='text' name='reason_" . $row["id"] . "' placeholder='Reason for rejection'>";
                 echo "<button type='submit' name='approve'>Approve</button>";
                 echo "<button type='submit' name='reject'>Reject</button>";
                 echo "</form>";
