@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->execute()) {
       $resultMessage = "Absence request submitted successfully.";
-      header("Location: success.php");
+      header("Location: successMessage.php");
       exit; // script stopt na de redirect
     } else {
       $resultMessage = "Error: Failed to submit absence request. Please try again later.";
