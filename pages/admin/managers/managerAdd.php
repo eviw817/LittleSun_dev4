@@ -13,7 +13,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php
 if (!empty($_POST)) {
     try {
         $manager = new Manager($_POST['username'], $_POST['email'], $_POST['password'], $_POST['role'], $_POST['location'], $_POST['firstName'], $_POST['lastName']);
-
+        // zet $_POST["role"] op "manager"? geen dropdown
         if (isset($_POST["img"])) {
             $manager->setImage('data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])));
         }

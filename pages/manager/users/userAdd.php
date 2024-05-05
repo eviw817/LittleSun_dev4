@@ -1,27 +1,29 @@
 <?php
 
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
+   
+    if(!empty($_POST)){
+        try {
+            $user = new User($_POST["username"], $_POST["email"], $_POST["password"], "user", $_POST["location"], $_POST["firstName"], $_POST["lastName"]);
+         
+            if(isset($_POST["img"])){
+                $user->setImage('data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])));
+            }
+         
+           $user->newUser();
 
-if (!empty($_POST)) {
-    try {
-
-        $user = new User($_POST["username"], $_POST["email"], $_POST["password"], $_POST["role"], $_POST["location"], $_POST["firstName"], $_POST["lastName"]);
-        
-        if (isset($_POST["img"])) {
-            $user->setImage('data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])));
+            header("Location: userInfo.php");
+            exit();
         }
-        
-        $user->newUser();
-
-        header("Location: userInfo.php");
-        exit();
-    } catch (Exception $e) {
-        $error = $e->getMessage();
+        catch(Exception $e){
+          $error = $e->getMessage();
+          
+        }
     }
-}
-?>
 
-<!DOCTYPE html>
+
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -29,24 +31,24 @@ if (!empty($_POST)) {
     <title>Add user</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./UserAdd.css">
+    <link rel="stylesheet" href="./userAdd.css">
+    
 </head>
 <body>
-    <?php include_once("../../../components/header2.inc.php"); ?>
-    
-    <?php if (isset($error)): ?>
-        <div class="text-red-500">Error: <?php echo $error; ?></div>
+<?php include_once("../../../components/header2.inc.php"); ?>
+    <?php if(isset($error)): ?>
+      <div class="text-red-500">Error: <?php echo $error; ?></div>
     <?php endif; ?> 
 
     <div class="form new_user">
-        <form action="addUser.php" method="post" enctype="multipart/form-data">
-            <h2 class="form__title">New user</h2>
+		<form action="userAdd.php" method="post" enctype="multipart/form-data">
+			<h2 form__title>New user</h2>
 
+            <div class="form__field">
             <div class="form__field">
                 <label for="username">Username:</label>
                 <input type="text" name="username" id="username">
             </div>
-
             <div class="form__field">
                 <label for="firstName">Firstname:</label>
                 <input type="text" name="firstName" id="firstName">
@@ -69,13 +71,13 @@ if (!empty($_POST)) {
       
             <div class="form__field">
                 <label for="img">Select image:</label>
-                <input type="file" id="img" name="img" accept="image/jpg, image/png">
+                <input type="file" id="img" name="img" accept="image/jpg, png">
             </div>           
            
             <div class="form__field">
                 <input type="submit" value="Save" class="btn-add">	
             </div>
-        </form>
-    </div>
+		</form>
+	</div>
 </body>
 </html>
