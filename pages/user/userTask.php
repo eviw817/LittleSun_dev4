@@ -12,6 +12,6 @@
 <?php include_once("../../components/header2.inc.php"); ?>
     <h1>Hi, Katy</h1>
     <h2>Your task:</h2>
-    <p>Toilet</p>
+    <p>Toilets</p>
 </body>
 </html>

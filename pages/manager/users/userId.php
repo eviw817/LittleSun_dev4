@@ -46,11 +46,23 @@ if (isset($_GET['id'])) {
                 <p>No profile picture available</p>
             <?php endif; ?>
         </div>
-        <?php if ($task) : ?>
-            <p>Task: <?php echo isset($task["name"]) ? $task["name"] : "N/A"; ?></p>
-        <?php else: ?>
-            <p>No task associated with this user</p>
-        <?php endif; ?>
+
+        <?php
+        
+        $tasks = User::getTaskFromUser($_GET['id']); // Use $user['id'] to fetch tasks for this user
+                        if ($tasks) {
+                            echo '<div class="task">';
+                            echo "<p>Tasks:</p>";
+                            echo "<ul class='taskList'>";
+                            foreach ($tasks as $task) {
+                                echo "<li>" . $task["name"] . "</li>";
+                            }
+                            echo "</ul>";
+                        } else {
+                            echo "<p>No tasks assigned</p>";
+                        }
+        
+        ?>
     <?php else: ?>
         <p>User data not available</p>
     <?php endif; ?>
