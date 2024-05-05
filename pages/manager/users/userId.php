@@ -2,7 +2,7 @@
  include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
  include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/User.php");
 
- $user = new User();
+ $user = new User($_POST["username"], $_POST["email"], $_POST["password"], $_POST["role"], $_POST["location"], $_POST["firstName"], $_POST["lastName"]);
  
  if (isset($_GET['id'])) {
      $userId = $_GET['id']; 
@@ -27,7 +27,6 @@
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
     <link rel="stylesheet" href="./userId.css">
-
 
 </head>
 <body>
