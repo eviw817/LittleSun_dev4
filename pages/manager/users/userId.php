@@ -5,8 +5,10 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
 // Assume User class returns user details as an associative array
 if (isset($_GET['id'])) {
     $userId = $_GET['id']; 
+    $taskId = $_GET['id']; 
     // Retrieve the user with the given id
     $user = User::getUserById($userId);
+    $task = User::getByTask($taskId);
 
     if (!$user) {
         echo "User not found";
@@ -44,6 +46,11 @@ if (isset($_GET['id'])) {
                 <p>No profile picture available</p>
             <?php endif; ?>
         </div>
+        <?php if ($task) : ?>
+            <p>Task: <?php echo isset($task["name"]) ? $task["name"] : "N/A"; ?></p>
+        <?php else: ?>
+            <p>No task associated with this user</p>
+        <?php endif; ?>
     <?php else: ?>
         <p>User data not available</p>
     <?php endif; ?>

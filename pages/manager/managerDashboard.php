@@ -10,12 +10,19 @@
 </head>
 <body>
 <?php include_once("../../components/header2.inc.php"); ?>
+  
+    <main>
+
     <h1>Manager Dashboard</h1>
 
-    <a href="users/userInfo.php"><h2>Users</h2></a>
-    <a href="hub/hubList.php"><h2>Hubs</h2></a>
+    <section>
+        <a href="users/userInfo.php">Users</a>
+        <a href="hub/hubList.php">Hubs</a>
+        <a href="./tasks/managerTaskList.php">Task list</a>
 
-    <a href="../login_logout/logout.php">Log Out</a>
-    
+        <a href="../login_logout/logout.php">Log Out</a>
+    </section>
+    </main>
 </body>
 </html>
+
