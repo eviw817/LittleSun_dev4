@@ -1,22 +1,17 @@
 <?php
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/location.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/location.php");
-
-//$hub = new Location($_POST["name"], $_POST["street"], $_POST["streetnumber"], $_POST["city"], $_POST["country"], $_POST["postalcode"]);
-
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
 
 $error = null;
 $managersAssigned = false;
 
-// Ophalen van de hublocatie en de bijbehorende managers
 $hubData = Location::getHubLocationById($_GET["id"]);
-$users = Location::getUsersByLocation($_GET["id"]);
 
-if(!$hubData){
-   $error = "The requested hub doesn't exist";
+if (!$hubData) {
+    $error = "The requested hub doesn't exist";
 } else {
-   $managersAssigned = true;
+    $managersAssigned = true;
 }
 ?>
 
@@ -37,14 +32,15 @@ if(!$hubData){
         <p><?php echo $error; ?></p>
     <?php else: ?>
         <h1>Hub: <?php echo $hubData["name"]; ?></h1>
-        <p> Street: <?php echo $hubData["street"]; ?></p>
-        <p> Streetnumber: <?php echo $hubData["streetNumber"]; ?></p>
-        <p> City: <?php echo $hubData["city"]; ?></p>
-        <p> Country: <?php echo $hubData["country"]; ?></p>
-        <p> Postalcode: <?php echo $hubData["postalCode"]; ?></p>
-        <p> Users: 
+        <p>Street: <?php echo $hubData["street"]; ?></p>
+        <p>Streetnumber: <?php echo $hubData["streetNumber"]; ?></p>
+        <p>City: <?php echo $hubData["city"]; ?></p>
+        <p>Country: <?php echo $hubData["country"]; ?></p>
+        <p>Postalcode: <?php echo $hubData["postalCode"]; ?></p>
+        <p>Users:</p>
         <div class="image-container">
             <?php 
+                $users = Location::getUsersByLocation($_GET["id"]);
                 if ($users) {
                     foreach ($users as $user) {
                         echo '<div class="user">';
@@ -55,13 +51,25 @@ if(!$hubData){
                         }
                         echo "<p class='name'>" . $user["firstName"] . " " . $user["lastName"] . "</p>";
                         echo '</div>';
+                        
+                        // Display tasks for each user
+                        $tasks = User::getTaskFromUser($_GET['id']); // Assuming $user['id'] represents the user ID
+                        if ($tasks) {
+                            echo "<p>Tasks:</p>";
+                            echo "<ul class='taskList'>";
+                            foreach ($tasks as $task) {
+                                echo "<li>" . $task["name"] . "</li>";
+                            }
+                            echo "</ul>";
+                        } else {
+                            echo "No tasks assigned";
+                        }
                     }
                 } else {
-                    echo "No user assigned";
-                }?>
-            <?php endif; ?> 
-            
+                    echo "No users assigned";
+                }
+            ?>
         </div>
-        
+    <?php endif; ?> 
 </body>
 </html>

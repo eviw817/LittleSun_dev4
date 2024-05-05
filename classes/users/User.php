@@ -65,4 +65,17 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
             $statement = $conn->query("SELECT * FROM users u WHERE role = 'user'");
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
+
+        public static function getTaskFromUser($taskId){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT u.*, t.name 
+                                         FROM users u 
+                                         LEFT JOIN users_tasks ut ON ut.user_id = u.id 
+                                         LEFT JOIN tasks t ON ut.task_id = t.id 
+                                         WHERE u.id = :id");
+            $statement->bindValue(':id', $taskId, PDO::PARAM_INT);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+        
     }

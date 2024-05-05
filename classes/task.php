@@ -200,4 +200,6 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "Db.php");
                     throw new Exception("User could not be assigned.");
                 }
         }
+
+    
     }

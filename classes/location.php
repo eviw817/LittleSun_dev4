@@ -203,20 +203,6 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
             }
         }
 
-        //hubId
-        public static function getUserTask($taskId)
-        {
-            $conn = Db::getConnection();
-            $statement = $conn->prepare("SELECT * FROM locations WHERE id = :id");
-            $statement->execute([":id" => $taskId]);
-            $result = $statement->fetch(PDO::FETCH_ASSOC);
-            if (!$result) {
-                return null;
-            } else {
-                return $result;
-            }
-        }
-
         //locationEdit
         // Functie om locatiegegevens op te halen op basis van ID
         public static function getLocationById($locationId)
