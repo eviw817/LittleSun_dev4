@@ -50,11 +50,11 @@ if (!$hubData) {
                             echo '</div>';
                         }
                         echo "<p class='name'>" . $user["firstName"] . " " . $user["lastName"] . "</p>";
-                        echo '</div>';
                         
                         // Display tasks for each user
-                        $tasks = User::getTaskFromUser($_GET['id']); // Assuming $user['id'] represents the user ID
+                        $tasks = User::getTaskFromUser($_GET['id']); // Use $user['id'] to fetch tasks for this user
                         if ($tasks) {
+                            echo '<div class="task">';
                             echo "<p>Tasks:</p>";
                             echo "<ul class='taskList'>";
                             foreach ($tasks as $task) {
@@ -62,8 +62,11 @@ if (!$hubData) {
                             }
                             echo "</ul>";
                         } else {
-                            echo "No tasks assigned";
+                            echo "<p>No tasks assigned</p>";
                         }
+                        echo '</div>';
+                        
+                        echo '</div>'; 
                     }
                 } else {
                     echo "No users assigned";

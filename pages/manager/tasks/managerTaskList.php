@@ -32,7 +32,7 @@
 
         <ul class="taskList">
             <?php foreach(Task::getTasks() as $task) : ?> 
-                <a href="managerTaskAssign.php?id=<?php echo $task["id"] ?>" class="taskDetail"><li><?php echo $task['name']; ?> 
+                <a href="managerTaskInfo.php?id=<?php echo $task["id"] ?>" class="taskDetail"><li><?php echo $task['name']; ?> 
                 </li></a>
             <?php endforeach; ?>
         </ul>

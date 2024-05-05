@@ -1,19 +1,33 @@
+/* Algemene opmaak */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Globale stijlen */
 p {
     margin: 1.563rem 1.25rem;
 }
 
-h1{
+h1 {
     margin-left: 0.938rem;
     font-size: 1.5rem;
     margin-top: 30px;
+}
+
+.name{
+    font-size: large;
 }
 
 .image-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: flex-start; 
+    align-items: flex-start;
     gap: 40px;
+    padding: 20px; /* Voeg padding toe rondom image-container */
+   
 }
 
 .user {
@@ -21,14 +35,14 @@ h1{
     border-radius: 1.25rem;
     padding: 1.875rem;
     width: 6.25rem;
-    height: 10rem;
+    height: 15rem;
     margin-bottom: 30px;
     text-align: var(--text-align);
 }
 
 .image {
     display: inline-block;
-    vertical-align: middle; 
+    vertical-align: middle;
     margin-bottom: 30px;
 }
 
@@ -36,18 +50,28 @@ h1{
     margin: 0;
 }
 
-@media(min-width: 37.5rem){
+.taskList {
+    list-style-type: circle; /* Verwijder opsommingstekens */
+    padding: 0; /* Verwijder innerlijke vulling */
+    margin-bottom: 10px;
+}
+
+.taskList li {
+    padding: 0; /* Verwijder innerlijke vulling */
+    margin-bottom: 10px;
+}
+.taks{
+    display: flex;
+    flex-direction: row;
+}
+
+@media (min-width: 37.5rem) {
     .image-container {
-        height: 11.25rem;
- 
+        min-height: 200px; /* Minimum hoogte voor image-container */
     }
 
     .user {
-        
-        width: 9.375 rem;
+        width: 9.375rem;
         padding-bottom: 3.125rem;
     }
-
-    
 }
-
