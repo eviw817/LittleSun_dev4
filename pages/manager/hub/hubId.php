@@ -1,16 +1,17 @@
 <?php
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/location.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/location.php");
 
-$hub = new Location($_POST["name"], $_POST["street"], $_POST["streetnumber"], $_POST["city"], $_POST["country"], $_POST["postalcode"]);
+//$hub = new Location($_POST["name"], $_POST["street"], $_POST["streetnumber"], $_POST["city"], $_POST["country"], $_POST["postalcode"]);
+
 
 $error = null;
 $managersAssigned = false;
 
 // Ophalen van de hublocatie en de bijbehorende managers
-$hubData = $hub->getHubLocationById($_GET["id"]);
-$users = $hub->getUsersByLocation($_GET["id"]);
+$hubData = Location::getHubLocationById($_GET["id"]);
+$users = Location::getUsersByLocation($_GET["id"]);
 
 if(!$hubData){
    $error = "The requested hub doesn't exist";
@@ -49,7 +50,7 @@ if(!$hubData){
                         echo '<div class="user">';
                         if (isset($user["image"])) {
                             echo '<div class="image">';
-                            echo '<img width="4.375rem" src="' . $user["image"] . '" alt="Profile Picture">';
+                            echo '<img width="60px" src="' . $user["image"] . '" alt="Profile Picture">';
                             echo '</div>';
                         }
                         echo "<p class='name'>" . $user["firstName"] . " " . $user["lastName"] . "</p>";

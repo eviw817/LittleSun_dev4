@@ -167,7 +167,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
         }
 
         //hub.php
-        public function getHubname()
+        public static function getHubname()
         {
             $conn = Db::getConnection();
             $statement = $conn->prepare("SELECT id, name FROM locations");
@@ -176,7 +176,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
         }
 
         //hubId.php
-        public function getUsersByLocation($locationId)
+        public static function getUsersByLocation($locationId)
         {
             $conn = Db::getConnection();
             $statement = $conn->prepare("SELECT firstName, lastName, image FROM users WHERE location = :id AND role = 'user' ");
@@ -190,11 +190,25 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
         }
 
         /* Geeft Hub details terug gebaseerd op de meegegeven ID*/
-        public function getHubLocationById($hubId)
+        public static function getHubLocationById($hubId)
         {
             $conn = Db::getConnection();
             $statement = $conn->prepare("SELECT * FROM locations WHERE id = :id");
             $statement->execute([":id" => $hubId]);
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            if (!$result) {
+                return null;
+            } else {
+                return $result;
+            }
+        }
+
+        //hubId
+        public static function getUserTask($taskId)
+        {
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT * FROM locations WHERE id = :id");
+            $statement->execute([":id" => $taskId]);
             $result = $statement->fetch(PDO::FETCH_ASSOC);
             if (!$result) {
                 return null;

@@ -5,16 +5,15 @@ p {
 h1{
     margin-left: 0.938rem;
     font-size: 1.5rem;
+    margin-top: 30px;
 }
 
 .image-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-    height: 30vh;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: flex-start; 
+    gap: 40px;
 }
 
 .user {
@@ -23,14 +22,14 @@ h1{
     padding: 1.875rem;
     width: 6.25rem;
     height: 10rem;
-    margin-bottom: 0.625rem;
-   
+    margin-bottom: 30px;
     text-align: var(--text-align);
 }
 
 .image {
     display: inline-block;
-    vertical-align: middle; /* Plaats de afbeelding verticaal in het midden */
+    vertical-align: middle; 
+    margin-bottom: 30px;
 }
 
 .name {
@@ -40,7 +39,7 @@ h1{
 @media(min-width: 37.5rem){
     .image-container {
         height: 11.25rem;
-        margin-left: -5rem
+ 
     }
 
     .user {
