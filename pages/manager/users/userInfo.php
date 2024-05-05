@@ -1,6 +1,6 @@
 <?php
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/User.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
 
     $userName = new User($_POST["username"], $_POST["email"], $_POST["password"], $_POST["role"], $_POST["location"], $_POST["firstName"], $_POST["lastName"]);
     
