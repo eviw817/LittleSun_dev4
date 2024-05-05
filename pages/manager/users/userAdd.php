@@ -4,12 +4,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/User.php");
    
     if(!empty($_POST)){
         try {
-            $user = new User();
-            $user->setUsername($_POST['username']);
-            $user->setFirstName($_POST['firstName']);
-            $user->setLastName($_POST['lastName']);
-            $user->setEmail($_POST['email']);
-            $user->setPassword($_POST['password']);
+            $user = new User($_POST["username"], $_POST["email"], $_POST["password"], $_POST["role"], $_POST["location"], $_POST["firstName"], $_POST["lastName"]);
          
             if(isset($_POST["img"])){
                 $user->setImage('data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])));
@@ -17,7 +12,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/User.php");
          
            $user->newUser();
 
-            header("Location: user.php");
+            header("Location: userInfo.php");
             exit();
         }
         catch(Exception $e){
