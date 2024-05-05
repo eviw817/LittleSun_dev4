@@ -34,7 +34,7 @@ if(!empty($_POST)){
     <title>Add location</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./LocationAdd_Edit.css">
+    <link rel="stylesheet" href="./locationAdd_Edit.css">
 </head>
 <body>
 <?php include_once("../../../components/header2.inc.php"); ?>

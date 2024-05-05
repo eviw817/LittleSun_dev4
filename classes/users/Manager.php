@@ -66,7 +66,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
         }
 
         // Functie om de lijst van hub managers op te halen
-        public function getHubManagerName(){
+        public static function getHubManagerName(){
             $conn = Db::getConnection();
             $statement = $conn->prepare("SELECT id, username, image FROM users WHERE role = 'manager'");
             $statement->execute();
