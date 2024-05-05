@@ -4,10 +4,10 @@
     class ParentUser{
         protected string $id;
         protected string $username;  
-        protected string $email;
+        protected ?string $email;
         protected string $password;
         protected string $role;
-        protected string $location;
+        protected ?string $location;
         protected string $firstName;
         protected string $lastName;
         protected string $image;

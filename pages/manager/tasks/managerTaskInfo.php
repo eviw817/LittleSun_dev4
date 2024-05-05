@@ -4,22 +4,15 @@
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
 
 $error = null;
+$usersAssigned = false;
 $task = Task::getTaskById($_GET["id"]);
-$users = User::getAllUsers();
+$users = User::getByTask($_GET["id"]);
 if(!isset($task)){
    $error = "The asked task doesn't exist";
+} else if(isset($users)){
+   $usersAssigned = true;
 }
 
-if(isset($_POST['submit'])){
-    // Verwerk de formuliergegevens en update de gegevens in de database
-    $updatedTask = new Task($task["name"], $task["description"], $task["category"], $task["progress"], $task["startDate"], $task["endDate"]);
-    $updatedTask->setId($_GET["id"]);
-    $updatedTask->AssignUserToTask($_POST["user"]);
-    
-    // Redirect naar de detailpagina met de bijgewerkte gegevens
-    header("Location: managerTaskInfo.php?id=" . $_GET["id"]);
-    exit();
-}
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -29,12 +22,11 @@ if(isset($_POST['submit'])){
     <title>Task Information</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./managerTaskAssign.css">
+    <link rel="stylesheet" href="./managerTaskInfo.css">
 </head>
 <body>
     <?php include_once("../../../components/header2.inc.php"); ?>
     <main>
-        <form method="post" action="">
     
     <h1>Task: <?php if($task){echo $task["name"]; }?></h1>
     <section>
@@ -43,18 +35,18 @@ if(isset($_POST['submit'])){
         <p> Progress: <?php if($task){echo $task["progress"]; } ?></p>
         <p> Start Date: <?php if($task){echo $task["startDate"]; } ?></p>
         <p> End Date: <?php if($task){echo $task["endDate"]; } ?></p>
-        <div class="form__field dropdown">
-            <label for="user">Assign user:</label>
-            <select name="user" id="user">
-            <?php foreach($users as $user): ?>
-                <option value="<?php echo $user['id']?>"><?php echo $user['username']?></option>
-            <?php endforeach; ?>
-            </select>
-        </div>
-
-        <input type="submit" name="submit" value="Confirm Edit" class="button fixed.position">
+        <p> Assigned User: 
+            <?php 
+            if ($usersAssigned) {
+                foreach ($users as $user) {
+                    echo $user->getFirstname() . " " . $user->getLastname() . "<br>";
+                }
+            } else {
+                echo "No user assigned";
+            }
+            ?></p>
+        <a class="button fixed-position" href="./taskEdit.php?id=<?php echo $task["id"]; ?>">Edit task</a>
     </section>
-    </form>
     </main>
      
     

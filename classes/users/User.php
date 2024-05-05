@@ -54,7 +54,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
             } else {
                 $users = [];
                 foreach ($results as $result) {
-                    array_push($users, new User($result["id"], $result["username"], $result["email"], $result["password"], $result["role"], $result["location"], $result["firstName"], $result["lastName"], $result["image"]));
+                    array_push($users, new User($result["username"], $result["email"], $result["password"], $result["role"], $result["location"], $result["firstName"], $result["lastName"]));
                 }
                 return $users;
             }

@@ -187,4 +187,16 @@
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
         
+        public function AssignUserToTask($userId){
+            if(!empty($this->id)){
+                $conn = Db::getConnection();
+                $statement = $conn->prepare("INSERT INTO users_tasks (user_Id, task_Id) VALUES (:user_Id, :task_Id)");
+                $statement->execute([
+                    ":user_Id" => $userId,
+                    ":task_Id" => $this->id,
+                ]);
+                } else{
+                    throw new Exception("User could not be assigned.");
+                }
+        }
     }
