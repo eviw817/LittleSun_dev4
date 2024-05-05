@@ -1,6 +1,8 @@
 <?php
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
+
+    
     
 ?>
 
@@ -19,7 +21,7 @@
 <?php include_once("../../../components/header2.inc.php"); ?>
     <h1 class="title">Users</h1>
     <div class="inline">
-    <?php foreach($userName->getName() as $user) : ?> 
+    <?php foreach(User::getName() as $user) : ?> 
         <div class="flex">
             <a href="userId.php?id=<?php echo $user['id']; ?>" class="user_detail">
                 <p><?php echo $user['firstName'] . " " . $user['lastName'] ; ?></p>
@@ -30,7 +32,7 @@
     <?php endforeach; ?>
     </div>
     <div class="button-container">
-        <button class="newuser" onclick="window.location.href='addUser.php'">Add new user</button>
+        <button class="newuser" onclick="window.location.href='userAdd.php'">Add new user</button>
     </div>
 </body>
 </html>

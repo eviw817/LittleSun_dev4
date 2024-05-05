@@ -2,7 +2,7 @@
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/location.php");
 
-    $hubName = new Location($_POST["name"], $_POST["street"], $_POST["streetnumber"], $_POST["city"], $_POST["country"], $_POST["postalcode"]);
+   $hubName = new Location($_POST["name"], $_POST["street"], $_POST["streetnumber"], $_POST["city"], $_POST["country"], $_POST["postalcode"]);
 
 ?>
 

@@ -24,7 +24,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
         }
 
         //user.php
-        public function getName()
+        public static function getName()
         {
             $conn = Db::getConnection();
             $statement = $conn->prepare("SELECT id, firstName, lastName, image FROM users WHERE role = 'user'");
@@ -33,7 +33,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
         }
 
         //userId.php
-        public function getUserById($userId)
+        public static function getUserById($userId)
         {
             $conn = Db::getConnection();
             $statement = $conn->prepare("SELECT u.*, l.name FROM users u LEFT JOIN locations l ON u.location = l.id WHERE u.id = :id AND role = 'user'");

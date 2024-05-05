@@ -13,7 +13,7 @@
     <h1>Manager Dashboard</h1>
 
     <a href="users/userInfo.php"><h2>Users</h2></a>
-    <a href="hubs/hubList.php"><h2>Hubs</h2></a>
+    <a href="hub/hubList.php"><h2>Hubs</h2></a>
 
     <a href="../login_logout/logout.php">Log Out</a>
     

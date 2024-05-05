@@ -1,19 +1,24 @@
 p {
-    margin: 1.563rem 1.25rem;
+    margin: 25px 20px;
 }
 
 h1{
-    margin-left: 0.938rem;
-    font-size: 1.5rem;
+    margin-top: 20px;
+    margin-left: 15px;
+    font-size: 24px;
 }
 
 
 
 .image img {
+   
     display: block;
-    margin-top: 0.625rem;
+    margin: 30px auto; /* Center the image horizontally */
+    max-width: 100%;
+    height: auto;
+
 }
 
 .image p {
-    margin-top: 0.313rem; 
+    margin-top: 5px; 
 }
