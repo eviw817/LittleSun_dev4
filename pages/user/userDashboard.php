@@ -12,6 +12,7 @@
     <h1>User Dashboard</h1>
 
     <a href="../user/userTask.php">My task</a>
+    <a href="../user/clockIn.php">Clock in work</a>
     <a href="../login_logout/logout.php">Log Out</a>
 
 </body>
