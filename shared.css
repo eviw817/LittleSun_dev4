@@ -54,7 +54,7 @@ header {
     height: 28px;
 }
 
-.logo img {
+#logo {
     max-width: 7.5rem;
     height: auto;
     margin-left: 1.563rem;

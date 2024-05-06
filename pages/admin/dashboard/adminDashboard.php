@@ -6,19 +6,19 @@
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./adminDashboard.css">
+    <!-- <link rel="stylesheet" href="./adminDashboard.css"> -->
 </head>
 <body>
-    <?php include_once("../../../components/header2.inc.php"); ?>
+    <?php include_once("../../../components/headerAdmin.php"); ?>
 
     <main>
         <h1>Admin Dashboard</h1>
 
         <section>
             
-            <a href="../locations/hubLocation.php">Hub Locations</a>
+            <a href="../locations/locationList.php">Hub Locations</a>
 
-            <a href="../managerInfo/hubManagers.php">Hub Managers</a>
+            <a href="../managers/managerList.php">Hub Managers</a>
 
             <a href="../tasks/taskList.php">Task list</a>
 

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="./locationList.css">
 </head>
 <body>
-<?php include_once("../../../components/header2.inc.php"); ?>
+<?php include_once("../../../components/headerAdmin.php"); ?>
 <main>
     <h1>Hub locations</h1>
     <section>

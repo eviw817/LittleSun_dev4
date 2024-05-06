@@ -18,7 +18,7 @@
    
 </head>
 <body>
-<?php include_once("../../../components/header2.inc.php"); ?>
+<?php include_once("../../../components/headerManager.inc.php"); ?>
     <h1 class="title">Hubs</h1>
     <div class="inline">
     <ul id="hubList">

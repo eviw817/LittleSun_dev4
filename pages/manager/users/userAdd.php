@@ -35,7 +35,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
     
 </head>
 <body>
-<?php include_once("../../../components/header2.inc.php"); ?>
+<?php include_once("../../../components/headerManager.inc.php"); ?>
     <?php if(isset($error)): ?>
       <div class="text-red-500">Error: <?php echo $error; ?></div>
     <?php endif; ?> 

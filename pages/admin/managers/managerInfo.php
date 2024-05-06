@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="./manager.css">
 </head>
 <body>
-<?php include_once("../../../components/header2.inc.php"); ?>
+<?php include_once("../../../components/headerAdmin.php"); ?>
     <h1 class="manager__h1">Manager details</h1>
     <p>Username: <?php echo isset($manager["username"]) ? $manager["username"] : ""; ?></p>
     <p>Email: <?php echo isset($manager["email"]) ? $manager["email"] : ""; ?></p>

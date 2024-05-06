@@ -6,14 +6,18 @@
     <title>User Dasboard</title>
     <link rel="stylesheet" href="../../reset.css">
     <link rel="stylesheet" href="../../shared.css">
+  
 </head>
 <body>
-<?php include_once("../../components/header2.inc.php"); ?>
+<?php include_once("../../components/headerUser.inc.php"); ?>
     <h1>User Dashboard</h1>
 
-    <a href="../user/userTask.php">My task</a>
-    <a href="../user/clockIn.php">Clock in work</a>
-    <a href="../login_logout/logout.php">Log Out</a>
+    <section>
+       <a href="../user/userTask.php">My task</a>
+        <a href="../user/clockIn.php">Clock in work</a>
+        <a href="../login_logout/logout.php">Log Out</a>  
+    </section>
+   
 
 </body>
 </html>

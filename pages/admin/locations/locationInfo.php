@@ -1,6 +1,7 @@
 <?php
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/location.php");
 
 $error = null;
 $managersAssigned = false;
@@ -24,7 +25,7 @@ if(!isset($hub)){
     <link rel="stylesheet" href="./locationInfo.css">
 </head>
 <body>
-    <?php include_once("../../../components/header2.inc.php"); ?>
+<?php include_once("../../../components/headerAdmin.php"); ?>
     <main>
     
     <h1>Hub: <?php if($hub){echo $hub["name"]; }?></h1>

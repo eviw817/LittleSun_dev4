@@ -43,7 +43,7 @@ if (!empty($_POST)) {
 </head>
 
 <body>
-    <?php include_once("../../../components/header2.inc.php"); ?>
+<?php include_once("../../../components/headerAdmin.php"); ?>
     <section class="form new_manager">
         <?php if (isset($error)) : ?>
             <div class="error">Error: <?php echo $error; ?></div>

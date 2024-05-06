@@ -42,7 +42,7 @@ if(isset($_POST['submit'])){
     <link rel="stylesheet" href="./taskAdd_Edit.css">
 </head>
 <body>
-    <?php include_once("../../../components/header2.inc.php"); ?>
+<?php include_once("../../../components/headerAdmin.php"); ?>
     <div class="form task_edit">
     <form action="taskEdit.php?id=<?php echo $task['id']; ?>" method="post">
 

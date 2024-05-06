@@ -26,7 +26,7 @@ if (!$hubData) {
     <link rel="stylesheet" href="./hubId.css">
 </head>
 <body>
-    <?php include_once("../../../components/header2.inc.php"); ?>
+<?php include_once("../../../components/headerManager.inc.php"); ?>
     
     <?php if ($error): ?>
         <p><?php echo $error; ?></p>

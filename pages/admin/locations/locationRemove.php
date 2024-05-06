@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    <?php include_once("../../../components/header2.inc.php"); ?>
+    <?php include_once("../../../components/headerAdmin.php"); ?>
 
     <h1>Hub location</h1>
     <ul>

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./userTask.css">
 </head>
 <body>
-<?php include_once("../../components/header2.inc.php"); ?>
+<?php include_once("../../components/headerUser.inc.php"); ?>
     <h1>Hi, Katy</h1>
     <h2>Your task:</h2>
     <p>Toilets</p>

@@ -25,7 +25,7 @@ if(!isset($task)){
     <link rel="stylesheet" href="./taskInfo.css">
 </head>
 <body>
-    <?php include_once("../../../components/header2.inc.php"); ?>
+<?php include_once("../../../components/headerAdmin.php"); ?>
     <main>
     
     <h1>Task: <?php if($task){echo $task["name"]; }?></h1>

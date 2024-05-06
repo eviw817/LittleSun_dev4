@@ -30,7 +30,7 @@
 </head>
 
 <body>
-    <?php include_once("../../../components/header2.inc.php"); ?>
+<?php include_once("../../../components/headerAdmin.php"); ?>
 
     <h1>Task</h1>
     <ul class="taskList">

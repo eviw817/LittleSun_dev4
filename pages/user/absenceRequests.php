@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="./absence_requests.css">
 </head>
 <body>
-<?php include_once("../../components/header2.inc.php"); ?>
+<?php include_once("../../components/headerUser.inc.php"); ?>
 <div class="-dashboard">
     <h1>User Dashboard</h1>
 

@@ -15,12 +15,12 @@
     <link rel="stylesheet" href="./hubManager.css">
 </head>
 <body>
-<?php include_once("../../../components/header2.inc.php"); ?>
+<?php include_once("../../../components/headerAdmin.php"); ?>
     <h1 class="title">Hub managers</h1>
     <div class="inline">
     <?php foreach(Manager::getHubManagerName() as $manager) : ?> 
         <div class="flex">
-            <a href="manager.php?id=<?php echo $manager['id']; ?>" class="manager_detail">
+            <a href="managerInfo.php?id=<?php echo $manager['id']; ?>" class="manager_detail">
                 <p><?php echo $manager['username']; ?></p>
             </a>
             <img src="<?php echo $manager["image"]; ?>"></img>

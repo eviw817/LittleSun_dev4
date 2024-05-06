@@ -32,7 +32,7 @@ if(isset($_POST['submit'])){
     <link rel="stylesheet" href="./managerTaskAssign.css">
 </head>
 <body>
-    <?php include_once("../../../components/header2.inc.php"); ?>
+<?php include_once("../../../components/headerManager.inc.php"); ?>
     <main>
         <form method="post" action="">
     

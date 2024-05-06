@@ -31,7 +31,7 @@ if (isset($_GET['id'])) {
     <link rel="stylesheet" href="./userId.css">
 </head>
 <body>
-    <?php include_once("../../../components/header2.inc.php"); ?>
+<?php include_once("../../../components/headerManager.inc.php"); ?>
     <h1>User details</h1>
     <?php if ($user && is_array($user)): ?>
         <p>Username: <?php echo isset($user["username"]) ? $user["username"] : "N/A"; ?></p>

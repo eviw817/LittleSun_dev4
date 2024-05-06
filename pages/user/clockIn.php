@@ -23,8 +23,11 @@ if (isset($_GET['clock_in'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clock in</title>
+    <link rel="stylesheet" href="../../reset.css">
+    <link rel="stylesheet" href="../../shared.css">
 </head>
 <body>
+<?php include_once("../../components/headerUser.inc.php"); ?>
     <h1><?php echo $current_time;?></h1>
     <p>Name</p>
     <p>Cleaning</p>

@@ -56,7 +56,7 @@
 </head>
 
 <body>
-    <?php include_once("../../components/header2.inc.php"); ?>
+    <?php include_once("../../components/headerlogin.inc.php"); ?>
 <main>
     <p><?php if(!empty($error)){echo $error;} ?>
     <form action="" method="post">
