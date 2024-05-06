@@ -4,12 +4,7 @@ h1{
    
 }
 
-section{
-    padding-top: 40px;
-    display: flex;
-}
-
-.links{
+/* .links a{
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -27,7 +22,7 @@ section{
     color: var(--color-white);
 }
 
-.links:hover{
+.links a:hover{
     background-color: var(--color-off-black);
     color: var(--color-primary);
-}
+} */

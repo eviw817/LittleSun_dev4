@@ -20,7 +20,6 @@
         <a class="links" href="hub/hubList.php">Hubs</a>
         <a href="./tasks/managerTaskList.php">Task list</a>
 
-        <a class="links" href="../login_logout/logout.php">Log Out</a>
     </section>
     </main>
 </body>
