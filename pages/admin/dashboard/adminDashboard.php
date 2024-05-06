@@ -6,7 +6,8 @@
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <!-- <link rel="stylesheet" href="./adminDashboard.css"> -->
+    <link rel="stylesheet" href="./adminDashboard.css">
+    
 </head>
 <body>
     <?php include_once("../../../components/headerAdmin.php"); ?>
@@ -16,11 +17,11 @@
 
         <section>
             
-            <a href="../locations/locationList.php">Hub Locations</a>
+            <a class="link" href="../locations/locationList.php">Hub Locations</a>
 
-            <a href="../managers/managerList.php">Hub Managers</a>
+            <a class="link" href="../managers/managerList.php">Hub Managers</a>
 
-            <a href="../tasks/taskList.php">Task list</a>
+            <a class="link" href="../tasks/taskList.php">Task list</a>
 
 
         </section>

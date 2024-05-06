@@ -35,6 +35,7 @@ body {
 h1{
     font-size: var(--font-size-h1);
     color: var(--color-black);
+   
 }
 
 h2 {
@@ -48,6 +49,11 @@ h2 {
     margin-left: 1.563rem;
     width: 100px;
     margin-top: 10px;
+
+    border: none;  
+    background-color: transparent;  
+    padding: 0;  
+    margin: 0;
 }
 
 .navbar {
