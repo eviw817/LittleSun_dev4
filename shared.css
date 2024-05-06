@@ -93,6 +93,18 @@ h2 {
   .menu a{
     margin-right: 30px;
   }
+
+  
+
+  .dashboard a{
+    background-color: var(--color-black);
+    
+  }
+
+.div{
+  margin-left: 20px;
+  margin-top: 10px;
+}
  
  
   
