@@ -6,7 +6,7 @@
     <title>Manager Dashboard</title>
     <link rel="stylesheet" href="../../reset.css">
     <link rel="stylesheet" href="../../shared.css">
-    <link rel="stylesheet" href="./managerDashboard.css">
+    <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
 <?php include_once("../../components/headerManager.inc.php"); ?>
@@ -16,9 +16,9 @@
     <h1>Manager Dashboard</h1>
 
     <section>
-        <a class="links" href="users/userInfo.php">Users</a>
-        <a class="links" href="hub/hubList.php">Hubs</a>
-        <a class="links" href="tasks/managerTaskList.php">Task list</a>
+        <a class="link" href="users/userInfo.php">Users</a>
+        <a class="link" href="hub/hubList.php">Hubs</a>
+        <a class="link" href="tasks/managerTaskList.php">Task list</a>
 
     </section>
     </main>

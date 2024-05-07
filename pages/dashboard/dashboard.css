@@ -6,9 +6,12 @@ h1{
 
 section{
     padding: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
-.links a{
+.link{
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -25,9 +28,11 @@ section{
     font-weight: 500;
     text-decoration: none;
     color: var(--color-white);
+
+    
 }
 
-.links a:hover{
+.link:hover{
     background-color: var(--color-off-black);
     color: var(--color-primary);
 }
