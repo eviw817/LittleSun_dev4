@@ -6,6 +6,6 @@
     </div>
 
     <div class="menu">
-        <a href="../../login_logout/logout.php">Log Out</a>
+        <a href=".../login_logout/logout.php">Log Out</a>
     </div>
 </header>

@@ -6,12 +6,8 @@
 
      if (isset($_SESSION['id'])) {
         $user = User::getUserById($_SESSION['id']);
-        // Proceed with rendering the user dashboard
     } else {
-        // Redirect or handle the case where 'id' is not set in session
-        // For example, redirect the user to a login page
         header("Location: login.php");
-        exit(); // Ensure script execution stops after redirection
     }
    
 
@@ -24,17 +20,19 @@
     <title>Clock in</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
+    <link rel="stylesheet" href="clockIn.css">
 </head>
 <body>
 <?php include_once("../../../components/headerUser.inc.php"); ?>
 
     <h1>Clock in</h1>
-    <p><?php echo date("h:i:sa"); ?></p>
+    <?php date_default_timezone_set('Africa/Lusaka');?>
+    <p>Day: <?php echo date("d - m - Y"); ?></p>
+    <p>Hour: <?php echo date("h : i a"); ?></p>
     <p><?php echo $user['username'];?></p>
-    <p>Until</p>
-  
+
     <p>Do you want to clock in?</p>
-    <a href="clockInHandler.php">Clock in</a>
+    <a class="clockin" href="clockInHandler.php">Clock in</a>
 </body>
 </html>
 
