@@ -54,9 +54,12 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manager Dashboard</title>
-    <link rel="stylesheet" href="./approve_decline.css">
+    <link rel="stylesheet" href="../../reset.css">
+    <link rel="stylesheet" href="../../shared.css">
+    <link rel="stylesheet" href="./approveDecline.css">
 </head>
 <body>
+<?php include_once("../../components/headerUser.inc.php"); ?>
 <div class="-dashboard">
     <h1>Manager Dashboard</h1>
 

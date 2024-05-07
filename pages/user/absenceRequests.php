@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>User Dashboard</title>
     <link rel="stylesheet" href="../../reset.css">
     <link rel="stylesheet" href="../../shared.css">
-    <link rel="stylesheet" href="./absence_requests.css">
+    <link rel="stylesheet" href="./absenceRequests.css">
 </head>
 <body>
 <?php include_once("../../components/headerUser.inc.php"); ?>
