@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Include de benodigde bestanden
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Timetable.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
@@ -19,8 +18,8 @@ if (isset($_POST['clockOutButton'])) {
 
         // Roep de clockOut() methode aan om de klok-uit tijd te registreren
         $timetable->clockOut();
-        echo "Clock-out successful!";
-        // Je kunt hier eventueel een redirect toevoegen naar een succespagina
+        header("Location: succesClockout.php");
+        exit();
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }

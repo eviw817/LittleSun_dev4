@@ -8,6 +8,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
 
 $user = User::getUserById($_SESSION['id']);
 
+
 date_default_timezone_set('Africa/Lusaka');
 $clockInTime = date("h:i a"); 
 $clockInDay = date("d - m - Y");
