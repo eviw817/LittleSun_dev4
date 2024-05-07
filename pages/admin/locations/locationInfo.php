@@ -25,7 +25,7 @@ if(!isset($hub)){
     <link rel="stylesheet" href="./locationInfo.css">
 </head>
 <body>
-<?php include_once("../../../components/headerAdmin.php"); ?>
+<?php include_once("../../../components/headerAdmin.inc.php"); ?>
     <main>
     
     <h1>Hub: <?php if($hub){echo $hub["name"]; }?></h1>

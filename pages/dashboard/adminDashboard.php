@@ -17,11 +17,11 @@
 
         <section>
             
-            <a class="link" href="../locations/locationList.php">Hub Locations</a>
+            <a class="link" href="../admin/locations/locationList.php">Hub Locations</a>
 
-            <a class="link" href="../managers/managerList.php">Hub Managers</a>
+            <a class="link" href="../admin/managers/managerList.php">Hub Managers</a>
 
-            <a class="link" href="../tasks/taskList.php">Task list</a>
+            <a class="link" href="../admin/tasks/taskList.php">Task list</a>
 
 
         </section>

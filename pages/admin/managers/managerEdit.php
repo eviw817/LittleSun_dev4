@@ -66,7 +66,7 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-<?php include_once("../../../components/headerAdmin.php"); ?>
+<?php include_once("../../../components/headerAdmin.inc.php"); ?>
     <section>
         <form action="editManager.php?id=<?php echo $manager['id']; ?>" method="post" enctype="multipart/form-data">
             <h2>Edit hub manager</h2>

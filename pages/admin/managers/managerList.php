@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="./hubManager.css">
 </head>
 <body>
-<?php include_once("../../../components/headerAdmin.php"); ?>
+<?php include_once("../../../components/headerAdmin.inc.php"); ?>
     <h1 class="title">Hub managers</h1>
     <div class="inline">
     <?php foreach(Manager::getHubManagerName() as $manager) : ?> 

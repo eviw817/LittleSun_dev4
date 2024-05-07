@@ -16,9 +16,9 @@
     <h1>Manager Dashboard</h1>
 
     <section>
-        <a class="link" href="users/userInfo.php">Users</a>
-        <a class="link" href="hub/hubList.php">Hubs</a>
-        <a class="link" href="tasks/managerTaskList.php">Task list</a>
+        <a class="link" href="../manager/users/userInfo.php">Users</a>
+        <a class="link" href="../manager/hub/hubList.php">Hubs</a>
+        <a class="link" href="../manager/tasks/managerTaskList.php">Task list</a>
 
     </section>
     </main>

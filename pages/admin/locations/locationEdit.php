@@ -42,7 +42,7 @@ if(isset($_POST['submit'])){
     <link rel="stylesheet" href="./locationAdd_Edit.css">
 </head>
 <body>
-<?php include_once("../../../components/headerAdmin.php"); ?>
+<?php include_once("../../../components/headerAdmin.inc.php"); ?>
     <div class="form edit_location">
     <form action="locationEdit.php?id=<?php echo $location['id']; ?>" method="post">
 

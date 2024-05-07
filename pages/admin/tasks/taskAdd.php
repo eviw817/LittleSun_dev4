@@ -38,7 +38,7 @@ if(!empty($_POST)){
     <link rel="stylesheet" href="./taskAdd_Edit.css">
 </head>
 <body>
-<?php include_once("../../../components/headerAdmin.php"); ?>
+<?php include_once("../../../components/headerAdmin.inc.php"); ?>
     <section class="form add_tasks">
         <?php if(!empty($error)): ?>
             <div class="error">Error: <?php echo $error; ?></div>

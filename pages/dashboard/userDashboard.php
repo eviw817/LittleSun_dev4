@@ -14,8 +14,8 @@
     <h1>User Dashboard</h1>
 
     <section>
-        <a class="link" href="../task/userTask.php">My task</a>
-        <a class="link" href="../clockin_out/clockIn.php">Clock in work</a> 
+        <a class="link" href="../user/task/userTask.php">My task</a>
+        <a class="link" href="../user/clockin_out/clockIn.php">Clock in work</a> 
     </section>
    
 
