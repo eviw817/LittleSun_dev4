@@ -14,6 +14,6 @@ $resultMessage = "Absence request submitted successfully.";
 <body>
     <h1>Success</h1>
     <p><?php echo $resultMessage; ?></p>
-    <p><a href="absence_requests.php">Back to Request Absence</a></p>
+    <a href="absenceRequests.php">Back to Request Absence</a>
 </body>
 </html>
