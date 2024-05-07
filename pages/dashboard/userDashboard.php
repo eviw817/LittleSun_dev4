@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<?php
+
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/Db.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/users/User.php");
+    $user = User::getUserById($_SESSION['id']);
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">

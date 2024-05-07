@@ -6,17 +6,18 @@
         private string $id;
         private ?string $clock_in_time;
         private ?string $clock_out_time;
-        private string $total_hours;
-        private string $overtime_hours;
+        private ?string $total_hours;
+        private ?string $overtime_hours;
         private string $userId;
 
-        public function __construct($id, $clock_in_time, $clock_out_time, $total_hours, $overtime_hours, $userId){
-            $this->id = $id;
+        public function __construct( $clock_in_time, $clock_out_time, $total_hours, $overtime_hours, $userId){
             $this->clock_in_time = $clock_in_time;
             $this->clock_out_time = $clock_out_time;
             $this->total_hours = $total_hours;
             $this->overtime_hours = $overtime_hours;
             $this->userId = $userId;
+
+            return $this;
         }
 
         /**
@@ -44,7 +45,13 @@
          */ 
         public function getClock_in_time()
         {
-                return $this->clock_in_time;
+                // Parseer de tijd naar een DateTime-object
+            $dateTime = new DateTime($this->clock_in_time);
+
+            // Haal het uur van de dag op (in 24-uursformaat)
+            $hourOfDay = $dateTime->format('H, m, s'); // 'H' geeft het uur in 24-uursformaat terug
+
+            return $hourOfDay;
         }
 
         /**
@@ -140,30 +147,30 @@
         }
 
         
+        public function timeTable(){
+            $conn = Db::getConnection();
+
+            $statement = $conn->prepare("INSERT INTO work_logs (id, clock_in_time, clock_out_time, total_hours, overtime_hours, userId) VALUES (:id, :clock_in_time, :clock_out_time, :total_hours, :overtime_hours, :userId);");
+            $statement->bindValue(":id", $this->id);
+            $statement->bindValue(":clock_in_time", $this->clock_in_time);
+            $statement->bindValue(":clock_out_time", $this->clock_out_time);
+            $statement->bindValue(":total_hours", $this->total_hours);
+            $statement->bindValue(":overtime_hours", $this->overtime_hours);
+            $statement->bindValue(":userId", $this->userId);
+        }
+
+        // Timetable.php
         public function clockIn(){
             $conn = Db::getConnection();
 
-            $statement = $conn->prepare("INSERT INTO work_logs (name, description, category, progress, startDate, endDate) VALUES (:name, :description, :category, :progress, :startDate, :endDate);");
-            $statement->bindValue(":name", $this->name);
-            $statement->bindValue(":description", $this->description);
-            $statement->bindValue(":category", $this->category);
-            $statement->bindValue(":progress", $this->progress);
-            $statement->bindValue(":startDate", $this->startDate);
-            $statement->bindValue(":endDate", $this->endDate);
+            // Voorbereiden van de SQL-query om clock in te voegen
+            $statement = $conn->prepare("INSERT INTO work_logs (clock_in_time, userId) VALUES (:clock_in_time, :userId);");
+            $statement->bindValue(":clock_in_time", $this->clock_in_time);
+            $statement->bindValue(":userId", $this->userId);
 
-
+            // Uitvoeren van de query
+            $statement->execute();
         }
-// Controleer of er op de link "Clock in" is geklikt
-if (isset($_GET['clock_in'])) {
-    $current_time = date('Y-m-d H:i:s'); // Huidig tijdstip inclusief seconden
-    
-    // Voorbereidde verklaring om het huidige tijdstip in te voegen in de database
-    $statement = $conn->prepare("INSERT INTO work_logs (clock_in_time) VALUES (:clock_in_time)");
-    $statement->bindValue(':clock_in_time', $current_time);
-    $statement->execute([
-        ":clock_in_time" => $current_time,
-    ]);
 
 
 }
-    }

@@ -3,7 +3,7 @@
 
     function getAuthorizationDetailsByUsername($pUsername){
         $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT username, password, role FROM users WHERE username = :tUsername");
+        $statement = $conn->prepare("SELECT id, username, password, role FROM users WHERE username = :tUsername");
         $statement->execute([":tUsername" => $pUsername]);
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
@@ -18,6 +18,8 @@
         }else if($user["password"] != $_POST["password"]){
             $error = "Credentials do not match!";
         } else {
+            session_start();
+            $_SESSION["id"] = $user['id'];
             $baseTag = '<meta http-equiv="refresh" content="0; url=';
             switch ($user["role"] ) {
                 case "admin":
@@ -27,7 +29,7 @@
                     $redirectTag = $baseTag . '../manager/managerDashboard.php" />';
                     break;
                 case "user":
-                    $redirectTag = $baseTag . '../user/userDashboard.php" />';
+                    $redirectTag = $baseTag . '../dashboard/userDashboard.php" />';
                     break;
             }
         }

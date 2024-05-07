@@ -1,4 +1,9 @@
 <?php
+     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
+     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Timetable.php");
+
+    // $time = new Timetable();
+
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -11,14 +16,13 @@
 </head>
 <body>
 <?php include_once("../../../components/headerUser.inc.php"); ?>
-    <h1>Time</h1>
-    <p>Name</p>
-    <p>Cleaning</p>
-    <p>Until</p>
 
-    <!-- Link om in te klokken met de parameter ?clock_in=1 -->
+    <h1>Clock in</h1>
+    <p>Name</p>
+    <p>Until</p>
+  
     <p>Do you want to clock in?</p>
-    <a href="userDashboard.php">Clock in</a>
+    <a href="clockInHandler.php">Clock in</a>
 </body>
 </html>
 
