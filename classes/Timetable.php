@@ -236,6 +236,17 @@
                     throw new InvalidArgumentException('Invalid user ID.');
                 }
             }
+
+          
+            public static function getDataFromTimetable($userId)
+            {
+                $conn = Db::getConnection();
+                $statement = $conn->prepare("SELECT clock_in_time, clock_out_time, total_hours, overtime_hours, userId, username FROM work_logs WHERE userId = :userId");
+                $statement->bindValue(":userId", $userId);
+                $statement->execute();
+                $result = $statement->fetch(PDO::FETCH_ASSOC);
+                return $result;
+            }
             
             
             
