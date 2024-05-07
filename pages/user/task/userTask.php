@@ -1,4 +1,19 @@
-<!DOCTYPE html>
+<?php
+ session_start(); 
+
+     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
+    
+     if (isset($_SESSION['id'])) {
+        $user = User::getUserById($_SESSION['id']);
+        $userId = $_SESSION['id'];
+    } else {
+        header("Location: login.php");
+        exit();
+    }
+   
+
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +25,7 @@
 </head>
 <body>
 <?php include_once("../../../components/headerUser.inc.php"); ?>
-    <h1>Hi, Katy</h1>
+    <h1>Hi, <?php echo $user['username'];?></h1>
     <h2>Your task:</h2>
     <p>Toilets</p>
 </body>
