@@ -162,15 +162,33 @@
         // Timetable.php
         public function clockIn(){
             $conn = Db::getConnection();
-
-            // Voorbereiden van de SQL-query om clock in te voegen
-            $statement = $conn->prepare("INSERT INTO work_logs (clock_in_time, userId) VALUES (:clock_in_time, :userId);");
-            $statement->bindValue(":clock_in_time", $this->clock_in_time);
-            $statement->bindValue(":userId", $this->userId);
-
-            // Uitvoeren van de query
-            $statement->execute();
+        
+            // Controleer of de gebruiker bestaat voordat je de invoer maakt
+            if ($this->userExists($this->userId)) {
+                // Voorbereid de SQL-query om in te voegen
+                $statement = $conn->prepare("INSERT INTO work_logs (clock_in_time, userId) VALUES (:clock_in_time, :userId);");
+                $statement->bindValue(":clock_in_time", $this->clock_in_time);
+                $statement->bindValue(":userId", $this->userId);
+        
+                // Uitvoeren van de query
+                $statement->execute();
+            } else {
+                // Geef een foutmelding of log de fout, afhankelijk van de behoefte
+                echo "Fout: Ongeldige gebruiker.";
+            }
         }
-
+        
+        private function userExists($userId) {
+            $conn = Db::getConnection();
+        
+            $statement = $conn->prepare("SELECT username FROM users WHERE id = :userId");
+            $statement->bindValue(":userId", $userId);
+            $statement->execute();
+        
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+        
+            return $result; 
+        }
+        
 
 }

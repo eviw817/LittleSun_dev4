@@ -1,8 +1,19 @@
 <?php
+    session_start(); 
      include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
      include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Timetable.php");
+     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
 
-    // $time = new Timetable();
+     if (isset($_SESSION['id'])) {
+        $user = User::getUserById($_SESSION['id']);
+        // Proceed with rendering the user dashboard
+    } else {
+        // Redirect or handle the case where 'id' is not set in session
+        // For example, redirect the user to a login page
+        header("Location: login.php");
+        exit(); // Ensure script execution stops after redirection
+    }
+   
 
 
 ?><!DOCTYPE html>
@@ -18,7 +29,8 @@
 <?php include_once("../../../components/headerUser.inc.php"); ?>
 
     <h1>Clock in</h1>
-    <p>Name</p>
+    <p><?php echo date("h:i:sa"); ?></p>
+    <p><?php echo $user['username'];?></p>
     <p>Until</p>
   
     <p>Do you want to clock in?</p>
