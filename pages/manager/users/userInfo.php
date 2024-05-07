@@ -20,7 +20,7 @@
 <body>
 <?php include_once("../../../components/headerManager.inc.php"); ?>
     <h1 class="title">Users</h1>
-    <div class="inline">
+    <section class="inline">
     <?php foreach(User::getName() as $user) : ?> 
         <div class="flex">
             <a href="userId.php?id=<?php echo $user['id']; ?>" class="user_detail">
@@ -30,7 +30,7 @@
         </div>
 
     <?php endforeach; ?>
-    </div>
+    </section>
     <div class="button-container">
         <button class="newuser" onclick="window.location.href='userAdd.php'">Add new user</button>
     </div>

@@ -43,8 +43,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
     <div class="form new_user">
 		<form action="userAdd.php" method="post" enctype="multipart/form-data">
 			<h2 form__title>New user</h2>
-
-            <div class="form__field">
+            
             <div class="form__field">
                 <label for="username">Username:</label>
                 <input type="text" name="username" id="username">
