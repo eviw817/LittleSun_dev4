@@ -190,8 +190,45 @@
                 } else {
                     throw new InvalidArgumentException('Invalid user ID.');
                 }
-            }
+        }
         
+        public function clockOut() {
+                $conn = Db::getConnection();
+                
+                if (!empty($this->userId)) {
+                    $clockOutTime = $this->clock_out_time ?? date('Y-m-d H:i:s');
+            
+                    $formattedClockOutTime = date("Y-m-d H:i:s", strtotime($clockOutTime));
+                    $clockInDateTime = $this->clock_in_time ? new DateTime($this->clock_in_time) : null;
+                    $clockOutDateTime = new DateTime($clockOutTime);
+            
+                    if ($clockInDateTime) {
+                        $interval = $clockOutDateTime->diff($clockInDateTime);
+            
+                        $totalHours = $interval->h + ($interval->i / 60);
+            
+                        //overuren nog veranderen dat af hangt hoelang die persoon moet werken die dag
+                        $standardWorkHours = 8;
+                        $overtimeHours = max($totalHours - $standardWorkHours, 0);
+                    } else {
+                      
+                        $totalHours = 0;
+                        $overtimeHours = 0;
+                    }
+            
+                    // Update the existing row for this user with clock_out_time, total_hours, and overtime_hours
+                    $statement = $conn->prepare("UPDATE work_logs SET clock_out_time = :clock_out_time, total_hours = :total_hours, overtime_hours = :overtime_hours WHERE userId = :userId;");
+                    $statement->bindValue(":clock_out_time", $formattedClockOutTime);
+                    $statement->bindValue(":total_hours", $totalHours);
+                    $statement->bindValue(":overtime_hours", $overtimeHours);
+                    $statement->bindValue(":userId", $this->userId);
+                    $statement->execute();
+                } else {
+                    throw new InvalidArgumentException('Invalid user ID.');
+                }
+            }
+            
+            
         
 
 

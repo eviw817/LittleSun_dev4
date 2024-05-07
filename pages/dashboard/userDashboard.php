@@ -5,12 +5,10 @@
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/users/User.php");
     if (isset($_SESSION['id'])) {
         $user = User::getUserById($_SESSION['id']);
-        // Proceed with rendering the user dashboard
     } else {
-        // Redirect or handle the case where 'id' is not set in session
-        // For example, redirect the user to a login page
+        
         header("Location: login.php");
-        exit(); // Ensure script execution stops after redirection
+        exit(); 
     }
 
 ?><!DOCTYPE html>
@@ -31,6 +29,7 @@
     <section>
         <a class="link" href="../user/task/userTask.php">My task</a>
         <a class="link" href="../user/clockin_out/clockIn.php">Clock in work</a> 
+        <a class="link" href="../user/clockin_out/clockOut.php">Clock out of work</a> 
     </section>
    
 
