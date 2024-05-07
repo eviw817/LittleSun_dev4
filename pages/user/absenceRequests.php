@@ -1,6 +1,13 @@
 <?php 
 // Inclusie van Db.php voor databaseverbinding
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/Db.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/absence/Request.php");
+
+if(!empty($_POST)){
+    try{
+        $equest = new Requests();
+    }
+}
 
 // databaseverbinding met de statische methode getConnection() van de Db klasse
 $conn = Db::getConnection();
