@@ -13,8 +13,8 @@ if(!empty($_POST)){
         $error = $e->getMessage();
     }
 }
-//    $startDateTime = ($startTime != null) ? $startDate . ' ' . $startTime : $startDate;
-//    $endDateTime = ($endTime != null) ? $endDate . ' ' . $endTime : $endDate;
+// $startDateTime = ($startTime != null) ? $startDate . ' ' . $startTime : $startDate;
+// $endDateTime = ($endTime != null) ? $endDate . ' ' . $endTime : $endDate;
 ?>
 <!DOCTYPE html>
 <html lang="en">

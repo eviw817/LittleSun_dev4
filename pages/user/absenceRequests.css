@@ -13,9 +13,7 @@ section {
 }
 
 h1 {
-    text-align: var(--text-align);
     margin-bottom: 1.25rem;
-    color: var(--color-black);
 }
 
 .form-group {
