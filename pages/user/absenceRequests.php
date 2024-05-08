@@ -21,45 +21,46 @@ if(!empty($_POST)){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request Absence Time</title>
+    <title>User Dashboard</title>
     <link rel="stylesheet" href="../../reset.css">
     <link rel="stylesheet" href="../../shared.css">
-    <link rel="stylesheet" href="absenceRequests.css">
+    <link rel="stylesheet" href="./absenceRequests.css">
 </head>
 <body>
 <?php include_once("../../components/headerUser.inc.php"); ?>
-<main>
-    <h1>Request absence time</h1>
+<div class="-dashboard">
+    <h1>User Dashboard</h1>
 
     <?php if(isset($error)): ?>
       <div class="text-red-500">Error: <?php echo $error; ?></div>
     <?php endif; ?> 
+    <h2>Request Absence:</h2>
 
-    <form method="post" action="">
-        <section class="form-group">
+    <form id="timeOffRequestForm" method="post" action="">
+        <div class="form-group">
             <div class="date-time-group">
                 <label for="startDate">Start Date:</label>
-                <input class="input" type="date" name="startDate" required>
+                <input type="date" id="startDate" name="startDate" required>
             </div>
             <div class="date-time-group">
                 <label for="startTime">Start Time:</label>
-                <input class="input" type="time" name="startTime">
+                <input type="time" id="startTime" name="startTime">
             </div>
-        </section>
+        </div>
 
-        <section class="form-group">
+        <div class="form-group">
             <div class="date-time-group">
                 <label for="endDate">End Date:</label>
-                <input class= type="date" name="endDate" required>
+                <input type="date" id="endDate" name="endDate" required>
             </div>
             <div class="date-time-group">
                 <label for="endTime">End Time:</label>
                 <input type="time" id="endTime" name="endTime">
             </div>
-        </section>
+        </div>
 
         <label for="typeOfAbsence">Type of Absence:</label>
-        <select class="typeOfAbsence" name="typeOfAbsence" required>
+        <select id="typeOfAbsence" name="typeOfAbsence" required>
             <option value="">Select type of absence</option>
             <option value="Half a day">Half a day</option>
             <option value="1 day">1 day</option>
@@ -67,11 +68,12 @@ if(!empty($_POST)){
         </select>
 
         <label for="reason">Reason:</label>
-        <input class="input" type="text" name="reason" placeholder="Enter reason" required>
+        <input type="text" id="reason" name="reason" placeholder="Enter reason" required>
 
-        <button class="button" type="submit">Submit</button>
-        <a class="link" href="../dashboard/userDashboard.php">Cancel</a>
+        <button type="submit">Submit</button>
+        <a href="../dashboard/userDashboard.php">Cancel</button>
+
     </form>
-</main>
+</div>
 </body>
 </html>

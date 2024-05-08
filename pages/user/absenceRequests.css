@@ -3,7 +3,7 @@ body {
     background-color: var(--color-off-white);
 }
 
-section {
+.-dashboard {
     max-width: 37.5rem;
     margin: 3.125rem auto;
     padding: 1.25rem;
@@ -12,33 +12,46 @@ section {
     box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
 }
 
-h1 {
+.-dashboard h1, .-dashboard h2 {
+    text-align: var(--text-align);
     margin-bottom: 1.25rem;
+    color: var(--color-black);
 }
 
-.form-group {
+.-dashboard form .form-group {
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.625rem;
 }
 
-.date-time-group {
+.-dashboard form .date-time-group {
     flex: 1;
 }
 
-label {
+.-dashboard form label {
     color: var(--color-black);
 }
 
-.typeOfAbsence, .input {
-    width: calc(96% - 0.188rem);
+.-dashboard form select,
+.-dashboard form input[type="text"] {
+    width: 99%;
     padding: 0.625rem;
     margin-bottom: 0.625rem;
     border: 0.063rem solid var(--color-gray);
     border-radius: 0.313rem;
 }
 
-.button{
+.-dashboard form input[type="date"],
+.-dashboard form input[type="time"]{
+    width: 91%;
+    padding: 0.625rem;
+    margin-bottom: 0.625rem;
+    border: 0.063rem solid var(--color-gray);
+    border-radius: 0.313rem;
+}
+
+.-dashboard form button[type="submit"],
+.-dashboard form a {
     width: calc(50% - 0.313rem);
     padding: 0.625rem;
     background-color: var(--color-primary);
@@ -51,17 +64,23 @@ label {
     transition: background-color 0.3s ease;
 }
 
-.button:hover{
+.-dashboard form button[type="submit"]:hover,
+.-dashboard form a:hover {
     background-color: var(--color-light-primary);
 }
 
-.link{
+.-dashboard form a {
     background-color: var(--color-white); 
     color: var(--color-black); 
     border: 0.063rem solid var(--color-black); 
+    text-decoration: none;
 }
 
-.link:hover {
+.-dashboard form a:hover {
     background-color: var(--color-black); 
     color: var(--color-white); 
+}
+
+.-dashboard form input[type="text"] {
+    width: calc(96% - 0.188rem);
 }
