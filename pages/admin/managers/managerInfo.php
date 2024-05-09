@@ -4,16 +4,15 @@
     
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
-        // Haal de manager op met de opgegeven ID
         $manager = Manager::getManagerById($id);
         if (!$manager) {
             echo "Manager not found";
-            die(); // Stop verdere uitvoering van de code
+            die(); 
         }
     } else {
-        // Als er geen ID is, geef dan een foutmelding weer
+     
         echo "No manager ID specified";
-        die(); // Stop verdere uitvoering van de code
+        die(); 
     }
 
 ?><!DOCTYPE html>

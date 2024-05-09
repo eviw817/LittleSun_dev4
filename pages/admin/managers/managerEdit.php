@@ -16,35 +16,19 @@ if (isset($_GET['id'])) {
     die();
 }
 
-if (isset($_POST['submit'])) {
-    if ($_POST['location'] == "-1") {
-        $location = null;
-    } else {
-        $location = $_POST["location"];
-    }
+if (isset($_POST['save'])) {
+    $location = ($_POST['location'] == "-1") ? null : $_POST['location'];
     $username = $_POST["username"];
     $email = $_POST["email"];
     $role = $_POST["role"];
     $firstName = $_POST["firstName"];
     $lastName = $_POST["lastName"];
     $image = $_POST["image"];
-    $updatemanager = new Manager($username, $email, $role, $firstName, $lastName, $location, $image);
+   
+    $updatemanager = new Manager($username, $email, $role, $firstName, $lastName, $location, $image); 
     $updatemanager->setId($id);
     $updatemanager->updateInfo();
 
-    if (isset($_POST["new-password"])) {
-        $newPassword = $_POST["new-password"];
-        if (!empty($newPassword)) {
-            $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT, ['cost' => 12]);
-            $statement = $conn->prepare("UPDATE users SET password = :password WHERE id = :id");
-            $statement->execute([
-                ":password" => $hashedPassword,
-                ":id" => $id
-            ]);
-        }
-    }
-
-  
     header("Location: managerInfo.php?id=$id");
     exit();
 }
@@ -63,7 +47,8 @@ if (isset($_POST['submit'])) {
 <body>
 <?php include_once("../../../components/headerAdmin.inc.php"); ?>
     <section>
-        <form action="managerEdit.php?id=<?php echo $updatemanager['id']; ?>" method="post">
+    <form action="managerInfo.php?id=<?php echo $manager['id']; ?>" method="post" enctype="multipart/form-data">
+
             <h1>Edit hub manager</h1>
 
             <div class="form__field">
@@ -109,19 +94,17 @@ if (isset($_POST['submit'])) {
             <div class="image">
                 <?php if (isset($manager["image"])) : ?>
                     <p>Current profile picture:</p>
-                    <img id="img" width="60px" src="<?php echo $manager["image"]; ?>" alt="Profile Picture">
+                    <img class="img" width="60px" src="<?php echo $manager["image"]; ?>" alt="Profile Picture">
                 <?php endif; ?>
             </div>
             <div class="form__field">
                 <label for="img">Select image:</label>
                 <input type="file" id="img" name="img" accept="image/jpg, image/jpg">
             </div>
-            <input type="submit" value="Upload Image" name="submit">
-
-
+            <input type="submit" value="Upload Image" name="upload">
 
             <div class="form__field">
-                <input type="submit" name="submit" value="Save" class="btn-save">
+                    <input type="submit" name="save" value="Save" class="btn-save">
             </div>
         </form>
     </section>

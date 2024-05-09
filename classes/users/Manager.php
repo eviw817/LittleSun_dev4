@@ -54,7 +54,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
         public function updateInfo(){
             if(!empty($this->id)){
             $conn = Db::getConnection();
-            $statement = $conn->prepare("UPDATE users SET username = :username, email = :email, role = :role, location = :location, firstName = :firstName, lastName = :lastName,  image = :iamge WHERE id = :id");
+            $statement = $conn->prepare("UPDATE users SET username = :username, email = :email, role = :role, location = :location, firstName = :firstName, lastName = :lastName, image = :image WHERE id = :id");
             $statement->execute([
                 ":username" => $this->username,
                 ":email" => $this->email,
