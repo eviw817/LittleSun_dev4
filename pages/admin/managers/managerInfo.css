@@ -1,3 +1,13 @@
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    
+}
+
 .edit{
     width: 20%;
     padding: 0.625rem;
@@ -9,30 +19,43 @@
     border: 0.063rem solid var(--color-off-black); 
     transition: background-color 0.3s ease;
     margin-bottom: 1.25rem; 
-    margin-top: 1.25rem;
-    margin-left: 1.25rem;
+    margin-top: 20px;
+   
     
+}
+
+
+.edit-link {
+    margin-top: 20px;
 }
 
 .edit:hover {
     background-color: var(--color-off-black); 
     color: var(--color-white);
 }
-p {
-    margin: 1.563rem 1.25rem;
+h1{
+    font-size: 2rem;
+    margin: 20px;
+   
 }
 
-h1{
-    margin-left: 0.938rem;
-    font-size: 1.5rem;
+p{
+    font-size: 19px;
+    margin-top: 20px;
+}
+
+
+.image {
+    margin-top: 20px;
 }
 
 .image img {
-    display: block;
-    margin-top: 0.625rem;
+  
+    width: 60px;
+    margin-bottom: 20px;
 }
 
 .image p {
-    margin-top: 0.313rem; 
+    margin-top: 20px;
 }
 

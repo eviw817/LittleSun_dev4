@@ -12,7 +12,7 @@
     <title>Hub managers</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./hubManager.css">
+    <link rel="stylesheet" href="./managerList.css">
 </head>
 <body>
 <?php include_once("../../../components/headerAdmin.inc.php"); ?>

@@ -1,8 +1,22 @@
 <?php
+    session_start();
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/location.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 
-   
+    if (isset($_SESSION['id'])) {
+    
+        $user = Manager::getManagerById($_SESSION['id']);
+    
+    
+        $userId = $_SESSION['id'];
+        $manager = $user['username'];
+    
+    
+    } else {
+        header("Location: login.php");
+        exit();
+    }
 
 ?>
 

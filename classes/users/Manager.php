@@ -51,9 +51,10 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
             return $result;
         }
 
-        public function updateInfo($managerId){
+        public function updateInfo(){
+            if(!empty($this->id)){
             $conn = Db::getConnection();
-            $statement = $conn->prepare("UPDATE users SET username = :username, email = :email, role = :role, location = :location, firstName = :firstName, lastName = :lastName WHERE id = :id");
+            $statement = $conn->prepare("UPDATE users SET username = :username, email = :email, role = :role, location = :location, firstName = :firstName, lastName = :lastName,  image = :iamge WHERE id = :id");
             $statement->execute([
                 ":username" => $this->username,
                 ":email" => $this->email,
@@ -61,8 +62,12 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
                 ":location" => $this->location,
                 ":firstName" => $this->firstName,
                 ":lastName" => $this->lastName,
-                ":id" => $managerId
+                ":image" => $this->image,
+                ":id" => $this->id
             ]);
+        } else{
+            throw new Exception("id is not set.");
+        }
         }
 
         // Functie om de lijst van hub managers op te halen

@@ -39,7 +39,7 @@ if (!empty($_POST)) {
     <title>Add managers</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./addManager.css">
+    <link rel="stylesheet" href="./managerAdd.css">
 </head>
 
 <body>

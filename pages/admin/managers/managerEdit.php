@@ -1,20 +1,17 @@
 <?php
+session_start();
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Location.php");
 
-// Controleren of er een manager ID is opgegeven in de URL
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    // Managergegevens ophalen
     $manager = Manager::getManagerById($id);
-    // Controleren of de manager bestaat
     if (!$manager) {
         echo "Manager not found";
         die();
     }
 } else {
-    // Als er geen ID is opgegeven, stop de uitvoering en geef een foutmelding weer
     echo "No manager ID specified";
     die();
 }
@@ -25,13 +22,18 @@ if (isset($_POST['submit'])) {
     } else {
         $location = $_POST["location"];
     }
-
-    $manager = new Manager($_POST["username"], $_POST["email"], $_POST["password"], $_POST["role"], $location, $_POST["firstName"], $_POST["lastName"]);
-    $manager->updateInfo($id);
+    $username = $_POST["username"];
+    $email = $_POST["email"];
+    $role = $_POST["role"];
+    $firstName = $_POST["firstName"];
+    $lastName = $_POST["lastName"];
+    $image = $_POST["image"];
+    $updatemanager = new Manager($username, $email, $role, $firstName, $lastName, $location, $image);
+    $updatemanager->setId($id);
+    $updatemanager->updateInfo();
 
     if (isset($_POST["new-password"])) {
         $newPassword = $_POST["new-password"];
-        // Controleer of het nieuwe wachtwoord niet leeg is
         if (!empty($newPassword)) {
             $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT, ['cost' => 12]);
             $statement = $conn->prepare("UPDATE users SET password = :password WHERE id = :id");
@@ -42,18 +44,11 @@ if (isset($_POST['submit'])) {
         }
     }
 
-    if (isset($_FILES['img']) && !empty($_FILES['img']['name'])) {
-        // Voer het gedeelte voor het uploaden van de afbeelding uit
-        // Dit is al correct geïmplementeerd zoals hierboven getoond
-    }
-
-    // Redirect naar de detailpagina met de bijgewerkte gegevens
-    header("Location: manager.php?id=$id");
+  
+    header("Location: managerInfo.php?id=$id");
     exit();
 }
-
-?>
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -62,14 +57,14 @@ if (isset($_POST['submit'])) {
     <title>Edit hub manager</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./editManager.css">
+    <link rel="stylesheet" href="./managerEdit.css">
 </head>
 
 <body>
 <?php include_once("../../../components/headerAdmin.inc.php"); ?>
     <section>
-        <form action="editManager.php?id=<?php echo $manager['id']; ?>" method="post" enctype="multipart/form-data">
-            <h2>Edit hub manager</h2>
+        <form action="managerEdit.php?id=<?php echo $updatemanager['id']; ?>" method="post">
+            <h1>Edit hub manager</h1>
 
             <div class="form__field">
                 <label for="username">Username:</label>
