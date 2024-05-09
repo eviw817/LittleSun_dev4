@@ -23,9 +23,11 @@ if (isset($_POST['save'])) {
     $role = $_POST["role"];
     $firstName = $_POST["firstName"];
     $lastName = $_POST["lastName"];
-    $image = $_POST["image"];
    
-    $updatemanager = new Manager($username, $email, $role, $firstName, $lastName, $location, $image); 
+    $updatemanager = new Manager($username, $email, null, $role, $location, $firstName, $lastName);
+    if (isset($_POST["img"])){
+        $updatemanager->setImage('data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])));
+    }
     $updatemanager->setId($id);
     $updatemanager->updateInfo();
 
@@ -47,7 +49,7 @@ if (isset($_POST['save'])) {
 <body>
 <?php include_once("../../../components/headerAdmin.inc.php"); ?>
     <section>
-    <form action="managerInfo.php?id=<?php echo $manager['id']; ?>" method="post" enctype="multipart/form-data">
+    <form action="" method="post" enctype="multipart/form-data">
 
             <h1>Edit hub manager</h1>
 
