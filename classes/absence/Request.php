@@ -10,6 +10,7 @@
             $statement->bindValue(':endDateTime', $this->endDateTime);
             $statement->bindValue(':typeOfAbsence', $this->typeOfAbsence);
             $statement->bindValue(':reason', $this->reason);
+            return $statement->execute();
         }
 
         public static function getAbsentRequests() {
