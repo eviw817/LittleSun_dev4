@@ -241,7 +241,7 @@
             public static function getDataFromTimetable($userId)
             {
                 $conn = Db::getConnection();
-                $statement = $conn->prepare("SELECT clock_in_time, clock_out_time, total_hours, overtime_hours, userId, username FROM work_logs WHERE userId = :userId");
+                $statement = $conn->prepare("SELECT clock_in_time, clock_out_time, total_hours, overtime_hours FROM work_logs WHERE userId = :userId ORDER BY clock_in_time DESC LIMIT 1");
                 $statement->bindValue(":userId", $userId);
                 $statement->execute();
                 $result = $statement->fetch(PDO::FETCH_ASSOC);
