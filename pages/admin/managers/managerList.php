@@ -28,7 +28,7 @@
     <?php endforeach; ?>
     </div>
     <div class="button-container">
-        <button class="newmanager" onclick="window.location.href='addManager.php'">Add new hub manager</button>
+        <a class="newmanager" href="managerAdd.php">Add new hub manager</a>
     </div>
 </body>
 </html>

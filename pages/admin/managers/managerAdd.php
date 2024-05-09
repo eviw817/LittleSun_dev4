@@ -1,7 +1,6 @@
 <?php
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 
-// wat doet dit? - Evi
 /*function getLocation()
 {
     $conn = Db::getConnection();
@@ -20,7 +19,7 @@ if (!empty($_POST)) {
 
         $manager->newManager();
 
-        header("Location: hubManagers.php");
+        header("Location: managerList.php");
         exit();
     } catch (Exception $e) {
         $error = $e->getMessage();
@@ -49,7 +48,7 @@ if (!empty($_POST)) {
             <div class="error">Error: <?php echo $error; ?></div>
         <?php endif; ?>
 
-            <form action="addManager.php" method="post" enctype="multipart/form-data">
+            <form action="" method="post" enctype="multipart/form-data">
                 <h1>New hub manager</h2>
 
                     <div class="form__field">

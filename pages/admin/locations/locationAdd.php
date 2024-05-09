@@ -43,7 +43,7 @@ if(!empty($_POST)){
             <div class="error">Error: <?php echo $error; ?></div>
         <?php endif; ?> 
 
-        <form action="locationAdd.php" method="post">
+        <form action="" method="post">
             <h2 class="form__title">New location</h2>
 
             <div class="form__field">

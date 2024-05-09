@@ -32,7 +32,7 @@
     <?php endforeach; ?>
     </section>
     <div class="button-container">
-        <button class="newuser" onclick="window.location.href='userAdd.php'">Add new user</button>
+        <a class="newuser" href="userAdd.php">Add new user</a>
     </div>
 </body>
 </html>

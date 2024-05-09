@@ -44,7 +44,7 @@ if(!empty($_POST)){
             <div class="error">Error: <?php echo $error; ?></div>
         <?php endif; ?> 
 
-        <form action="taskAdd.php" method="post">
+        <form action="" method="post">
             <h2 class="form__title">New task</h2>
 
             <div class="form__field">

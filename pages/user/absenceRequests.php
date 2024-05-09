@@ -70,7 +70,7 @@ if(!empty($_POST)){
         <input type="text" id="reason" name="reason" placeholder="Enter reason" required>
 
         <button type="submit">Submit</button>
-        <a href="../dashboard/userDashboard.php">Cancel</button>
+        <a href="../dashboard/userDashboard.php">Cancel</a>
 
     </form>
 </div>
