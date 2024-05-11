@@ -1,19 +1,31 @@
 <?php
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "Db.php");
 
-namespace benhall14\phpCalendar;
+/*
+<?php
+class WeeklyCalendar {
+    private $start_date;
 
-use DateTime;
-use stdClass;
+    public function __construct($start_date) {
+        $this->start_date = $start_date;
+    }
 
-/**
- * Simple PHP Calendar Class.
- *
- * @copyright  Copyright (c) Benjamin Hall
- * @license https://github.com/benhall14/php-calendar
- * @package protocols
- * @version 1.2
- * @author Benjamin Hall <https://conobe.co.uk>
- */
+    public function getWeekDates() {
+        $dates = [];
+        for ($i = 0; $i < 7; $i++) {
+            $dates[] = date('Y-m-d', strtotime("{$this->start_date} +{$i} days"));
+        }
+        return $dates;
+    }
+
+    public function render() {
+        $dates = $this->getWeekDates();
+        // Render your calendar here, using the dates
+    }
+}
+?>
+*/
+
 class Calendar
 {
     /**
@@ -202,62 +214,6 @@ class Calendar
     }
 
     /**
-     * Toggles the calendar locale to Spanish.
-     *
-     * @return Calendar
-     */
-    public function useSpanish()
-    {
-        $this->setDays([
-            'sunday' => [
-                'initials' => 'D',
-                'full' => 'Domingo'
-            ],
-            'monday' => [
-                'initials' => 'L',
-                'full' => 'Lunes',
-            ],
-            'tuesday' => [
-                'initials' => 'M',
-                'full' => 'Martes',
-            ],
-            'wednesday' => [
-                'initials' => 'X',
-                'full' => 'Miércoles',
-            ],
-            'thursday' => [
-                'initials' => 'J',
-                'full' => 'Jueves',
-            ],
-            'friday' => [
-                'initials' => 'V',
-                'full' => 'Viernes',
-            ],
-            'saturday' => [
-                'initials' => 'S',
-                'full' => 'Sábado',
-            ],
-        ]);
-
-        $this->setMonths([
-            'january' => 'Enero',
-            'february' => 'Febrero',
-            'march' => 'Marzo',
-            'april' => 'Abril',
-            'may' => 'Mayo',
-            'june' => 'Junio',
-            'july' => 'Julio',
-            'august' => 'Agosto',
-            'september' => 'Septiembre',
-            'october' => 'Octubre',
-            'november' => 'Noviembre',
-            'december' => 'Diciembre'
-        ]);
-
-        return $this;
-    }
-
-    /**
      * Sets the array of month names. Useful when translating.
      *
      * @param array $months
@@ -281,66 +237,6 @@ class Calendar
     public function hideSundays()
     {
         $this->hide_sundays = true;
-
-        return $this;
-    }
-
-    /**
-     * Hide Mondays
-     *
-     * @return Calendar
-     */
-    public function hideMondays()
-    {
-        $this->hide_mondays = true;
-
-        return $this;
-    }
-
-    /**
-     * Hide Tuesdays
-     *
-     * @return Calendar
-     */
-    public function hideTuesdays()
-    {
-        $this->hide_tuesdays = true;
-
-        return $this;
-    }
-
-    /**
-     * Hide Wednesdays
-     *
-     * @return Calendar
-     */
-    public function hideWednesdays()
-    {
-        $this->hide_wednesdays = true;
-
-        return $this;
-    }
-
-    /**
-     * Hide Thursdays
-     *
-     * @return Calendar
-     */
-    public function hideThursdays()
-    {
-        $this->hide_thursdays = true;
-
-        return $this;
-    }
-
-    /**
-     * Hide Fridays
-     *
-     * @return Calendar
-     */
-    public function hideFridays()
-    {
-        $this->hide_fridays = true;
 
         return $this;
     }
@@ -810,7 +706,7 @@ class Calendar
      *
      * @return void
      */
-    public function setTimeFormat($start_time = '00:00', $end_time = '00:00', $minutes = 30)
+    public function setTimeFormat($start_time = '08:00', $end_time = '17:30', $minutes = 30)
     {
         $this->start_time = $start_time;
         $this->end_time = $end_time;
@@ -826,8 +722,8 @@ class Calendar
      */
     public function getTimes()
     {
-        $start_time = DateTime::createFromFormat('H:i', $this->start_time);
-        $end_time = DateTime::createFromFormat('H:i', $this->end_time);
+        $start_time = DateTime::createFromFormat('H:i', "08:00");
+        $end_time = DateTime::createFromFormat('H:i', "17:30");
         if ($start_time == $end_time) {
             $end_time->modify('+1 day');
         }
@@ -902,7 +798,6 @@ class Calendar
             $calendar .= '<th class="cal-th cal-th-' . strtolower($date->format('l')) . '">';
             $calendar .= '<div class="cal-weekview-dow">' . $days[strtolower($date->format('l'))]['full'] . '</div>';
             $calendar .= '<div class="cal-weekview-day">' . $date->format('j') . '</div>';
-            $calendar .= '<div class="cal-weekview-month">' . $this->months[strtolower($date->format('F'))] . '</div>';
             $calendar .= '</th>';
         }
 

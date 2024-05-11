@@ -77,9 +77,11 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
             $statement->execute();
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
+   
+        public static function getUsersByAvailability(){
+            $conn = Db::getConnection();
+            $statement = $conn->query("SELECT * FROM users u WHERE role = 'user'");
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
 
-
-        
-        
-        
     }
