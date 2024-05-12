@@ -1,31 +1,6 @@
 <?php
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "Db.php");
 
-/*
-<?php
-class WeeklyCalendar {
-    private $start_date;
-
-    public function __construct($start_date) {
-        $this->start_date = $start_date;
-    }
-
-    public function getWeekDates() {
-        $dates = [];
-        for ($i = 0; $i < 7; $i++) {
-            $dates[] = date('Y-m-d', strtotime("{$this->start_date} +{$i} days"));
-        }
-        return $dates;
-    }
-
-    public function render() {
-        $dates = $this->getWeekDates();
-        // Render your calendar here, using the dates
-    }
-}
-?>
-*/
-
 class Calendar
 {
     /**
@@ -34,6 +9,11 @@ class Calendar
      * @var string
      */
     private $type = 'month';
+
+    /**
+     * The base date for the calendar.
+     */
+    private $baseDate;
 
     /**
      * Time Interval used in the week view.
@@ -67,11 +47,11 @@ class Calendar
     private $day_format = 'initials';
 
     /**
-     * Start day of week. Default = 6 (Sunday)
+     * Start day of week. Default = 0 (Monday)
      *
      * @var integer
      */
-    private $starting_day = 6;
+    private $starting_day = 0;
 
     /**
      * The day strings. Default EN.
@@ -80,37 +60,37 @@ class Calendar
      */
     private $days = [
         'sunday' => [
-            'dow' => 0,
+            'dow' => 6,
             'initials' => 'S',
             'full' => 'Sunday'
         ],
         'monday' => [
-            'dow' => 1,
+            'dow' => 0,
             'initials' => 'M',
             'full' => 'Monday',
         ],
         'tuesday' => [
-            'dow' => 2,
+            'dow' => 1,
             'initials' => 'T',
             'full' => 'Tuesday',
         ],
         'wednesday' => [
-            'dow' => 3,
+            'dow' => 2,
             'initials' => 'W',
             'full' => 'Wednesday',
         ],
         'thursday' => [
-            'dow' => 4,
+            'dow' => 3,
             'initials' => 'T',
             'full' => 'Thursday',
         ],
         'friday' => [
-            'dow' => 5,
+            'dow' => 4,
             'initials' => 'F',
             'full' => 'Friday',
         ],
         'saturday' => [
-            'dow' => 6,
+            'dow' => 5,
             'initials' => 'S',
             'full' => 'Saturday',
         ],
@@ -148,7 +128,7 @@ class Calendar
      *
      * @var boolean
      */
-    private $hide_sundays = false;
+    private $hide_sundays = true;
 
     /**
      * Hide all 'mondays' from the calendar view.
@@ -190,7 +170,12 @@ class Calendar
      *
      * @var boolean
      */
-    private $hide_saturdays = false;
+    private $hide_saturdays = true;
+
+    public function setBaseDate($date) {
+        $this->baseDate = new DateTime($date);
+        return $this;
+    }
 
     /**
      * Sets the array of days. Useful when translating.
@@ -273,18 +258,6 @@ class Calendar
     public function useFullDayNames()
     {
         $this->day_format = 'full';
-
-        return $this;
-    }
-
-    /**
-     * Changes the weekly start date to Sunday.
-     *
-     * @return Calendar
-     */
-    public function useSundayStartingDate()
-    {
-        $this->starting_day = 6;
 
         return $this;
     }

@@ -45,7 +45,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
         public static function getManagerById($managerId)
         {
             $conn = Db::getConnection();
-            $statement = $conn->prepare("SELECT u.*, l.name FROM users u LEFT JOIN locations l ON u.location = l.id WHERE u.id = :id AND role = 'manager'");
+            $statement = $conn->prepare("SELECT u.*, l.id as lId, l.name FROM users u LEFT JOIN locations l ON u.location = l.id WHERE u.id = :id AND role = 'manager'");
             $statement->execute([":id" => $managerId]);
             $result = $statement->fetch(PDO::FETCH_ASSOC);
             return $result;

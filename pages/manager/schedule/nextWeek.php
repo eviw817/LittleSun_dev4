@@ -29,25 +29,22 @@ $calendar
 
 <body>
     <?php include_once("../../../components/headerManager.inc.php"); ?>
-
-    
     <div class="nav">
         <div class="agenda-info">
             <h2><?php echo $managerInfo['name']; ?></h2>
-            <p>|</p>
             <a href="<?php date("d/m/y"); ?>">Today: <?php echo date("d/m/y"); ?></a> <!-- get current week and make list of multiple weeks -->
         </div>
         <div class="agenda-info">
-            <a class="link" href="managerScheduleMonthly.php">Monthly view</a> <!-- get current month and make list of multiple months -->
-            <a class="link" href="#">Weekly view</a> <!-- get current week and make list of multiple weeks -->
+            <a href="managerScheduleMonthly.php">Monthly view</a> <!-- get current month and make list of multiple months -->
+            <a href="#">Weekly view</a> <!-- get current week and make list of multiple weeks -->
         </div>
     </div>
     <section>
         <button type="add">New Shift</button>
             <div class="cycle">
-                <a href="<?php (new DateTime())->modify('-1 week')->format('W'); ?>"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg></a>
-                <a href="<?php idate("W"); ?>">Current week</a>
-                <a href="<?php (new DateTime())->modify('+1 week')->format('W');?>"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg></a>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg>
+                <a href="managerScheduleWeekly.php">Next week</a>
+                <a href="nextWeek.php"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg></a>
             </div>
     </section>
     <section>
