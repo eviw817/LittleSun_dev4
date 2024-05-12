@@ -2,12 +2,14 @@
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/absence/Request.php");
 
+session_start();
+
 if(!empty($_POST)){
     try{
         $startDateTime = ($_POST['startTime'] != null) ? $_POST['startDate'] . ' ' . $_POST['startTime']: $_POST['startDate'] . ' 00:00:00';
         $endDateTime = ($_POST['endTime'] != null) ? $_POST['endDate'] . ' ' . $_POST['endTime'] : $_POST['endDate'] . ' 00:00:00';
         $request = new Request($startDateTime, $endDateTime, $_POST["typeOfAbsence"], $_POST["reason"]);
-        $request->newRequest();
+        $request->newRequest($_SESSION['id']);
         header("Location: successMessage.php");
         exit();
     } catch(Exception $e){

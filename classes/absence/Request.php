@@ -3,13 +3,14 @@
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "Absence.php");
 
     class Request extends Absence{
-        public function newRequest(){
+        public function newRequest($userId){
             $conn = Db::getConnection();
-            $statement = $conn->prepare("INSERT INTO absence_requests (startDateTime, endDateTime, typeOfAbsence, reason) VALUES (:startDateTime, :endDateTime, :typeOfAbsence, :reason)");
+            $statement = $conn->prepare("INSERT INTO absence_requests (startDateTime, endDateTime, typeOfAbsence, reason, user_id) VALUES (:startDateTime, :endDateTime, :typeOfAbsence, :reason, :user_id)");
             $statement->bindValue(':startDateTime', $this->startDateTime);
             $statement->bindValue(':endDateTime', $this->endDateTime);
             $statement->bindValue(':typeOfAbsence', $this->typeOfAbsence);
             $statement->bindValue(':reason', $this->reason);
+            $statement->bindValue(':user_id', $userId, PDO::PARAM_INT);
             return $statement->execute();
         }
 
