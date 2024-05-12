@@ -1,8 +1,7 @@
 <?php
+session_start();
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/absence/Request.php");
-
-session_start();
 
 if(!empty($_POST)){
     try{

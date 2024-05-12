@@ -1,5 +1,7 @@
 <?php
+session_start();
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Calendar.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 
 $calendar = new Calendar();
 
@@ -22,11 +24,15 @@ $calendar
 
 <body>
     <?php include_once("../../../components/headerManager.inc.php"); ?>
-
     <div class="nav">
-        <a href="managerScheduleMonthly.php">Monthly view</a> <!-- get current month and make list of multiple months -->
-        <a href="#">This Week</a> <!-- get current week and make list of multiple weeks -->
-        <a href="#">Today</a> <!-- get current week and make list of multiple weeks -->
+        <div class="agenda-info">
+            <h2><?php echo Manager::getManagerById($_SESSION["id"])['name']; ?></h2>
+            <a href="<?php date("d/m/y"); ?>">Today: <?php echo date("d/m/y"); ?></a> <!-- get current week and make list of multiple weeks -->
+        </div>
+        <div class="agenda-info">
+            <a href="managerScheduleMonthly.php">Monthly view</a> <!-- get current month and make list of multiple months -->
+            <a href="#">Weekly view</a> <!-- get current week and make list of multiple weeks -->
+        </div>
     </div>
     <section>
         <button type="add">New Shift</button>
