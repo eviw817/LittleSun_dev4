@@ -6,32 +6,24 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Shift.php");
 
-if (isset($_POST['addNewShift'])) {
-    $task_id = isset($_POST['task']);
-    $user_id = isset($_POST['user']);
-
-    try {
-        $shift = new Shift($task_id, $user_id, $_SESSION['date'], $_SESSION['startTime'], $_SESSION['eTime']);
-
-        $shift->newShift();
-
-        exit();
-    } catch (Exception $e) {
-        echo "Error: " . $e->getMessage();
-    }
-} else {
-    echo "Error: New shift not submitted.";
+if (!empty($_POST)) {
+    $shift = new Shift($_POST['task'], $_POST['user'], $_POST['date'], $_POST['startTime'], $_POST['endTime']);
+    $shift->newShift();
 }
 
-$managerInfo = Manager::getManagerById($_SESSION["id"]);
-
 $calendar = new Calendar();
+if($_SESSION["id"]){
+    $managerInfo = Manager::getManagerById($_SESSION["id"]);
+    $events = Shift::getShiftsByLocation($managerInfo['location']);
+    foreach ($events as $event) {
+        $calendar->addEvent($event['startTime'], $event['endTime']);
+    }
+} else {
+    echo "Error: Session is invalid, please log-in again";
+}
 
 $calendar
     ->useMondayStartingDate()
-    ->addEvent(date('2024-01-14'), date('2024-01-14'), 'My Birthday', true)
-    ->addEvent(date('2024-12-25'), date('2024-12-25'), 'Christmas', true)
-    ->addEvent(date('2024-1-1 10:00'), date('2024-1-1 12:00'), 'Event', true);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,8 +39,6 @@ $calendar
 
 <body>
     <?php include_once("../../../components/headerManager.inc.php"); ?>
-
-    
     <div class="nav">
         <div class="agenda-info">
             <h2><?php echo $managerInfo['name']; ?></h2>
@@ -60,7 +50,7 @@ $calendar
             <a class="link" href="#">Weekly view</a> <!-- get current week and make list of multiple weeks -->
         </div>
     </div>
-    <form action="managerScheduleWeekly.php" method="post">
+    <form action="" method="post">
         <a class="newShift" href="#popup">New Shift</a>
 
         <div id="popup" class="popup">
@@ -72,7 +62,7 @@ $calendar
                     <h4>Select task:</h4>
                     <select name="task" id="task">
                         <?php foreach (Task::getTasks() as $task) : ?>
-                            <option value="<?php echo $task["id"] ?>"<?php echo $task['id']; ?>><?php echo $task['name']; ?></option>
+                            <option value="<?php echo $task["id"] ?>"><?php echo $task['name']; ?></option>
                         <?php endforeach; ?>
                     </select>                    
                 </div>
@@ -81,7 +71,7 @@ $calendar
                     <h4>Select user:</h4>
                     <select name="user" id="user">
                         <?php foreach (User::getUsersByLocationAndRequests($managerInfo["location"]) as $user) : ?>
-                            <option value="<?php echo $user["id"] ?>"<?php echo $user['id']; ?>><?php echo $user['username']; ?></option>
+                            <option value="<?php echo $user["id"] ?>"><?php echo $user['username']; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>       
@@ -93,8 +83,8 @@ $calendar
                         <input type="date" id="date" name="date">
                     </div>
                     <div class="startTime">
-                        <label for="StartTime">Start Time:</label>
-                        <input type="time" id="StartTime" name="StartTime">
+                        <label for="startTime">Start Time:</label>
+                        <input type="time" id="startTime" name="startTime">
                     </div>
                     <div class="endTime">
                         <label for="endTime">End Time:</label>
@@ -102,16 +92,17 @@ $calendar
                     </div>
                 </div>  
 
-                <a href="#" class="button"><button class="button" type="addNewShift">Confirm</button></a>
+            <input class="button" type="submit" value="confirm"></input>
 
             </div>
-        </div>
+        </div>    
+    </form>
             <div class="cycle">
                 <a href="<?php (new DateTime())->modify('-1 week')->format('W'); ?>"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg></a>
                 <a href="<?php idate("W"); ?>">Current week</a>
                 <a href="<?php (new DateTime())->modify('+1 week')->format('W');?>"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg></a>
             </div>
-    </form>
+
     <section>
         <div class="users">
             <div >

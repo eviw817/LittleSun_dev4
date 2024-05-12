@@ -1,43 +1,42 @@
 <?php
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "Db.php");
 
-class Shift{
+class Shift
+{
     private $id;
     private $task_id;
     private $user_id;
-    private $shiftDate;
     private $startTime;
     private $endTime;
 
-    public function __construct($task_id, $user_id, $shiftDate, $startTime, $endTime){
+    public function __construct($task_id, $user_id, $shiftDate, $startTime, $endTime)
+    {
         $this->task_id = $task_id;
         $this->user_id = $user_id;
-        $this->shiftDate = $shiftDate;
-        $this->startTime = $startTime;
-        $this->endTime = $endTime;
-
+        $this->startTime = new DateTime($shiftDate . " " . $startTime . ":00");
+        $this->endTime = new DateTime($shiftDate . " " . $endTime . ":00");
         return $this;
     }
 
     //Set the value of id
     public function setId($id)
     {
-            $this->id = $id;
+        $this->id = $id;
 
-            return $this;
+        return $this;
     }
     //Get the value of id
     public function getId()
     {
-            return $this->id;
+        return $this->id;
     }
 
     //Set the value of task_id
     public function setTask_id($task_id)
     {
-            $this->task_id = $task_id;
+        $this->task_id = $task_id;
 
-            return $this;
+        return $this;
     }
     //Get the value of task_id
     public function getTask_id()
@@ -56,19 +55,6 @@ class Shift{
     public function getUser_id()
     {
         return $this->user_id;
-    }
-
-    //Set the value of shiftDate
-    public function setShiftDate($shiftDate)
-    {
-        $this->shiftDate = $shiftDate;
-
-        return $this;
-    }
-    //Get the value of date
-    public function getShiftDate()
-    {
-        return $this->shiftDate;
     }
 
     //Set the value of cistartTimety
@@ -97,14 +83,22 @@ class Shift{
         return $this->endTime;
     }
 
-        public function newShift(){
-            $conn = Db::getConnection();
-        
-            $statement = $conn->prepare("INSERT INTO shifts (task_id, user_id, shiftDate, startTime, endTime) VALUES (:task_id, :user_id, :shiftDate, :startTime, :endTime);");
-            $statement->bindValue(":task_id", $this->task_id);
-            $statement->bindValue(":user_id", $this->user_id);
-            $statement->bindValue(":shiftDate", $this->shiftDate);
-            $statement->bindValue(":startTime", $this->startTime);
-            $statement->bindValue(":endTime", $this->endTime);
-        }
+    public function newShift()
+    {
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("INSERT INTO shifts (task_id, user_id, startTime, endTime) VALUES (:task_id, :user_id, :startTime, :endTime);");
+        $statement->bindValue(":task_id", $this->task_id);
+        $statement->bindValue(":user_id", $this->user_id);
+        $statement->bindValue(":startTime", $this->startTime->format(DateTime::ATOM));
+        $statement->bindValue(":endTime", $this->endTime->format(DateTime::ATOM));
+        return $statement->execute();
+    }
+
+    public static function getShiftsByLocation($locationId) {
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT * FROM shifts s LEFT JOIN users u ON s.user_id = u.id WHERE u.location = :locationId");
+        $statement -> bindValue(":locationId", $locationId, PDO::PARAM_INT);
+        $statement -> execute();
+        return $statement->fetchAll();
+    }
 }

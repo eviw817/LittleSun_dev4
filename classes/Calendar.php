@@ -315,16 +315,16 @@ class Calendar
         $event = new stdClass();
 
         if (strpos($start, ' ') !== false) {
-            $event->start = DateTime::createFromFormat('Y-m-d H:i', $start);
+            $event->start = new DateTime($start);
         } else {
-            $event->start = DateTime::createFromFormat('Y-m-d', $start);
+            $event->start = new DateTime($start);
             $event->start->setTime(0, 0, 0);
         }
 
         if (strpos($end, ' ') !== false) {
-            $event->end = DateTime::createFromFormat('Y-m-d H:i', $end);
+            $event->end = new DateTime($end);
         } else {
-            $event->end = DateTime::createFromFormat('Y-m-d', $end);
+            $event->end = new DateTime($end);
             $event->end->setTime(23, 59, 59);
         }
 
@@ -343,7 +343,7 @@ class Calendar
         $event->summary = $summary ? $summary : false;
 
         $this->events[] = $event;
-
+        
         return $this;
     }
 

@@ -86,7 +86,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
 
         public static function getUsersByLocationAndRequests($locationId){
             $conn = Db::getConnection();
-            $statement = $conn->prepare("SELECT * 
+            $statement = $conn->prepare("SELECT u.* 
                 FROM users u 
                 LEFT JOIN absence_requests a ON a.user_id = u.id
                 WHERE u.location = :location_id AND u.role = 'user' AND u.id NOT IN (SELECT user_id FROM absence_requests WHERE approvalStatus = 'Approved' OR approvalStatus = 'Pending')");
