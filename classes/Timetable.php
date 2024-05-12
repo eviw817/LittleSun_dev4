@@ -19,7 +19,6 @@
             $this->overtime_hours = $overtime_hours;
             $this->userId = $userId;
             $this->username = $username;
-
         }
 
         /**

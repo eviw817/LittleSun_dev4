@@ -6,6 +6,22 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Shift.php");
 
+if (isset($_POST['addNewShift'])) {
+    $task_id = isset($_POST['task']);
+    $user_id = isset($_POST['user']);
+
+    try {
+        $shift = new Shift($task_id, $user_id, $_SESSION['date'], $_SESSION['startTime'], $_SESSION['eTime']);
+
+        $shift->newShift();
+
+        exit();
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
+} else {
+    echo "Error: New shift not submitted.";
+}
 
 $managerInfo = Manager::getManagerById($_SESSION["id"]);
 
@@ -44,7 +60,7 @@ $calendar
             <a class="link" href="#">Weekly view</a> <!-- get current week and make list of multiple weeks -->
         </div>
     </div>
-    <section>
+    <form action="managerScheduleWeekly.php" method="post">
         <a class="newShift" href="#popup">New Shift</a>
 
         <div id="popup" class="popup">
@@ -86,17 +102,16 @@ $calendar
                     </div>
                 </div>  
 
-                <a href="#" class="button"><button class="button" type="confirm">Confirm</button></a>
+                <a href="#" class="button"><button class="button" type="addNewShift">Confirm</button></a>
 
             </div>
         </div>
-
             <div class="cycle">
                 <a href="<?php (new DateTime())->modify('-1 week')->format('W'); ?>"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg></a>
                 <a href="<?php idate("W"); ?>">Current week</a>
                 <a href="<?php (new DateTime())->modify('+1 week')->format('W');?>"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg></a>
             </div>
-    </section>
+    </form>
     <section>
         <div class="users">
             <div >

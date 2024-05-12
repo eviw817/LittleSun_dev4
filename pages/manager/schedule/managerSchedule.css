@@ -21,8 +21,6 @@
 }
 
 .newShift {
-    margin-left: 200px;
-
     background-color: var(--color-off-black);
     color: var(--color-white);
     border: none;
@@ -138,7 +136,7 @@
 .cycle{
     display: flex;
     align-items: center;
-    padding-left: 400px;
+    padding-left: 140px;
 }
 
 a {
