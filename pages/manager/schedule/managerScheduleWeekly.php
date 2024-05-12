@@ -43,7 +43,46 @@ $calendar
         </div>
     </div>
     <section>
-        <button type="add">New Shift</button>
+        <a class="newShift" href="#popup">New Shift</a>
+
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                <a href="#" class="close">&times;</a>
+
+                <h2>Add new shift</h2>
+                <div class="task">
+                    <h4>Select task:</h4>
+                    <select name="user" id="user">
+                        <option value="1">Maintainance</option>
+                    </select>
+                </div>
+
+                <div class="user">
+                    <h4>Select user:</h4>
+                    <select name="user" id="user">
+                        <option value="1">ninja</option>
+                    </select>
+                </div>       
+                
+                <div class="shift">
+                    <h4>Shift:</h4>
+                    <div class="date">
+                        <label for="date">Date:</label>
+                        <input type="date" id="date" name="date">
+                    </div>
+                    <div class="startTime">
+                        <label for="StartTime">Start Time:</label>
+                        <input type="time" id="StartTime" name="StartTime">
+                    </div>
+                    <div class="endTime">
+                        <label for="endTime">End Time:</label>
+                        <input type="time" id="endTime" name="endTime">
+                    </div>
+                </div>  
+
+            </div>
+        </div>
+
             <div class="cycle">
                 <a href="<?php (new DateTime())->modify('-1 week')->format('W'); ?>"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg></a>
                 <a href="<?php idate("W"); ?>">Current week</a>

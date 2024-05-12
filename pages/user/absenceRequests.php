@@ -15,6 +15,7 @@ if(!empty($_POST)){
         $error = $e->getMessage();
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
