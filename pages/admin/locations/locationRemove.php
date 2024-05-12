@@ -1,6 +1,6 @@
 <?php
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/location.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../Location.php");
 
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
         $locationId = $_POST["id"];

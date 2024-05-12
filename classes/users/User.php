@@ -27,7 +27,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
         public static function getName()
         {
             $conn = Db::getConnection();
-            $statement = $conn->prepare("SELECT id, firstName, lastName, image FROM users WHERE role = 'user'");
+            $statement = $conn->prepare("SELECT id, firstName, lastName, username, image FROM users WHERE role = 'user'");
             $statement->execute();
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }

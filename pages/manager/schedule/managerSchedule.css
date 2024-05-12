@@ -93,6 +93,24 @@
     padding: 8px;
 }
 
+.button {
+    margin-top: 20px;
+
+    background-color: var(--color-off-black);
+    color: var(--color-white);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: var(--font-size-h3);
+    font-family: var(--font-nunito);
+}
+
+.button:hover,
+.button:focus {
+    color: var(--color-primary);
+    cursor: pointer;
+}
+
 .link{
     display: block;
     margin-left: auto;

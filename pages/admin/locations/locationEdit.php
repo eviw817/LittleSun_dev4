@@ -1,6 +1,6 @@
 <?php
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/location.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Location.php");
 
 // Controleren of er een locatie ID is opgegeven in de URL
 if (isset($_GET['id'])) {

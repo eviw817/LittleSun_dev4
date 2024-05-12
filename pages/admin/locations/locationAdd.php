@@ -1,5 +1,5 @@
 <?php
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "/../../../classes/location.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "/../../../classes/Location.php");
 
 // Initialiseer de foutmelding
 $error = '';

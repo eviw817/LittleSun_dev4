@@ -1,7 +1,7 @@
 <?php
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/location.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Location.php");
 
 $error = null;
 $managersAssigned = false;

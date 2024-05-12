@@ -1,6 +1,6 @@
 <?php
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/task.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
 
 // Controleren of er een task ID is opgegeven in de URL
 if (isset($_GET['id'])) {

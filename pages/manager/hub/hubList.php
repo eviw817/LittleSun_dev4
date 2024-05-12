@@ -1,7 +1,7 @@
 <?php
     session_start();
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/location.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../Location.php");
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 
     if (isset($_SESSION['id'])) {

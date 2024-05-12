@@ -1,14 +1,14 @@
 <?php
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Calendar.php");
 
+
+
 $calendar = new Calendar();
 
 $calendar
     ->addEvent(date('Y-01-14'), date('Y-01-14'), 'My Birthday', true)
     ->addEvent(date('Y-12-25'), date('Y-12-25'), 'Christmas', true)
     ->addEvent(date('Y-1-1 10:00'), date('Y-1-1 12:00'), 'Time Event', true);
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

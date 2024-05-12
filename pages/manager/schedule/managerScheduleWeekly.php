@@ -1,9 +1,11 @@
 <?php
 session_start();
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Calendar.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Shift.php");
+
 
 $managerInfo = Manager::getManagerById($_SESSION["id"]);
 
@@ -52,15 +54,19 @@ $calendar
                 <h2>Add new shift</h2>
                 <div class="task">
                     <h4>Select task:</h4>
-                    <select name="user" id="user">
-                        <option value="1">Maintainance</option>
-                    </select>
+                    <select name="task" id="task">
+                        <?php foreach (Task::getTasks() as $task) : ?>
+                            <option value="<?php echo $task["id"] ?>"<?php echo $task['id']; ?>><?php echo $task['name']; ?></option>
+                        <?php endforeach; ?>
+                    </select>                    
                 </div>
 
                 <div class="user">
                     <h4>Select user:</h4>
                     <select name="user" id="user">
-                        <option value="1">ninja</option>
+                        <?php foreach (User::getUsersByLocationAndRequests($managerInfo["location"]) as $user) : ?>
+                            <option value="<?php echo $user["id"] ?>"<?php echo $user['id']; ?>><?php echo $user['username']; ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>       
                 
@@ -79,6 +85,8 @@ $calendar
                         <input type="time" id="endTime" name="endTime">
                     </div>
                 </div>  
+
+                <a href="#" class="button"><button class="button" type="confirm">Confirm</button></a>
 
             </div>
         </div>

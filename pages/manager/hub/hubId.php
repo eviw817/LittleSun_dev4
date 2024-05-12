@@ -1,6 +1,6 @@
 <?php
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/location.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../Location.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
 
 $error = null;
