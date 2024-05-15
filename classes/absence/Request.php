@@ -14,9 +14,11 @@
             return $statement->execute();
         }
 
-        public static function getAbsentRequests() {
+        public static function getAbsentRequests($locationId) {
             $conn = Db::getConnection();
-            $statement = $conn->query("SELECT * FROM absence_requests WHERE approvalStatus = 'Pending'");
+            $statement = $conn->prepare("SELECT ar.*, u.username, u.location FROM absence_requests ar LEFT JOIN users u ON ar.user_id = u.id WHERE approvalStatus = 'Pending' AND u.location = :locationId");
+            $statement -> bindValue(":locationId", $locationId, PDO::PARAM_INT);
+            $statement -> execute();
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
     }

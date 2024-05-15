@@ -1,10 +1,16 @@
 <?php
+session_start();
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/absence/Request.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/absence/Status.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/users/Manager.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/absence/Request.php");
 
 $successMsg = null;
 $errorMsg = null;
+
+$managerInfo = Manager::getManagerById($_SESSION["id"]);
+$requests = Request::getAbsentRequests($managerInfo['location']);
 
 // Goedkeuren of afwijzen van verlofaanvragen
 if (!empty($_POST)) {
@@ -50,11 +56,14 @@ if (!empty($_POST)) {
     <div class='success-message'><?php if (isset($successMsg)) { echo $successMsg; } ?></div>
     <div class='error-message'><?php if(isset($errorMsg)) { echo $errorMsg; } ?></div>
 
+    <h4><?php echo $managerInfo['name']; ?></h4>
+
     <?php 
-            $results = Request::getAbsentRequests();
+            $results = Request::getAbsentRequests($managerInfo['location']);
             if($results): ?>
         <table>
         <tr>
+                <th>User</th>
                 <th>Start Date & Time</th>
                 <th>End Date & Time</th>
                 <th>Type of Absence</th>
@@ -63,6 +72,7 @@ if (!empty($_POST)) {
             </tr>
             <?php foreach($results as $request) : ?>
             <tr>
+                <td><?php echo $request["username"] ?></td>
                 <td><?php echo $request["startDateTime"] ?></td>
                 <td><?php echo $request["endDateTime"] ?></td>
                 <td><?php echo $request["typeOfAbsence"] ?></td>
