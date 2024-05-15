@@ -26,25 +26,34 @@ $tasks = $conn->query("SELECT id, name FROM tasks")->fetchAll(PDO::FETCH_ASSOC);
 <div class="container">
     <h1>Generate Report</h1>
     <form action="filter.php" method="post">
-    <div class="form-group">
+        <div class="form-group">
             <label for="user">User:</label>
             <select id="user" name="user">
                 <option value="">Select User</option>
-                <!-- dropdown-opties voor gebruikers -->
+                <!-- gebruikersopties -->
+                <?php foreach ($users as $user): ?>
+                    <option value="<?= htmlspecialchars($user['id']) ?>"><?= htmlspecialchars($user['firstName'] . ' ' . $user['lastName']) ?></option>
+                <?php endforeach; ?>
             </select>
         </div>
         <div class="form-group">
             <label for="location">Location:</label>
             <select id="location" name="location">
                 <option value="">Select Location</option>
-                <!-- dropdown-opties voor locaties -->
+                <!-- locatieopties -->
+                <?php foreach ($locations as $loc): ?>
+                    <option value="<?= htmlspecialchars($loc['id']) ?>"><?= htmlspecialchars($loc['name']) ?></option>
+                <?php endforeach; ?>
             </select>
         </div>
         <div class="form-group">
             <label for="task_type">Task Type:</label>
             <select id="task_type" name="task_type">
                 <option value="">Select Task Type</option>
-                <!-- dropdown-opties voor taaktypen -->
+                <!-- taaktypeopties -->
+                <?php foreach ($tasks as $task): ?>
+                    <option value="<?= htmlspecialchars($task['id']) ?>"><?= htmlspecialchars($task['name']) ?></option>
+                <?php endforeach; ?>
             </select>
         </div>
         <div class="form-group">
