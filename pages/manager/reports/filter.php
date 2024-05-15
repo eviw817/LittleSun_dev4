@@ -6,7 +6,7 @@
     <title>Generate Report</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./filter.css">
+    <link rel="stylesheet" href="./filter1.css">
 </head>
 <body>
 <?php include_once("../../../components/headerManager.inc.php"); ?>
