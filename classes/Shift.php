@@ -94,11 +94,12 @@ class Shift
         return $statement->execute();
     }
 
-    public static function getShiftsByLocation($locationId) {
+    public static function getShiftsById($locationId) {
         $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT * FROM shifts s LEFT JOIN users u ON s.user_id = u.id WHERE u.location = :locationId");
+        $statement = $conn->prepare("SELECT s.*, t.name, t.description, u.firstName, u.lastName FROM shifts s LEFT JOIN users u ON s.user_id = u.id LEFT JOIN tasks t ON s.task_id = t.id WHERE u.location = :locationId");
         $statement -> bindValue(":locationId", $locationId, PDO::PARAM_INT);
         $statement -> execute();
         return $statement->fetchAll();
     }
+
 }

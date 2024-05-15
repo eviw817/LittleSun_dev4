@@ -173,7 +173,7 @@ section {
 }
 
 
-/* calendar */
+/* calendar
 
 .row.fix {
     display: flex;
@@ -309,5 +309,9 @@ section {
         overflow-y: hidden;
         white-space: nowrap;
     }
-}
+}*/
 
+.event{
+    top: 0px; /* Adjust this value based on your layout */
+    height: 60px; /* Adjust this value based on your layout */
+}
