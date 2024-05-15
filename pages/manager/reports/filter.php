@@ -1,4 +1,17 @@
-<!DOCTYPE html>
+<?php
+session_start();
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
+
+// Database connectie
+$conn = Db::getConnection();
+
+// dropdown-gegevens
+//$users = $conn->query("SELECT id, username FROM users")->fetchAll(PDO::FETCH_ASSOC);
+$users = $conn->query("SELECT id, firstName, lastName FROM users")->fetchAll(PDO::FETCH_ASSOC);
+$locations = $conn->query("SELECT id, name FROM locations")->fetchAll(PDO::FETCH_ASSOC);
+$tasks = $conn->query("SELECT id, name FROM tasks")->fetchAll(PDO::FETCH_ASSOC);
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
