@@ -24,7 +24,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
         }
 
         /* Zoekt voor alle managers in een locatie gebaseerd op de Location ID*/
-        static function getByLocation($locationId)
+        public static function getByLocation($locationId)
         {
             $conn = Db::getConnection();
             $statement = $conn->prepare("SELECT * FROM users WHERE location = :id AND role = 'manager'");
@@ -77,4 +77,6 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
             $statement->execute();
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
+
+       
     }
