@@ -2,8 +2,8 @@
 session_start();
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/location.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/task.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Location.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
 
 // Database connectie
 $conn = Db::getConnection();

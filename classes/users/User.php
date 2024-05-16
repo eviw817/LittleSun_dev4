@@ -103,4 +103,21 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
+    public static function getAbsenceUsersByLocation($locationId) {
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("
+            SELECT u.* 
+            FROM users u 
+            LEFT JOIN absence_requests a ON a.user_id = u.id
+            WHERE u.location = :location_id 
+                AND u.role = 'user' 
+                AND (a.user_id IS NULL OR a.approvalStatus IS NULL OR a.approvalStatus NOT IN ('Approved', 'Pending'))
+        ");
+        $statement->bindParam(":location_id", $locationId, PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
+    
+    
+
+}

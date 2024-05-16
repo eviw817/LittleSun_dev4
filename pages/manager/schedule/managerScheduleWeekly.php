@@ -114,6 +114,14 @@ $calendar
                 <?php endforeach; ?>
                 </ul>     
             </div>
+            <div >
+                <h2 class="sicknames">Unavaible users: </h2>
+                <ul>
+                    <?php foreach(User::getAbsenceUsersByLocation($managerInfo["location"]) as $user) : ?>
+                        <li><?php echo $user["username"]; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
         </div>
         <div class="row">
 
