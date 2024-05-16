@@ -31,6 +31,7 @@
         <a class="link" href="../user/clockin_out/clockIn.php">Clock in work</a> 
         <a class="link" href="../user/clockin_out/clockOut.php">Clock out of work</a> 
         <a class="link" href="../user/absence/absenceRequests.php">Absence request</a>
+        <a class="link" href="../user/absence/userSchedule.php">Schedule</a>
     </section>
    
 

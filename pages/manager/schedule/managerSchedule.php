@@ -139,11 +139,11 @@ if($_SESSION["id"]){
         </div>
         <div class="schedule">
                         <?php foreach (groupByDate($events) as $key => $values) : ?>
-                            <h2><?php echo $key; ?></h2>
+                            <h2 class="event-date"><?php echo $key; ?></h2>
                             <?php foreach ($values as $event) : ?>
-                            <div class="event-time"><?php echo (new DateTime($event['startTime']))->format('H:i'); ?> - <?php echo (new DateTime($event['endTime']))->format('H:i'); ?></div> <!-- time -->
-                            <div class="event-task"><?php echo $event['name']; ?></div>
-                            <div class="event-user"><?php echo $event['firstName'] . " " . $event['lastName']; ?></div>
+                            <div class="event-time">Starttime: <?php echo (new DateTime($event['startTime']))->format('H:i'); ?> - Endtime: <?php echo (new DateTime($event['endTime']))->format('H:i'); ?></div> <!-- time -->
+                            <div class="event-task">Task: <?php echo $event['name']; ?></div>
+                            <div class="event-user">User: <?php echo $event['firstName'] . " " . $event['lastName']; ?></div>
                             <?php endforeach; ?>
                         <?php endforeach; ?>
         </div>
