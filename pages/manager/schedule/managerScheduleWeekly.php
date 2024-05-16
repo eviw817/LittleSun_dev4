@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Calendar copy.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Calendar.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../..//classes/Task.php");
@@ -76,12 +76,20 @@ if($_SESSION["id"]){
                     </div>
                     <div class="startTime">
                         <label for="startTime">Start Time:</label>
-                        <input type="time" id="startTime" name="startTime">
+                        <input type="time" id="startTime" name="startTime" list="quarterHours">
                     </div>
                     <div class="endTime">
                         <label for="endTime">End Time:</label>
-                        <input type="time" id="endTime" name="endTime">
+                        <input type="time" id="endTime" name="endTime" list="quarterHours">
                     </div>
+                    <datalist id="quarterHours">
+                        <?php for($i = 0; $i < 24; $i++): ?>
+                                <option value="<?php echo ($i < 10) ? "0" . ($i) : $i ; ?>:00"></option>
+                                <option value="<?php echo ($i < 10) ? "0" . ($i) : $i ; ?>:15"></option>
+                                <option value="<?php echo ($i < 10) ? "0" . ($i) : $i ; ?>:30"></option>
+                                <option value="<?php echo ($i < 10) ? "0" . ($i) : $i ; ?>:45"></option>
+                        <?php endfor ?>
+                    </datalist>
                 </div>  
 
             <input class="button" type="submit" value="confirm"></input>
@@ -92,7 +100,7 @@ if($_SESSION["id"]){
     <section>
         <div class="users">
             <div>
-                <h2 class="userList">Available users:</h2>
+                       <h2 class="userList">Available users:</h2>
                 <ul>
                 <?php foreach (User::getUsersByLocationAndRequests($managerInfo["location"]) as $user) : ?>
                      <!-- list of users that haven't sent an absence request or have their request denied-->
@@ -109,39 +117,12 @@ if($_SESSION["id"]){
                 </ul>
             </div>
         </div>
-        <div class="row">
-
-            <section>
-                    <div class="days">
+        <div class="schedule">
                         <?php foreach ($events as $event) : ?>
                             <div class="event-time"><?php echo $event['startTime']; ?> - <?php echo $event['endTime']; ?></div>
                             <div class="event-task"><?php echo $event['name']; ?></div>
                             <div class="event-user"><?php echo $event['firstName'] . " " . $event['lastName']; ?></div>
                         <?php endforeach; ?>
-                        <!-- <?php foreach ($calendar->getWeek() as $day) : ?>
-                            <div class="day">
-                                <div class="day-number"><?php echo (new DateTime($day))->format('d'); ?></div>
-                                <div class="day-events
-                                <?php if (date('d/m/y') == date('d/m/y')) : ?>
-                                    today
-                                <?php endif; ?>">
-                                    <?php foreach ($calendar->getEvents($day) as $event) : ?>
-                                        <div class="event">
-                                            <div class="event-info">
-                                                <div class="event-time"><?php echo $event['startTime']; ?> - <?php echo $event['endTime']; ?></div>
-                                                <div class="event-task"><?php echo $event['task_id']; ?></div>
-                                                <div class="event-user"><?php echo $event['user_id']; ?></div>
-                                            </div>
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-                        <?php endforeach; ?> --->
-                    </div>
-                </div>
-
-            </section>
-
         </div>
     </section>
 
