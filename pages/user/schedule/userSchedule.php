@@ -1,7 +1,6 @@
 <?php
 session_start();
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Calendar.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../..//classes/Task.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Shift.php");
@@ -33,8 +32,8 @@ function groupByDate($inputArray) {
 
 $calendar = new Calendar();
 if($_SESSION["id"]){
-    $managerInfo = Manager::getManagerById($_SESSION["id"]);
-    $events = Shift::getShiftsById($managerInfo['location'], new DateTime());
+    $userInfo = User::getUserById($_SESSION["id"]);
+    $events = Shift::getShiftsById($userInfo['location'], new DateTime(), $_SESSION["id"]);
     foreach ($events as $event) {
         $calendar->addEvent($event['startTime'], $event['endTime']);
     }
@@ -51,15 +50,15 @@ if($_SESSION["id"]){
     <title>Schedule</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="managerSchedule.css">
+    <link rel="stylesheet" href="userSchedule.css">
 </head>
 
 <body>
     <?php include_once("../../../components/headerManager.inc.php"); ?>
     <div class="nav">
         <div class="agenda-info">
-            <h2><?php echo $managerInfo['name']; ?></h2>
-            <a href="<?php date("d/m/y"); ?>">Today: <?php echo date("d/m/y"); ?></a> <!-- get current week and make list of multiple weeks -->
+            <h2><?php echo $userInfo['name']; ?></h2>
+            <h2 href="<?php date("d/m/y"); ?>">Today: <?php echo date("d/m/y"); ?></h2> <!-- get current week and make list of multiple weeks -->
         </div>
     </div>
     <section>
