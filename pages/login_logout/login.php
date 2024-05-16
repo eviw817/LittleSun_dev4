@@ -1,17 +1,10 @@
 <?php
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/Db.php");
-
-    function getAuthorizationDetailsByUsername($pUsername){
-        $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT id, username, password, role FROM users WHERE username = :tUsername");
-        $statement->execute([":tUsername" => $pUsername]);
-        return $statement->fetch(PDO::FETCH_ASSOC);
-    }
-
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/users/User.php");
     $error = null;
     
     if(!(isset($_POST) && empty($_POST["username"]) && empty($_POST["password"]))){
-        $user = getAuthorizationDetailsByUsername($_POST["username"]);
+        $user = User::getAuthorizationDetailsByUsername($_POST["username"]);
 
         if(!$user){
             $error = "User does not exist!";

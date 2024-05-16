@@ -30,7 +30,7 @@
         <a class="link" href="../user/task/userTask.php">My task</a>
         <a class="link" href="../user/clockin_out/clockIn.php">Clock in work</a> 
         <a class="link" href="../user/clockin_out/clockOut.php">Clock out of work</a> 
-        <a class="link" href="../user/absenceRequests.php">Submit an absence request</a>
+        <a class="link" href="../user/absence/absenceRequests.php">Absence request</a>
     </section>
    
 

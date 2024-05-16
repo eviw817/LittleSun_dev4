@@ -10,7 +10,7 @@
 </head>
 <body>
 <?php include_once("../../../components/headerUser.inc.php"); ?>
-    <h1>You have been clock in!</h1>
+    <h1>You have been clocked in!</h1>
 
     <a class="clockin" href="../../dashboard/userDashboard.php">Back</a>
 </body>

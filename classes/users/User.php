@@ -94,4 +94,13 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
                 $statement->execute();
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
+
+        
+    public static function getAuthorizationDetailsByUsername($pUsername){
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT id, username, password, role FROM users WHERE username = :tUsername");
+        $statement->execute([":tUsername" => $pUsername]);
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
     }
