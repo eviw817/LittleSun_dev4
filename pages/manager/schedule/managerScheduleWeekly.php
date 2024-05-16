@@ -14,7 +14,7 @@ if (!empty($_POST)) {
 $calendar = new Calendar();
 if($_SESSION["id"]){
     $managerInfo = Manager::getManagerById($_SESSION["id"]);
-    $events = Shift::getShiftsByLocation($managerInfo['location']);
+    $events = Shift::getShiftsById($managerInfo['location']);
     foreach ($events as $event) {
         $calendar->addEvent($event['startTime'], $event['endTime']);
     }

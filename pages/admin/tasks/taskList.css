@@ -6,13 +6,7 @@ section{
     margin: 20px;
 }
 
-.filter{
-    padding: 8px;
 
-    position: fixed;
-    top: 120px;
-    right: 20px;
-}
 
 ul{
     display: flex;
@@ -21,11 +15,8 @@ ul{
 }
 
 li {
-    padding: 8px;
-
     display: inline-block;
-    width: 200px;
-    height: 200px;
+  
     line-height: 6.25; 
     border-radius: 50%; 
     background-color: var(--color-light-primary);

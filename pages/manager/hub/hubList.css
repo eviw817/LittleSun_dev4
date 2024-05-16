@@ -1,59 +1,78 @@
+/* @ -1,77 +0,0 @@
+/* Algemene opmaak */
 body {
-    font-family: var(--font-nunito);
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
-.container {
-    max-width: 50rem;
-    margin: 0 auto;
-    padding: 1.25rem;
+/* Globale stijlen */
+p {
+    margin: 1.563rem 1.25rem;
 }
 
-.title {
-    text-align: var(--text-align);
-    font-size: 1.688rem;
-    margin-bottom: 1.875rem;
-    margin-top: 3.125rem;
+h1 {
+    margin-left: 0.938rem;
+    font-size: 1.5rem;
+    margin-top: 30px;
 }
 
-#hubList {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+.name{
+    font-size: large;
+}
+
+.image-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 20px; /* Voeg padding toe rondom image-container */
+   
 }
 
-#hubList li {
-    margin-right: 0.625rem;
-}
-
-.hub_detail {
-    display: inline-block;
+.user {
+    border: 0.125rem solid var(--color-off-black);
+    border-radius: 1.25rem;
+    padding: 1.875rem;
     width: 6.25rem;
-    height: 6.25rem;
-    line-height: 6.25rem; 
-    border-radius: 50%; 
-    background-color: var(--color-white);
-    border: 0.063rem solid var(--color-off-black);
-    text-decoration: none;
-    color: var(--color-off-black);
+    height: 15rem;
+    margin-bottom: 30px;
     text-align: var(--text-align);
-    margin-bottom: 1.25rem;
-    margin-right: 1.25rem;
-    transition: background-color 0.3s ease;
 }
 
-.hub_detail p{
-    margin-top: 0.125rem;
+.image {
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 30px;
 }
 
-.hub_detail:hover {
-    background-color: var(--color-light-primary);
+.name {
+    margin: 0;
 }
 
+.taskList {
+    list-style-type: circle; /* Verwijder opsommingstekens */
+    padding: 0; /* Verwijder innerlijke vulling */
+    margin-bottom: 10px;
+}
 
+.taskList li {
+    padding: 0; /* Verwijder innerlijke vulling */
+    margin-bottom: 10px;
+}
+.taks{
+    display: flex;
+    flex-direction: row;
+}
 
+@media (min-width: 37.5rem) {
+    .image-container {
+        min-height: 200px; /* Minimum hoogte voor image-container */
+    }
 
+    .user {
+        width: 9.375rem;
+        padding-bottom: 3.125rem;
+    }
+}

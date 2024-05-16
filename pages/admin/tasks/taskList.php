@@ -19,17 +19,6 @@
 <main>
     <h1>Tasks</h1>
     <section>
-
-        <div class="filter">
-            <label for="filter">Filter</label>
-            <select name="filter" id="filter">
-                <option value="-1">No category</option>
-                <?php foreach (Task::fetchAllCategories() as $category) : ?>
-                    <option value="<?php echo $category["category"] ?>"><?php echo $category["category"] ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-
         <ul class="taskList">
             <?php foreach(Task::getTasks() as $task) : ?> 
                 <a href="taskInfo.php?id=<?php echo $task["id"] ?>" class="taskDetail"><li><?php echo $task['name']; ?> 

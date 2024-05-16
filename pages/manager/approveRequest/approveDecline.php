@@ -1,10 +1,9 @@
 <?php
 session_start();
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/Db.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/absence/Request.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/absence/Status.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/users/Manager.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/absence/Request.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/absence/Request.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/absence/Status.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 
 $successMsg = null;
 $errorMsg = null;
@@ -22,15 +21,17 @@ if (!empty($_POST)) {
             $errorMsg = "An error occured: " . $e->getMessage();
         }
     } elseif(isset($_POST['reject'])) {
-        // Zorg ervoor dat er een reden wordt ingevuld bij afwijzing
-        if(empty($reason)) {
-            $_SESSION['error_message'] = "Please provide a reason for rejection.";
+        $requestId = $_POST["requestId"];
+        $reasonKey = 'reason_' . $requestId;
+        if(empty($_POST[$reasonKey])) {
+            $errorMsg = "Please provide a reason for rejection.";
         } else {
+            $reason = $_POST[$reasonKey];
             try {
-                Status::denyRequest($_POST['requestId'], $_POST['reason_' . $_POST['requestId']]);
+                Status::denyRequest($requestId, $reason);
                 $successMsg = "Absence request rejected successfully.";
             } catch(Exception $e){
-                $errorMsg = "An error occured: " . $e->getMessage();
+                $errorMsg = "An error occurred: " . $e->getMessage();
             }
         }
     }
@@ -43,16 +44,14 @@ if (!empty($_POST)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manager Dashboard</title>
-    <link rel="stylesheet" href="../../reset.css">
-    <link rel="stylesheet" href="../../shared.css">
+    <link rel="stylesheet" href="../../../reset.css">
+    <link rel="stylesheet" href="../../../shared.css">
     <link rel="stylesheet" href="./approveDecline.css">
 </head>
 <body>
-<?php include_once("../../components/headerUser.inc.php"); ?>
+<?php include_once("../../../components/headerManager.inc.php"); ?>
 <div class="-dashboard">
-    <h1>Manager Dashboard</h1>
-
-    <h2>Absence Requests:</h2>
+    <h1>Absence request</h1>
     <div class='success-message'><?php if (isset($successMsg)) { echo $successMsg; } ?></div>
     <div class='error-message'><?php if(isset($errorMsg)) { echo $errorMsg; } ?></div>
 
@@ -69,21 +68,22 @@ if (!empty($_POST)) {
                 <th>Type of Absence</th>
                 <th>Reason</th>
                 <th>Action</th>
-            </tr>
+        </tr>
             <?php foreach($results as $request) : ?>
-            <tr>
+            <tr class="colomn">
                 <td><?php echo $request["username"] ?></td>
                 <td><?php echo $request["startDateTime"] ?></td>
                 <td><?php echo $request["endDateTime"] ?></td>
                 <td><?php echo $request["typeOfAbsence"] ?></td>
                 <td><?php echo $request["reason"] ?></td>
                 <td>
-                    <form method='post' action=''>
-                        <input type='hidden' name='requestId' value="<?php echo $request["id"] ?>">
-                        <input type='text' name='<?php echo "reason" . $request["id"] ?>' placeholder='Reason for rejection'>
-                        <button type='submit' name='approve'>Approve</button>
-                        <button type='submit' name='reject'>Reject</button>
-                    </form>
+                <form method='post' action=''>
+                    <input type='hidden' name='requestId' value="<?php echo $request["id"] ?>">
+                    <input type='text' name='reason_<?php echo $request["id"] ?>' placeholder='Reason for rejection' required>
+                    <button type='submit' name='approve'>Approve</button>
+                    <button type='submit' name='reject'>Reject</button>
+                </form>
+
                 </td>
             </tr>
             <?php endforeach; ?>

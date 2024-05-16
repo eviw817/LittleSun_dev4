@@ -5,6 +5,7 @@
 
 $error = null;
 $usersAssigned = false;
+
 $task = Task::getTaskById($_GET["id"]);
 $users = User::getByTask($_GET["id"]);
 if(!isset($task)){

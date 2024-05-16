@@ -7,9 +7,9 @@
         $user = User::getAuthorizationDetailsByUsername($_POST["username"]);
 
         if(!$user){
-            $error = "User does not exist!";
+            $error = "User does not exist. Are you already registered?";
         }else if($user["password"] != $_POST["password"]){
-            $error = "Credentials do not match!";
+            $error = "Credentials do not match, try again.";
         } else {
             session_start();
             $_SESSION["id"] = $user['id'];
@@ -32,7 +32,6 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,12 +47,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
     <title>Login</title>
+    <style>
+        .form__error {
+            color: red;
+            margin-bottom: 10px; /* Voeg wat ruimte toe onder de foutmelding */
+        }
+    </style>
 </head>
 
 <body>
     <?php include_once("../../components/headerlogin.inc.php"); ?>
 <main>
-    <p><?php if(!empty($error)){echo $error;} ?>
+    <p class="form__error"><?php if(!empty($error)){echo $error;} ?> </p>
     <form action="" method="post">
         <h2>Welcome, please log in</h2>
 

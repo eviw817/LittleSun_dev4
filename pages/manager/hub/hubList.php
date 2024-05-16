@@ -40,7 +40,7 @@ if (isset($_SESSION['id'])) {
     <title>Location</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./hubId.css">
+    <link rel="stylesheet" href="./hubList.css">
 </head>
 <body>
 <?php include_once("../../../components/headerManager.inc.php"); ?>

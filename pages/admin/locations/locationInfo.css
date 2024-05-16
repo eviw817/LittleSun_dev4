@@ -43,3 +43,24 @@ a:hover{
     transition: background-color 0.3s ease;
 
 }
+
+.manager{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 10px; 
+   
+}
+
+.border {
+    margin-top: 30px;
+    border: 0.125rem solid var(--color-off-black);
+    border-radius: 1.25rem;
+    padding: 1.875rem;
+    width: 6.25rem;
+    height: 15rem;
+    margin-bottom: 30px;
+    text-align: var(--text-align);
+}

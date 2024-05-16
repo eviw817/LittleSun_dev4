@@ -2,10 +2,12 @@
  session_start(); 
 
      include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
+     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
     
      if (isset($_SESSION['id'])) {
         $user = User::getUserById($_SESSION['id']);
         $userId = $_SESSION['id'];
+        $task = task::getTaskById($_SESSION['id']);
     } else {
         header("Location: login.php");
         exit();
@@ -27,6 +29,6 @@
 <?php include_once("../../../components/headerUser.inc.php"); ?>
     <h1>Hi, <?php echo $user['username'];?></h1>
     <h2>Your task:</h2>
-    <p>Toilets</p>
+    <p><?php echo $task['name']?></p>
 </body>
 </html>

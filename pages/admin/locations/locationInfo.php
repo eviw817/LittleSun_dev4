@@ -35,8 +35,10 @@ if(!isset($hub)){
         <p> City: <?php if($hub){echo $hub["city"]; } ?></p>
         <p> Country: <?php if($hub){echo $hub["country"]; } ?></p>
         <p> Postalcode: <?php if($hub){echo $hub["postalCode"]; } ?></p>
-        <p> Hub manager: 
-            <?php 
+        <div class="manager">
+        <p> Hub manager(s): 
+            <div class="border">
+               <?php 
             if ($managers) {
                 foreach ($managers as $manager) {
                     echo $manager->getFirstname() . " " . $manager->getLastname() . "<br>";
@@ -44,7 +46,10 @@ if(!isset($hub)){
             } else {
                 echo "No manager assigned";
             }
-            ?></p>
+            ?>  
+            </div>
+           </p>
+        </div>
         <a class="button fixed-position" href="./locationEdit.php?id=<?php echo $hub["id"]; ?>">Edit location</a>
     </section>
     </main>

@@ -102,4 +102,6 @@ class Shift
         return $statement->fetchAll();
     }
 
+    
+
 }
