@@ -11,10 +11,30 @@ if (!empty($_POST)) {
     $shift->newShift();
 }
 
+function groupByDate($inputArray) {
+    $outputArray = [];
+
+    foreach ($inputArray as $element) {
+        // Extract the date from the 'startTime' field
+        $date = substr($element['startTime'], 0, 10);
+
+        // If this date already exists in the output array, append the current element to it
+        if (isset($outputArray[$date])) {
+            $outputArray[$date][] = $element;
+        }
+        // Otherwise, create a new array for this date and add the current element to it
+        else {
+            $outputArray[$date] = [$element];
+        }
+    }
+
+    return $outputArray;
+}
+
 $calendar = new Calendar();
 if($_SESSION["id"]){
     $managerInfo = Manager::getManagerById($_SESSION["id"]);
-    $events = Shift::getShiftsById($managerInfo['location']);
+    $events = Shift::getShiftsById($managerInfo['location'], new DateTime());
     foreach ($events as $event) {
         $calendar->addEvent($event['startTime'], $event['endTime']);
     }
@@ -100,7 +120,7 @@ if($_SESSION["id"]){
     <section>
         <div class="users">
             <div>
-                       <h2 class="userList">Available users:</h2>
+                <h2 class="userList">Available users:</h2>
                 <ul>
                 <?php foreach (User::getUsersByLocationAndRequests($managerInfo["location"]) as $user) : ?>
                      <!-- list of users that haven't sent an absence request or have their request denied-->
@@ -118,15 +138,15 @@ if($_SESSION["id"]){
             </div>
         </div>
         <div class="schedule">
-                        <?php foreach ($events as $event) : ?>
-                            <div class="event-time"><?php echo $event['startTime']; ?> - <?php echo $event['endTime']; ?></div>
+                        <?php foreach (groupByDate($events) as $key => $values) : ?>
+                            <h2><?php echo $key; ?></h2>
+                            <?php foreach ($values as $event) : ?>
+                            <div class="event-time"><?php echo (new DateTime($event['startTime']))->format('H:i'); ?> - <?php echo (new DateTime($event['endTime']))->format('H:i'); ?></div> <!-- time -->
                             <div class="event-task"><?php echo $event['name']; ?></div>
                             <div class="event-user"><?php echo $event['firstName'] . " " . $event['lastName']; ?></div>
+                            <?php endforeach; ?>
                         <?php endforeach; ?>
         </div>
     </section>
-
-
 </body>
-
 </html>

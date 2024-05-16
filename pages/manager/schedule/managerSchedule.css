@@ -149,6 +149,7 @@ section {
     display: flex;
     flex-flow: row nowrap;
     color: var(--color-black);
+    margin-top: 20px;
 }
 
 .users {
