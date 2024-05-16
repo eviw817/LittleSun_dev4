@@ -33,7 +33,7 @@
         <a class="link" href="../manager/hub/hubList.php">Hub</a>
         <a class="link" href="../manager/tasks/managerTaskList.php">Task list</a>
         <a class="link" href="../manager/approveRequest/approveDecline.php">View absence requests</a>
-        <a class="link" href="../manager/schedule/managerScheduleWeekly.php">View schedule</a>
+        <a class="link" href="../manager/schedule/managerSchedule.php">View schedule</a>
         <a class="link" href="../manager/reports/filter.php">Reports</a>
     </section>
     </main>

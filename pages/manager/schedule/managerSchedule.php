@@ -103,16 +103,16 @@ if($_SESSION["id"]){
                         <input type="time" id="endTime" name="endTime" list="quarterHours">
                     </div>
                     <datalist id="quarterHours">
-                        <?php for($i = 0; $i < 24; $i++): ?>
-                                <option value="<?php echo ($i < 10) ? "0" . ($i) : $i ; ?>:00"></option>
-                                <option value="<?php echo ($i < 10) ? "0" . ($i) : $i ; ?>:15"></option>
-                                <option value="<?php echo ($i < 10) ? "0" . ($i) : $i ; ?>:30"></option>
-                                <option value="<?php echo ($i < 10) ? "0" . ($i) : $i ; ?>:45"></option>
+                        <?php for($i = 8; $i <= 18; $i++): ?>
+                            <?php for($j = 0; $j < 60; $j += 15): ?>
+                                <?php $time = sprintf("%02d:%02d", $i, $j); ?>
+                                <option value="<?php echo $time; ?>"></option>
+                            <?php endfor ?>
                         <?php endfor ?>
                     </datalist>
                 </div>  
 
-            <input class="button" type="submit" value="confirm"></input>
+            <input class="button" type="submit" value="Confirm"></input>
 
             </div>
         </div>    
