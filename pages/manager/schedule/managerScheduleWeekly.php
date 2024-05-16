@@ -1,9 +1,9 @@
 <?php
 session_start();
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Calendar.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Calendar copy.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../..//classes/Task.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Shift.php");
 
 if (!empty($_POST)) {
@@ -21,9 +21,6 @@ if($_SESSION["id"]){
 } else {
     echo "Error: Session is invalid, please log-in again";
 }
-
-$calendar
-    ->useMondayStartingDate()
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,12 +39,7 @@ $calendar
     <div class="nav">
         <div class="agenda-info">
             <h2><?php echo $managerInfo['name']; ?></h2>
-            <p>|</p>
             <a href="<?php date("d/m/y"); ?>">Today: <?php echo date("d/m/y"); ?></a> <!-- get current week and make list of multiple weeks -->
-        </div>
-        <div class="agenda-info">
-            <a class="link" href="managerScheduleMonthly.php">Monthly view</a> <!-- get current month and make list of multiple months -->
-            <a class="link" href="#">Weekly view</a> <!-- get current week and make list of multiple weeks -->
         </div>
     </div>
     <form action="" method="post">
@@ -97,15 +89,9 @@ $calendar
             </div>
         </div>    
     </form>
-            <div class="cycle">
-                <a href="<?php (new DateTime())->modify('-1 week')->format('W'); ?>"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg></a>
-                <a href="<?php idate("W"); ?>">Current week</a>
-                <a href="<?php (new DateTime())->modify('+1 week')->format('W');?>"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg></a>
-            </div>
-
     <section>
         <div class="users">
-            <div >
+            <div>
                 <h2 class="userList">Available users:</h2>
                 <ul>
                 <?php foreach (User::getUsersByLocationAndRequests($managerInfo["location"]) as $user) : ?>
@@ -114,7 +100,7 @@ $calendar
                 <?php endforeach; ?>
                 </ul>     
             </div>
-            <div >
+            <div>
                 <h2 class="sicknames">Unavaible users: </h2>
                 <ul>
                     <?php foreach(User::getAbsenceUsersByLocation($managerInfo["location"]) as $user) : ?>
@@ -125,11 +111,36 @@ $calendar
         </div>
         <div class="row">
 
-            <div class="col-xs-12">
-                
-                <?php echo $calendar->useWeekView()->draw(date("Y-m-d"), 'blue'); ?>
+            <section>
+                    <div class="days">
+                        <?php foreach ($events as $event) : ?>
+                            <div class="event-time"><?php echo $event['startTime']; ?> - <?php echo $event['endTime']; ?></div>
+                            <div class="event-task"><?php echo $event['name']; ?></div>
+                            <div class="event-user"><?php echo $event['firstName'] . " " . $event['lastName']; ?></div>
+                        <?php endforeach; ?>
+                        <!-- <?php foreach ($calendar->getWeek() as $day) : ?>
+                            <div class="day">
+                                <div class="day-number"><?php echo (new DateTime($day))->format('d'); ?></div>
+                                <div class="day-events
+                                <?php if (date('d/m/y') == date('d/m/y')) : ?>
+                                    today
+                                <?php endif; ?>">
+                                    <?php foreach ($calendar->getEvents($day) as $event) : ?>
+                                        <div class="event">
+                                            <div class="event-info">
+                                                <div class="event-time"><?php echo $event['startTime']; ?> - <?php echo $event['endTime']; ?></div>
+                                                <div class="event-task"><?php echo $event['task_id']; ?></div>
+                                                <div class="event-user"><?php echo $event['user_id']; ?></div>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php endforeach; ?> --->
+                    </div>
+                </div>
 
-            </div>
+            </section>
 
         </div>
     </section>
