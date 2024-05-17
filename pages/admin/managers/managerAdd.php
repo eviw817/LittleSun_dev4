@@ -1,14 +1,33 @@
 <?php
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
-
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Location.php");
 
 if (!empty($_POST)) {
     try {
         $manager = new Manager($_POST['username'], $_POST['email'], $_POST['password'], $_POST['role'], $_POST['location'], $_POST['firstName'], $_POST['lastName']);
-        if (isset($_POST["img"])) {
-            $manager->setImage('data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])));
-        }
+        if (!empty($_FILES['img']['tmp_name'])) {
+            // Controleer of het bestand een afbeelding is
+            $check = getimagesize($_FILES['img']['tmp_name']);
+            if ($check !== false) {
+                $target_dir = "../../../uploads/";
+                $target_file = $target_dir . basename($_FILES["img"]["name"]);
+                $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
+                // Genereer een unieke bestandsnaam
+                $new_filename = uniqid() . '.' . $imageFileType;
+                $target_file = $target_dir . $new_filename;
+
+                // Verplaats het geüploade bestand naar de doelmap
+                if (move_uploaded_file($_FILES["img"]["tmp_name"], $target_file)) {
+                    $manager->setImage($target_file); // Sla het pad van de afbeelding op in de database
+                } else {
+                    throw new Exception("Sorry, there was an error uploading your file.");
+                }
+            } else {
+                throw new Exception("File is not an image.");
+            }
+        }
         $manager->newManager();
 
         header("Location: managerList.php");
@@ -75,10 +94,9 @@ if (!empty($_POST)) {
                     <div class="form__field">
                     <label class="location" for="location">Hub location</label>
                     <select id="location" name="location" required>
-                        <option value="">Select type of absence</option>
-                        <option value="Half a day">Half a day</option>
-                        <option value="1 day">1 day</option>
-                        <option value="More than 1 day">More than 1 day</option>
+                        <?php foreach(Location::getLocations() as $location) : ?> 
+                           <option value=""><?php echo $location['name']; ?></option> 
+                        <?php endforeach; ?>
                     </select>
                     </div>
 

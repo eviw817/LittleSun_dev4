@@ -236,4 +236,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "./Db.php");
             $statement = $conn->prepare("DELETE FROM locations WHERE id = :id");
             $statement->execute([":id" => $locationId]);
         }
+
+       
+
     }
