@@ -33,7 +33,8 @@ function groupByDate($inputArray) {
 $calendar = new Calendar();
 if($_SESSION["id"]){
     $userInfo = User::getUserById($_SESSION["id"]);
-    $events = Shift::getShiftsById($userInfo['location'], new DateTime(), $_SESSION["id"]);
+    $events = Shift::getShiftsById($userInfo['username'], new DateTime(), $_SESSION["id"]);
+    // add comment that there are no shifts for this user
     foreach ($events as $event) {
         $calendar->addEvent($event['startTime'], $event['endTime']);
     }
