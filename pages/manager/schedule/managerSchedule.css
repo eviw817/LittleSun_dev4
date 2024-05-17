@@ -181,12 +181,10 @@ section {
     background-color: var(--color-primary);
 }
 
-.event-time, .event-task, .event-user{
+.event{
     padding: 8px;
-}
-
-.event-task{
-    background-color: var(--color-gray);
+    border: 2px solid var(--color-gray);
+    margin: 8px;
 }
 
 .title{

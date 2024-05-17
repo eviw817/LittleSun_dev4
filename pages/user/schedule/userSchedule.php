@@ -34,7 +34,6 @@ $calendar = new Calendar();
 if($_SESSION["id"]){
     $userInfo = User::getUserById($_SESSION["id"]);
     $events = Shift::getShiftsById($userInfo['username'], new DateTime(), $_SESSION["id"]);
-    // add comment that there are no shifts for this user
     foreach ($events as $event) {
         $calendar->addEvent($event['startTime'], $event['endTime']);
     }
@@ -63,16 +62,20 @@ if($_SESSION["id"]){
         </div>
     </div>
     <section>
-        <div class="schedule">
-            <?php foreach (groupByDate($events) as $key => $values) : ?>
-                <h2 class="event-date"><?php echo $key; ?></h2>
-                <?php foreach ($values as $event) : ?>
-                    <div class="event-time">Starttime: <?php echo (new DateTime($event['startTime']))->format('H:i'); ?> - Endtime: <?php echo (new DateTime($event['endTime']))->format('H:i'); ?></div> <!-- time -->
-                    <div class="event-task">Task: <?php echo $event['name']; ?></div>
-                    <div class="event-user">User: <?php echo $event['firstName'] . " " . $event['lastName']; ?></div>
+        <?php if (empty($events)) : ?>
+            <div class="empty-schedule">Your schedule is empty</div>
+        <?php else : ?>
+            <div class="schedule">
+                <?php foreach (groupByDate($events) as $key => $values) : ?>
+                    <h2 class="event-date"><?php echo $key; ?></h2>
+                    <?php foreach ($values as $event) : ?>
+                        <div class="event-time">Starttime: <?php echo (new DateTime($event['startTime']))->format('H:i'); ?> - Endtime: <?php echo (new DateTime($event['endTime']))->format('H:i'); ?></div> <!-- time -->
+                        <div class="event-task">Task: <?php echo $event['name']; ?></div>
+                        <div class="event-user">User: <?php echo $event['firstName'] . " " . $event['lastName']; ?></div>
+                    <?php endforeach; ?>
                 <?php endforeach; ?>
-            <?php endforeach; ?>
-        </div>
+            </div>
+        <?php endif; ?>
     </section>
 </body>
 </html>
