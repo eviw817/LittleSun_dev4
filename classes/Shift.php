@@ -100,7 +100,8 @@ class Shift
             FROM shifts s 
             LEFT JOIN users u ON s.user_id = u.id 
             LEFT JOIN tasks t ON s.task_id = t.id 
-            WHERE u.location = :locationId and s.startTime > :afterDate");
+            WHERE u.location = :locationId and s.startTime > :afterDate
+            ORDER BY s.startTime ASC");
         $statement -> bindValue(":locationId", $locationId, PDO::PARAM_INT);
         $statement -> bindValue(":afterDate", $afterDate->format('Y-m-d'));
         $statement -> execute();
@@ -113,19 +114,14 @@ class Shift
             FROM shifts s 
             LEFT JOIN users u ON s.user_id = u.id 
             LEFT JOIN tasks t ON s.task_id = t.id
-            WHERE u.id = :userId and s.startTime > :afterDate");  // Removed the single quotes around :userId
+            WHERE u.id = :userId and s.startTime > :afterDate
+            ORDER BY s.startTime ASC");  // Removed the single quotes around :userId
         $statement -> bindValue(":userId", $userId, PDO::PARAM_INT);
         $afterDate = new DateTime(); // Initialize the $afterDate variable with the current date and time
         $statement -> bindValue(":afterDate", $afterDate->format('Y-m-d'));
         $statement -> execute();
 
-        $shifts = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-        $filteredShifts = array_filter($shifts, function($shift) use ($userId) {
-            return $shift['user_id'] == $userId;
-        });
-
-        return $filteredShifts;
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }
