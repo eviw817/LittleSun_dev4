@@ -85,12 +85,13 @@ class Shift
 
     public function newShift()
     {
+        
         $conn = Db::getConnection();
         $statement = $conn->prepare("INSERT INTO shifts (task_id, user_id, startTime, endTime) VALUES (:task_id, :user_id, :startTime, :endTime);");
         $statement->bindValue(":task_id", $this->task_id);
         $statement->bindValue(":user_id", $this->user_id);
-        $statement->bindValue(":startTime", $this->startTime->format(DateTime::ATOM));
-        $statement->bindValue(":endTime", $this->endTime->format(DateTime::ATOM));
+        $statement->bindValue(":startTime", $this->startTime->format('Y-m-d H:i:s'));
+        $statement->bindValue(":endTime", $this->endTime->format('Y-m-d H:i:s'));
         return $statement->execute();
     }
 

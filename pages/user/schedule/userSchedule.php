@@ -75,7 +75,9 @@ if($_SESSION["id"]){
                     <?php endforeach; ?>
                 <?php endforeach; ?>
             </div>
+            
         <?php else : ?>
+
             <div class="empty-schedule">Your schedule is empty</div>
         <?php endif; ?>
     </section>
