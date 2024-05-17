@@ -10,12 +10,7 @@ h1 {
     margin-top: 3.125rem;
 }
 
-section {
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Verticaal centreren van de locatiecontainer */
-    margin-bottom: 1.25rem; /* Extra ruimte onder elke locatie */
-}
+
 
 .location_detail {
     display: inline-block;
@@ -83,3 +78,18 @@ a:hover{
     color: var(--color-primary);
 }
 
+.space {
+    display: flex;
+    align-items: center; /* Zorg ervoor dat de items gecentreerd zijn op de y-as */
+    justify-content: center;
+  
+    margin-bottom: 1.25rem; /* Extra ruimte onder elke locatie */
+}
+
+.location_detail {
+    margin-right: 20px; /* Pas dit aan naar de gewenste hoeveelheid ruimte */
+}
+
+button {
+    margin-left: 20px; /* Optioneel, als je extra ruimte wilt aan beide kanten */
+}

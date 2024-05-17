@@ -19,15 +19,16 @@
     <section>
         <ul class="locationList">
             <?php foreach(Location::getLocations() as $location) : ?> 
-                <a href="locationInfo.php?id=<?php echo $location["id"] ?>" class="locationDetail"><li><?php echo $location['name']; ?> 
+                <a href="locationInfo.php?id=<?php echo $location["id"] ?>"><li  class="locationDetail"><?php echo $location['name']; ?> 
                 </li></a>
             <?php endforeach; ?>
         </ul>
+   
+
+    <a class="button fixed-position" href="locationAdd.php">Add locations</a>
+    <a class="button fixed-position" href="locationRemove.php">Remove locations</a>
     </section>
 
-    <div class="button fixed-position">
-    <a href="locationRemove.php">Add or remove locations</a>
-    </div>
 </main>   
 </body>
 </html>

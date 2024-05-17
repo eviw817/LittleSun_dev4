@@ -1,11 +1,11 @@
 <?php
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../Location.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Location.php");
 
+    
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
         $locationId = $_POST["id"];
         Location::deleteLocation($locationId);
-        // Reload the page to reflect the changes
         header("Location: " . $_SERVER['PHP_SELF']);
         exit();
     }
@@ -31,7 +31,7 @@
 
         <?php foreach (Location::getLocationName() as $key => $location) : ?>
             <li>
-                <section>
+                <section class="space">
                     <a href="locationInfo.php?id=<?php echo ($key + 1) ?>" class="location_detail"><?php echo $location['name']; ?> </a>
                     <form action="" method="post" onsubmit="return confirm('Are you sure you want to delete this location?')">
                         <input type="hidden" name="id" value="<?php echo $location['id']; ?>">
@@ -42,7 +42,6 @@
         <?php endforeach; ?>
     </ul>
 
-    <a class="button fixed-position" href="./locationAdd.php?id=<?php echo $hub["id"]; ?>">Add location +</a>
 
 </body>
 

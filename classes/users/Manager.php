@@ -27,19 +27,16 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
         public static function getByLocation($locationId)
         {
             $conn = Db::getConnection();
-            $statement = $conn->prepare("SELECT * FROM users WHERE location = :id AND role = 'manager'");
+            $statement = $conn->prepare("SELECT firstName, lastName FROM users WHERE location = :id AND role = 'manager'");
             $statement->execute([":id" => $locationId]);
-            $results = $statement->fetchAll();
+            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
             if (!$results) {
                 return null;
             } else {
-                $managers = [];
-                foreach ($results as $result) {
-                    array_push($managers, new Manager($result["id"], $result["username"], $result["email"], $result["password"], $result["role"], $result["location"], $result["firstName"], $result["lastName"], $result["image"]));
-                }
-                return $managers;
+                return $results; // Retourneer de array met voornamen en achternamen
             }
         }
+        
 
         // Functie om managergegevens op te halen op basis van ID
         public static function getManagerById($managerId)

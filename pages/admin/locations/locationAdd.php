@@ -1,25 +1,21 @@
 <?php
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "/../../../classes/Location.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Location.php");
 
-// Initialiseer de foutmelding
+
 $error = '';
 
-// Verwerk het formulier alleen als er gegevens zijn ingediend
+
 if(!empty($_POST)){
     try {
         
-        // Maak een nieuw Location object en stel de gegevens in
         $location = new Location($_POST['name'], $_POST['street'], $_POST['streetNumber'], $_POST['city'], $_POST['country'], $_POST['postalCode']);
-
-        // Voeg de locatie toe aan de database
         $location->saveLocation();
 
-        // Redirect naar de gewenste pagina na succesvolle verwerking
         header("Location: locationList.php");
         exit();
     }
     catch(Exception $e){
-        // Vang eventuele fouten op en toon ze
         $error = $e->getMessage();
     }
     
@@ -72,6 +68,7 @@ if(!empty($_POST)){
             </div>
 
             <button type="submit" class="btn-save">Save</button>  
+            <a class="button fixed-position" href="locationList.php">Back</a>
         </form>
     </section>
 </body>

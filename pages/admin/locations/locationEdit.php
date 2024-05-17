@@ -2,29 +2,28 @@
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Location.php");
 
-// Controleren of er een locatie ID is opgegeven in de URL
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    // Locatiegegevens ophalen
     $location = Location::getLocationById($id);
-    // Controleren of de locatie bestaat
+
     if(!$location){
         echo "Location not found";
         die();
     }
 } else {
-    // Als er geen ID is opgegeven, stop de uitvoering en geef een foutmelding weer
+    
     echo "No location ID specified";
     die(); 
 }
 
 if(isset($_POST['submit'])){
-    // Verwerk de formuliargegevens en update de gegevens in de database
+
     $location = new Location($_POST["name"], $_POST["street"], $_POST["streetNumber"], $_POST["city"], $_POST["country"], $_POST["postalCode"]);
     $location->setId($id);
     $location->updateLocation();
     
-    // Redirect naar de detailpagina met de bijgewerkte gegevens
+
     header("Location: locationInfo.php?id=$id");
     exit();
 }
