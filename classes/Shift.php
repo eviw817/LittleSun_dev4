@@ -107,18 +107,25 @@ class Shift
         return $statement->fetchAll();
     }
 
-    public static function getShiftsByUser($location, $userId) {
+    public static function getShiftsByUser($userId) {
         $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT s.*, u.id
+        $statement = $conn->prepare("SELECT s.*, u.id, u.firstName, u.lastName, t.name
             FROM shifts s 
             LEFT JOIN users u ON s.user_id = u.id 
-            WHERE u.location = :location");
-        $statement -> bindValue(":location", $location, PDO::PARAM_INT);
-        $statement = array_filter($statement, function($shift) use ($userId) {
-            return $shift['userId'] == $userId;
+            LEFT JOIN tasks t ON s.task_id = t.id
+            WHERE u.id = :userId and s.startTime > :afterDate");  // Removed the single quotes around :userId
+        $statement -> bindValue(":userId", $userId, PDO::PARAM_INT);
+        $afterDate = new DateTime(); // Initialize the $afterDate variable with the current date and time
+        $statement -> bindValue(":afterDate", $afterDate->format('Y-m-d'));
+        $statement -> execute();
+
+        $shifts = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $filteredShifts = array_filter($shifts, function($shift) use ($userId) {
+            return $shift['user_id'] == $userId;
         });
 
-        return $statement->fetch(PDO::FETCH_ASSOC);
+        return $filteredShifts;
     }
 
 }

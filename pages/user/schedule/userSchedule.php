@@ -33,7 +33,7 @@ function groupByDate($inputArray) {
 $calendar = new Calendar();
 if($_SESSION["id"]){
     $userInfo = User::getUserById($_SESSION["id"]);
-    $events = Shift::getShiftsById($userInfo['username'], new DateTime(), $_SESSION["id"]);
+    $events = Shift::getShiftsByUser($userInfo['id'], new DateTime(), $_SESSION["id"]);
     foreach ($events as $event) {
         $calendar->addEvent($event['startTime'], $event['endTime']);
     }
@@ -62,9 +62,7 @@ if($_SESSION["id"]){
         </div>
     </div>
     <section>
-        <?php if (empty($events)) : ?>
-            <div class="empty-schedule">Your schedule is empty</div>
-        <?php else : ?>
+        <?php if (!empty($events)) : ?>
             <div class="schedule">
                 <?php foreach (groupByDate($events) as $key => $values) : ?>
                     <h2 class="event-date"><?php echo $key; ?></h2>
@@ -75,6 +73,8 @@ if($_SESSION["id"]){
                     <?php endforeach; ?>
                 <?php endforeach; ?>
             </div>
+        <?php else : ?>
+            <div class="empty-schedule">Your schedule is empty</div>
         <?php endif; ?>
     </section>
 </body>
