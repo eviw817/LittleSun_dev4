@@ -22,8 +22,9 @@
         <div class="flex">
             <a href="managerInfo.php?id=<?php echo $manager['id']; ?>" class="manager_detail">
                 <p><?php echo $manager['username']; ?></p>
-            </a>
+           
             <img src="<?php echo $manager["image"]; ?>"></img>
+            </a>
         </div>
     <?php endforeach; ?>
     </div>

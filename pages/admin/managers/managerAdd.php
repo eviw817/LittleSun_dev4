@@ -1,18 +1,10 @@
 <?php
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 
-/*function getLocation()
-{
-    $conn = Db::getConnection();
-    $statement = $conn->prepare("SELECT name FROM users");
-    $statement->execute();
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
-}*/
 
 if (!empty($_POST)) {
     try {
         $manager = new Manager($_POST['username'], $_POST['email'], $_POST['password'], $_POST['role'], $_POST['location'], $_POST['firstName'], $_POST['lastName']);
-        // zet $_POST["role"] op "manager"? geen dropdown
         if (isset($_POST["img"])) {
             $manager->setImage('data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])));
         }
@@ -53,36 +45,46 @@ if (!empty($_POST)) {
 
                     <div class="form__field">
                         <label for="firstName">Firstname:</label>
-                        <input type="text" name="firstName">
+                        <input type="text" id="firstName" name="firstName" required>
                     </div>
 
                     <div class="form__field">
                         <label for="lastName">Lastname:</label>
-                        <input type="text" name="lastName">
+                        <input type="text" id="lastName" name="lastName" required>
                     </div>
 
                     <div class="form__field">
                         <label for="username">Username:</label>
-                        <input type="text" name="username">
+                        <input type="text" id="username" name="username" required>
                     </div>
 
                     <div class="form__field">
                         <label for="email">Email:</label>
-                        <input type="text" name="email">
+                        <input type="text" id="email" name="email" required>
                     </div>
 
                     <div class="form__field">
                         <label for="password">Password:</label>
-                        <input type="password" name="password">
+                        <input type="password" id="password" name="password" required>
                     </div>
                     <div class="form__field">
                         <label for="role">Role:</label>
-                        <input type="text" name="role">
+                        <input type="text" id="role" name="role" value="manager" required>
+                  
+
+                    <div class="form__field">
+                    <label class="location" for="location">Hub location</label>
+                    <select id="location" name="location" required>
+                        <option value="">Select type of absence</option>
+                        <option value="Half a day">Half a day</option>
+                        <option value="1 day">1 day</option>
+                        <option value="More than 1 day">More than 1 day</option>
+                    </select>
                     </div>
 
                     <div class="form__field">
                         <label for="img">Select image:</label>
-                        <input type="file" id="img" name="img" accept="image/jpg, png">
+                        <input type="file" id="img" name="img" accept="image/jpg, png" required>
                     </div>
 
                     <div class="form__field">
