@@ -13,7 +13,6 @@ $query = "SELECT u.firstName, u.lastName, l.name AS locationName, t.name AS task
         JOIN locations l ON u.location = l.id
         WHERE 1=1";
 
-
         $params = [];
 
         if (!empty($user)) {

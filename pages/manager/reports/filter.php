@@ -88,6 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <th>Task Type</th>
             <th>Total Hours</th>
             <th>Overtime Hours</th>
+            <th>Period</th>
         </tr>
         <?php if (!empty($reportResults)): ?>
             <?php foreach ($reportResults as $result): ?>
@@ -97,6 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <td><?= htmlspecialchars($result['taskName']) ?></td>
                     <td><?= htmlspecialchars($result['total_hours']) ?></td>
                     <td><?= htmlspecialchars($result['overtime_hours']) ?></td>
+                    <td><?= htmlspecialchars($dateFrom . ' - ' . $dateTo) ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
