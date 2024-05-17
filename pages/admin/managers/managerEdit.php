@@ -113,6 +113,7 @@ if (isset($_POST['save'])) {
             <div class="form__field">
                     <input type="submit" name="save" value="Save" class="btn-save">
             </div>
+            <a class="button fixed-position" href="managerList.php">Back</a>
         </form>
     </section>
 </body>

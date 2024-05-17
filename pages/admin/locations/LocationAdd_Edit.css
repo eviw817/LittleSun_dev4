@@ -72,3 +72,6 @@
     color: var(--color-primary);
 }
 
+.edit_location, .add_location{
+    margin-top: 30px;
+}

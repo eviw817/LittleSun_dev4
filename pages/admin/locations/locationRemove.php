@@ -42,6 +42,8 @@
         <?php endforeach; ?>
     </ul>
 
+    <a class="button fixed-position" href="locationList.php">Back</a>
+
 
 </body>
 

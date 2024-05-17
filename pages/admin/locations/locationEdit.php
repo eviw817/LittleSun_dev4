@@ -75,6 +75,7 @@ if(isset($_POST['submit'])){
             <div class="form__field">
                 <input type="submit" name="submit" value="Save" class="btn-save">  
             </div>
+            <a class="button fixed-position" href="locationList.php">Back</a>
         </form>
     </div>
 </body>
