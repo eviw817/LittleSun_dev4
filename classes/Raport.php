@@ -5,13 +5,13 @@ class Raport {
     public static function generateReport($user, $location, $taskType, $dateFrom, $dateTo) {
         $conn = Db::getConnection();
 
-$query = "SELECT u.firstName, u.lastName, l.name AS locationName, t.name AS taskName, wl.total_hours, wl.overtime_hours 
-        FROM work_logs wl
-        JOIN users u ON wl.userId = u.id
-        JOIN users_tasks ut ON u.id = ut.user_Id
-        JOIN tasks t ON ut.task_Id = t.id
-        JOIN locations l ON u.location = l.id
-        WHERE 1=1";
+        $query = "SELECT u.firstName, u.lastName, l.name AS locationName, t.name AS taskName, wl.total_hours, wl.overtime_hours 
+                  FROM work_logs wl
+                  JOIN users u ON wl.userId = u.id
+                  JOIN users_tasks ut ON u.id = ut.user_Id
+                  JOIN tasks t ON ut.task_Id = t.id
+                  JOIN locations l ON u.location = l.id
+                  WHERE 1=1";
 
         $params = [];
 
@@ -36,9 +36,19 @@ $query = "SELECT u.firstName, u.lastName, l.name AS locationName, t.name AS task
             $params['date_to'] = $dateTo;
         }
 
+        // Voeg de periode toe aan de resultaten
+        $period = !empty($dateFrom) && !empty($dateTo) ? $dateFrom . ' - ' . $dateTo : 'All'; // Als beide data zijn ingevuld, toon de periode, anders toon "All"
+        
         $stmt = $conn->prepare($query);
         if ($stmt->execute($params)) {
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            // Voeg de periode toe aan elk resultaat
+            foreach ($results as &$result) {
+                $result['period'] = $period;
+            }
+            
+            return $results;
         } else {
             $errorInfo = $stmt->errorInfo();
             echo "Error executing query: " . htmlspecialchars($errorInfo[2]);
