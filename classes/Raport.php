@@ -36,14 +36,12 @@ class Raport {
             $params['date_to'] = $dateTo;
         }
 
-        // Voeg de periode toe aan de resultaten
-        $period = !empty($dateFrom) && !empty($dateTo) ? $dateFrom . ' - ' . $dateTo : 'All'; // Als beide data zijn ingevuld, toon de periode, anders toon "All"
+        $period = !empty($dateFrom) && !empty($dateTo) ? $dateFrom . ' - ' . $dateTo : 'All'; 
         
         $stmt = $conn->prepare($query);
         if ($stmt->execute($params)) {
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
-            // Voeg de periode toe aan elk resultaat
             foreach ($results as &$result) {
                 $result['period'] = $period;
             }

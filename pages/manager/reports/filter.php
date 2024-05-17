@@ -13,6 +13,7 @@ $locations = Location::getLocationName();
 $tasks = Task::getTasks();
 
 $reportResults = [];
+$dateFrom = $dateTo = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = $_POST['user'] ?? '';
@@ -80,6 +81,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </div>
 
 <div class="container">
+    <h2>Selected Period</h2>
+    <p>
+        <?php 
+        if (!empty($dateFrom) && !empty($dateTo)) {
+            echo "From: " . htmlspecialchars($dateFrom) . " To: " . htmlspecialchars($dateTo);
+        } elseif (!empty($dateFrom)) {
+            echo "From: " . htmlspecialchars($dateFrom);
+        } elseif (!empty($dateTo)) {
+            echo "To: " . htmlspecialchars($dateTo);
+        } else {
+            echo "No period selected";
+        }
+        ?>
+    </p>
+</div>
+
+<div class="container">
     <h2>Report Results</h2>
     <table>
         <tr>
@@ -88,7 +106,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <th>Task Type</th>
             <th>Total Hours</th>
             <th>Overtime Hours</th>
-            <th>Period</th>
         </tr>
         <?php if (!empty($reportResults)): ?>
             <?php foreach ($reportResults as $result): ?>
@@ -97,8 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <td><?= htmlspecialchars($result['locationName']) ?></td>
                     <td><?= htmlspecialchars($result['taskName']) ?></td>
                     <td><?= htmlspecialchars($result['total_hours']) ?></td>
-                    <td><?= htmlspecialchars($result['overtime_hours']) ?></td>
-                    <td><?= htmlspecialchars($dateFrom . ' - ' . $dateTo) ?></td>
+                    <td><?= htmlspecialchars($result['overtime_hours']) ?></td
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
