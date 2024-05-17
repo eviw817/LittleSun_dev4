@@ -30,9 +30,9 @@
 
         <section>
             
-            <a class="link" href="../admin/locations/locationList.php">Hub Locations</a>
+            <a class="link" href="../admin/locations/locationList.php">Hub locations</a>
 
-            <a class="link" href="../admin/managers/managerList.php">Hub Managers</a>
+            <a class="link" href="../admin/managers/managerList.php">Hub managers</a>
 
             <a class="link" href="../admin/tasks/taskList.php">Task list</a>
 
