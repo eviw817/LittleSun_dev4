@@ -25,11 +25,10 @@
                 </li></a>
             <?php endforeach; ?>
         </ul>
+   
+        <a class="button fixed-position" href="taskAdd.php">Add tasks</a>
+        <a class="button fixed-position" href="taskRemove.php">Remove tasks</a>
     </section>
-
-    <div class="button fixed-position">
-    <a href="taskRemove.php">Add or remove tasks</a>
-    </div>
 </main>   
 </body>
 </html>

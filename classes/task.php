@@ -10,13 +10,13 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "Db.php");
         private string $startDate;
         private string $endDate;
 
-        public function __construct($name, $description, $category, $progress, $startDate, $endDate){
+        public function __construct($name, $description, $category){ //, $progress, $startDate, $endDate
             $this->name = $name;
             $this->description = $description;
             $this->category = $category;
-            $this->progress = $progress;
-            $this->startDate = $startDate;
-            $this->endDate = $endDate;
+            // $this->progress = $progress;
+            // $this->startDate = $startDate;
+            // $this->endDate = $endDate;
         }
         //Set the value of id 
         public function setId($id)
@@ -113,14 +113,11 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "Db.php");
             $conn = Db::getConnection();
 
             // Prepare query (INSERT) + bind
-            $statement = $conn->prepare("INSERT INTO tasks (name, description, category, progress, startDate, endDate) VALUES (:name, :description, :category, :progress, :startDate, :endDate);");
+            $statement = $conn->prepare("INSERT INTO tasks (name, description, category) VALUES (:name, :description, :category);");
             $statement->bindValue(":name", $this->name);
             $statement->bindValue(":description", $this->description);
             $statement->bindValue(":category", $this->category);
-            $statement->bindValue(":progress", $this->progress);
-            $statement->bindValue(":startDate", $this->startDate);
-            $statement->bindValue(":endDate", $this->endDate);
-
+           
             // Execute
             $processed = $statement->execute();
             if ($processed) {
@@ -133,14 +130,11 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "Db.php");
         public function updateTask(){
             if(!empty($this->id)){
             $conn = Db::getConnection();
-            $statement = $conn->prepare("UPDATE tasks SET name = :name, description = :description, category = :category, progress = :progress, startDate = :startDate, endDate = :endDate WHERE id = :id");
+            $statement = $conn->prepare("UPDATE tasks SET name = :name, description = :description, category = :category WHERE id = :id");
             $statement->execute([
                 ":name" => $this->name,
                 ":description" => $this->description,
                 ":category" => $this->category,
-                ":progress" => $this->progress,
-                ":startDate" => $this->startDate,
-                ":endDate" => $this->endDate,
                 ":id" => $this->id
             ]);
             } else{

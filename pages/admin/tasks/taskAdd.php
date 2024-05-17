@@ -10,7 +10,7 @@ if(!empty($_POST)){
     try {
         
         // Maak een nieuw Task object en stel de gegevens in
-        $task = new Task($_POST['name'], $_POST['description'], $_POST['category'], $_POST['progress'], $_POST['startDate'], $_POST['endDate']);
+        $task = new Task($_POST['name'], $_POST['description'], $_POST['category']);
 
         // Voeg de task toe aan de database
         $task->saveTask();
@@ -59,7 +59,7 @@ if(!empty($_POST)){
                 <label for="category">Category</label>
                 <input type="text" name="category" id="category">
             </div>
-            <div class="form__field filter">
+            <!-- <div class="form__field filter">
                 <label for="progress">Progress</label>
                 <select name="progress" id="progress">
                     <option value="Unassigned">Unassiged</option>
@@ -75,7 +75,7 @@ if(!empty($_POST)){
             <div class="form__field">
                 <label for="endDate">End Date</label>
                 <input type="text" name="endDate" id="endDate">
-            </div>
+            </div> -->
 
             <button type="submit" class="btn-save">Save</button>  
         </form>

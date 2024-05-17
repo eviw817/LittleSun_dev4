@@ -1,30 +1,32 @@
 <?php
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
 
-// Controleren of er een task ID is opgegeven in de URL
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    // Taskgegevens ophalen
+ 
     $task = Task::getTaskById($id);
-    // Controleren of de task bestaat
+    $users = User::getByTask($id);
+   
     if(!$task){
         echo "Task not found";
         die();
     }
 } else {
-    // Als er geen ID is opgegeven, stop de uitvoering en geef een foutmelding weer
+    
     echo "No task ID specified";
     die(); 
 }
 
 if(isset($_POST['submit'])){
-    // Verwerk de formuliargegevens en update de gegevens in de database
-    $task = new Task($_POST["name"], $_POST["description"], $_POST["category"], $_POST["progress"], $_POST["startDate"], $_POST["endDate"]);
+
+    $task = new Task($_POST["name"], $_POST["description"], $_POST["category"]);
     $task->setId($id);
     $task->updateTask();
     
-    // Redirect naar de detailpagina met de bijgewerkte gegevens
+  
     header("Location: taskInfo.php?id=$id");
     exit();
 }
@@ -46,7 +48,7 @@ if(isset($_POST['submit'])){
     <div class="form task_edit">
     <form action="taskEdit.php?id=<?php echo $task['id']; ?>" method="post">
 
-            <h2 class="form__title">Edit Task</h2>
+            <h2 class="form__title">Edit task</h2>
 
             <div class="form__field">
                 <label for="name">Name</label>
@@ -60,7 +62,17 @@ if(isset($_POST['submit'])){
                 <label for="category">Category</label>
                 <input type="text" name="category" value="<?php echo isset($task['category']) ? $task['category'] : ''; ?>">
             </div>
-            <div class="form__field filter">
+            <p> Assigned User: 
+            <?php 
+            if ($users) {
+                foreach ($users as $user) {
+                    echo $user->getFirstname() . " " . $user->getLastname() . "<br>";
+                }
+            } else {
+                echo "No user assigned";
+            }
+            ?></p>
+            <!-- <div class="form__field filter">
                 <label for="filter">Progress</label>
                 <select name="filter" id="filter">
                     <option value="-1">No progress</option>
@@ -68,19 +80,12 @@ if(isset($_POST['submit'])){
                         <option value="<?php echo $progress["progress"] ?>"><?php echo $progress["progress"] ?></option>
                     <?php endforeach; ?>
                 </select>
-            </div>
-            <div class="form__field">
-                <label for="startDate">Start Date</label>
-                <input type="text" name="startDate" value="<?php echo isset($task['startDate']) ? $task['startDate'] : ''; ?>">
-            </div>
-            <div class="form__field">
-                <label for="endDate">End Date</label>
-                <input type="text" name="endDate" value="<?php echo isset($task['endDate']) ? $task['endDate'] : ''; ?>">
-            </div>
-
+            </div> -->
+           
             <div class="form__field">
                 <input type="submit" name="submit" value="Save" class="btn-save">  
             </div>
+            <a class="button fixed-position" href="taskList.php">Back</a>
         </form>
     </div>
 </body>
