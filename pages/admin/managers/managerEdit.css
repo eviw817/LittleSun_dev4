@@ -59,3 +59,7 @@ p{
     background-color: var(--color-off-black); 
     color: var(--color-primary); 
 }
+
+.form_edit{
+    margin-top: 30px;
+}

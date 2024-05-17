@@ -48,7 +48,7 @@ if (isset($_POST['save'])) {
 
 <body>
 <?php include_once("../../../components/headerAdmin.inc.php"); ?>
-    <section>
+    <section class="form_edit">
     <form action="" method="post" enctype="multipart/form-data">
 
             <h1>Edit hub manager</h1>

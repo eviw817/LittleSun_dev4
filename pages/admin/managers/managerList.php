@@ -23,7 +23,7 @@
             <a href="managerInfo.php?id=<?php echo $manager['id']; ?>" class="manager_detail">
                 <p><?php echo $manager['username']; ?></p>
            
-            <img src="<?php echo $manager["image"]; ?>"></img>
+                <img src="<?php echo $manager["image"]; ?>"></img>
             </a>
         </div>
     <?php endforeach; ?>

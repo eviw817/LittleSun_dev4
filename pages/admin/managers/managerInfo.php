@@ -42,8 +42,12 @@
         <?php endif; ?>
     </div>
     <div class="edit-link">
-            <a class="edit" href="managerEdit.php?id=<?php echo $manager['id']; ?>">Edit manager</a>
+        <a class="edit" href="managerEdit.php?id=<?php echo $manager['id']; ?>">Edit manager</a>
     </div>
+    <div class="edit-link">
+        <a class="edit" href="managerList.php">Back</a>
+    </div>
+
 </div>
     
 </body>
