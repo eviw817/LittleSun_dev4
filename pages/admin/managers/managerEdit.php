@@ -20,14 +20,19 @@ if (isset($_POST['save'])) {
     $location = ($_POST['location'] == "-1") ? null : $_POST['location'];
     $username = $_POST["username"];
     $email = $_POST["email"];
+    $newPassword = $_POST["new-password"];
     $role = $_POST["role"];
     $firstName = $_POST["firstName"];
     $lastName = $_POST["lastName"];
    
-    $updatemanager = new Manager($username, $email, null, $role, $location, $firstName, $lastName);
+    $updatemanager = new Manager($username, $email, $newPassword, $role, $location, $firstName, $lastName);
+    if (!empty($newPassword)) {
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+    }
     if (isset($_POST["img"])){
         $updatemanager->setImage('data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])));
     }
+   
     $updatemanager->setId($id);
     $updatemanager->updateInfo();
 

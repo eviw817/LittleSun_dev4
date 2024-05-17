@@ -50,22 +50,33 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
 
         public function updateInfo(){
             if(!empty($this->id)){
-            $conn = Db::getConnection();
-            $statement = $conn->prepare("UPDATE users SET username = :username, email = :email, role = :role, location = :location, firstName = :firstName, lastName = :lastName, image = :image WHERE id = :id");
-            $statement->execute([
-                ":username" => $this->username,
-                ":email" => $this->email,
-                ":role" => $this->role,
-                ":location" => $this->location,
-                ":firstName" => $this->firstName,
-                ":lastName" => $this->lastName,
-                ":image" => $this->image,
-                ":id" => $this->id
-            ]);
-        } else{
-            throw new Exception("id is not set.");
+                // Hash het wachtwoord als het niet leeg is
+                if (!empty($this->password)) {
+                    $hashed_password = password_hash($this->password, PASSWORD_DEFAULT);
+                } else {
+                    // Als het wachtwoord leeg is, behoud de huidige wachtwoordwaarde
+                    $hashed_password = $this->password;
+                }
+        
+                $conn = Db::getConnection();
+                $statement = $conn->prepare("UPDATE users SET username = :username, email = :email, password = :password, role = :role, location = :location, firstName = :firstName, lastName = :lastName, image = :image WHERE id = :id");
+                $statement->execute([
+                    ":username" => $this->username,
+                    ":email" => $this->email,
+                    ":password" => $hashed_password, // Gebruik het gehashte wachtwoord
+                    ":role" => $this->role,
+                    ":location" => $this->location,
+                    ":firstName" => $this->firstName,
+                    ":lastName" => $this->lastName,
+                    ":image" => $this->image,
+                    ":id" => $this->id
+                ]);
+            } else {
+                throw new Exception("id is not set.");
+            }
         }
-        }
+        
+        
 
         // Functie om de lijst van hub managers op te halen
         public static function getHubManagerName(){
