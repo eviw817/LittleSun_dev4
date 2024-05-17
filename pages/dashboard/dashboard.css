@@ -13,8 +13,19 @@ section {
 }
 
 
+/* CSS om de links-container te centreren */
+.links-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Links horizontaal centreren */
+    justify-content: center; /* Links verticaal centreren als de container de volledige hoogte van de pagina beslaat */
+    height: 100vh; /* Container de volledige hoogte van de pagina geven */
+}
+
 .link {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 45%; /* Breedte aanpassen voor desktop-weergave */
     margin-bottom: 10px; /* Ruimte tussen links op desktop */
     padding: 8px;
@@ -26,7 +37,9 @@ section {
     font-weight: 500;
     text-decoration: none;
     color: var(--color-white);
+    text-align: center; /* Tekst centreren binnen de link */
 }
+
 
 .link:hover{
     background-color: var(--color-off-black);
@@ -34,10 +47,10 @@ section {
 }
 
 @media (max-width: 768px) {
-    section{
-        flex-direction: row;
+    .link{
+        margin-left: auto;
+      margin-right: auto;
+      width: 80%;
     }
-    .link {
-        width: 100%; /* Breedte 100% op mobiele apparaten */
-    }
+   
 }

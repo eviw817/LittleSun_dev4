@@ -1,4 +1,17 @@
-<!DOCTYPE html>
+<?php
+    session_start(); 
+
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/Db.php");
+    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../classes/users/User.php");
+    if (isset($_SESSION['id'])) {
+        $user = User::getUserById($_SESSION['id']);
+    } else {
+        
+        header("Location: login.php");
+        exit(); 
+    }
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">

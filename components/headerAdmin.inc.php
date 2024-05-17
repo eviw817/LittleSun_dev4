@@ -6,6 +6,7 @@
     </div>
 
     <div class="menu">
+        <p></p>
         <a href="http://localhost/LittleSun_dev4/pages/login_logout/login.php">Log Out</a>
     </div>
 </header>
