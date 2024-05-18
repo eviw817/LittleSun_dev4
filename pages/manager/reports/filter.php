@@ -1,28 +1,31 @@
 <?php
 session_start();
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Schedules.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Location.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Shift.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Raport.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Report.php");
 
-// dropdown-gegevens
-$users = User::getName();
-$locations = Location::getLocationName();
-$tasks = Task::getTasks();
+if ($_SESSION["id"]) {
+    $managerInfo = Manager::getManagerById($_SESSION["id"]);
+} else {
+    echo "Error: Session is invalid, please log-in again";
+    exit;
+}
 
-$reportResults = [];
-$dateFrom = $dateTo = '';
-
+$reportData = [];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $user = $_POST['user'] ?? '';
-    $location = $_POST['location'] ?? '';
-    $taskType = $_POST['task_type'] ?? '';
-    $dateFrom = $_POST['date_from'] ?? '';
-    $dateTo = $_POST['date_to'] ?? '';
+    $reportType = $_POST['report_type'];
+    $startDate = $_POST['start_date'];
+    $endDate = $_POST['end_date'];
+    $userId = $_POST['user_id'] ?? null;
 
-    $reportResults = Raport::generateReport($user, $location, $taskType, $dateFrom, $dateTo);
+    try {
+        $reportData = Report::generateReport($reportType, $startDate, $endDate, $userId);
+    } catch (Exception $e) {
+        $error = $e->getMessage();
+    }
 }
 ?>
 
@@ -31,98 +34,57 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generate Report</title>
-    <link rel="stylesheet" href="../../../reset.css">
-    <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./filter1.css">
+    <title>Generate Reports</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<?php include_once("../../../components/headerManager.inc.php"); ?>
-<div class="container">
-    <h1>Generate Report</h1>
-    <form action="" method="post">
-        <div class="form-group">
-            <label for="user">User:</label>
-            <select id="user" name="user">
-                <option value="">Select User</option>
-                <?php foreach ($users as $user): ?>
-                    <option value="<?= htmlspecialchars($user['id']) ?>"><?= htmlspecialchars($user['firstName'] . ' ' . $user['lastName']) ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="location">Location:</label>
-            <select id="location" name="location">
-                <option value="">Select Location</option>
-                <?php foreach ($locations as $loc): ?>
-                    <option value="<?= htmlspecialchars($loc['id']) ?>"><?= htmlspecialchars($loc['name']) ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="task_type">Task Type:</label>
-            <select id="task_type" name="task_type">
-                <option value="">Select Task Type</option>
-                <?php foreach ($tasks as $task): ?>
-                    <option value="<?= htmlspecialchars($task['id']) ?>"><?= htmlspecialchars($task['name']) ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="date_from">Date From:</label>
-            <input type="date" id="date_from" name="date_from">
-        </div>
-        <div class="form-group">
-            <label for="date_to">Date To:</label>
-            <input type="date" id="date_to" name="date_to">
-        </div>
-        <button type="submit">Generate Report</button>
-    </form>
-</div>
-
-<div class="container">
-    <h2>Selected Period</h2>
-    <p>
-        <?php 
-        if (!empty($dateFrom) && !empty($dateTo)) {
-            echo "From: " . htmlspecialchars($dateFrom) . " To: " . htmlspecialchars($dateTo);
-        } elseif (!empty($dateFrom)) {
-            echo "From: " . htmlspecialchars($dateFrom);
-        } elseif (!empty($dateTo)) {
-            echo "To: " . htmlspecialchars($dateTo);
-        } else {
-            echo "No period selected";
-        }
-        ?>
-    </p>
-</div>
-
-<div class="container">
-    <h2>Report Results</h2>
-    <table>
-        <tr>
-            <th>User</th>
-            <th>Location</th>
-            <th>Task Type</th>
-            <th>Total Hours</th>
-            <th>Overtime Hours</th>
-        </tr>
-        <?php if (!empty($reportResults)): ?>
-            <?php foreach ($reportResults as $result): ?>
-                <tr>
-                    <td><?= htmlspecialchars($result['firstName'] . ' ' . $result['lastName']) ?></td>
-                    <td><?= htmlspecialchars($result['locationName']) ?></td>
-                    <td><?= htmlspecialchars($result['taskName']) ?></td>
-                    <td><?= htmlspecialchars($result['total_hours']) ?></td>
-                    <td><?= htmlspecialchars($result['overtime_hours']) ?></td
-                </tr>
+    <h1>Generate Reports</h1>
+    <?php if (isset($error)): ?>
+        <p><?php echo $error; ?></p>
+    <?php endif; ?>
+    <form method="POST">
+        <label for="report_type">Report Type:</label>
+        <select name="report_type" id="report_type" required>
+            <option value="hoursWorked">Total Hours Worked</option>
+            <option value="hoursWorkedByPerson">Total Hours Worked by Person</option>
+            <option value="hoursOvertime">Overtime Hours</option>
+            <option value="sickTime">Sick Time</option>
+            <option value="timeOff">Time Off</option>
+        </select>
+        <label for="start_date">Start Date:</label>
+        <input type="date" name="start_date" id="start_date" required>
+        <label for="end_date">End Date:</label>
+        <input type="date" name="end_date" id="end_date" required>
+        <label for="user_id">User (if applicable):</label>
+        <select name="user_id" id="user_id">
+            <option value="">Select User</option>
+            <?php foreach (User::getUsersByLocationAndRequests($managerInfo["location"]) as $user) : ?>
+                <option value="<?php echo $user["id"]; ?>"><?php echo $user['username']; ?></option>
             <?php endforeach; ?>
-        <?php else: ?>
-            <tr>
-                <td colspan="5">No results found.</td>
-            </tr>
-        <?php endif; ?>
-    </table>
-</div>
+        </select>
+        <button type="submit">Generate</button>
+    </form>
+
+    <?php if (!empty($reportData)): ?>
+        <h2>Report Results</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <?php foreach (array_keys($reportData[0]) as $header): ?>
+                        <th><?php echo ucfirst($header); ?></th>
+                    <?php endforeach; ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($reportData as $row): ?>
+                    <tr>
+                        <?php foreach ($row as $column): ?>
+                            <td><?php echo htmlspecialchars($column); ?></td>
+                        <?php endforeach; ?>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
 </body>
 </html>
