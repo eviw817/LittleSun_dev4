@@ -9,36 +9,57 @@ class Report
         
         switch ($type) {
             case 'hoursWorked':
-                $query = "SELECT u.username, SUM(TIMESTAMPDIFF(HOUR, s.start_time, s.end_time)) AS total_hours 
+                $query = "SELECT u.username, t.name AS task_name, s.start_time, s.end_time, TIMESTAMPDIFF(HOUR, s.start_time, s.end_time) AS total_hours 
                           FROM schedules s
                           JOIN users u ON u.id = s.user_id
-                          WHERE s.schedule_date BETWEEN :start_date AND :end_date
-                          GROUP BY u.username";
+                          JOIN tasks t ON t.id = s.task_id
+                          WHERE s.schedule_date BETWEEN :start_date AND :end_date";
+                if ($userId) {
+                    $query .= " AND s.user_id = :user_id";
+                }
+                if ($taskId) {
+                    $query .= " AND s.task_id = :task_id";
+                }
                 break;
             case 'hoursOvertime':
-                $query = "SELECT u.username, SUM(TIMESTAMPDIFF(HOUR, s.start_time, s.end_time)) - 40 AS overtime_hours 
+                $query = "SELECT u.username, t.name AS task_name, s.start_time, s.end_time, TIMESTAMPDIFF(HOUR, s.start_time, s.end_time) - 40 AS overtime_hours 
                           FROM schedules s
                           JOIN users u ON u.id = s.user_id
+                          JOIN tasks t ON t.id = s.task_id
                           WHERE s.schedule_date BETWEEN :start_date AND :end_date
-                          GROUP BY u.username
                           HAVING overtime_hours > 0";
+                if ($userId) {
+                    $query .= " AND s.user_id = :user_id";
+                }
+                if ($taskId) {
+                    $query .= " AND s.task_id = :task_id";
+                }
                 break;
             case 'sickTime':
-                $query = "SELECT u.username, SUM(TIMESTAMPDIFF(HOUR, a.startDateTime, a.endDateTime)) AS sick_hours 
+                $query = "SELECT u.username, t.name AS task_name, a.startDateTime, a.endDateTime, TIMESTAMPDIFF(HOUR, a.startDateTime, a.endDateTime) AS sick_hours 
                           FROM absence_requests a
                           JOIN users u ON u.id = a.user_id
+                          JOIN tasks t ON t.id = a.task_id
                           WHERE a.reason = 'sick' AND a.startDateTime BETWEEN :start_date AND :end_date";
                 if ($userId) {
                     $query .= " AND a.user_id = :user_id";
                 }
-                $query .= " GROUP BY u.username";
+                if ($taskId) {
+                    $query .= " AND a.task_id = :task_id";
+                }
                 break;
             case 'timeOff':
-                $query = "SELECT u.username, SUM(TIMESTAMPDIFF(HOUR, a.startDateTime, a.endDateTime)) AS time_off_hours 
+                $query = "SELECT u.username, t.name AS task_name, a.startDateTime, a.endDateTime, TIMESTAMPDIFF(HOUR, a.startDateTime, a.endDateTime) AS time_off_hours 
                           FROM absence_requests a
                           JOIN users u ON u.id = a.user_id
-                          WHERE a.startDateTime BETWEEN :start_date AND :end_date
-                          GROUP BY u.username";
+                          JOIN tasks t ON t.id = a.task_id
+                          WHERE a.startDateTime BETWEEN :start_date AND :end_date";
+                if ($userId) {
+                    $query .= " AND a.user_id = :user_id";
+                }
+                if ($taskId) {
+                    $query .= " AND a.task_id = :task_id";
+                }
                 break;
             default:
                 throw new Exception("Invalid report type");
@@ -49,6 +70,9 @@ class Report
         $statement->bindValue(':end_date', $endDate);
         if ($userId) {
             $statement->bindValue(':user_id', $userId);
+        }
+        if ($taskId) {
+            $statement->bindValue(':task_id', $taskId);
         }
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
