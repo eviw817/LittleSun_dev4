@@ -8,7 +8,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/users/Manager.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Task.php");
 
 
-$tasks = Schedules::getTasks();
+$tasks = Schedules::getTasks(); // Array van taken
 $hubs = Schedules::getHubs();
 $timeSlots = range(8, 19); // 8am to 7pm
 
@@ -26,17 +26,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['assign'])) {
 
     $result = $schedule->newShift();
     $message = $result === true ? "Shift assigned successfully." : $result;
-    $newShift = [
-        'user_id' => $user_id,
-        'task_id' => $task_id,
-        'hub_id' => $hub_id,
-        'schedule_date' => $schedule_date,
-        'startTime' => $startTime,
-        'endTime' => $endTime
-    ];
+    
+    // Opnieuw ophalen van schema's na het toewijzen van de nieuwe dienst
+    $schedules = Schedules::getSchedules();
+    
+    $events = [];
+    foreach ($schedules as $schedule) {
+        $event = [
+            'user_name' => $schedule['user_name'],
+            'task_name' => $schedule['task_name'],
+            'location_name' => $schedule['location_name'],
+            'schedule_date' => $schedule['schedule_date'],
+            'startTime' => $schedule['startTime'],
+            'endTime' => $schedule['endTime']
+        ];
+        $events[] = $event;
+    }
+    
 
-    // Voeg de nieuwe shift toe aan de bestaande gebeurtenissen
-    $events[] = $newShift;
+// Sorteer de gebeurtenissen op datum
+usort($events, function($a, $b) {
+    return strtotime($a['schedule_date']) - strtotime($b['schedule_date']);
+});
 }
 
 if($_SESSION["id"]){
@@ -63,6 +74,7 @@ $view = isset($_GET['view']) ? $_GET['view'] : 'monthly';
 $year = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
 $month = isset($_GET['month']) ? (int)$_GET['month'] : date('m');
 $day = isset($_GET['day']) ? (int)$_GET['day'] : date('j');
+$firstDayOfWeek = (new DateTime("$year-$month-$day"))->modify('monday this week');
 
 $prevMonth = $month - 1;
 $nextMonth = $month + 1;
@@ -294,6 +306,33 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
             <div class="day"><?php echo date('l, F j, Y', strtotime("$year-$month-$day")); ?></div>
             <a href="<?php echo $nextDayUrl; ?>">Next &raquo;</a>
         </div>
+        <div id="day-schedule">
+    <div class="hours">
+        <?php for ($i = 0; $i < 24; $i++): ?>
+            <div><?php printf("%02d:00", $i); ?></div>
+        <?php endfor; ?>
+    </div>
+    <div id="day-calendar">
+        <?php foreach ($allDaysThisMonth as $day): ?>
+            <div class="day">
+                <?php if ($day): ?>
+                    <em><?php echo date('j', strtotime($day)); ?></em>
+                    <!-- Voeg hier de gebeurtenissen toe voor deze dag -->
+                    <?php foreach ($schedules as $schedule): ?>
+                        <?php if (isset($schedule['schedule_date']) && date('Y-m-d', strtotime($schedule['schedule_date'])) === $day): ?>
+                            <div class="event" style="top: <?php echo (strtotime($schedule['startTime']) / 3600) * 40; ?>px; height: <?php echo ((strtotime($schedule['endTime']) - strtotime($schedule['startTime'])) / 3600) * 40; ?>px;">
+                                Taak: <?php echo $schedule['task_name']; ?><br>
+                                Gebruiker: <?php echo $schedule['user_name']; ?><br>
+                                Hub: <?php echo $schedule['location_name']; ?>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+
     <?php elseif ($view === 'weekly'): ?>
         <div id="days">
             <div>Mon</div>
@@ -305,15 +344,29 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
             <div>Sun</div>
         </div>
         <div id="week">
-            <?php
-            $weekStart = (new DateTime("$year-$month-$day"))->modify('monday this week');
-            for ($i = 0; $i < 7; $i++) {
-                $currentDay = $weekStart->format('Y-m-d');
-                echo '<div class="day"><em>' . $weekStart->format('j') . '</em></div>';
-                $weekStart->modify('+1 day');
+    <?php
+    // Loop door elke dag van de week
+    for ($i = 0; $i < 7; $i++) {
+        $currentDay = $firstDayOfWeek->format('Y-m-d');
+        echo '<div class="day"><em>' . $firstDayOfWeek->format('j') . '</em><br>';
+
+        // Toon gebeurtenissen voor elke dag van de week
+        foreach ($schedules as $schedule) {
+            if (isset($schedule['schedule_date']) && date('Y-m-d', strtotime($schedule['schedule_date'])) === $currentDay) {
+                echo '<div class="event">';
+                echo $schedule['startTime'] . ' - ' . $schedule['endTime'] . '<br>';
+                echo 'Taak: ' . $schedule['task_name'] . '<br>';
+                echo 'Gebruiker: ' . $schedule['user_name'] . '<br>';
+                echo 'Hub: ' . $schedule['location_name'];
+                echo '</div>';
             }
-            ?>
-        </div>
+        }
+
+        echo '</div>';
+        $firstDayOfWeek->modify('+1 day'); // Ga naar de volgende dag
+    }
+    ?>
+</div>
     <?php else: ?>
         <div id="days">
             <div>Mon</div>
@@ -325,35 +378,27 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
             <div>Sun</div>
         </div>
         <div id="month">
-            <?php
-            $date = new DateTime($allDaysThisMonth[0]);
-            $dayOfWeek = $date->format('N');
-            $emptyDays = array_fill(0, $dayOfWeek - 1, '');
-            array_unshift($allDaysThisMonth, ...$emptyDays);
-            
-          foreach ($allDaysThisMonth as $day): ?>
-                <div class="day">
-                    <?php if ($day): ?>
-                        <em><?php echo date('j', strtotime($day)); ?></em>
-            
-                        <!-- Voeg hier de gebeurtenissen toe voor deze dag -->
-                        <?php foreach ($events as $event): ?>
-                            <?php if ($event['schedule_date'] === $day): ?>
-                                <div class="event">
-                                    <?php echo $event['startTime'] . ' - ' . $event['endTime']; ?><br>
-                                    Task: <?php echo $event['task_id']; ?><br>
-                                    User: <?php echo $event['user_id']; ?><br>
-                                    Hub: <?php echo $event['hub_id']; ?>
-                                </div>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-            
+    <?php
+    foreach ($allDaysThisMonth as $day): ?>
+        <div class="day">
+            <?php if ($day): ?>
+                <em><?php echo date('j', strtotime($day)); ?></em>
+                
+                <!-- Voeg hier de gebeurtenissen toe voor deze dag -->
+                <?php foreach ($schedules as $schedule): ?>
+                    <?php if (isset($schedule['schedule_date']) && date('Y-m-d', strtotime($schedule['schedule_date'])) === $day): ?>
+                        <div class="event">
+                            <?php echo $schedule['startTime'] . ' - ' . $schedule['endTime']; ?><br>
+                            Taak: <?php echo $schedule['task_name']; ?><br>
+                            Gebruiker: <?php echo $schedule['user_name']; ?><br>
+                            Hub: <?php echo $schedule['location_name']; ?>
+                        </div>
                     <?php endif; ?>
-                </div>
-            <?php endforeach; ?>
-            
-        
+                <?php endforeach; ?>
+                
+            <?php endif; ?>
         </div>
+    <?php endforeach; ?>
     <?php endif; ?>
 </body>
 </html>
