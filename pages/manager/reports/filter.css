@@ -1,12 +1,12 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    margin: 0;
+    margin: 20px;
     padding: 0;
 }
 
 .container {
-    width: 60%; 
+    width: 60%;
     margin: auto;
     background: #fff;
     padding: 20px;
@@ -17,54 +17,71 @@ body {
 h1 {
     text-align: center;
     color: #333;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 
-.form-group {
-    margin-bottom: 20px; 
+form {
+    max-width: 400px;
+    margin: 0 auto;
 }
 
-.form-group label {
+label {
     display: block;
     margin-bottom: 5px;
-    color: #666; 
+    color: #666;
 }
 
-.form-group select,
-.form-group input[type="date"] {
+select,
+input[type="date"] {
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 5px;
     outline: none;
+    margin-bottom: 10px;
 }
 
 button {
     width: 100%;
-    padding: 0.625rem;
-    background-color: var(--color-primary);
+    padding: 10px;
     border: none;
-    border-radius: 0.313rem;
-    color: var(--color-black);
-    font-size: 1rem;
+    font-size: 16px;
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s ease;
+    background-color: #ffdd00;
+    border: none;
+    border-radius: 0.313rem;
+    color: black;
 }
 
 button:hover {
     background-color: #ffee81;
 }
 
-th {
-    padding: 10px 20px;
-    text-align: left;
-    background-color: #f2f2f2;
-    color: #333;
-    border-bottom: 2px solid #ddd;
+table {
+    border-collapse: collapse;
+    width: 100%;
 }
 
-h2 {
-    margin-bottom: 20px;
+th {
+    background-color: black;
+    color: white;
+    text-align: left;
+    padding: 12px;
+}
+
+td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 12px;
+}
+
+tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
 }

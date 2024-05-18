@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generate Reports</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="filter.css">
 </head>
 <body>
     <h1>Generate Reports</h1>
@@ -77,17 +77,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <table border="1">
             <thead>
                 <tr>
-                    <?php foreach (array_keys($reportData[0]) as $header): ?>
-                        <th><?php echo ucfirst($header); ?></th>
-                    <?php endforeach; ?>
+                    <th>Username</th>
+                    <th>Task Name</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Total Hours</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($reportData as $row): ?>
                     <tr>
-                        <?php foreach ($row as $column): ?>
-                            <td><?php echo htmlspecialchars($column); ?></td>
-                        <?php endforeach; ?>
+                        <td><?php echo htmlspecialchars($row['username']); ?></td>
+                        <td><?php echo htmlspecialchars($row['task_name']); ?></td>
+                        <td><?php echo htmlspecialchars($row['start_time']); ?></td>
+                        <td><?php echo htmlspecialchars($row['end_time']); ?></td>
+                        <td><?php echo htmlspecialchars($row['total_hours']); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
