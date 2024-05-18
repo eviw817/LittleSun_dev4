@@ -20,9 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $startDate = $_POST['start_date'];
     $endDate = $_POST['end_date'];
     $userId = $_POST['user_id'] ?? null;
+    $taskId = $_POST['task_id'] ?? null;
 
     try {
-        $reportData = Report::generateReport($reportType, $startDate, $endDate, $userId);
+        $reportData = Report::generateReport($reportType, $startDate, $endDate, $userId, $taskId);
     } catch (Exception $e) {
         $error = $e->getMessage();
     }
@@ -46,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <label for="report_type">Report Type:</label>
         <select name="report_type" id="report_type" required>
             <option value="hoursWorked">Total Hours Worked</option>
-            <option value="hoursWorkedByPerson">Total Hours Worked by Person</option>
             <option value="hoursOvertime">Overtime Hours</option>
             <option value="sickTime">Sick Time</option>
             <option value="timeOff">Time Off</option>
@@ -60,6 +60,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <option value="">Select User</option>
             <?php foreach (User::getUsersByLocationAndRequests($managerInfo["location"]) as $user) : ?>
                 <option value="<?php echo $user["id"]; ?>"><?php echo $user['username']; ?></option>
+            <?php endforeach; ?>
+        </select>
+        <label for="task_id">Task Type (if applicable):</label>
+        <select name="task_id" id="task_id">
+            <option value="">Select Task Type</option>
+            <?php foreach (Task::getTasks() as $task) : ?>
+                <option value="<?php echo $task["id"]; ?>"><?php echo $task['name']; ?></option>
             <?php endforeach; ?>
         </select>
         <button type="submit">Generate</button>
