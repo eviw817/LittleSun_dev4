@@ -35,6 +35,8 @@
         <a class="link" href="../manager/approveRequest/approveDecline.php">View absence requests</a>
         <a class="link" href="../manager/schedule/managerSchedule.php">View schedule</a>
         <a class="link" href="../manager/reports/filter.php">Reports</a>
+
+        <a class="link" href="../calender.php">Calender</a>
     </section>
     </main>
 </body>
