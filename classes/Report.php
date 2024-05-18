@@ -21,20 +21,20 @@ class Report
                     $query .= " AND s.task_id = :task_id";
                 }
                 break;
-            case 'hoursOvertime':
-                $query = "SELECT u.username, t.name AS task_name, s.start_time, s.end_time, TIMESTAMPDIFF(HOUR, s.start_time, s.end_time) - 40 AS overtime_hours 
-                          FROM schedules s
-                          JOIN users u ON u.id = s.user_id
-                          JOIN tasks t ON t.id = s.task_id
-                          WHERE s.schedule_date BETWEEN :start_date AND :end_date
-                          HAVING overtime_hours > 0";
-                if ($userId) {
-                    $query .= " AND s.user_id = :user_id";
-                }
-                if ($taskId) {
-                    $query .= " AND s.task_id = :task_id";
-                }
-                break;
+        case 'hoursOvertime':
+            $query = "SELECT u.username, t.name AS task_name, wl.clock_in_time AS start_time, wl.clock_out_time AS end_time, TIMESTAMPDIFF(HOUR, wl.clock_in_time, wl.clock_out_time) - 40 AS overtime_hours 
+                    FROM work_logs wl
+                    JOIN users u ON u.id = wl.userId
+                    JOIN tasks t ON t.id = wl.task_id
+                    WHERE wl.clock_in_time BETWEEN :start_date AND :end_date
+                    HAVING overtime_hours > 0";
+            if ($userId) {
+                $query .= " AND wl.userId = :user_id";
+            }
+            if ($taskId) {
+                $query .= " AND wl.task_id = :task_id";
+            }
+            break;
             case 'sickTime':
                 $query = "SELECT u.username, t.name AS task_name, a.startDateTime, a.endDateTime, TIMESTAMPDIFF(HOUR, a.startDateTime, a.endDateTime) AS sick_hours 
                           FROM absence_requests a
