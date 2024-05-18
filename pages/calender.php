@@ -76,6 +76,14 @@ $year = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
 $month = isset($_GET['month']) ? (int)$_GET['month'] : date('m');
 $day = isset($_GET['day']) ? (int)$_GET['day'] : date('j');
 $firstDayOfWeek = (new DateTime("$year-$month-$day"))->modify('monday this week');
+$lastDayOfWeek = (new DateTime("$year-$month-$day"))->modify('sunday this week');
+
+$prevWeek = (clone $firstDayOfWeek)->modify('-1 week');
+$nextWeek = (clone $firstDayOfWeek)->modify('+1 week');
+
+$prevWeekUrl = "?view=weekly&year=" . $prevWeek->format('Y') . "&month=" . $prevWeek->format('m') . "&day=" . $prevWeek->format('d');
+$nextWeekUrl = "?view=weekly&year=" . $nextWeek->format('Y') . "&month=" . $nextWeek->format('m') . "&day=" . $nextWeek->format('d');
+
 
 $prevMonth = $month - 1;
 $nextMonth = $month + 1;
@@ -101,6 +109,13 @@ $prevDayUrl = "?view=$view&year=$year&month=$month&day=$prevDay";
 $nextDayUrl = "?view=$view&year=$year&month=$month&day=$nextDay";
 
 $allDaysThisMonth = generateDaysForMonth($year, $month);
+
+if ($view === 'daily') {
+    // Sorteer $schedules op basis van de dag
+    usort($schedules, function($a, $b) {
+        return strtotime($a['schedule_date']) - strtotime($b['schedule_date']);
+    });
+}
 ?>
 
 <!DOCTYPE html>
@@ -109,116 +124,15 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #f4f4f4;
-        }
-        #header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 80%;
-            max-width: 800px;
-            padding: 20px;
-            background-color: #fff;
-            margin-top: 20px;
-            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-        }
-        #days, #month, #week, #day {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            width: 80%;
-            max-width: 800px;
-            background-color: #fff;
-            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-        #days div, #month div, #week div, #day div {
-            padding: 10px;
-            text-align: center;
-        }
-        #days div {
-            font-weight: bold;
-            background-color: #f0f0f0;
-        }
-        #month, #week, #day {
-            border-collapse: collapse;
-        }
-        #month .day, #week .day, #day .day {
-            border: 1px solid #ddd;
-            height: 100px;
-            display: flex;
-            justify-content: flex-start;
-            align-items: flex-start;
-            position: relative;
-        }
-        #month .day:nth-child(7n+1), #week .day:nth-child(7n+1), #day .day:nth-child(7n+1) {
-            border-left: 0;
-        }
-        #month .day:nth-child(-n+7), #week .day:nth-child(-n+7), #day .day:nth-child(-n+7) {
-            border-top: 0;
-        }
-        .day em {
-            font-style: normal;
-            color: #666;
-            position: absolute;
-            top: 5px;
-            left: 5px;
-        }
-        a {
-            text-decoration: none;
-            color: #007bff;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        h1 {
-            margin: 0;
-            font-size: 1.5em;
-        }
-        #view-selector {
-            margin: 20px 0;
-        }
-        h1 {
-            margin-top: 20px;
-        }
-        form {
-            width: 300px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            margin-bottom: 20px;
-        }
-        label, select, input, button {
-            margin-bottom: 10px;
-            width: 100%;
-        }
-        table {
-            width: 80%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-    </style>
+    <link rel="stylesheet" href="calender.css">
+   
 </head>
 <body>
 <h1>Assign Task</h1>
-    <?php if ($message): ?>
-        <p><?php echo $message; ?></p>
-    <?php endif; ?>
-    <form method="POST">
+<?php if ($message): ?>
+    <p><?php echo $message; ?></p>
+<?php endif; ?>
+<form method="POST">
     <label for="user_id">User:</label>
     <select name="user_id" id="user_id">
         <?php foreach (User::getUsersByLocationAndRequests($managerInfo["location"]) as $user) : ?>
@@ -242,7 +156,7 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
 
     <label for="start_time">Start Time:</label>
     <select name="start_time" id="start_time" required>
-        <?php for($i = 8; $i <= 18; $i++): ?>
+        <?php for($i = 8; $i <= 19; $i++): ?>
             <?php $time = sprintf("%02d:00", $i); ?>
             <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
             <?php $time = sprintf("%02d:30", $i); ?>
@@ -251,7 +165,7 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
     </select>
     <label for="end_time">End Time:</label>
     <select name="end_time" id="end_time" required>
-        <?php for($i = 8; $i <= 18; $i++): ?>
+        <?php for($i = 8; $i <= 19; $i++): ?>
             <?php $time = sprintf("%02d:00", $i); ?>
             <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
             <?php $time = sprintf("%02d:30", $i); ?>
@@ -259,158 +173,208 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
         <?php endfor; ?>
     </select>
 
+
     <button type="submit" name="assign">Assign</button>
 </form>
+<!-- 
+<h1>Full Schedule</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>User</th>
+        <th>Task</th>
+        <th>Hub</th>
+        <th>Date</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($schedules as $schedule): ?>
+        <tr>
+            <td><?php echo $schedule['user_name']; ?></td>
+            <td><?php echo $schedule['task_name']; ?></td>
+            <td><?php echo $schedule['location_name']; ?></td>
+            <td><?php echo $schedule['schedule_date']; ?></td>
+            <td><?php echo $schedule['startTime']; ?></td>
+            <td><?php echo $schedule['endTime']; ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table> -->
+<div id="header">
+    <a class="buttons" href="<?php echo $prevMonthUrl; ?>">&laquo; Previous</a>
+    <h1><?php echo date('F Y', strtotime("$year-$month-01")); ?></h1>
+    <a class="buttons" href="<?php echo $nextMonthUrl; ?>">Next &raquo;</a>
+</div>
+<div id="view-selector">
+    <a class="buttons" href="?view=daily&year=<?php echo $year; ?>&month=<?php echo $month; ?>&day=<?php echo $day; ?>">Daily</a> |
+    <a class="buttons" href="?view=weekly&year=<?php echo $year; ?>&month=<?php echo $month; ?>&day=<?php echo $day; ?>">Weekly</a> |
+    <a class="buttons" href="?view=monthly&year=<?php echo $year; ?>&month=<?php echo $month; ?>">Monthly</a>
+</div>
 
-
-    
-    <h1>Full Schedule</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>User</th>
-                <th>Task</th>
-                <th>Hub</th>
-                <th>Date</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($schedules as $schedule): ?>
-                <tr>
-                    <td><?php echo $schedule['user_name']; ?></td>
-                    <td><?php echo $schedule['task_name']; ?></td>
-                    <td><?php echo $schedule['location_name']; ?></td>
-                    <td><?php echo $schedule['schedule_date']; ?></td>
-                    <td><?php echo $schedule['startTime']; ?></td>
-                    <td><?php echo $schedule['endTime']; ?></td>
-                </tr>
-
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-
-    <div id="header">
-        <a href="<?php echo $prevMonthUrl; ?>">&laquo; Previous</a>
-        <h1><?php echo date('F Y', strtotime("$year-$month-01")); ?></h1>
-        <a href="<?php echo $nextMonthUrl; ?>">Next &raquo;</a>
-    </div>
-    <div id="view-selector">
-        <a href="?view=daily&year=<?php echo $year; ?>&month=<?php echo $month; ?>&day=<?php echo $day; ?>">Daily</a> |
-        <a href="?view=weekly&year=<?php echo $year; ?>&month=<?php echo $month; ?>&day=<?php echo $day; ?>">Weekly</a> |
-        <a href="?view=monthly&year=<?php echo $year; ?>&month=<?php echo $month; ?>">Monthly</a>
-    </div>
-    <?php if ($view === 'daily'): ?>
-        <div id="day">
-            <a href="<?php echo $prevDayUrl; ?>">&laquo; Previous</a>
-            <div class="day"><?php echo date('l, F j, Y', strtotime("$year-$month-$day")); ?></div>
-            <a href="<?php echo $nextDayUrl; ?>">Next &raquo;</a>
+<?php if ($view === 'daily'): ?>
+<div class="day-header">
+    <a class="buttons" href="<?php echo $prevDayUrl; ?>">&laquo; Previous Day</a>
+    <?php echo date('l, F j, Y', strtotime("$year-$month-$day")); ?>
+    <a class="buttons" href="<?php echo $nextDayUrl; ?>">Next Day &raquo;</a>
+</div>
+<div class="day">
+    <div class="day-schedule">
+        <div class="time-column">
+            <?php for ($i = 8; $i <= 19; $i++): ?>
+                <div class="time"><?php echo sprintf("%02d:00", $i); ?></div>
+            <?php endfor; ?>
         </div>
-        <div id="day-schedule">
-    <div class="hours">
-        <?php for ($i = 8; $i <= 19; $i++): ?>
-            <div><?php echo sprintf("%02d:00", $i); ?></div>
-            <div><?php echo sprintf("%02d:30", $i); ?></div>
-        <?php endfor; ?>
-    </div>
-    <div id="day-calendar">
-        <?php foreach ($allDaysThisMonth as $day): ?>
-            <div class="day">
-                <?php if ($day): ?>
-                    <em><?php echo date('j', strtotime($day)); ?></em>
-                    <!-- Voeg hier de gebeurtenissen toe voor deze dag -->
-                    <?php foreach ($schedules as $schedule): ?>
-                        <?php if (isset($schedule['schedule_date']) && date('Y-m-d', strtotime($schedule['schedule_date'])) === $day): ?>
-                            <?php
-                            // Bereken de toppositie en hoogte van het blok op basis van start- en eindtijd
-                            $startTime = strtotime($schedule['startTime']);
-                            $endTime = strtotime($schedule['endTime']);
-                            $top = ($startTime - strtotime("08:00:00")) / 1800 * 20; // 1800 seconden in een half uur, 20 pixels per half uur
-                            $height = ($endTime - $startTime) / 1800 * 20; // Hoogte van het blok in pixels
-                            ?>
-                            <div class="event" style="top: <?php echo $top; ?>px; height: <?php echo $height; ?>px;">
-                                Taak: <?php echo $schedule['task_name']; ?><br>
-                                Gebruiker: <?php echo $schedule['user_name']; ?><br>
-                                Hub: <?php echo $schedule['location_name']; ?>
-                            </div>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+        <div class="shift-column">
+            <div class="day-column">
+                <?php foreach ($schedules as $schedule): ?>
+                    <?php
+                    $scheduleDate = new DateTime($schedule['schedule_date']);
+                    if ($scheduleDate->format('Y-m-d') === $day):
+                        $startTime = strtotime($schedule['startTime']);
+                        $endTime = strtotime($schedule['endTime']);
+
+                    
+                        if ($endTime <= $startTime) {
+                            $endTime = strtotime('+1 hour', $startTime);
+                        }
+
+                        $startHour = date('H', $startTime);
+                        $startMinute = date('i', $startTime);
+                        $endHour = date('H', $endTime);
+                        $endMinute = date('i', $endTime);
+
+                        $top = (($startHour - 8) * 2 * 30) + ($startMinute / 30 * 30); 
+                        $height = (($endHour - $startHour) * 2 + ($endMinute - $startMinute) / 30) * 30; 
+                        ?>
+                        <div class="event" style="top: <?php echo $top; ?>px; height: <?php echo $height; ?>px;">
+                            <?php echo $schedule['task_name']; ?><br><br>
+                            <?php echo $schedule['user_name']; ?><br><br>
+                            <?php echo $schedule['startTime']; ?><br>
+                            <?php echo $schedule['endTime']; ?>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </div>
-        <?php endforeach; ?>
+        </div>
     </div>
 </div>
 
-
     <?php elseif ($view === 'weekly'): ?>
-        <div id="days">
-            <div>Mon</div>
-            <div>Tue</div>
-            <div>Wed</div>
-            <div>Thu</div>
-            <div>Fri</div>
-            <div>Sat</div>
-            <div>Sun</div>
+    <div>
+        <div style="margin-right: 20px;">
+            <a class="buttons" href="<?php echo $prevWeekUrl; ?>">Previous week</a>
+            <a class="buttons" href="<?php echo $nextWeekUrl; ?>">Next week</a>
         </div>
-<div id="week">
-    <?php
-    // Loop door elke dag van de week
-    for ($i = 0; $i < 7; $i++) {
-        $currentDay = $firstDayOfWeek->format('Y-m-d');
-        echo '<div class="day"><em>' . $firstDayOfWeek->format('j') . '</em><br>';
+    </div>
+    <div id="days">
+        <?php
+        $currentDay = clone $firstDayOfWeek;
+        for ($i = 0; $i < 7; $i++):
+            ?>
+            <div class="day-header"><?php echo $currentDay->format('l, M j'); ?></div>
+            <?php
+            $currentDay->modify('+1 day');
+        endfor;
+        ?>
+    </div>
+    <div class="flex">
+        <div class="time-column">
+            <?php foreach (range(8, 19) as $hour): ?>
+                <div class="time"><?php echo sprintf("%02d:00", $hour); ?></div>
+            <?php endforeach; ?>
+        </div>
+        <div id="week">
+            <?php
+            $currentDay = clone $firstDayOfWeek;
+            for ($i = 0; $i < 7; $i++):
+                ?>
+                <div class="day-column">
+                    <?php
+                    foreach ($schedules as $schedule):
+                        $scheduleDate = new DateTime($schedule['schedule_date']);
+                        if ($scheduleDate->format('Y-m-d') === $currentDay->format('Y-m-d')):
+                            $startTime = strtotime($schedule['startTime']);
+                            $endTime = strtotime($schedule['endTime']);
 
-        // Toon gebeurtenissen voor elke dag van de week
+                            // Zorg ervoor dat de eindtijd minstens één uur na de starttijd is
+                            if ($endTime <= $startTime) {
+                                $endTime = strtotime('+1 hour', $startTime);
+                            }
+
+                            $startHour = date('H', $startTime);
+                            $startMinute = date('i', $startTime);
+                            $endHour = date('H', $endTime);
+                            $endMinute = date('i', $endTime);
+
+                            $top = (($startHour - 8) * 2 * 30) + ($startMinute / 30 * 30); // Bereken de bovenste positie
+                            $height = (($endHour - $startHour) * 2 + ($endMinute - $startMinute) / 30) * 30; // Bereken de hoogte
+                            ?>
+                            <div class="event" style="top: <?php echo $top; ?>px; height: <?php echo $height; ?>px; margin-top: 10px; margin-left: -10px; padding-right:100px;">
+                                <?php echo $schedule['task_name']; ?><br><br>
+                                <?php echo $schedule['user_name']; ?><br><br>
+                                <?php echo $schedule['startTime']; ?><br>
+                                <?php echo $schedule['endTime']; ?>
+                            </div>
+                        <?php
+                        endif;
+                    endforeach;
+                    ?>
+                </div>
+                <?php
+                $currentDay->modify('+1 day');
+            endfor;
+            ?>
+        </div>
+    </div>
+
+
+<?php else: ?>
+        <div id="days">
+    <div>Mon</div>
+    <div>Tue</div>
+    <div>Wed</div>
+    <div>Thu</div>
+    <div>Fri</div>
+    <div>Sat</div>
+    <div>Sun</div>
+</div>
+<div id="month">
+    <?php
+    $currentDate = new DateTime($year . '-' . $month . '-01');
+    $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+    $firstDayOfWeek = $currentDate->format('N'); // 1: Monday, 7: Sunday
+
+    // Output empty cells for days before the first day of the month
+    for ($i = 1; $i < $firstDayOfWeek; $i++) {
+        echo '<div class="empty-day"></div>';
+    }
+
+    // Output the days of the month
+    for ($day = 1; $day <= $daysInMonth; $day++) {
+        $currentDate->setDate($year, $month, $day);
+        $currentDayOfWeek = $currentDate->format('N');
+        echo '<div class="day">';
+        echo '<em>' . $day . '</em>';
+
+        // Add events for this day
         foreach ($schedules as $schedule) {
-            if (isset($schedule['schedule_date']) && date('Y-m-d', strtotime($schedule['schedule_date'])) === $currentDay) {
-                echo '<div class="event">';
-                echo $schedule['startTime'] . ' - ' . $schedule['endTime'] . '<br>';
-                echo 'Taak: ' . $schedule['task_name'] . '<br>';
-                echo 'Gebruiker: ' . $schedule['user_name'] . '<br>';
-                echo 'Hub: ' . $schedule['location_name'];
+            $scheduleDate = new DateTime($schedule['schedule_date']);
+            if ($scheduleDate->format('Y-m-d') === $currentDate->format('Y-m-d')) {
+                echo '<div class="event"  style="margin-top: 10px; margin-left: -10px; padding-right:110px;">';
+                echo $schedule['task_name'] . '<br>';
+                echo $schedule['user_name'] . '<br>';
+                echo $schedule['startTime'] . '<br>';
+                echo $schedule['endTime'];
                 echo '</div>';
             }
         }
 
         echo '</div>';
-        $firstDayOfWeek->modify('+1 day'); // Ga naar de volgende dag
     }
     ?>
 </div>
-    <?php else: ?>
-        <div id="days">
-            <div>Mon</div>
-            <div>Tue</div>
-            <div>Wed</div>
-            <div>Thu</div>
-            <div>Fri</div>
-            <div>Sat</div>
-            <div>Sun</div>
-        </div>
-        <div id="month">
-    <?php
-    foreach ($allDaysThisMonth as $day): ?>
-        <div class="day">
-            <?php if ($day): ?>
-                <em><?php echo date('j', strtotime($day)); ?></em>
-                
-                <!-- Voeg hier de gebeurtenissen toe voor deze dag -->
-                <?php foreach ($schedules as $schedule): ?>
-                    <?php if (isset($schedule['schedule_date']) && date('Y-m-d', strtotime($schedule['schedule_date'])) === $day): ?>
-                        <div class="event">
-                            <?php echo $schedule['startTime'] . ' - ' . $schedule['endTime']; ?><br>
-                            Task: <?php echo $schedule['task_name']; ?><br>
-                            User: <?php echo $schedule['user_name']; ?><br>
-                            Hub: <?php echo $schedule['location_name']; ?>
-                        </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-                
-            <?php endif; ?>
-        </div>
-    <?php endforeach; ?>
-    <?php endif; ?>
-
-    
+<?php endif; ?>
 </body>
 </html>
