@@ -77,6 +77,7 @@ if(!empty($_POST)){
             <option value="Wedding">Wedding</option>
             <option value="Compensary time">Compensary time</option>
             <option value="Authority appointment">Authority appointment</option>
+            <option value="Other">Other</option>
         </select>
        
 

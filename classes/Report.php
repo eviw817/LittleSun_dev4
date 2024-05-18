@@ -50,7 +50,7 @@ class Report
                 }
                 break;
                 case 'timeOff':
-                    $reasons = ['Sick leave', 'Vacation', 'Birthday', 'Maternity', 'Funeral', 'Wedding', 'Compensary time', 'Authority appointment'];
+                    $reasons = ['Sick leave', 'Vacation', 'Birthday', 'Maternity', 'Funeral', 'Wedding', 'Compensary time', 'Authority appointment', 'Other'];
                     $reasonList = implode("', '", $reasons);
                     $query = "SELECT u.username, t.name AS task_name, a.startDateTime, a.endDateTime, TIMESTAMPDIFF(HOUR, a.startDateTime, a.endDateTime) AS time_off_hours 
                             FROM absence_requests a
