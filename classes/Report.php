@@ -25,42 +25,46 @@ class Report
             $query = "SELECT u.username, t.name AS task_name, wl.clock_in_time AS start_time, wl.clock_out_time AS end_time, TIMESTAMPDIFF(HOUR, wl.clock_in_time, wl.clock_out_time) - 40 AS overtime_hours 
                     FROM work_logs wl
                     JOIN users u ON u.id = wl.userId
-                    JOIN tasks t ON t.id = wl.task_id
+                    JOIN tasks t ON t.id = s.task_id
                     WHERE wl.clock_in_time BETWEEN :start_date AND :end_date
                     HAVING overtime_hours > 0";
-            if ($userId) {
-                $query .= " AND wl.userId = :user_id";
-            }
-            if ($taskId) {
-                $query .= " AND wl.task_id = :task_id";
-            }
+                if ($userId) {
+                    $query .= " AND s.user_id = :user_id";
+                }
+                if ($taskId) {
+                    $query .= " AND s.task_id = :task_id";
+                }
             break;
             case 'sickTime':
-                $query = "SELECT u.username, t.name AS task_name, a.startDateTime, a.endDateTime, TIMESTAMPDIFF(HOUR, a.startDateTime, a.endDateTime) AS sick_hours 
+                $query = "SELECT u.username, t.name AS task_name, s.start_time, s.end_time, TIMESTAMPDIFF(HOUR, s.start_time, s.end_time) AS sick_hours 
                           FROM absence_requests a
-                          JOIN users u ON u.id = a.user_id
-                          JOIN tasks t ON t.id = a.task_id
-                          WHERE a.reason = 'sick' AND a.startDateTime BETWEEN :start_date AND :end_date";
+                          JOIN schedules s /*ON a.user_id = s.user_id*/
+                          JOIN users u ON u.id = s.user_id
+                          JOIN tasks t ON t.id = s.task_id
+                          WHERE a.reason = 'Sick leave' AND a.startDateTime BETWEEN :start_date AND :end_date";
                 if ($userId) {
                     $query .= " AND a.user_id = :user_id";
                 }
                 if ($taskId) {
-                    $query .= " AND a.task_id = :task_id";
+                    $query .= " AND s.task_id = :task_id";
                 }
                 break;
-            case 'timeOff':
-                $query = "SELECT u.username, t.name AS task_name, a.startDateTime, a.endDateTime, TIMESTAMPDIFF(HOUR, a.startDateTime, a.endDateTime) AS time_off_hours 
-                          FROM absence_requests a
-                          JOIN users u ON u.id = a.user_id
-                          JOIN tasks t ON t.id = a.task_id
-                          WHERE a.startDateTime BETWEEN :start_date AND :end_date";
-                if ($userId) {
-                    $query .= " AND a.user_id = :user_id";
-                }
-                if ($taskId) {
-                    $query .= " AND a.task_id = :task_id";
-                }
-                break;
+                case 'timeOff':
+                    $reasons = ['Sick leave', 'Vacation', 'Birthday', 'Maternity', 'Funeral', 'Wedding', 'Compensary time', 'Authority appointment'];
+                    $reasonList = implode("', '", $reasons);
+                    $query = "SELECT u.username, t.name AS task_name, a.startDateTime, a.endDateTime, TIMESTAMPDIFF(HOUR, a.startDateTime, a.endDateTime) AS time_off_hours 
+                            FROM absence_requests a
+                            JOIN schedules s
+                            JOIN users u ON u.id = a.user_id
+                            JOIN tasks t ON t.id = a.task_id
+                            WHERE a.reason IN ('$reasonList') AND a.startDateTime BETWEEN :start_date AND :end_date";
+                    if ($userId) {
+                        $query .= " AND a.user_id = :user_id";
+                    }
+                    if ($taskId) {
+                        $query .= " AND s.task_id = :task_id";
+                    }
+                    break;
             default:
                 throw new Exception("Invalid report type");
         }

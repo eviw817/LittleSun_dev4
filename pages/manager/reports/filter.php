@@ -81,13 +81,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <th>Task Name</th>
                 <th>Start Time</th>
                 <th>End Time</th>
-                <th>Total Hours</th>
-                <?php if ($reportType === 'hoursOvertime'): ?>
-                    <th>Overtime Hours</th>
+                <?php if ($reportType === 'hoursWorked'): ?>
+                    <th>Total Hours</th>
                 <?php elseif ($reportType === 'sickTime'): ?>
                     <th>Sick Hours</th>
                 <?php elseif ($reportType === 'timeOff'): ?>
                     <th>Time Off Hours</th>
+                <?php endif; ?>
+                <?php if ($reportType === 'hoursOvertime'): ?>
+                    <th>Overtime Hours</th>
                 <?php endif; ?>
             </tr>
         </thead>
@@ -105,11 +107,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <?php echo htmlspecialchars($row['sick_hours']); ?>
                         <?php elseif ($reportType === 'timeOff'): ?>
                             <?php echo htmlspecialchars($row['time_off_hours']); ?>
-                        <?php endif; ?>
-                    </td>
-                    <?php if ($reportType === 'hoursOvertime'): ?>
-                        <td><?php echo htmlspecialchars($row['overtime_hours']); ?></td>
+                        <?php elseif ($reportType === 'hoursOvertime'): ?>
+                            <?php echo htmlspecialchars($row['overtime_hours']); ?>
                     <?php endif; ?>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
