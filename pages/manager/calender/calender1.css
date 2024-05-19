@@ -325,13 +325,6 @@ a {
 }
 
 /* CSS voor dagelijkse weergave */
-.day-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    font-size: 1.5em;
-}
 
 .day {
     display: flex;
