@@ -66,5 +66,12 @@ if (isset($_GET['id'])) {
     <?php else: ?>
         <p>User data not available</p>
     <?php endif; ?>
+
+    <div class="edit-link">
+        <a class="edit" href="userEdit.php?id=<?php echo $user['id']; ?>">Edit user</a>
+    </div>
+    <div class="edit-link">
+        <a class="edit" href="UserInfo.php">Back</a>
+    </div>
 </body>
 </html>

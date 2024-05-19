@@ -1,11 +1,19 @@
 <?php
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
+session_start();
 
-    
-    
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
+
+if (isset($_SESSION['id'])) {
+    // Veronderstel dat de locatie-ID wordt opgeslagen in de sessie onder de sleutel 'location_id'
+    $locationId = $_SESSION['id'];
+    $users = User::getUsersByLocation($locationId); // Gebruik de juiste methode om gebruikers op te halen
+
+} else {
+    header("Location: login.php");
+    exit();
+}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,20 +27,27 @@
 </head>
 <body>
 <?php include_once("../../../components/headerManager.inc.php"); ?>
+<main>
     <h1 class="title">Users</h1>
     <section class="inline">
-    <?php foreach(User::getName() as $user) : ?> 
-        <div class="flex">
-            <a href="userId.php?id=<?php echo $user['id']; ?>" class="user_detail">
-                <p><?php echo $user['firstName'] . " " . $user['lastName'] ; ?></p>
-            </a>
-            <img width="4.4.375rem" src="<?php echo $user["image"]; ?>"></img>
-        </div>
-
-    <?php endforeach; ?>
+        <?php if ($users): ?>
+            <?php foreach($users as $user) : ?> 
+                <div class="flex">
+                    <a href="userId.php?id=<?php echo $user['id']; ?>" class="user_detail">
+                        <p><?php echo $user['firstName'] . " " . $user['lastName'] ; ?></p>
+                        <img src="<?php echo $user["image"]; ?>" alt="<?php echo $user['firstName'] . " " . $user['lastName']; ?>">
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>No users found for this location.</p>
+        <?php endif; ?>
     </section>
     <div class="button-container">
         <a class="newuser" href="userAdd.php">Add new user</a>
     </div>
+
+</main>
 </body>
 </html>
+

@@ -114,6 +114,36 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
     //     return $statement->fetchAll(PDO::FETCH_ASSOC);
     // }
     
-    
+
+    public static function getUsersByLocation($locationId)
+    {
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT u.* 
+                                    FROM users u 
+                                    JOIN users manager ON manager.id = :manager_id
+                                    WHERE u.location = manager.location AND u.id != manager.id");
+        $statement->bindParam(":manager_id", $_SESSION['id'], PDO::PARAM_INT);
+        $statement->execute();
+        $users = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $users;
+    }
+
+    public function updateInfo(){
+        if(!empty($this->id)){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("UPDATE users SET username = :username, email = :email, location = :location, firstName = :firstName, lastName = :lastName WHERE id = :id");
+            $statement->execute([
+                ":username" => $this->username,
+                ":email" => $this->email,
+                ":location" => $this->location,
+                ":firstName" => $this->firstName,
+                ":lastName" => $this->lastName,
+                ":id" => $this->id
+            ]);
+        } else {
+            throw new Exception("id is not set.");
+        }
+    }
+
 
 }
