@@ -231,3 +231,32 @@ text-decoration: none;
 color: var(--color-black);
 padding: 10px;
 }
+
+/* CSS voor dagelijkse weergave */
+
+.day {
+    display: flex;
+    flex-direction: column;
+}
+
+.day-schedule {
+    display: flex;
+}
+
+
+.time {
+    height: 30px; 
+    line-height: 30px;
+    text-align: right;
+    padding-right: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+
+
+.day-column {
+    position: relative;
+    flex-grow: 1;
+    min-height: 660px; 
+}
+
