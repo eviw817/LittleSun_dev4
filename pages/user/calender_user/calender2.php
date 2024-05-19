@@ -106,17 +106,17 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
 <?php include_once("../../../components/headerUser.inc.php"); ?>
 <main>
 <div id="header">
-    <a class="buttons" href="<?php echo $prevMonthUrl; ?>">&laquo; Previous</a>
-    <h1><?php echo date('F Y', strtotime("$year-$month-01")); ?></h1>
-    <a class="buttons" href="<?php echo $nextMonthUrl; ?>">Next &raquo;</a>
-</div>
-<div id="view-selector">
-    <a class="buttons" href="?view=daily&year=<?php echo $year; ?>&month=<?php echo $month; ?>&day=<?php echo $day; ?>">Daily</a> |
-    <a class="buttons" href="?view=weekly&year=<?php echo $year; ?>&month=<?php echo $month; ?>&day=<?php echo $day; ?>">Weekly</a> |
-    <a class="buttons" href="?view=monthly&year=<?php echo $year; ?>&month=<?php echo $month; ?>">Monthly</a>
-</div>
+        <a class="buttons" href="<?php echo $prevMonthUrl; ?>">&laquo; Previous</a>
+        <h1><?php echo date('F Y', strtotime("$year-$month-01")); ?></h1>
+        <a class="buttons" href="<?php echo $nextMonthUrl; ?>">Next &raquo;</a>
+    </div>
+    <div id="view-selector">
+        <a class="buttons" href="?view=daily&year=<?php echo $year; ?>&month=<?php echo $month; ?>&day=<?php echo $day; ?>">Daily</a> |
+        <a class="buttons" href="?view=weekly&year=<?php echo $year; ?>&month=<?php echo $month; ?>&day=<?php echo $day; ?>">Weekly</a> |
+        <a class="buttons" href="?view=monthly&year=<?php echo $year; ?>&month=<?php echo $month; ?>">Monthly</a>
+    </div>
 
-    <?php if ($view === 'daily') : ?>
+    <?php if ($view === 'daily'): ?>
         <div class="day-header">
             <a class="buttons" href="<?php echo $prevDayUrl; ?>">&laquo; Previous Day</a>
             <?php echo date('l, F j, Y', strtotime("$year-$month-$day")); ?>
@@ -125,30 +125,27 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
         <div class="day">
             <div class="day-schedule">
                 <div class="time-column">
-                    <?php for ($i = 8; $i <= 19; $i++) : ?>
+                    <?php for ($i = 8; $i <= 19; $i++): ?>
                         <div class="time"><?php echo sprintf("%02d:00", $i); ?></div>
                     <?php endfor; ?>
                 </div>
                 <div class="shift-column">
                     <div class="day-column">
-                        <?php foreach ($events as $schedule) : ?>
+                        <?php foreach ($schedules as $schedule): ?>
                             <?php
                             $scheduleDate = new DateTime($schedule['schedule_date']);
-                            if ($scheduleDate->format('Y-m-d') === $day) :
+                            if ($scheduleDate->format('Y-m-d') === sprintf('%04d-%02d-%02d', $year, $month, $day)):
                                 $startTime = strtotime($schedule['startTime']);
                                 $endTime = strtotime($schedule['endTime']);
-
                                 if ($endTime <= $startTime) {
                                     $endTime = strtotime('+1 hour', $startTime);
                                 }
-
                                 $startHour = date('H', $startTime);
                                 $startMinute = date('i', $startTime);
                                 $endHour = date('H', $endTime);
                                 $endMinute = date('i', $endTime);
-
-                                $top = (($startHour - 8) * 2 * 30) + ($startMinute / 30 * 30);
-                                $height = (($endHour - $startHour) * 2 + ($endMinute - $startMinute) / 30) * 30;
+                                $top = (($startHour - 8) * 2 * 30) + ($startMinute / 30 * 30); 
+                                $height = (($endHour - $startHour) * 2 + ($endMinute - $startMinute) / 30) * 30; 
                                 ?>
                                 <div class="event" style="top: <?php echo $top; ?>px; height: <?php echo $height; ?>px;">
                                     <?php echo $schedule['task_name']; ?><br><br>
@@ -163,9 +160,9 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
             </div>
         </div>
 
-    <?php elseif ($view === 'weekly') : ?>
+    <?php elseif ($view === 'weekly'): ?>
         <div>
-            <div style="margin-right: 20px;">
+            <div style="margin-right: 20px; margin-bottom: 20px;">
                 <a class="buttons" href="<?php echo $prevWeekUrl; ?>">Previous week</a>
                 <a class="buttons" href="<?php echo $nextWeekUrl; ?>">Next week</a>
             </div>
@@ -173,44 +170,41 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
         <div id="days">
             <?php
             $currentDay = clone $firstDayOfWeek;
-            for ($i = 0; $i < 7; $i++) :
+            for ($i = 0; $i < 7; $i++):
                 ?>
                 <div class="day-header"><?php echo $currentDay->format('l, M j'); ?></div>
-            <?php
+                <?php
                 $currentDay->modify('+1 day');
             endfor;
             ?>
         </div>
         <div class="flex">
             <div class="time-column">
-                <?php foreach (range(8, 19) as $hour) : ?>
+                <?php foreach (range(8, 19) as $hour): ?>
                     <div class="time"><?php echo sprintf("%02d:00", $hour); ?></div>
                 <?php endforeach; ?>
             </div>
             <div id="week">
                 <?php
                 $currentDay = clone $firstDayOfWeek;
-                for ($i = 0; $i < 7; $i++) :
+                for ($i = 0; $i < 7; $i++):
                     ?>
                     <div class="day-column">
                         <?php
-                        foreach ($schedules as $schedule) :
+                        foreach ($schedules as $schedule):
                             $scheduleDate = new DateTime($schedule['schedule_date']);
-                            if ($scheduleDate->format('Y-m-d') === $currentDay->format('Y-m-d')) :
+                            if ($scheduleDate->format('Y-m-d') === $currentDay->format('Y-m-d')):
                                 $startTime = strtotime($schedule['startTime']);
                                 $endTime = strtotime($schedule['endTime']);
-
                                 if ($endTime <= $startTime) {
                                     $endTime = strtotime('+1 hour', $startTime);
                                 }
-
                                 $startHour = date('H', $startTime);
                                 $startMinute = date('i', $startTime);
                                 $endHour = date('H', $endTime);
                                 $endMinute = date('i', $endTime);
-
-                                $top = (($startHour - 8) * 2 * 30) + ($startMinute / 30 * 30);
-                                $height = (($endHour - $startHour) * 2 + ($endMinute - $startMinute) / 30) * 30;
+                                $top = (($startHour - 8) * 1.6 * 30) + ($startMinute / 30 * 30);
+                                $height = (($endHour - $startHour) * 1.6 + ($endMinute - $startMinute) / 30) * 30;
                                 ?>
                                 <div class="event" style="top: <?php echo $top; ?>px; height: <?php echo $height; ?>px; margin-top: 10px; margin-left: -10px; padding-right:100px;">
                                     <?php echo $schedule['task_name']; ?><br><br>
@@ -223,15 +217,14 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
                         endforeach;
                         ?>
                     </div>
-                <?php
+                    <?php
                     $currentDay->modify('+1 day');
                 endfor;
                 ?>
             </div>
         </div>
 
-
-    <?php else : ?>
+    <?php else: ?>
         <div id="days">
             <div>Mon</div>
             <div>Tue</div>
@@ -245,25 +238,21 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
             <?php
             $currentDate = new DateTime($year . '-' . $month . '-01');
             $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-            $firstDayOfWeek = $currentDate->format('N'); // 1: Monday, 7: Sunday
+            $firstDayOfWeek = $currentDate->format('N');
 
-            // Output empty cells for days before the first day of the month
             for ($i = 1; $i < $firstDayOfWeek; $i++) {
                 echo '<div class="empty-day"></div>';
             }
 
-            // Output the days of the month
             for ($day = 1; $day <= $daysInMonth; $day++) {
                 $currentDate->setDate($year, $month, $day);
                 $currentDayOfWeek = $currentDate->format('N');
                 echo '<div class="day">';
                 echo '<em>' . $day . '</em>';
-
-                // Add events for this day
                 foreach ($schedules as $schedule) {
                     $scheduleDate = new DateTime($schedule['schedule_date']);
                     if ($scheduleDate->format('Y-m-d') === $currentDate->format('Y-m-d')) {
-                        echo '<div class="event"  style="margin-top: 10px; margin-left: -10px; padding-right:110px;">';
+                        echo '<div class="event" style="margin-top: 10px; margin-left: -10px; padding-right:110px;">';
                         echo $schedule['task_name'] . '<br>';
                         echo $schedule['user_name'] . '<br>';
                         echo $schedule['startTime'] . '<br>';
@@ -271,14 +260,11 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
                         echo '</div>';
                     }
                 }
-
                 echo '</div>';
             }
             ?>
         </div>
     <?php endif; ?>
-
 </main>
 </body>
-
 </html>
