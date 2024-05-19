@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
     $taskId = $_GET['id']; 
     // Retrieve the user with the given id
     $user = User::getUserById($userId);
-    $task = User::getByTask($taskId);
+    $tasks = User::getByTask($taskId);
 
     if (!$user) {
         echo "User not found";
@@ -46,23 +46,21 @@ if (isset($_GET['id'])) {
                 <p>No profile picture available</p>
             <?php endif; ?>
         </div>
+        <div>
+            <p>Assigned tasks:</p>
+            <?php if ($tasks): ?>
+                <ul class='taskList'>
+                    <?php foreach ($tasks as $task): ?>
+                        <li><?php echo $task["name"]; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else: ?>
+                <p>No tasks assigned</p>
+            <?php endif; ?>
+            <a class="edit" href='./taskAdd.php?id=<?php echo $user['id']; ?>'>Add Task</a>
+        </div>
 
-        <?php
-        
-        $tasks = User::getTaskFromUser($_GET['id']); // Use $user['id'] to fetch tasks for this user
-                        if ($tasks) {
-                            echo '<div class="task">';
-                            echo "<p>Tasks:</p>";
-                            echo "<ul class='taskList'>";
-                            foreach ($tasks as $task) {
-                                echo "<li>" . $task["name"] . "</li>";
-                            }
-                            echo "</ul>";
-                        } else {
-                            echo "<p>No tasks assigned</p>";
-                        }
-        
-        ?>
+    
     <?php else: ?>
         <p>User data not available</p>
     <?php endif; ?>

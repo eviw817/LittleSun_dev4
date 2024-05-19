@@ -76,6 +76,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
             <div class="form__field">
                 <input type="submit" value="Save" class="btn-add">	
             </div>
+            <a class="button fixed-position" href="userInfo.php">Back</a>
 		</form>
 	</div>
 </body>
