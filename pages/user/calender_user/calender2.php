@@ -1,11 +1,10 @@
 <?php
-
 session_start();
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Db.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Schedules.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/users/User.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/users/Manager.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Task.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Schedules.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
 
 $tasks = Schedules::getTasks(); // Array van taken
 $hubs = Schedules::getHubs();
@@ -27,12 +26,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['assign'])) {
     $message = $result === true ? "Shift assigned successfully." : $result;
 }
 
-if ($_SESSION["id"]) {
+if (isset($_SESSION["id"])) {
+
     $user = User::getUserById($_SESSION["id"]);
-    $events = Schedules::getShiftsById($user['id'], new DateTime());
+    $events = Schedules::getShiftsByUserId($user['location'], new DateTime());
 } else {
     echo "Error: Session is invalid, please log-in again";
 }
+
 
 // Fetch schedule
 $schedules = Schedules::getSchedules();
@@ -93,56 +94,25 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendar</title>
-    <link rel="stylesheet" href="calender.css">
+    <title>Calendar user</title>
+    <link rel="stylesheet" href="../../../reset.css">
+    <link rel="stylesheet" href="../../../shared.css">
+    <link rel="stylesheet" href="./calender2.css">
 
 </head>
-
 <body>
-    <h1>Assign Task</h1>
-    <?php if ($message) : ?>
-        <p><?php echo $message; ?></p>
-    <?php endif; ?>
-    <form method="POST">
-        <label for="user_id">User:</label>
-        <select name="user_id" id="user_id">
-            <option value="<?php echo $user['id']; ?>"><?php echo $user['username']; ?></option>
-        </select>
-        <label for="task_id">Task:</label>
-        <select name="task_id" id="task_id" required>
-            <?php foreach ($tasks as $task) : ?>
-                <option value="<?php echo $task['id']; ?>"><?php echo $task['name']; ?></option>
-            <?php endforeach; ?>
-        </select>
-        <label for="hub_id">Hub:</label>
-        <select name="hub_id" id="hub_id" required>
-            <?php foreach ($hubs as $hub) : ?>
-                <option value="<?php echo $hub['id']; ?>"><?php echo $hub['name']; ?></option>
-            <?php endforeach; ?>
-        </select>
-        <label for="schedule_date">Schedule Date:</label>
-        <input type="date" name="schedule_date" id="schedule_date" required>
-
-        <label for="start_time">Start Time:</label>
-        <select name="start_time" id="start_time" required>
-            <?php for ($i = 8; $i <= 19; $i++) : ?>
-                <?php $time = sprintf("%02d:00", $i); ?>
-                <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
-                <?php $time = sprintf("%02d:30", $i); ?>
-                <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
-            <?php endfor; ?>
-        </select>
-        <label for="end_time">End Time:</label>
-        <select name="end_time" id="end_time" required>
-            <?php for ($i = 8; $i <= 19; $i++) : ?>
-                <?php $time = sprintf("%02d:00", $i); ?>
-                <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
-                <?php $time = sprintf("%02d:30", $i); ?>
-                <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
-            <?php endfor ?>
-        </select>
-        <button type="submit" name="assign">Assign</button>
-    </form>
+<?php include_once("../../../components/headerUser.inc.php"); ?>
+<main>
+<div id="header">
+    <a class="buttons" href="<?php echo $prevMonthUrl; ?>">&laquo; Previous</a>
+    <h1><?php echo date('F Y', strtotime("$year-$month-01")); ?></h1>
+    <a class="buttons" href="<?php echo $nextMonthUrl; ?>">Next &raquo;</a>
+</div>
+<div id="view-selector">
+    <a class="buttons" href="?view=daily&year=<?php echo $year; ?>&month=<?php echo $month; ?>&day=<?php echo $day; ?>">Daily</a> |
+    <a class="buttons" href="?view=weekly&year=<?php echo $year; ?>&month=<?php echo $month; ?>&day=<?php echo $day; ?>">Weekly</a> |
+    <a class="buttons" href="?view=monthly&year=<?php echo $year; ?>&month=<?php echo $month; ?>">Monthly</a>
+</div>
 
     <?php if ($view === 'daily') : ?>
         <div class="day-header">
@@ -305,6 +275,8 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
             ?>
         </div>
     <?php endif; ?>
+
+</main>
 </body>
 
 </html>

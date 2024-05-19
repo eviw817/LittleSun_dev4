@@ -59,6 +59,10 @@ if($_SESSION["id"]){
 // Fetch schedule
 $schedules = Schedules::getSchedules();
 
+
+// Fetch schedule
+$schedules = Schedules::getSchedules();
+
 function generateDaysForMonth($year, $month) {
     $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
     $days = [];
@@ -121,7 +125,7 @@ if ($view === 'daily') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendar</title>
+    <title>Calendar manager</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
     <link rel="stylesheet" href="./calender.css">
@@ -130,53 +134,66 @@ if ($view === 'daily') {
 <body>
 <?php include_once("../../../components/headerManager.inc.php"); ?>
 <main>
-<h1>Assign Task</h1>
+<div class="nav">
+        <div class="agenda-info">
+            <h1>Calender</h1>
+            <h2><?php echo $managerInfo['name']; ?></h2>
+            <a href="<?php date("d/m/y"); ?>">Today: <?php echo date("d/m/y"); ?></a> <!-- get current week and make list of multiple weeks -->
+        </div>
+    </div>
 <?php if ($message): ?>
     <p><?php echo $message; ?></p>
 <?php endif; ?>
-<form method="POST">
-    <label for="user_id">User:</label>
-    <select name="user_id" id="user_id">
-        <?php foreach (User::getUsersByLocationAndRequests($managerInfo["location"]) as $user) : ?>
-            <option value="<?php echo $user["id"]; ?>"><?php echo $user['username']; ?></option>
-        <?php endforeach; ?>
-    </select>
-    <label for="task_id">Task:</label>
-    <select name="task_id" id="task_id" required>
-        <?php foreach ($tasks as $task): ?>
-            <option value="<?php echo $task['id']; ?>"><?php echo $task['name']; ?></option>
-        <?php endforeach; ?>
-    </select>
-    <label for="hub_id">Hub:</label>
-    <select name="hub_id" id="hub_id" required>
-        <?php foreach ($hubs as $hub): ?>
-            <option value="<?php echo $hub['id']; ?>"><?php echo $hub['name']; ?></option>
-        <?php endforeach; ?>
-    </select>
-    <label for="schedule_date">Schedule Date:</label>
-    <input type="date" name="schedule_date" id="schedule_date" required>
+<form  method="POST">
+<a class="newShift" href="#popup">New Shift</a>
 
-    <label for="start_time">Start Time:</label>
-    <select name="start_time" id="start_time" required>
-        <?php for($i = 8; $i <= 19; $i++): ?>
-            <?php $time = sprintf("%02d:00", $i); ?>
-            <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
-            <?php $time = sprintf("%02d:30", $i); ?>
-            <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
-        <?php endfor; ?>
-    </select>
-    <label for="end_time">End Time:</label>
-    <select name="end_time" id="end_time" required>
-        <?php for($i = 8; $i <= 19; $i++): ?>
-            <?php $time = sprintf("%02d:00", $i); ?>
-            <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
-            <?php $time = sprintf("%02d:30", $i); ?>
-            <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
-        <?php endfor; ?>
-    </select>
+        <div id="popup" class="popup">
+            <div class="popup-content">
+            <h1>Assign Task</h1>
+                <a href="#" class="close">&times;</a>
+                    <div class="hub">
+                        <p >Hub:</p>
+                        <p><?php echo $managerInfo['name']; ?></p>
+                    </div>
+                    <label for="user_id">User:</label>
+                    <select name="user_id" id="user_id">
+                        <?php foreach (User::getUsersByLocationAndRequests($managerInfo["location"]) as $user) : ?>
+                            <option value="<?php echo $user["id"]; ?>"><?php echo $user['username']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <label for="task_id">Task:</label>
+                    <select name="task_id" id="task_id" required>
+                        <?php foreach ($tasks as $task): ?>
+                            <option value="<?php echo $task['id']; ?>"><?php echo $task['name']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    
+                    <label for="schedule_date">Schedule date:</label>
+                    <input type="date" name="schedule_date" id="schedule_date" required>
+
+                    <label for="start_time">Start time:</label>
+                    <select name="start_time" id="start_time" required>
+                        <?php for($i = 8; $i <= 19; $i++): ?>
+                            <?php $time = sprintf("%02d:00", $i); ?>
+                            <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
+                            <?php $time = sprintf("%02d:30", $i); ?>
+                            <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
+                        <?php endfor; ?>
+                    </select>
+                    <label for="end_time">End time:</label>
+                    <select name="end_time" id="end_time" required>
+                        <?php for($i = 8; $i <= 19; $i++): ?>
+                            <?php $time = sprintf("%02d:00", $i); ?>
+                            <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
+                            <?php $time = sprintf("%02d:30", $i); ?>
+                            <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
+                        <?php endfor; ?>
+                    </select>
 
 
-    <button type="submit" name="assign">Assign</button>
+                    <button  class="button" type="submit" name="assign">Assign</button>
+            </div>
+        </div> 
 </form>
 <!-- 
 <h1>Full Schedule</h1>
@@ -310,8 +327,8 @@ if ($view === 'daily') {
                             $endHour = date('H', $endTime);
                             $endMinute = date('i', $endTime);
 
-                            $top = (($startHour - 8) * 2 * 30) + ($startMinute / 30 * 30); // Bereken de bovenste positie
-                            $height = (($endHour - $startHour) * 2 + ($endMinute - $startMinute) / 30) * 30; // Bereken de hoogte
+                            $top = (($startHour - 8) * 1.6 * 30) + ($startMinute / 30 * 30); // Bereken de bovenste positie
+                            $height = (($endHour - $startHour) * 1.6 + ($endMinute - $startMinute) / 30) * 30; // Bereken de hoogte
                             ?>
                             <div class="event" style="top: <?php echo $top; ?>px; height: <?php echo $height; ?>px; margin-top: 10px; margin-left: -10px; padding-right:100px;">
                                 <?php echo $schedule['task_name']; ?><br><br>

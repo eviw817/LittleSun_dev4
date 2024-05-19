@@ -303,11 +303,26 @@ class Schedules
             FROM shifts s 
             LEFT JOIN users u ON s.user_id = u.id 
             LEFT JOIN tasks t ON s.task_id = t.id 
-            WHERE u.location = :locationId and s.startTime > :afterDate
+            WHERE u.location = :id and s.startTime > :afterDate
             ORDER BY s.startTime ASC");
-        $statement -> bindValue(":locationId", $locationId, PDO::PARAM_INT);
+        $statement -> bindValue(":id", $locationId, PDO::PARAM_INT);
         $statement -> bindValue(":afterDate", $afterDate->format('Y-m-d'));
         $statement -> execute();
         return $statement->fetchAll();
     }
+
+    public static function getShiftsByUserId($userId, $afterDate) {
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT s.*, t.name, t.description, u.firstName, u.lastName 
+            FROM schedules s 
+            LEFT JOIN users u ON s.user_id = u.id 
+            LEFT JOIN tasks t ON s.task_id = t.id 
+            WHERE s.user_id = :userId AND s.startTime > :afterDate
+            ORDER BY s.startTime ASC");
+        $statement->bindValue(":userId", $userId, PDO::PARAM_INT);
+        $statement->bindValue(":afterDate", $afterDate->format('Y-m-d'));
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+
 }

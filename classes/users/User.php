@@ -103,18 +103,6 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
-    // public static function getAbsenceUsersByLocation($locationId) {
-    //     $conn = Db::getConnection();
-    //     $statement = $conn->prepare("SELECT u.* 
-    //     FROM users u 
-    //     LEFT JOIN absence_requests a ON a.user_id = u.id
-    //     WHERE u.location = :location_id AND u.role = 'user' AND u.id NOT IN (SELECT user_id FROM absence_requests WHERE approvalStatus = 'NULL' OR approvalStatus = 'Rejected')");
-    //     $statement->bindParam(":location_id", $locationId, PDO::PARAM_INT);
-    //     $statement->execute();
-    //     return $statement->fetchAll(PDO::FETCH_ASSOC);
-    // }
-    
-
     public static function getUsersByLocation($locationId)
     {
         $conn = Db::getConnection();
@@ -144,6 +132,9 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
             throw new Exception("id is not set.");
         }
     }
+
+   
+    
 
 
 }
