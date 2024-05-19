@@ -31,11 +31,6 @@ if (isset($_SESSION["id"])) {
     $userId = $_SESSION["id"];
     $afterDate = new DateTime();  // Current date and time
     $schedules = Schedules::getShiftsByUser($userId, $afterDate); // Fetch shifts for the logged-in user
-    
-    // Debugging output
-    echo "<pre>";
-    print_r($schedules);
-    echo "</pre>";
 } else {
     echo "Error: Session is invalid, please log-in again";
     exit;
@@ -141,12 +136,13 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
                                 $startMinute = date('i', $startTime);
                                 $endHour = date('H', $endTime);
                                 $endMinute = date('i', $endTime);
-                                $top = (($startHour - 8) * 1.6 * 30) + ($startMinute / 30 * 30);
-                                $height = (($endHour - $startHour) * 1.6 + ($endMinute - $startMinute) / 30) * 30;
-                            ?>
+                                $top = (($startHour - 8) * 2 * 30) + ($startMinute / 30 * 30); 
+                                $height = (($endHour - $startHour) * 2 + ($endMinute - $startMinute) / 30) * 30; 
+                                ?>
                                 <div class="event" style="top: <?php echo $top; ?>px; height: <?php echo $height; ?>px;">
-                                    <?php echo $schedule['task_name']; ?><br>
-                                    <?php echo $schedule['startTime']; ?> - <?php echo $schedule['endTime']; ?>
+                                    <?php echo $schedule['task_name']; ?><br><br>
+                                    <?php echo $schedule['startTime']; ?><br>
+                                    <?php echo $schedule['endTime']; ?>
                                 </div>
                             <?php endif; ?>
                         <?php endforeach; ?>
@@ -154,13 +150,15 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
                 </div>
             </div>
         </div>
+
     <?php elseif ($view === 'weekly'): ?>
-        <div class="week-header">
-            <a class="buttons" href="<?php echo $prevWeekUrl; ?>">&laquo; Previous Week</a>
-            Week of <?php echo $firstDayOfWeek->format('F j, Y'); ?> - <?php echo $lastDayOfWeek->format('F j, Y'); ?>
-            <a class="buttons" href="<?php echo $nextWeekUrl; ?>">Next Week &raquo;</a>
+        <div>
+            <div style="margin-right: 20px; margin-bottom: 20px;">
+                <a class="buttons" href="<?php echo $prevWeekUrl; ?>">Previous week</a>
+                <a class="buttons" href="<?php echo $nextWeekUrl; ?>">Next week</a>
+            </div>
         </div>
-        <div class="week-days">
+        <div id="days">
             <?php
             $currentDay = clone $firstDayOfWeek;
             for ($i = 0; $i < 7; $i++):
