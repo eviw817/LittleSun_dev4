@@ -36,7 +36,7 @@
         <a class="link" href="../manager/schedule/managerSchedule.php">View schedule</a>
         <a class="link" href="../manager/reports/filter.php">Reports</a>
 
-        <a class="link" href="../calender.php">Calender</a>
+        <a class="link" href="../manager/schedule/calender.php">Calender</a>
     </section>
     </main>
 </body>

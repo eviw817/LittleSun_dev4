@@ -1,13 +1,12 @@
 <?php
 
 session_start();
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Db.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Schedules.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/users/User.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/users/Manager.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Task.php");
-
-
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Schedules.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Shift.php");
 
 $tasks = Schedules::getTasks(); // Array van taken
 $hubs = Schedules::getHubs();
