@@ -195,5 +195,15 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "Db.php");
                 }
         }
 
+            
+        public static function removeUserFromTask($taskId, $userId) {
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("DELETE FROM users_tasks WHERE task_id = :task_id AND user_id = :user_id");
+            $statement->execute([
+                ":task_id" => $taskId,
+                ":user_id" => $userId
+            ]);
+        }
+
     
     }

@@ -78,6 +78,7 @@ if(!empty($_POST)){
             </div> -->
 
             <button type="submit" class="btn-save">Save</button>  
+            <a class="button fixed-position" href="taskList.php">Back</a>
         </form>
     </section>
 </body>

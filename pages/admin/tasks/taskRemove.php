@@ -2,10 +2,6 @@
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
     include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
 
-    
-
-    
-
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
         $taskId = $_POST["id"];
         Task::deleteTask($taskId);
@@ -31,7 +27,7 @@
 
 <body>
 <?php include_once("../../../components/headerAdmin.inc.php"); ?>
-
+<div class="flex">
     <h1>Task</h1>
     <ul class="taskList">
 
@@ -48,7 +44,8 @@
         <?php endforeach; ?>
     </ul>
 
-    <a class="button fixed-position" href="taskAdd.php">Add task +</a>
+    <a class="button fixed-position" href="taskList.php">Back</a>
+    </div>
 
 </body>
 

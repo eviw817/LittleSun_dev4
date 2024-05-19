@@ -9,6 +9,7 @@ if (isset($_GET['id'])) {
  
     $task = Task::getTaskById($id);
     $users = User::getByTask($id);
+    
    
     if(!$task){
         echo "Task not found";
@@ -25,6 +26,7 @@ if(isset($_POST['submit'])){
     $task = new Task($_POST["name"], $_POST["description"], $_POST["category"]);
     $task->setId($id);
     $task->updateTask();
+    
     
   
     header("Location: taskInfo.php?id=$id");
@@ -62,16 +64,20 @@ if(isset($_POST['submit'])){
                 <label for="category">Category</label>
                 <input type="text" name="category" value="<?php echo isset($task['category']) ? $task['category'] : ''; ?>">
             </div>
-            <p> Assigned User: 
-            <?php 
-            if ($users) {
-                foreach ($users as $user) {
-                    echo $user->getFirstname() . " " . $user->getLastname() . "<br>";
-                }
-            } else {
-                echo "No user assigned";
-            }
-            ?></p>
+            <div class="form__field">
+                <label for="assigned_users">Assigned Users:</label>
+                <?php if ($users) : ?>
+                    <?php foreach ($users as $user) : ?>
+                        <div>
+                            <?php echo $user->getFirstname() . " " . $user->getLastname(); ?>
+                            <button type="submit" name="remove_user" value="<?php echo $user->getFirstname() . " " . $user->getLastname(); ?>">Remove</button>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <p>No user assigned</p>
+                <?php endif; ?>
+            </div>
+
             <!-- <div class="form__field filter">
                 <label for="filter">Progress</label>
                 <select name="filter" id="filter">
