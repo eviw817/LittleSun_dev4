@@ -323,3 +323,63 @@ a {
     text-decoration: none;
     color: var(--color-black);
 }
+
+/* CSS voor dagelijkse weergave */
+.day-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.day {
+    display: flex;
+    flex-direction: column;
+}
+
+.day-schedule {
+    display: flex;
+}
+
+.time-column {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+}
+
+.time {
+    height: 30px; /* Hoogte per half uur */
+    line-height: 30px;
+    text-align: right;
+    padding-right: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.shift-column {
+    position: relative;
+    flex-grow: 1;
+    border-left: 1px solid #ccc;
+    height: 100%;
+}
+
+.day-column {
+    position: relative;
+    flex-grow: 1;
+    border-left: 1px solid #ccc;
+    min-height: 660px; /* Hoogte van het rooster (12 uur * 2 * 30px) */
+}
+
+.event {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background-color: #e3f2fd;
+    border-left: 5px solid #1e88e5;
+    padding: 5px;
+    margin: 2px 0;
+    font-size: 0.9em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
