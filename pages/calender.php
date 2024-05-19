@@ -1,12 +1,11 @@
 <?php
 
 session_start();
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Schedules.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Shift.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Db.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Schedules.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/users/User.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/users/Manager.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Task.php");
 
 $tasks = Schedules::getTasks(); // Array van taken
 $hubs = Schedules::getHubs();
@@ -123,7 +122,7 @@ if ($view === 'daily') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar</title>
-    <link rel="stylesheet" href="calender2.css">
+    <link rel="stylesheet" href="calender.css">
    
 </head>
 <body>

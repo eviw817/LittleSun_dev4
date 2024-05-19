@@ -1,9 +1,10 @@
 <?php
 session_start();
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Calendar.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../..//classes/Task.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Shift.php");
 
 if (!empty($_POST)) {
