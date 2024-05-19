@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['assign'])) {
     $schedule = new Schedules($user_id, null, $task_id, null, $hub_id, null, $schedule_date, $startTime, $endTime);
 
     $result = $schedule->newShift();
-    $message = $result === true ? "Shift assigned successfully." : $result;
+    //$message = $result === true ? "Shift assigned successfully." : $result;
     
     // Opnieuw ophalen van schema's na het toewijzen van de nieuwe dienst
     $schedules = Schedules::getSchedules();
@@ -167,6 +167,12 @@ if ($view === 'daily') {
                             <option value="<?php echo $task['id']; ?>"><?php echo $task['name']; ?></option>
                         <?php endforeach; ?>
                     </select>
+                    <label for="hub_id">Hub:</label>
+                    <select name="hub_id" id="hub_id" required>
+                        <?php foreach ($hubs as $hub): ?>
+                            <option value="<?php echo $hub['id']; ?>"><?php echo $hub['name']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
                     
                     <label for="schedule_date">Schedule date:</label>
                     <input type="date" name="schedule_date" id="schedule_date" required>
@@ -282,7 +288,7 @@ if ($view === 'daily') {
 
     <?php elseif ($view === 'weekly'): ?>
     <div>
-        <div style="margin-right: 20px;">
+        <div style="margin-right: 20px; margin-bottom: 20px;">
             <a class="buttons" href="<?php echo $prevWeekUrl; ?>">Previous week</a>
             <a class="buttons" href="<?php echo $nextWeekUrl; ?>">Next week</a>
         </div>
