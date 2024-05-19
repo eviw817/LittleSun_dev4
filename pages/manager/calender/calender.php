@@ -1,11 +1,11 @@
 <?php
 
 session_start();
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Db.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Schedules.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/users/User.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/users/Manager.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../classes/Task.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Schedules.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
 
 $tasks = Schedules::getTasks(); // Array van taken
 $hubs = Schedules::getHubs();
@@ -122,10 +122,14 @@ if ($view === 'daily') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar</title>
-    <link rel="stylesheet" href="calender.css">
+    <link rel="stylesheet" href="../../../reset.css">
+    <link rel="stylesheet" href="../../../shared.css">
+    <link rel="stylesheet" href="./calender.css">
    
 </head>
 <body>
+<?php include_once("../../../components/headerManager.inc.php"); ?>
+<main>
 <h1>Assign Task</h1>
 <?php if ($message): ?>
     <p><?php echo $message; ?></p>
@@ -374,5 +378,6 @@ if ($view === 'daily') {
     ?>
 </div>
 <?php endif; ?>
+</main>
 </body>
 </html>
