@@ -6,7 +6,8 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
 
-$tasks = Schedules::getTasks(); // Array van taken
+// Fetch tasks, hubs, and time slots
+$tasks = Schedules::getTasks(); 
 $hubs = Schedules::getHubs();
 $timeSlots = range(8, 19); // 8am to 7pm
 
@@ -26,31 +27,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['assign'])) {
     $message = $result === true ? "Shift assigned successfully." : $result;
 }
 
-
 if (isset($_SESSION["id"])) {
     $userId = $_SESSION["id"];
     $afterDate = new DateTime();  // Current date and time
-    $shifts = Schedules::getShiftsByUser($userId, $afterDate);
-    // Process and display $shifts as needed
+    $schedules = Schedules::getShiftsByUser($userId, $afterDate); // Fetch shifts for the logged-in user
+    
+    // Debugging output
+    echo "<pre>";
+    print_r($schedules);
+    echo "</pre>";
 } else {
     echo "Error: Session is invalid, please log-in again";
     exit;
 }
 
-// Fetch schedule
-$schedules = Schedules::getSchedules();
-
-function generateDaysForMonth($year, $month)
-{
+// Helper function to generate days for the month
+function generateDaysForMonth($year, $month) {
     $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
     $days = [];
-
     for ($day = 1; $day <= $daysInMonth; $day++) {
         $days[] = sprintf('%04d-%02d-%02d', $year, $month, $day);
     }
     return $days;
 }
 
+// Determine view type (daily, weekly, monthly) and date details
 $view = isset($_GET['view']) ? $_GET['view'] : 'monthly';
 $year = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
 $month = isset($_GET['month']) ? (int)$_GET['month'] : date('m');
@@ -58,13 +59,11 @@ $day = isset($_GET['day']) ? (int)$_GET['day'] : date('j');
 $firstDayOfWeek = (new DateTime("$year-$month-$day"))->modify('monday this week');
 $lastDayOfWeek = (new DateTime("$year-$month-$day"))->modify('sunday this week');
 
+// Previous and next week/month navigation URLs
 $prevWeek = (clone $firstDayOfWeek)->modify('-1 week');
 $nextWeek = (clone $firstDayOfWeek)->modify('+1 week');
-
 $prevWeekUrl = "?view=weekly&year=" . $prevWeek->format('Y') . "&month=" . $prevWeek->format('m') . "&day=" . $prevWeek->format('d');
 $nextWeekUrl = "?view=weekly&year=" . $nextWeek->format('Y') . "&month=" . $nextWeek->format('m') . "&day=" . $nextWeek->format('d');
-
-
 $prevMonth = $month - 1;
 $nextMonth = $month + 1;
 $prevYear = $year;
@@ -82,7 +81,6 @@ if ($nextMonth == 13) {
 
 $prevMonthUrl = "?view=$view&year=$prevYear&month=$prevMonth";
 $nextMonthUrl = "?view=$view&year=$nextYear&month=$nextMonth";
-
 $prevDay = $day - 1;
 $nextDay = $day + 1;
 $prevDayUrl = "?view=$view&year=$year&month=$month&day=$prevDay";
@@ -96,16 +94,15 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendar user</title>
+    <title>Calendar User</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
     <link rel="stylesheet" href="./calender2.css">
-
 </head>
 <body>
 <?php include_once("../../../components/headerUser.inc.php"); ?>
 <main>
-<div id="header">
+    <div id="header">
         <a class="buttons" href="<?php echo $prevMonthUrl; ?>">&laquo; Previous</a>
         <h1><?php echo date('F Y', strtotime("$year-$month-01")); ?></h1>
         <a class="buttons" href="<?php echo $nextMonthUrl; ?>">Next &raquo;</a>
@@ -144,14 +141,12 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
                                 $startMinute = date('i', $startTime);
                                 $endHour = date('H', $endTime);
                                 $endMinute = date('i', $endTime);
-                                $top = (($startHour - 8) * 2 * 30) + ($startMinute / 30 * 30); 
-                                $height = (($endHour - $startHour) * 2 + ($endMinute - $startMinute) / 30) * 30; 
-                                ?>
+                                $top = (($startHour - 8) * 1.6 * 30) + ($startMinute / 30 * 30);
+                                $height = (($endHour - $startHour) * 1.6 + ($endMinute - $startMinute) / 30) * 30;
+                            ?>
                                 <div class="event" style="top: <?php echo $top; ?>px; height: <?php echo $height; ?>px;">
-                                    <?php echo $schedule['task_name']; ?><br><br>
-                                    <?php echo $schedule['user_name']; ?><br><br>
-                                    <?php echo $schedule['startTime']; ?><br>
-                                    <?php echo $schedule['endTime']; ?>
+                                    <?php echo $schedule['task_name']; ?><br>
+                                    <?php echo $schedule['startTime']; ?> - <?php echo $schedule['endTime']; ?>
                                 </div>
                             <?php endif; ?>
                         <?php endforeach; ?>
@@ -159,15 +154,13 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
                 </div>
             </div>
         </div>
-
     <?php elseif ($view === 'weekly'): ?>
-        <div>
-            <div style="margin-right: 20px; margin-bottom: 20px;">
-                <a class="buttons" href="<?php echo $prevWeekUrl; ?>">Previous week</a>
-                <a class="buttons" href="<?php echo $nextWeekUrl; ?>">Next week</a>
-            </div>
+        <div class="week-header">
+            <a class="buttons" href="<?php echo $prevWeekUrl; ?>">&laquo; Previous Week</a>
+            Week of <?php echo $firstDayOfWeek->format('F j, Y'); ?> - <?php echo $lastDayOfWeek->format('F j, Y'); ?>
+            <a class="buttons" href="<?php echo $nextWeekUrl; ?>">Next Week &raquo;</a>
         </div>
-        <div id="days">
+        <div class="week-days">
             <?php
             $currentDay = clone $firstDayOfWeek;
             for ($i = 0; $i < 7; $i++):
@@ -208,7 +201,6 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
                                 ?>
                                 <div class="event" style="top: <?php echo $top; ?>px; height: <?php echo $height; ?>px; margin-top: 10px; margin-left: -10px; padding-right:100px;">
                                     <?php echo $schedule['task_name']; ?><br><br>
-                                    <?php echo $schedule['user_name']; ?><br><br>
                                     <?php echo $schedule['startTime']; ?><br>
                                     <?php echo $schedule['endTime']; ?>
                                 </div>
@@ -254,7 +246,6 @@ $allDaysThisMonth = generateDaysForMonth($year, $month);
                     if ($scheduleDate->format('Y-m-d') === $currentDate->format('Y-m-d')) {
                         echo '<div class="event" style="margin-top: 10px; margin-left: -10px; padding-right:110px;">';
                         echo $schedule['task_name'] . '<br>';
-                        echo $schedule['user_name'] . '<br>';
                         echo $schedule['startTime'] . '<br>';
                         echo $schedule['endTime'];
                         echo '</div>';
