@@ -56,9 +56,6 @@ if($_SESSION["id"]){
     echo "Error: Session is invalid, please log-in again";
 }
 
-// Fetch schedule
-$schedules = Schedules::getSchedules();
-
 
 // Fetch schedule
 $schedules = Schedules::getSchedules();

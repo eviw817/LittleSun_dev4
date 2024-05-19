@@ -26,14 +26,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['assign'])) {
     $message = $result === true ? "Shift assigned successfully." : $result;
 }
 
-if (isset($_SESSION["id"])) {
 
-    $user = User::getUserById($_SESSION["id"]);
-    $events = Schedules::getShiftsByUserId($user['location'], new DateTime());
+if (isset($_SESSION["id"])) {
+    $userId = $_SESSION["id"];
+    $afterDate = new DateTime();  // Current date and time
+    $shifts = Schedules::getShiftsByUser($userId, $afterDate);
+    // Process and display $shifts as needed
 } else {
     echo "Error: Session is invalid, please log-in again";
+    exit;
 }
-
 
 // Fetch schedule
 $schedules = Schedules::getSchedules();
