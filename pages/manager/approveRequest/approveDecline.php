@@ -85,7 +85,6 @@ if (!empty($_POST)) {
                     <button type='submit' name='approve'>Approve</button>
                     <button type='submit' name='reject'>Reject</button>
                 </form>
-
                 </td>
             </tr>
             <?php endforeach; ?>
