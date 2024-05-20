@@ -79,7 +79,9 @@ if (!empty($_POST)) {
                 <td>
                 <form method='post' action=''>
                     <input type='hidden' name='requestId' value="<?php echo $request["id"] ?>">
-                    <input type='text' name='reason_<?php echo $request["id"] ?>' placeholder='Reason for rejection' required>
+                    <?php if(isset($_POST['reject']) && $_POST['requestId'] == $request["id"]) : ?>
+                        <input type='text' name='reason_<?php echo $request["id"] ?>' placeholder='Reason for rejection' required>
+                    <?php endif; ?>
                     <button type='submit' name='approve'>Approve</button>
                     <button type='submit' name='reject'>Reject</button>
                 </form>
