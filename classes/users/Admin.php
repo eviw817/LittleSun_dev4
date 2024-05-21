@@ -12,4 +12,10 @@ class Admin extends ParentUser
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public static function isAdmin($userId)
+    {
+        $user = self::getAdmin($userId);
+        return $user !== false;
+    }
 }

@@ -5,10 +5,8 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Schedules.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Admin.php");
 
 if ($_SESSION["id"]) {
-    $admin = Admin::getAdmin($_SESSION['id']);
     $userId = $_SESSION['id'];
     $schedules = Schedules::getShiftsByUser($userId, new DateTime());
 } else {

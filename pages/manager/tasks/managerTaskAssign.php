@@ -4,7 +4,6 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Admin.php");
 
 if (!isset($_SESSION['id'])) {
     header("Location: login.php");
@@ -12,7 +11,6 @@ if (!isset($_SESSION['id'])) {
 }
 
 $manager = Manager::getManagerById($_SESSION['id']);
-$admin = Admin::getAdmin($_SESSION['id']);
 
 $error = null;
 $task = Task::getTaskById($_GET["id"]);

@@ -33,9 +33,7 @@ $manager = Manager::getManagerById($_SESSION['id']);
             <a class="link" href="../manager/users/userInfo.php">Users</a>
             <a class="link" href="../manager/tasks/managerTaskList.php">Task list</a>
             <a class="link" href="../manager/approveRequest/managerApproveDecline.php">Absence requests</a>
-            <!-- <a class="link" href="../manager/schedule/managerSchedule.php">View schedule</a> -->
             <a class="link" href="../manager/reports/managerFilter.php">Reports</a>
-
             <a class="link" href="../manager/calender/managerCalender.php">Calender</a>
         </section>
     </main>

@@ -168,8 +168,22 @@ class Task
     public static function deleteTask($taskId)
     {
         $conn = Db::getConnection();
+
+        // Remove associated schedule entries
+        $statement = $conn -> prepare("DELETE FROM schedules WHERE task_id = :id");
+        $statement -> bindValue(":id", $taskId, PDO::PARAM_INT);
+        $statement -> execute();
+
+        // Remove users & tasks connection
+        $statement = $conn -> prepare("DELETE FROM users_tasks WHERE task_id = :id");
+        $statement -> bindValue(":id", $taskId, PDO::PARAM_INT);
+        $statement -> execute();
+
+        // Remove task entity from database
         $statement = $conn->prepare("DELETE FROM tasks WHERE id = :id");
-        $statement->execute([":id" => $taskId]);
+        $statement -> bindValue(":id", $taskId, PDO::PARAM_INT);
+        $statement->execute();
+
     }
 
     public static function fetchAllCategories()

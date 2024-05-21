@@ -25,19 +25,18 @@ if (isset($_SESSION['id'])) {
 </head>
 
 <body>
+    <main class="main">
     <?php include_once("../../components/headerUser.inc.php"); ?>
     <h1>User Dashboard</h1>
 
-    <section>
+    <section class="width">
         <a class="link" href="../user/task/userTask.php">My task</a>
         <a class="link" href="../user/clockin_out/userClockIn.php">Clock in work</a>
         <a class="link" href="../user/clockin_out/userClockOut.php">Clock out of work</a>
         <a class="link" href="../user/absence/userAbsenceRequests.php">Absence requests</a>
-        <!-- <a class="link" href="../user/schedule/userSchedule.php">Schedule</a> -->
-
         <a class="link" href="../user/calendar/userCalendar.php">Calender</a>
     </section>
-
+</main>
 </body>
 
 </html>

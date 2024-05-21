@@ -31,12 +31,13 @@ $admin = Admin::getAdmin($_SESSION['id']);
 
         <section>
 
+            <h2>Admin pages</h2>
+
             <a class="link" href="../admin/locations/locationList.php">Hub locations</a>
 
             <a class="link" href="../admin/managers/managerList.php">Hub managers</a>
 
             <a class="link" href="../admin/tasks/taskList.php">Task list</a>
-
 
         </section>
 
