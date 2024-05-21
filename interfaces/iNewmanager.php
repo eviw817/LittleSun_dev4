@@ -1,6 +1,6 @@
 <?php
 
-    interface iNewManager {
-        public function new();
-        
-    }
+interface iNewManager
+{
+    public function new();
+}

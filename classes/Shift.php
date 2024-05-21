@@ -85,7 +85,7 @@ class Shift
 
     public function newShift()
     {
-        
+
         $conn = Db::getConnection();
         $statement = $conn->prepare("INSERT INTO shifts (task_id, user_id, startTime, endTime) VALUES (:task_id, :user_id, :startTime, :endTime);");
         $statement->bindValue(":task_id", $this->task_id);
@@ -95,7 +95,8 @@ class Shift
         return $statement->execute();
     }
 
-    public static function getShiftsById($locationId, $afterDate) {
+    public static function getShiftsById($locationId, $afterDate)
+    {
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT s.*, t.name, t.description, u.firstName, u.lastName 
             FROM shifts s 
@@ -103,13 +104,14 @@ class Shift
             LEFT JOIN tasks t ON s.task_id = t.id 
             WHERE u.location = :locationId and s.startTime > :afterDate
             ORDER BY s.startTime ASC");
-        $statement -> bindValue(":locationId", $locationId, PDO::PARAM_INT);
-        $statement -> bindValue(":afterDate", $afterDate->format('Y-m-d'));
-        $statement -> execute();
+        $statement->bindValue(":locationId", $locationId, PDO::PARAM_INT);
+        $statement->bindValue(":afterDate", $afterDate->format('Y-m-d'));
+        $statement->execute();
         return $statement->fetchAll();
     }
 
-    public static function getShiftsByUser($userId) {
+    public static function getShiftsByUser($userId)
+    {
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT s.*, u.id, u.firstName, u.lastName, t.name
             FROM shifts s 
@@ -117,12 +119,11 @@ class Shift
             LEFT JOIN tasks t ON s.task_id = t.id
             WHERE u.id = :userId and s.startTime > :afterDate
             ORDER BY s.startTime ASC");  // Removed the single quotes around :userId
-        $statement -> bindValue(":userId", $userId, PDO::PARAM_INT);
+        $statement->bindValue(":userId", $userId, PDO::PARAM_INT);
         $afterDate = new DateTime(); // Initialize the $afterDate variable with the current date and time
-        $statement -> bindValue(":afterDate", $afterDate->format('Y-m-d'));
-        $statement -> execute();
+        $statement->bindValue(":afterDate", $afterDate->format('Y-m-d'));
+        $statement->execute();
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
-
 }

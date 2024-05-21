@@ -26,7 +26,8 @@ table {
     margin-top: 1rem;
 }
 
-th, td {
+th,
+td {
     padding: 0.75rem;
     text-align: left;
     border-bottom: 1px solid #f0f0f0;
@@ -63,7 +64,3 @@ button[name='reject'] {
     background-color: #3d3d3d;
     color: #fff;
 }
-
-
-
-

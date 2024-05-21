@@ -12,7 +12,8 @@ body {
     box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
 }
 
-.-dashboard h1, .-dashboard h2 {
+.-dashboard h1,
+.-dashboard h2 {
     text-align: var(--text-align);
     margin-bottom: 1.25rem;
     color: var(--color-black);
@@ -42,7 +43,7 @@ body {
 }
 
 .-dashboard form input[type="date"],
-.-dashboard form input[type="time"]{
+.-dashboard form input[type="time"] {
     width: 91%;
     padding: 0.625rem;
     margin-bottom: 0.625rem;
@@ -70,18 +71,17 @@ body {
 }
 
 .-dashboard form a {
-    background-color: var(--color-white); 
-    color: var(--color-black); 
-    border: 0.063rem solid var(--color-black); 
+    background-color: var(--color-white);
+    color: var(--color-black);
+    border: 0.063rem solid var(--color-black);
     text-decoration: none;
 }
 
 .-dashboard form a:hover {
-    background-color: var(--color-black); 
-    color: var(--color-white); 
+    background-color: var(--color-black);
+    color: var(--color-white);
 }
 
 .-dashboard form input[type="text"] {
     width: calc(96% - 0.188rem);
 }
-

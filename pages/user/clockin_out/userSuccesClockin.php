@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +9,12 @@
     <link rel="stylesheet" href="../../../shared.css">
     <link rel="stylesheet" href="userClockIn.css">
 </head>
+
 <body>
-<?php include_once("../../../components/headerUser.inc.php"); ?>
+    <?php include_once("../../../components/headerUser.inc.php"); ?>
     <h1>You have been clocked in!</h1>
 
     <a class="clockin" href="../../dashboard/userDashboard.php">Back</a>
 </body>
+
 </html>

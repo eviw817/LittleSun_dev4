@@ -5,7 +5,6 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Timetable.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
 
-
 if (isset($_POST['clockOutButton'])) {
     $clockOutTime = isset($_POST['clockOutTime']) ? $_POST['clockOutTime'] : null;
     $userId = isset($_SESSION['id']) ? $_SESSION['id'] : null;
@@ -23,4 +22,3 @@ if (isset($_POST['clockOutButton'])) {
 } else {
     echo "Error: Clock-out button not submitted.";
 }
-?>

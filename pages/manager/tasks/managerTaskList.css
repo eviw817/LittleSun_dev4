@@ -1,20 +1,19 @@
-h1{
+h1 {
     margin: 32px;
 }
 
-section{
+section {
     margin: 20px;
 }
 
-.filter{
+.filter {
     padding: 8px;
-
     position: fixed;
     top: 120px;
     right: 20px;
 }
 
-ul{
+ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -24,8 +23,8 @@ li {
     display: inline-block;
     width: 200px;
     height: 200px;
-    line-height: 6.25; 
-    border-radius: 50%; 
+    line-height: 6.25;
+    border-radius: 50%;
     background-color: var(--color-light-primary);
     border: 2px solid var(--color-off-black);
     text-decoration: none;
@@ -33,36 +32,32 @@ li {
     text-align: var(--text-align);
     margin-bottom: 0.625rem;
     transition: background-color 0.3s ease;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 li:hover {
     background-color: var(--color-primary);
 }
 
-a{
+a {
     text-decoration: none;
     color: var(--color-white);
 }
 
-a:hover{
+a:hover {
     text-decoration: none;
     color: var(--color-primary);
 }
 
-.fixed-position{
+.fixed-position {
     position: fixed;
     bottom: 20px;
     right: 20px;
-
     display: inline-block;
     padding: 0.938rem 2.5rem;
     background-color: var(--color-off-black);
-    
     text-decoration: none;
     border-radius: 0.313rem;
     font-weight: bold;

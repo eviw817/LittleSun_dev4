@@ -1,37 +1,44 @@
 <?php
+session_start();
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Location.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Admin.php");
 
+if (!isset($_SESSION['id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$admin = Admin::getAdmin($_SESSION['id']);
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $location = Location::getLocationById($id);
 
-    if(!$location){
+    if (!$location) {
         echo "Location not found";
         die();
     }
 } else {
-    
+
     echo "No location ID specified";
-    die(); 
+    die();
 }
 
-if(isset($_POST['submit'])){
+if (isset($_POST['submit'])) {
 
     $location = new Location($_POST["name"], $_POST["street"], $_POST["streetNumber"], $_POST["city"], $_POST["country"], $_POST["postalCode"]);
     $location->setId($id);
     $location->updateLocation();
-    
+
 
     header("Location: locationInfo.php?id=$id");
     exit();
 }
 
-?>
-
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,10 +47,11 @@ if(isset($_POST['submit'])){
     <link rel="stylesheet" href="../../../shared.css">
     <link rel="stylesheet" href="./locationAdd_Edit.css">
 </head>
+
 <body>
-<?php include_once("../../../components/headerAdmin.inc.php"); ?>
+    <?php include_once("../../../components/headerAdmin.inc.php"); ?>
     <div class="form edit_location">
-    <form action="locationEdit.php?id=<?php echo $location['id']; ?>" method="post">
+        <form action="locationEdit.php?id=<?php echo $location['id']; ?>" method="post">
 
             <h2 class="form__title">Edit hub location</h2>
 
@@ -73,10 +81,11 @@ if(isset($_POST['submit'])){
             </div>
 
             <div class="form__field">
-                <input type="submit" name="submit" value="Save" class="btn-save">  
+                <input type="submit" name="submit" value="Save" class="btn-save">
             </div>
             <a class="button fixed-position" href="locationList.php">Back</a>
         </form>
     </div>
 </body>
+
 </html>

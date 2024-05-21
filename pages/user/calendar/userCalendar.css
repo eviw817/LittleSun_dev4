@@ -5,11 +5,12 @@ body {
     background-color: #f4f4f4;
 }
 
-main{
+main {
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    align-items: center;
 }
+
 #header {
     display: flex;
     justify-content: space-between;
@@ -22,7 +23,9 @@ main{
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
     margin-left: 40px;
 }
- #week, #day {
+
+#week,
+#day {
     display: grid;
     grid-template-columns: repeat(7, 0.5fr);
     width: 100%;
@@ -31,18 +34,8 @@ main{
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
 }
-#day{
-    display: grid;
-    grid-template-columns: repeat(7, 0.5fr);
-    width: 100%;
-    max-width: 860px;
-    background-color: #fff;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    margin-left: 70px;
-    margin-left: 70px;
-}
-#month{
+
+#day {
     display: grid;
     grid-template-columns: repeat(7, 0.5fr);
     width: 100%;
@@ -53,7 +46,20 @@ main{
     margin-left: 70px;
     margin-left: 70px;
 }
-#days{
+
+#month {
+    display: grid;
+    grid-template-columns: repeat(7, 0.5fr);
+    width: 100%;
+    max-width: 860px;
+    background-color: #fff;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    margin-left: 70px;
+    margin-left: 70px;
+}
+
+#days {
     display: grid;
     grid-template-columns: repeat(7, 3fr);
     width: 100%;
@@ -65,18 +71,29 @@ main{
     margin-left: 70px;
     margin-top: 20px;
 }
-#days div, #month div, #week div, #day div {
+
+#days div,
+#month div,
+#week div,
+#day div {
     padding: 10px;
     text-align: center;
 }
+
 #days div {
     font-weight: bold;
     background-color: #f0f0f0;
 }
-#month, #week, #day {
+
+#month,
+#week,
+#day {
     border-collapse: collapse;
 }
-#month .day, #week .day, #day .day {
+
+#month .day,
+#week .day,
+#day .day {
     border: 1px solid #ddd;
     height: 100px;
     display: flex;
@@ -84,12 +101,19 @@ main{
     align-items: flex-start;
     position: relative;
 }
-#month .day:nth-child(7n+1), #week .day:nth-child(7n+1), #day .day:nth-child(7n+1) {
+
+#month .day:nth-child(7n+1),
+#week .day:nth-child(7n+1),
+#day .day:nth-child(7n+1) {
     border-left: 0;
 }
-#month .day:nth-child(-n+7), #week .day:nth-child(-n+7), #day .day:nth-child(-n+7) {
+
+#month .day:nth-child(-n+7),
+#week .day:nth-child(-n+7),
+#day .day:nth-child(-n+7) {
     border-top: 0;
 }
+
 .day em {
     font-style: normal;
     color: #666;
@@ -102,12 +126,15 @@ h1 {
     margin: 0;
     font-size: 1.5em;
 }
+
 #view-selector {
     margin: 20px 0;
 }
+
 h1 {
     margin-top: 20px;
 }
+
 form {
     width: 300px;
     display: flex;
@@ -115,101 +142,109 @@ form {
     align-items: flex-start;
     margin-bottom: 20px;
 }
-label, select, input, button {
+
+label,
+select,
+input,
+button {
     margin-bottom: 10px;
     width: 100%;
 }
+
 table {
     width: 80%;
     margin-top: 20px;
     border-collapse: collapse;
 }
-table, th, td {
+
+table,
+th,
+td {
     border: 1px solid black;
 }
-th, td {
+
+th,
+td {
     padding: 10px;
     text-align: left;
 }
 
-
 #calendar-container {
-width: 90%;
-max-width: 1200px;
-background-color: #fff;
-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-margin-top: 20px;
-margin: 0; 
-padding: 0; 
-border: none;
+    width: 90%;
+    max-width: 1200px;
+    background-color: #fff;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    margin: 0;
+    padding: 0;
+    border: none;
 }
 
-
 .calendar-header {
-display: grid;
-grid-template-columns: 90px repeat(7, 0.5fr);
-align-items: center;
-padding: 10px;
-border-bottom: 1px solid #ddd;
+    display: grid;
+    grid-template-columns: 90px repeat(7, 0.5fr);
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
 .calendar-days {
-display: grid;
-grid-template-columns: 90px repeat(7, 1fr);
-border-bottom: 1px solid #ddd;
+    display: grid;
+    grid-template-columns: 90px repeat(7, 1fr);
+    border-bottom: 1px solid #ddd;
 }
 
-
 .day {
-text-align: center;
-padding: 10px;
-font-weight: bold;
-border-right: 1px solid #ddd;
-height: 100%;
-display: flex;
-justify-content: center;
-align-items: center;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    border-right: 1px solid #ddd;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .day:last-child {
-border-right: none;
+    border-right: none;
 }
 
 .calendar-body {
-display: grid;
-grid-template-columns: 99px repeat(7, 1fr);
-border-bottom: 1px solid #ddd;
+    display: grid;
+    grid-template-columns: 99px repeat(7, 1fr);
+    border-bottom: 1px solid #ddd;
 }
 
 .time-column {
-margin-top: 10px;
-border-right: 1px solid #ddd;
-padding-right: 20px;
-padding-left: 10px;
-text-align: right;
-position: relative;
+    margin-top: 10px;
+    border-right: 1px solid #ddd;
+    padding-right: 20px;
+    padding-left: 10px;
+    text-align: right;
+    position: relative;
 }
 
 .day-column {
-border-right: 1px solid #ddd;
-padding: 15px;
-position: relative;
-height: auto; 
-width: 95px;
+    border-right: 1px solid #ddd;
+    padding: 15px;
+    position: relative;
+    height: auto;
+    width: 95px;
 }
 
 .day-column:last-child {
-border-right: none;
+    border-right: none;
 }
 
 .time {
-margin-bottom: 30px;
+    margin-bottom: 30px;
 }
+
 .shift-column {
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-padding-left: 10px; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 10px;
 }
 
 .event {
@@ -218,21 +253,22 @@ padding-left: 10px;
     color: var(--color-black);
     border-radius: 3px;
     position: absolute;
-    width: calc(100% - 16px); 
+    width: calc(100% - 16px);
     box-sizing: border-box;
-    padding: 4px; 
+    padding: 4px;
     margin-top: 20px;
     text-decoration: none;
 }
 
 .flex {
-display: flex;
-flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
+
 .buttons {
-text-decoration: none;
-color: var(--color-black);
-padding: 10px;
+    text-decoration: none;
+    color: var(--color-black);
+    padding: 10px;
 }
 
 /* CSS voor dagelijkse weergave */
@@ -246,20 +282,16 @@ padding: 10px;
     display: flex;
 }
 
-
 .time {
-    height: 30px; 
+    height: 30px;
     line-height: 30px;
     text-align: right;
     padding-right: 10px;
     border-bottom: 1px solid #ccc;
 }
 
-
-
 .day-column {
     position: relative;
     flex-grow: 1;
-    min-height: 660px; 
+    min-height: 660px;
 }
-

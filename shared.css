@@ -1,108 +1,95 @@
 /* VARIABLES */
 :root {
-    --font-nunito: 'Nunito', sans-serif;
-    --font-size-text: 1rem;
-    --font-size-h2: 1.25rem;
-    --font-size-h1: 2rem;
-    --font-bold: bold;
-    --text-align: center;
-
-    --color-background: #f4f4f4;
-    --color-white: #fff;
-    --color-black: #000;
-    --color-off-white: #f5f5f5; /* eruit halen */
-    --color-off-gray: #f0f0f0;
-    --color-gray: #ccc;
-    --color-off-black: #3d3d3d;
-    --color-primary: #ffdd00;
-    --color-light-primary: #ffee81;
-    
-    --border-radius: 0.313rem;
+  --font-nunito: 'Nunito', sans-serif;
+  --font-size-text: 1rem;
+  --font-size-h2: 1.25rem;
+  --font-size-h1: 2rem;
+  --font-bold: bold;
+  --text-align: center;
+  --color-background: #f4f4f4;
+  --color-white: #fff;
+  --color-black: #000;
+  --color-off-white: #f5f5f5;
+  --color-off-gray: #f0f0f0;
+  --color-gray: #ccc;
+  --color-off-black: #3d3d3d;
+  --color-primary: #ffdd00;
+  --color-light-primary: #ffee81;
+  --border-radius: 0.313rem;
 }
 
 /* SHARED */
-body, label, h2 {
-    font-family: var(--font-nunito);
+body,
+label,
+h2 {
+  font-family: var(--font-nunito);
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    text-align: var(--text-align); 
-    background-color: var(--color-background);
+  margin: 0;
+  padding: 0;
+  text-align: var(--text-align);
+  background-color: var(--color-background);
 }
 
-h1{
-    font-size: var(--font-size-h1);
-    color: var(--color-black);
+h1 {
+  font-size: var(--font-size-h1);
+  color: var(--color-black);
 }
 
 h2 {
-    font-size: var(--font-size-h2);
+  font-size: var(--font-size-h2);
 }
 
 #logo {
-    max-width: 7.5rem;
-    height: auto;
-    margin-left: 1.563rem;
-    width: 100px;
-    margin-top: 10px;
-
-    border: none;  
-    background-color: transparent;  
-    padding: 0;  
-    margin: 0;
+  max-width: 7.5rem;
+  height: auto;
+  margin-left: 1.563rem;
+  width: 100px;
+  margin-top: 10px;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
 }
 
 .navbar {
-    background-color: var(--color-black);
-    color: var(--color-primary);
-    padding: 1.25rem 0;
-    display: flex;
-    justify-content: space-between;
-    
-  }
-  
-  .menu a {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: max-content;
+  background-color: var(--color-black);
+  color: var(--color-primary);
+  padding: 1.25rem 0;
+  display: flex;
+  justify-content: space-between;
+}
 
-    padding: 8px;
-    border: 4px solid var(--color-off-black);
-    background-color: var(--color-off-black);
-    border-radius: 8px;
+.menu a {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: max-content;
+  padding: 8px;
+  border: 4px solid var(--color-off-black);
+  background-color: var(--color-off-black);
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: var(--font-nunito);
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--color-white);
+}
 
-    font-size: 16px;
-    font-family: var(--font-nunito);
-    font-weight: 500;
-    text-decoration: none;
-    color: var(--color-white);
-  
-  }
-  
-  .navbar a:hover {
-    color: #ffcc00;
-  }
+.navbar a:hover {
+  color: #ffcc00;
+}
 
-  .menu a{
-    margin-right: 30px;
-  }
+.menu a {
+  margin-right: 30px;
+}
 
-  
+.dashboard a {
+  background-color: var(--color-black);
+}
 
-  .dashboard a{
-    background-color: var(--color-black);
-    
-  }
-
-.div{
+.div {
   margin-left: 20px;
   margin-top: 10px;
 }
- 
- 
-  
-  
-

@@ -7,19 +7,18 @@ $error = null;
 $task = null;
 
 // Controleren of er een taak-ID is doorgegeven via de URL
-if(isset($_GET["taskId"])) {
+if (isset($_GET["taskId"])) {
     // Taakdetails ophalen op basis van het ID
     $taskId = $_GET["taskId"];
     $task = Task::getTaskById($taskId);
 
-    if(!$task) {
+    if (!$task) {
         $error = "Task not found";
     }
 }
-?>
-
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,13 +27,14 @@ if(isset($_GET["taskId"])) {
     <link rel="stylesheet" href="../../../shared.css">
     <link rel="stylesheet" href="./taskAdd.css">
 </head>
+
 <body>
-<?php include_once("../../../components/headerManager.inc.php"); ?>
+    <?php include_once("../../../components/headerManager.inc.php"); ?>
     <main>
         <h1>Tasks</h1>
         <section>
             <ul class="taskList">
-                <?php foreach(Task::getTasks() as $task) : ?> 
+                <?php foreach (Task::getTasks() as $task) : ?>
                     <li>
                         <!-- Link naar dezelfde pagina met taskId als URL-parameter -->
                         <a href="?taskId=<?php echo $task["id"]; ?>"><?php echo $task['name']; ?></a>
@@ -44,7 +44,7 @@ if(isset($_GET["taskId"])) {
         </section>
 
         <!-- Details van de taak -->
-        <?php if($task): ?>
+        <?php if ($task) : ?>
             <section class="taskDetailsSection">
                 <div class="taskDetails">
                     <h2>Task Details</h2>
@@ -53,9 +53,10 @@ if(isset($_GET["taskId"])) {
                     <!-- Voeg andere details van de taak toe zoals nodig -->
                 </div>
             </section>
-        <?php elseif($error): ?>
+        <?php elseif ($error) : ?>
             <p><?php echo $error; ?></p>
         <?php endif; ?>
     </main>
 </body>
+
 </html>

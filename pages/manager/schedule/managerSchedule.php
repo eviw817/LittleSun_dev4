@@ -12,7 +12,8 @@ if (!empty($_POST)) {
     $shift->newShift();
 }
 
-function groupByDate($inputArray) {
+function groupByDate($inputArray)
+{
     $outputArray = [];
 
     foreach ($inputArray as $element) {
@@ -33,7 +34,7 @@ function groupByDate($inputArray) {
 }
 
 $calendar = new Calendar();
-if($_SESSION["id"]){
+if ($_SESSION["id"]) {
     $managerInfo = Manager::getManagerById($_SESSION["id"]);
     $events = Shift::getShiftsById($managerInfo['location'], new DateTime());
     foreach ($events as $event) {
@@ -42,8 +43,7 @@ if($_SESSION["id"]){
 } else {
     echo "Error: Session is invalid, please log-in again";
 }
-?>
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -77,7 +77,7 @@ if($_SESSION["id"]){
                         <?php foreach (Task::getTasks() as $task) : ?>
                             <option value="<?php echo $task["id"] ?>"><?php echo $task['name']; ?></option>
                         <?php endforeach; ?>
-                    </select>                    
+                    </select>
                 </div>
 
                 <div class="user">
@@ -87,8 +87,8 @@ if($_SESSION["id"]){
                             <option value="<?php echo $user["id"] ?>"><?php echo $user['username']; ?></option>
                         <?php endforeach; ?>
                     </select>
-                </div>       
-                
+                </div>
+
                 <div class="shift">
                     <h4>Shift:</h4>
                     <div class="date">
@@ -104,47 +104,48 @@ if($_SESSION["id"]){
                         <input type="time" id="endTime" name="endTime" list="quarterHours">
                     </div>
                     <datalist id="quarterHours">
-                        <?php for($i = 8; $i <= 18; $i++): ?>
-                            <?php for($j = 0; $j < 60; $j += 15): ?>
+                        <?php for ($i = 8; $i <= 18; $i++) : ?>
+                            <?php for ($j = 0; $j < 60; $j += 15) : ?>
                                 <?php $time = sprintf("%02d:%02d", $i, $j); ?>
                                 <option value="<?php echo $time; ?>"></option>
                             <?php endfor ?>
                         <?php endfor ?>
                     </datalist>
-                </div>  
+                </div>
 
-            <input class="button" type="submit" value="Confirm"></input>
+                <input class="button" type="submit" value="Confirm"></input>
 
             </div>
-        </div>    
+        </div>
     </form>
     <section>
         <div class="users">
             <div>
                 <h2 class="userList">Available users:</h2>
                 <ul>
-                <?php foreach (User::getUsersByLocationAndRequests($managerInfo["location"]) as $user) : ?>
-                     <!-- list of users that haven't sent an absence request or have their request denied-->
-                     <li><?php echo $user["username"]; ?></li>
-                <?php endforeach; ?>
-                </ul>     
+                    <?php foreach (User::getUsersByLocationAndRequests($managerInfo["location"]) as $user) : ?>
+                        <!-- list of users that haven't sent an absence request or have their request denied-->
+                        <li><?php echo $user["username"]; ?></li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
-           
+
         </div>
         <div class="schedule">
-                        <?php foreach (groupByDate($events) as $key => $values) : ?>
-                            <h2 class="event-date"><?php echo $key; ?></h2>
-                            <?php foreach ($values as $event) : ?>
-                            <div class="event">
-                                <div class="event-time">Starttime: <?php echo (new DateTime($event['startTime']))->format('H:i'); ?> - Endtime: <?php echo (new DateTime($event['endTime']))->format('H:i'); ?></div> <!-- time -->
-                                <div class="event-task">Task: <?php echo $event['name']; ?></div>
-                                <div class="event-user">User: <?php echo $event['firstName'] . " " . $event['lastName']; ?></div>
-                            </div>
-                            <?php endforeach; ?>
-                        <?php endforeach; ?>
-                      
+            <?php foreach (groupByDate($events) as $key => $values) : ?>
+                <h2 class="event-date"><?php echo $key; ?></h2>
+                <?php foreach ($values as $event) : ?>
+                    <div class="event">
+                        <div class="event-time">Starttime: <?php echo (new DateTime($event['startTime']))->format('H:i'); ?> - Endtime: <?php echo (new DateTime($event['endTime']))->format('H:i'); ?></div> <!-- time -->
+                        <div class="event-task">Task: <?php echo $event['name']; ?></div>
+                        <div class="event-user">User: <?php echo $event['firstName'] . " " . $event['lastName']; ?></div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endforeach; ?>
+
         </div>
 
     </section>
 </body>
+
 </html>

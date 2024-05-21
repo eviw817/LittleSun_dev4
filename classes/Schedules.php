@@ -22,7 +22,6 @@ class Schedules
         return $this;
     }
 
-
     /**
      * Get the value of id
      */
@@ -197,8 +196,8 @@ class Schedules
     }
 
     public static function getSheduleById($scheduleId)
-        {
-            $conn = Db::getConnection();
+    {
+        $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT s.*, u.id, u.username, t.id, t.name, l.id, l.name
                                     FROM schedules s
                                     JOIN users u ON u.id = s.user_id
@@ -207,7 +206,7 @@ class Schedules
                                     WHERE s.id = :id");
         $statement->execute([":id" => $scheduleId]);
         return $statement->fetch(PDO::FETCH_ASSOC);
-        }
+    }
 
     public function newShift()
     {
@@ -229,11 +228,11 @@ class Schedules
         $statement->bindValue(":schedule_date", $this->schedule_date);
         $statement->bindValue(":startTime", $this->startTime->format('H:i:s'));
         $statement->bindValue(":endTime", $this->endTime->format('H:i:s'));
-    
+
         // Uitvoeren van de SQL-instructie
         return $statement->execute() ? true : "Failed to assign shift.";
     }
-    
+
     private function hasTimeOff()
     {
         $conn = Db::getConnection();
@@ -244,7 +243,8 @@ class Schedules
         return $statement->fetch() ? true : false;
     }
 
-    public static function getShiftsById($locationId, $afterDate) {
+    public static function getShiftsById($locationId, $afterDate)
+    {
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT s.*, t.name, u.username 
             FROM schedules s 
@@ -252,25 +252,25 @@ class Schedules
             LEFT JOIN tasks t ON s.task_id = t.id 
             WHERE u.location = :id and s.start_time > :afterDate
             ORDER BY s.start_time ASC");
-        $statement -> bindValue(":id", $locationId, PDO::PARAM_INT);
-        $statement -> bindValue(":afterDate", $afterDate->format('Y-m-d'));
-        $statement -> execute();
+        $statement->bindValue(":id", $locationId, PDO::PARAM_INT);
+        $statement->bindValue(":afterDate", $afterDate->format('Y-m-d'));
+        $statement->execute();
         return $statement->fetchAll();
     }
 
-public static function getShiftsByUser($userId, $afterDate) {
-    $conn = Db::getConnection();
-    $statement = $conn->prepare("SELECT s.*, t.name, u.username
+    public static function getShiftsByUser($userId, $afterDate)
+    {
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT s.*, t.name, u.username
         FROM schedules s 
         LEFT JOIN tasks t ON s.task_id = t.id
         LEFT JOIN users u ON s.user_id = u.id
         WHERE s.user_id = :userId AND s.schedule_date >= :afterDate
-        ORDER BY s.schedule_date, s.start_time ASC");  
-    $statement->bindValue(":userId", $userId, PDO::PARAM_INT);
-    $statement->bindValue(":afterDate", $afterDate->format('Y-m-d'));
-    $statement->execute();
+        ORDER BY s.schedule_date, s.start_time ASC");
+        $statement->bindValue(":userId", $userId, PDO::PARAM_INT);
+        $statement->bindValue(":afterDate", $afterDate->format('Y-m-d'));
+        $statement->execute();
 
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
-}
-
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

@@ -53,5 +53,5 @@ class Calendar
     public function getCurrentDate()
     {
         return date('Y-m-d');
-    }   
+    }
 }

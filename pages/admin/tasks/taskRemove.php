@@ -1,19 +1,16 @@
 <?php
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
 
-    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
-        $taskId = $_POST["id"];
-        Task::deleteTask($taskId);
-        // Reload the page to reflect the changes
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit();
-    }
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
+    $taskId = $_POST["id"];
+    Task::deleteTask($taskId);
+    // Reload the page to reflect the changes
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
 
-
-?>
-
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -26,33 +23,26 @@
 </head>
 
 <body>
-<?php include_once("../../../components/headerAdmin.inc.php"); ?>
-<div class="flex">
-    <h1>Task</h1>
-    <ul class="taskList">
+    <?php include_once("../../../components/headerAdmin.inc.php"); ?>
+    <div class="flex">
+        <h1>Task</h1>
+        <ul class="taskList">
 
-        <?php foreach (Task::getTasks() as $key => $task) : ?>
-            <li>
-                <section>
-                    <a href="taskInfo.php?id=<?php echo ($key + 1) ?>" class="task_detail"><?php echo $task['name']; ?> </a>
-                    <form action="" method="post" onsubmit="return confirm('Are you sure you want to delete this task?')">
-                        <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
-                        <button type="submit">Remove task</button>
-                    </form>
-                </section>
-            </li>
-        <?php endforeach; ?>
-    </ul>
+            <?php foreach (Task::getTasks() as $key => $task) : ?>
+                <li>
+                    <section>
+                        <a href="taskInfo.php?id=<?php echo ($key + 1) ?>" class="task_detail"><?php echo $task['name']; ?> </a>
+                        <form action="" method="post" onsubmit="return confirm('Are you sure you want to delete this task?')">
+                            <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
+                            <button type="submit">Remove task</button>
+                        </form>
+                    </section>
+                </li>
+            <?php endforeach; ?>
+        </ul>
 
-    <a class="button fixed-position" href="taskList.php">Back</a>
+        <a class="button fixed-position" href="taskList.php">Back</a>
     </div>
-
-</body>
-
-</html>
-
-
-
 
 </body>
 

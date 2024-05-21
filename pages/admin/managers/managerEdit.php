@@ -24,22 +24,24 @@ if (isset($_POST['save'])) {
     $role = $_POST["role"];
     $firstName = $_POST["firstName"];
     $lastName = $_POST["lastName"];
-   
+
     $updatemanager = new Manager($username, $email, $newPassword, $role, $location, $firstName, $lastName);
     if (!empty($newPassword)) {
         $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
     }
-    if (isset($_POST["img"])){
+    
+    if (isset($_POST["img"])) {
         $updatemanager->setImage('data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])));
     }
-   
+
     $updatemanager->setId($id);
     $updatemanager->updateInfo();
 
     header("Location: managerInfo.php?id=$id");
     exit();
 }
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -52,9 +54,9 @@ if (isset($_POST['save'])) {
 </head>
 
 <body>
-<?php include_once("../../../components/headerAdmin.inc.php"); ?>
+    <?php include_once("../../../components/headerAdmin.inc.php"); ?>
     <section class="form_edit">
-    <form action="" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data">
 
             <h1>Edit hub manager</h1>
 
@@ -111,7 +113,7 @@ if (isset($_POST['save'])) {
             <input type="submit" value="Upload Image" name="upload">
 
             <div class="form__field">
-                    <input type="submit" name="save" value="Save" class="btn-save">
+                <input type="submit" name="save" value="Save" class="btn-save">
             </div>
             <a class="button fixed-position" href="managerList.php">Back</a>
         </form>

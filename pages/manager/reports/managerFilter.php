@@ -28,19 +28,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = $e->getMessage();
     }
 }
-?>
-
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generate Reports</title>
     <link rel="stylesheet" href="managerFilter.css">
 </head>
+
 <body>
     <h1>Generate Reports</h1>
-    <?php if (isset($error)): ?>
+    <?php if (isset($error)) : ?>
         <p><?php echo $error; ?></p>
     <?php endif; ?>
     <form method="POST">
@@ -72,49 +72,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <button type="submit">Generate</button>
     </form>
 
-    <?php if (!empty($reportData)): ?>
-    <h2>Report Results</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>Task Name</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-                <?php if ($reportType === 'hoursWorked'): ?>
-                    <th>Total Hours</th>
-                <?php elseif ($reportType === 'sickTime'): ?>
-                    <th>Sick Hours</th>
-                <?php elseif ($reportType === 'timeOff'): ?>
-                    <th>Time Off Hours</th>
-                <?php endif; ?>
-                <?php if ($reportType === 'hoursOvertime'): ?>
-                    <th>Overtime Hours</th>
-                <?php endif; ?>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($reportData as $row): ?>
+    <?php if (!empty($reportData)) : ?>
+        <h2>Report Results</h2>
+        <table border="1">
+            <thead>
                 <tr>
-                    <td><?php echo htmlspecialchars($row['username']); ?></td>
-                    <td><?php echo htmlspecialchars($row['task_name']); ?></td>
-                    <td><?php echo htmlspecialchars($row['start_time']); ?></td>
-                    <td><?php echo htmlspecialchars($row['end_time']); ?></td>
-                    <td>
-                        <?php if ($reportType === 'hoursWorked'): ?>
-                            <?php echo htmlspecialchars($row['total_hours']); ?>
-                        <?php elseif ($reportType === 'sickTime'): ?>
-                            <?php echo htmlspecialchars($row['sick_hours']); ?>
-                        <?php elseif ($reportType === 'timeOff'): ?>
-                            <?php echo htmlspecialchars($row['time_off_hours']); ?>
-                        <?php elseif ($reportType === 'hoursOvertime'): ?>
-                            <?php echo htmlspecialchars($row['overtime_hours']); ?>
+                    <th>Username</th>
+                    <th>Task Name</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <?php if ($reportType === 'hoursWorked') : ?>
+                        <th>Total Hours</th>
+                    <?php elseif ($reportType === 'sickTime') : ?>
+                        <th>Sick Hours</th>
+                    <?php elseif ($reportType === 'timeOff') : ?>
+                        <th>Time Off Hours</th>
                     <?php endif; ?>
-                    </td>
+                    <?php if ($reportType === 'hoursOvertime') : ?>
+                        <th>Overtime Hours</th>
+                    <?php endif; ?>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-<?php endif; ?>
+            </thead>
+            <tbody>
+                <?php foreach ($reportData as $row) : ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($row['username']); ?></td>
+                        <td><?php echo htmlspecialchars($row['task_name']); ?></td>
+                        <td><?php echo htmlspecialchars($row['start_time']); ?></td>
+                        <td><?php echo htmlspecialchars($row['end_time']); ?></td>
+                        <td>
+                            <?php if ($reportType === 'hoursWorked') : ?>
+                                <?php echo htmlspecialchars($row['total_hours']); ?>
+                            <?php elseif ($reportType === 'sickTime') : ?>
+                                <?php echo htmlspecialchars($row['sick_hours']); ?>
+                            <?php elseif ($reportType === 'timeOff') : ?>
+                                <?php echo htmlspecialchars($row['time_off_hours']); ?>
+                            <?php elseif ($reportType === 'hoursOvertime') : ?>
+                                <?php echo htmlspecialchars($row['overtime_hours']); ?>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
 </body>
+
 </html>

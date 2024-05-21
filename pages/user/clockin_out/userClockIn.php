@@ -12,19 +12,19 @@ if (isset($_SESSION['id'])) {
     $user = User::getUserById($_SESSION['id']);
 
     date_default_timezone_set('Africa/Lusaka');
-    $clockInTime = date("h:i a"); 
+    $clockInTime = date("h:i a");
     $clockInDay = date("d - m - Y");
 
     $userId = $_SESSION['id'];
     $username = $user['username'];
-
-
 } else {
     header("Location: login.php");
     exit();
 }
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,6 +33,7 @@ if (isset($_SESSION['id'])) {
     <link rel="stylesheet" href="../../../shared.css">
     <link rel="stylesheet" href="userClockIn.css">
 </head>
+
 <body>
     <?php include_once("../../../components/headerUser.inc.php"); ?>
 
@@ -48,4 +49,5 @@ if (isset($_SESSION['id'])) {
         <input class="clockin" type="submit" name="clockInButton" value="Clock in">
     </form>
 </body>
+
 </html>

@@ -1,18 +1,20 @@
 <?php
-    include_once(__DIR__ . DIRECTORY_SEPARATOR . "../Db.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../Db.php");
 
-    class Absence{
+class Absence
+{
         protected string $id;
         protected ?string $startDateTime;
         protected ?string $endDateTime;
         protected ?string $typeOfAbsence;
         protected ?string $reason;
 
-        public function __construct($startDateTime, $endDateTime, $typeOfAbsence, $reason){
-            $this->startDateTime = $startDateTime;
-            $this->endDateTime = $endDateTime;
-            $this->typeOfAbsence = $typeOfAbsence;
-            $this->reason = $reason;
+        public function __construct($startDateTime, $endDateTime, $typeOfAbsence, $reason)
+        {
+                $this->startDateTime = $startDateTime;
+                $this->endDateTime = $endDateTime;
+                $this->typeOfAbsence = $typeOfAbsence;
+                $this->reason = $reason;
         }
 
         //Set the value of id
@@ -79,4 +81,4 @@
         {
                 return $this->reason;
         }
-    }
+}

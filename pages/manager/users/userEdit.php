@@ -22,14 +22,14 @@ if (isset($_POST['save'])) {
     $email = $_POST["email"];
     $firstName = $_POST["firstName"];
     $lastName = $_POST["lastName"];
-   
+
     // Haal de huidige rol van de gebruiker op
     $currentUser = User::getUserById($id);
     $role = $currentUser['role'];
 
     $updateuser = new User($username, $firstName, $lastName, $role, $email, $location, null);
 
-    if (isset($_POST["img"])){
+    if (isset($_POST["img"])) {
         $image = 'data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name']));
     } else {
         $image = null;
@@ -40,7 +40,6 @@ if (isset($_POST['save'])) {
     header("Location: userInfo.php?id=$id");
     exit();
 }
-
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -55,9 +54,9 @@ if (isset($_POST['save'])) {
 </head>
 
 <body>
-<?php include_once("../../../components/headerUser.inc.php"); ?>
+    <?php include_once("../../../components/headerUser.inc.php"); ?>
     <section class="form_edit">
-    <form action="" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data">
 
             <h1>Edit user</h1>
 
@@ -92,9 +91,9 @@ if (isset($_POST['save'])) {
             </div>
 
             <!-- hier nog tasks toevoegen om te verander -->
-            
+
             <div class="form__field">
-                    <input type="submit" name="save" value="Save" class="btn-save">
+                <input type="submit" name="save" value="Save" class="btn-save">
             </div>
             <a class="button fixed-position" href="userId.php">Back</a>
         </form>
