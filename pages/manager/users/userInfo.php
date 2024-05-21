@@ -1,18 +1,15 @@
 <?php
 session_start();
-
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 
-if (isset($_SESSION['id'])) {
-    // Veronderstel dat de locatie-ID wordt opgeslagen in de sessie onder de sleutel 'location_id'
-    $locationId = $_SESSION['id'];
-    $users = User::getUsersByLocation($locationId); // Gebruik de juiste methode om gebruikers op te halen
-
-} else {
+if (!isset($_SESSION['id'])) {
     header("Location: login.php");
     exit();
 }
+
+$manager = Manager::getManagerById($_SESSION['id']);
 
 ?><!DOCTYPE html>
 <html lang="en">

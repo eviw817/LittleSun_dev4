@@ -1,6 +1,14 @@
 <?php
-
+session_start();
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
+
+if (!isset($_SESSION['id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$manager = Manager::getManagerById($_SESSION['id']);
 
 if (!empty($_POST)) {
     try {

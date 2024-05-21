@@ -10,8 +10,8 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Report.php");
 if ($_SESSION["id"]) {
     $managerInfo = Manager::getManagerById($_SESSION["id"]);
 } else {
-    echo "Error: Session is invalid, please log-in again";
-    exit;
+    header("Location: login.php");
+    exit();
 }
 
 $reportData = [];

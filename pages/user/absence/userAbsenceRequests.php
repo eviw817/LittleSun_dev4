@@ -2,6 +2,14 @@
 session_start();
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/absence/Request.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
+
+if (!isset($_SESSION['id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$manager = Manager::getManagerById($_SESSION['id']);
 
 if (!empty($_POST)) {
     try {
@@ -9,7 +17,7 @@ if (!empty($_POST)) {
         $endDateTime = ($_POST['endTime'] != null) ? $_POST['endDate'] . ' ' . $_POST['endTime'] : $_POST['endDate'] . ' 00:00:00';
         $request = new Request($startDateTime, $endDateTime, $_POST["typeOfAbsence"], $_POST["reasonType"]);
         $request->newRequest($_SESSION['id']);
-        header("Location: successMessage.php");
+        header("Location: userSuccessMessage.php");
         exit();
     } catch (Exception $e) {
         $error = $e->getMessage();

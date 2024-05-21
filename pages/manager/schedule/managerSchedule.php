@@ -41,7 +41,8 @@ if ($_SESSION["id"]) {
         $calendar->addEvent($event['startTime'], $event['endTime']);
     }
 } else {
-    echo "Error: Session is invalid, please log-in again";
+    header("Location: login.php");
+    exit();
 }
 ?><!DOCTYPE html>
 <html lang="en">

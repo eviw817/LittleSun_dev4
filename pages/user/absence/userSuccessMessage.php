@@ -10,7 +10,7 @@ $resultMessage = "Absence request submitted successfully.";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./succesMessage.css">
+    <link rel="stylesheet" href="./userSuccessMessage.css">
     <title>Success</title>
 </head>
 

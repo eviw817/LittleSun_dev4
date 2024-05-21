@@ -8,7 +8,12 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php
 $successMsg = null;
 $errorMsg = null;
 
-$managerInfo = Manager::getManagerById($_SESSION["id"]);
+if (!isset($_SESSION['id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$managerInfo = Manager::getManagerById($_SESSION['id']);
 $requests = Request::getAbsentRequests($managerInfo['location']);
 
 // Goedkeuren of afwijzen van verlofaanvragen

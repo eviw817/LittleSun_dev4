@@ -10,7 +10,8 @@ if ($_SESSION["id"]) {
     $managerInfo = Manager::getManagerById($_SESSION["id"]);
     $schedules = Schedules::getShiftsById($managerInfo['location'], new DateTime());
 } else {
-    echo "Error: Session is invalid, please log-in again";
+    header("Location: login.php");
+    exit();
 }
 
 $tasks = Task::getTasks(); // Array van taken

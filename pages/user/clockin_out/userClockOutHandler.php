@@ -5,6 +5,13 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Timetable.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
 
+if (!isset($_SESSION['id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$user = User::getUserById($_SESSION['id']);
+
 if (isset($_POST['clockOutButton'])) {
     $clockOutTime = isset($_POST['clockOutTime']) ? $_POST['clockOutTime'] : null;
     $userId = isset($_SESSION['id']) ? $_SESSION['id'] : null;

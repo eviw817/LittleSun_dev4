@@ -10,7 +10,8 @@ if ($_SESSION["id"]) {
     $userId = $_SESSION['id'];
     $schedules = Schedules::getShiftsByUser($userId, new DateTime());
 } else {
-    echo "Error: Session is invalid, please log-in again";
+    header("Location: login.php");
+    exit();
 }
 
 $tasks = Schedules::getTasks(); // Array van taken

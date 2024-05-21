@@ -1,7 +1,16 @@
 <?php
+session_start();
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Location.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Admin.php");
+
+if (!isset($_SESSION['id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$admin = Admin::getAdmin($_SESSION['id']);
 
 if (!empty($_POST)) {
     try {
