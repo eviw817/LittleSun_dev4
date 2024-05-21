@@ -4,6 +4,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/absence/Request.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/absence/Status.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Admin.php");
 
 $successMsg = null;
 $errorMsg = null;
@@ -13,6 +14,7 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 
+$admin = Admin::getAdmin($_SESSION['id']);
 $managerInfo = Manager::getManagerById($_SESSION['id']);
 $requests = Request::getAbsentRequests($managerInfo['location']);
 

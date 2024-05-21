@@ -3,8 +3,10 @@ session_start();
 
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Admin.php");
 
 if (isset($_SESSION['id'])) {
+    $admin = Admin::getAdmin($_SESSION['id']);
     $user = User::getUserById($_SESSION['id']);
     $userId = $_SESSION['id'];
     $task = task::getTaskById($_SESSION['id']);
