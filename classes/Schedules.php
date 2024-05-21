@@ -5,23 +5,17 @@ class Schedules
 {
     private $id;
     private $user_id;
-    private $user_name;
     private $task_id;
-    private $task_name;
     private $location_id;
-    private $location_name;
     private $schedule_date;
     private $startTime;
     private $endTime;
 
-    public function __construct($user_id, $user_name, $task_id, $task_name, $location_id, $location_name, $schedule_date, $startTime, $endTime)
+    public function __construct($user_id, $task_id, $location_id, $schedule_date, $startTime, $endTime)
     {
         $this->user_id = $user_id;
-        $this->user_name = $user_name;
         $this->task_id = $task_id;
-        $this->task_name = $task_name;
         $this->location_id = $location_id;
-        $this->location_name = $location_name;
         $this->schedule_date = $schedule_date;
         $this->startTime = new DateTime($startTime . ":00");
         $this->endTime = new DateTime($endTime . ":00");
@@ -70,26 +64,6 @@ class Schedules
     }
 
     /**
-     * Get the value of user_name
-     */
-    public function getUser_name()
-    {
-        return $this->user_name;
-    }
-
-    /**
-     * Set the value of user_name
-     *
-     * @return  self
-     */
-    public function setUser_name($user_name)
-    {
-        $this->user_name = $user_name;
-
-        return $this;
-    }
-
-    /**
      * Get the value of task_id
      */
     public function getTask_id()
@@ -110,26 +84,6 @@ class Schedules
     }
 
     /**
-     * Get the value of task_name
-     */
-    public function getTask_name()
-    {
-        return $this->task_name;
-    }
-
-    /**
-     * Set the value of task_name
-     *
-     * @return  self
-     */
-    public function setTask_name($task_name)
-    {
-        $this->task_name = $task_name;
-
-        return $this;
-    }
-
-    /**
      * Get the value of location_id
      */
     public function getLocation_id()
@@ -145,26 +99,6 @@ class Schedules
     public function setLocation_id($location_id)
     {
         $this->location_id = $location_id;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of location_name
-     */
-    public function getLocation_name()
-    {
-        return $this->location_name;
-    }
-
-    /**
-     * Set the value of location_name
-     *
-     * @return  self
-     */
-    public function setLocation_name($location_name)
-    {
-        $this->location_name = $location_name;
 
         return $this;
     }
@@ -243,6 +177,13 @@ class Schedules
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function getUsers()
+    {
+        $conn = Db::getConnection();
+        $statement = $conn->query("SELECT * FROM users");
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public static function getSchedules()
     {
         $conn = Db::getConnection();
@@ -255,8 +196,6 @@ class Schedules
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
-
     public function newShift()
     {
         if ($this->hasTimeOff()) {
@@ -267,16 +206,13 @@ class Schedules
         $conn = Db::getConnection();
 
         // Voorbereiden van de SQL-instructie
-        $statement = $conn->prepare("INSERT INTO schedules (user_id, user_name, task_id, task_name, location_id, location_name, schedule_date, start_time, end_time) 
-                                    VALUES (:user_id, :user_name, :task_id, :task_name, :location_id, :location_name, :schedule_date, :startTime, :endTime)");
+        $statement = $conn->prepare("INSERT INTO schedules (user_id, task_id, location_id, schedule_date, start_time, end_time) 
+                                    VALUES (:user_id, :task_id, :location_id, :schedule_date, :startTime, :endTime)");
 
         // Bind parameters aan de SQL-instructie
         $statement->bindValue(":user_id", $this->user_id);
-        $statement->bindValue(":user_name", $this->user_name);
         $statement->bindValue(":task_id", $this->task_id);
-        $statement->bindValue(":task_name", $this->task_name);
         $statement->bindValue(":location_id", $this->location_id);
-        $statement->bindValue(":location_name", $this->location_name);
         $statement->bindValue(":schedule_date", $this->schedule_date);
         $statement->bindValue(":startTime", $this->startTime->format('H:i:s'));
         $statement->bindValue(":endTime", $this->endTime->format('H:i:s'));
@@ -297,12 +233,12 @@ class Schedules
 
     public static function getShiftsById($locationId, $afterDate) {
         $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT s.*, t.name, t.description, u.firstName, u.lastName 
-            FROM shifts s 
+        $statement = $conn->prepare("SELECT s.*, t.name, u.username 
+            FROM schedules s 
             LEFT JOIN users u ON s.user_id = u.id 
             LEFT JOIN tasks t ON s.task_id = t.id 
-            WHERE u.location = :id and s.startTime > :afterDate
-            ORDER BY s.startTime ASC");
+            WHERE u.location = :id and s.start_time > :afterDate
+            ORDER BY s.start_time ASC");
         $statement -> bindValue(":id", $locationId, PDO::PARAM_INT);
         $statement -> bindValue(":afterDate", $afterDate->format('Y-m-d'));
         $statement -> execute();
@@ -311,7 +247,7 @@ class Schedules
 
 public static function getShiftsByUser($userId, $afterDate) {
     $conn = Db::getConnection();
-    $statement = $conn->prepare("SELECT s.*, t.name AS task_name, u.username AS user_name
+    $statement = $conn->prepare("SELECT s.*, t.name, u.username
         FROM schedules s 
         LEFT JOIN tasks t ON s.task_id = t.id
         LEFT JOIN users u ON s.user_id = u.id

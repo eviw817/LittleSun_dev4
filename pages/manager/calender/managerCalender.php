@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Schedules.php");
@@ -7,37 +6,38 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
 
-$tasks = Schedules::getTasks(); // Array van taken
+if($_SESSION["id"]){
+    $managerInfo = Manager::getManagerById($_SESSION["id"]);
+    $schedules = Schedules::getShiftsById($managerInfo['location'], new DateTime());
+} else {
+    echo "Error: Session is invalid, please log-in again";
+}
+
+$tasks = Task::getTasks(); // Array van taken
+$users = User::getAllUsers(); // Array van gebruikers
 $hubs = Schedules::getHubs();
 $timeSlots = range(8, 19); // 8am to 7pm
 
 // Assign task
 $message = "";
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['assign'])) {
-    $user_id = $_POST['user_id'];
-    $task_id = $_POST['task_id'];
-    $hub_id = $_POST['hub_id'];
-    $schedule_date = $_POST['schedule_date'];
-    $startTime = $_POST['start_time'];
-    $endTime = $_POST['end_time'];
-
-    $schedule = new Schedules($user_id, null, $task_id, null, $hub_id, null, $schedule_date, $startTime, $endTime);
+    $schedule = new Schedules($_POST['user_id'], $_POST['task_id'], $managerInfo['location'], $_POST['schedule_date'], $_POST['start_time'], $_POST['end_time']);
 
     $result = $schedule->newShift();
     //$message = $result === true ? "Shift assigned successfully." : $result;
     
     // Opnieuw ophalen van schema's na het toewijzen van de nieuwe dienst
-    $schedules = Schedules::getSchedules();
+    $schedules = Schedules::getShiftsById($managerInfo['location'], new DateTime());
     
     $events = [];
     foreach ($schedules as $schedule) {
         $event = [
-            'user_name' => $schedule['user_name'],
-            'task_name' => $schedule['task_name'],
-            'location_name' => $schedule['location_name'],
+            'user_id' => $schedule['user_id'],
+            'task_id' => $schedule['task_id'],
+            'location_id' => $managerInfo['location'],
             'schedule_date' => $schedule['schedule_date'],
-            'startTime' => $schedule['startTime'],
-            'endTime' => $schedule['endTime']
+            'start_time' => $schedule['start_time'],
+            'end_time' => $schedule['end_time']
         ];
         $events[] = $event;
     }
@@ -48,17 +48,6 @@ usort($events, function($a, $b) {
     return strtotime($a['schedule_date']) - strtotime($b['schedule_date']);
 });
 }
-
-if($_SESSION["id"]){
-    $managerInfo = Manager::getManagerById($_SESSION["id"]);
-    $events = Schedules::getShiftsById($managerInfo['location'], new DateTime());
-} else {
-    echo "Error: Session is invalid, please log-in again";
-}
-
-
-// Fetch schedule
-$schedules = Schedules::getSchedules();
 
 function generateDaysForMonth($year, $month) {
     $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
@@ -82,7 +71,6 @@ $nextWeek = (clone $firstDayOfWeek)->modify('+1 week');
 
 $prevWeekUrl = "?view=weekly&year=" . $prevWeek->format('Y') . "&month=" . $prevWeek->format('m') . "&day=" . $prevWeek->format('d');
 $nextWeekUrl = "?view=weekly&year=" . $nextWeek->format('Y') . "&month=" . $nextWeek->format('m') . "&day=" . $nextWeek->format('d');
-
 
 $prevMonth = $month - 1;
 $nextMonth = $month + 1;
@@ -162,12 +150,6 @@ if ($view === 'daily') {
                         <option value="<?php echo $task['id']; ?>"><?php echo $task['name']; ?></option>
                     <?php endforeach; ?>
                 </select>
-                <label for="hub_id">Hub:</label>
-                <select name="hub_id" id="hub_id" required>
-                    <?php foreach ($hubs as $hub): ?>
-                        <option value="<?php echo $hub['id']; ?>"><?php echo $hub['name']; ?></option>
-                    <?php endforeach; ?>
-                </select>
                 <label for="schedule_date">Schedule date:</label>
                 <input type="date" name="schedule_date" id="schedule_date" required>
                 <label for="start_time">Start time:</label>
@@ -192,6 +174,7 @@ if ($view === 'daily') {
             </div>
         </div>
     </form>
+    
     <div id="header">
         <a class="buttons" href="<?php echo $prevMonthUrl; ?>">&laquo; Previous</a>
         <h1><?php echo date('F Y', strtotime("$year-$month-01")); ?></h1>
@@ -340,10 +323,10 @@ if ($view === 'daily') {
                     $scheduleDate = new DateTime($schedule['schedule_date']);
                     if ($scheduleDate->format('Y-m-d') === $currentDate->format('Y-m-d')) {
                         echo '<div class="event" style="margin-top: 10px; margin-left: -10px; padding-right:110px;">';
-                        echo $schedule['task_name'] . '<br>';
-                        echo $schedule['user_name'] . '<br>';
-                        echo $schedule['startTime'] . '<br>';
-                        echo $schedule['endTime'];
+                        echo $schedule["name"] . '<br>';
+                        echo $schedule["username"] . '<br>';
+                        echo $schedule['start_time'] . '<br>';
+                        echo $schedule['end_time'];
                         echo '</div>';
                     }
                 }
