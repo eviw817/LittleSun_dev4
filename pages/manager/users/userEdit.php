@@ -25,20 +25,13 @@ if (isset($_GET['id'])) {
 }
 
 if (isset($_POST['save'])) {
-    $location = ($_POST['location'] == "-1") ? null : $_POST['location'];
-    $username = $_POST["username"];
-    $email = $_POST["email"];
-    $firstName = $_POST["firstName"];
-    $lastName = $_POST["lastName"];
-
     // Haal de huidige rol van de gebruiker op
     $currentUser = User::getUserById($id);
-    $role = $currentUser['role'];
 
-    $updateuser = new User($username, $firstName, $lastName, $role, $email, $location, null);
+    $updateuser = new User($_POST["username"], $_POST["email"], null, $currentUser['role'], ($_POST['location'] == "-1") ? null : $_POST['location'], $_POST["firstName"], $_POST["lastName"]);
 
-    if (isset($_POST["img"])) {
-        $image = 'data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name']));
+    if ($_FILES["img"]["size"]>0) {
+        $updateuser -> setImage('data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])));
     } else {
         $image = null;
     }
@@ -86,6 +79,12 @@ if (isset($_POST['save'])) {
             <div class="form__field">
                 <label for="email">Email:</label>
                 <input type="text" name="email" value="<?php echo isset($user['email']) ? $user['email'] : ''; ?>">
+            </div>
+
+            
+            <div class="form__field">
+                <label for="img">Select image:</label>
+                <input type="file" id="img" name="img" accept="image/jpg, png">
             </div>
 
             <div class="form__field">

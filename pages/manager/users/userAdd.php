@@ -13,9 +13,9 @@ $manager = Manager::getManagerById($_SESSION['id']);
 if (!empty($_POST)) {
     try {
         $username = $_POST["firstName"] . '.' . $_POST["lastName"];
-        $user = new User($username, $_POST["email"], $_POST["password"], "user", $_POST["location"], $_POST["firstName"], $_POST["lastName"]);
+        $user = new User($username, $_POST["email"], $_POST["password"], "user", $manager["location"], $_POST["firstName"], $_POST["lastName"]);
 
-        if (isset($_POST["img"])) {
+        if ($_FILES["img"]["size"]>0) {
             $user->setImage('data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])));
         }
 

@@ -10,8 +10,6 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 
-$admin = Admin::getAdmin($_SESSION['id']);
-
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $manager = Manager::getManagerById($id);
@@ -38,7 +36,7 @@ if (isset($_POST['save'])) {
         $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
     }
     
-    if (isset($_POST["img"])) {
+    if ($_FILES["img"]["size"]>0) {
         $updatemanager->setImage('data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])));
     }
 

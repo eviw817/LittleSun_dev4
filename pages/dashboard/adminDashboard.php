@@ -33,11 +33,17 @@ $admin = Admin::getAdmin($_SESSION['id']);
 
             <h2>Admin pages</h2>
 
-            <a class="link" href="../admin/locations/locationList.php">Hub locations</a>
+            <a class="link" href="../admin/locations/locationList.php">Location list</a>
 
-            <a class="link" href="../admin/managers/managerList.php">Hub managers</a>
+            <a class="link" href="../admin/managers/managerList.php">Manager list</a>
 
             <a class="link" href="../admin/tasks/taskList.php">Task list</a>
+
+            <a class="link" href="../admin/users/userList.php">User list</a>
+
+            <a class="link" href="../admin/locations/locationList.php">Calendar</a>
+
+            <a class="link" href="../admin/locations/managerReports.php">Reports</a>
 
         </section>
 

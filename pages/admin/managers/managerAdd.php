@@ -16,27 +16,8 @@ if (!empty($_POST)) {
     try {
         $username = $_POST["firstName"] . '.' . $_POST["lastName"];
         $manager = new Manager($username, $_POST['email'], $_POST['password'], $_POST['role'], $_POST['location'], $_POST['firstName'], $_POST['lastName']);
-        if (!empty($_FILES['img']['tmp_name'])) {
-            // Controleer of het bestand een afbeelding is
-            $check = getimagesize($_FILES['img']['tmp_name']);
-            if ($check !== false) {
-                // Verplaats het geüploade bestand naar een tijdelijke map op de server
-                $temp_file = $_FILES["img"]["tmp_name"];
-
-                // Lees het geüploade bestand in
-                $img_content = file_get_contents($temp_file);
-
-                // Hier kun je de afbeelding in de database opslaan
-                // Maak een databaseverbinding en voer de juiste SQL-query uit
-                // Bijvoorbeeld:
-                // $conn = new PDO('mysql:host=localhost;dbname=your_database', 'username', 'password');
-                // $statement = $conn-&gt;prepare("INSERT INTO images (image_data) VALUES (:image_data)");
-                // $statement-&gt;bindParam(':image_data', $img_content, PDO::PARAM_LOB);
-                // $statement-&gt;execute();
-            } else {
-                // Geef een foutmelding als het geüploade bestand geen afbeelding is
-                echo "File is not an image.";
-            }
+        if ($_FILES["img"]["size"]>0) {
+            $manager->setImage('data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])));
         }
         $manager->newManager();
 
