@@ -36,7 +36,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "ParentUser.php");
         public static function getUserById($userId)
         {
             $conn = Db::getConnection();
-            $statement = $conn->prepare("SELECT u.*, l.name FROM users u LEFT JOIN locations l ON u.location = l.id WHERE u.id = :id AND role = 'user'");
+            $statement = $conn->prepare("SELECT u.*, l.id, l.name FROM users u LEFT JOIN locations l ON u.location = l.id WHERE u.id = :id AND role = 'user'");
             $statement->execute([":id" => $userId]);
             $result = $statement->fetch(PDO::FETCH_ASSOC);
             return $result;

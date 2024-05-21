@@ -187,7 +187,7 @@ class Schedules
     public static function getSchedules()
     {
         $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT s.*, u.username AS user_name, t.name AS task_name, l.name AS location_name, s.start_time AS startTime, s.end_time AS endTime
+        $statement = $conn->prepare("SELECT s.*, u.username, t.name, l.name
                                     FROM schedules s
                                     JOIN users u ON u.id = s.user_id
                                     JOIN tasks t ON t.id = s.task_id
@@ -195,6 +195,19 @@ class Schedules
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public static function getSheduleById($scheduleId)
+        {
+            $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT s.*, u.id, u.username, t.id, t.name, l.id, l.name
+                                    FROM schedules s
+                                    JOIN users u ON u.id = s.user_id
+                                    JOIN tasks t ON t.id = s.task_id
+                                    JOIN locations l ON l.id = s.location_id
+                                    WHERE s.id = :id");
+        $statement->execute([":id" => $scheduleId]);
+        return $statement->fetch(PDO::FETCH_ASSOC);
+        }
 
     public function newShift()
     {

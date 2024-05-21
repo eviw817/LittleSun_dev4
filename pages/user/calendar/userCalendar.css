@@ -214,9 +214,9 @@ padding-left: 10px;
 
 
 .event {
-background-color: #007bff;
+background-color: var(--color-primary);
 font-size: 14px;
-color: white;
+color: var(--color-black);
 border-radius: 3px;
 position: absolute;
 width: calc(100% - 10px); 
