@@ -225,6 +225,7 @@ width: calc(100% - 16px);
 box-sizing: border-box;
 padding: 4px; 
 margin-top: 20px;
+text-decoration: none;
 }
 
 .flex {

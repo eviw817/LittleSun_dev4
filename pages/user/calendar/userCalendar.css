@@ -212,16 +212,19 @@ align-items: flex-start;
 padding-left: 10px; 
 }
 
-
 .event {
-background-color: var(--color-primary);
-font-size: 14px;
-color: var(--color-black);
-border-radius: 3px;
-position: absolute;
-width: calc(100% - 10px); 
-box-sizing: border-box; 
+    background-color: var(--color-primary);
+    font-size: 14px;
+    color: var(--color-black);
+    border-radius: 3px;
+    position: absolute;
+    width: calc(100% - 16px); 
+    box-sizing: border-box;
+    padding: 4px; 
+    margin-top: 20px;
+    text-decoration: none;
 }
+
 .flex {
 display: flex;
 flex-direction: row;

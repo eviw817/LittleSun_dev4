@@ -205,8 +205,8 @@ if ($view === 'daily') {
                             <?php
                             $scheduleDate = new DateTime($schedule['schedule_date']);
                             if ($scheduleDate->format('Y-m-d') === sprintf('%04d-%02d-%02d', $year, $month, $day)):
-                                $startTime = strtotime($schedule['startTime']);
-                                $endTime = strtotime($schedule['endTime']);
+                                $startTime = strtotime($schedule['start_time']);
+                                $endTime = strtotime($schedule['end_time']);
                                 if ($endTime <= $startTime) {
                                     $endTime = strtotime('+1 hour', $startTime);
                                 }
@@ -220,8 +220,8 @@ if ($view === 'daily') {
                                 <a class="event" href="managerEventInfo.php?id=<?php echo $schedule["id"] ?>" style="top: <?php echo $top; ?>px; height: <?php echo $height; ?>px;">
                                     <?php echo $schedule['name']; ?><br><br>
                                     <?php echo $schedule['username']; ?><br><br>
-                                    <?php echo $schedule['startTime']; ?><br>
-                                    <?php echo $schedule['endTime']; ?>
+                                    <?php echo $schedule['start_time']; ?><br>
+                                    <?php echo $schedule['end_time']; ?>
                                 </a>
                             <?php endif; ?>
                         <?php endforeach; ?>
@@ -264,8 +264,8 @@ if ($view === 'daily') {
                         foreach ($schedules as $schedule):
                             $scheduleDate = new DateTime($schedule['schedule_date']);
                             if ($scheduleDate->format('Y-m-d') === $currentDay->format('Y-m-d')):
-                                $startTime = strtotime($schedule['startTime']);
-                                $endTime = strtotime($schedule['endTime']);
+                                $startTime = strtotime($schedule['start_time']);
+                                $endTime = strtotime($schedule['end_time']);
                                 if ($endTime <= $startTime) {
                                     $endTime = strtotime('+1 hour', $startTime);
                                 }
@@ -306,32 +306,32 @@ if ($view === 'daily') {
         </div>
         <div id="month">
             <?php
-$currentDate = new DateTime($year . '-' . $month . '-01');
-$daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-$firstDayOfWeek = $currentDate->format('N');
+                $currentDate = new DateTime($year . '-' . $month . '-01');
+                $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+                $firstDayOfWeek = $currentDate->format('N');
 
-for ($i = 1; $i < $firstDayOfWeek; $i++): ?>
-    <div class="empty-day"></div>
-<?php endfor;
+                for ($i = 1; $i < $firstDayOfWeek; $i++): ?>
+                    <div class="empty-day"></div>
+                <?php endfor;
 
-for ($day = 1; $day <= $daysInMonth; $day++):
-    $currentDate->setDate($year, $month, $day);
-    $currentDayOfWeek = $currentDate->format('N'); ?>
-    <div class="day">
-        <em><?= $day ?></em>
-        <?php foreach ($schedules as $schedule):
-            $scheduleDate = new DateTime($schedule['schedule_date']);
-            if ($scheduleDate->format('Y-m-d') === $currentDate->format('Y-m-d')): ?>
-                <a class="event" href="managerEventInfo.php?id=<?= $schedule["id"] ?>" style="top: <?= $top ?>px; height: <?= $height ?>px;">
-                    <?= $schedule["name"] ?><br>
-                    <?= $schedule["username"] ?><br>
-                    <?= $schedule['start_time'] ?><br>
-                    <?= $schedule['end_time'] ?>
-                </a>
-            <?php endif;
-        endforeach; ?>
-    </div>
-<?php endfor; ?>
+                for ($day = 1; $day <= $daysInMonth; $day++):
+                    $currentDate->setDate($year, $month, $day);
+                    $currentDayOfWeek = $currentDate->format('N'); ?>
+                    <div class="day">
+                        <em><?= $day ?></em>
+                        <?php foreach ($schedules as $schedule):
+                            $scheduleDate = new DateTime($schedule['schedule_date']);
+                            if ($scheduleDate->format('Y-m-d') === $currentDate->format('Y-m-d')): ?>
+                                <a class="event" href="managerEventInfo.php?id=<?= $schedule["id"] ?>" style="top: <?= $top ?>px; height: <?= $height ?>px;">
+                                    <?= $schedule["name"] ?><br>
+                                    <?= $schedule["username"] ?><br>
+                                    <?= $schedule['start_time'] ?><br>
+                                    <?= $schedule['end_time'] ?>
+                                </a>
+                            <?php endif;
+                        endforeach; ?>
+                    </div>
+                <?php endfor; ?>
         </div>
     <?php endif; ?>
 </main>
