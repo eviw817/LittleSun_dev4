@@ -4,7 +4,8 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
    
     if(!empty($_POST)){
         try {
-            $user = new User($_POST["username"], $_POST["email"], $_POST["password"], "user", $_POST["location"], $_POST["firstName"], $_POST["lastName"]);
+            $username = $_POST["firstName"] . '.' . $_POST["lastName"];
+            $user = new User($username, $_POST["email"], $_POST["password"], "user", $_POST["location"], $_POST["firstName"], $_POST["lastName"]);
          
             if(isset($_POST["img"])){
                 $user->setImage('data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])));
@@ -43,11 +44,6 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
     <div class="form new_user">
 		<form action="userAdd.php" method="post" enctype="multipart/form-data">
 			<h2 form__title>New user</h2>
-            
-            <div class="form__field">
-                <label for="username">Username:</label>
-                <input type="text" name="username" id="username">
-            </div>
             <div class="form__field">
                 <label for="firstName">Firstname:</label>
                 <input type="text" name="firstName" id="firstName">

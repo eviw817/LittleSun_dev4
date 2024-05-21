@@ -5,7 +5,8 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Location.php");
 
 if (!empty($_POST)) {
     try {
-        $manager = new Manager($_POST['username'], $_POST['email'], $_POST['password'], $_POST['role'], $_POST['location'], $_POST['firstName'], $_POST['lastName']);
+        $username = $_POST["firstName"] . '.' . $_POST["lastName"];
+        $manager = new Manager($username, $_POST['email'], $_POST['password'], $_POST['role'], $_POST['location'], $_POST['firstName'], $_POST['lastName']);
         if (!empty($_FILES['img']['tmp_name'])) {
             // Controleer of het bestand een afbeelding is
             $check = getimagesize($_FILES['img']['tmp_name']);
@@ -70,11 +71,6 @@ if (!empty($_POST)) {
                     <div class="form__field">
                         <label for="lastName">Lastname:</label>
                         <input type="text" id="lastName" name="lastName" required>
-                    </div>
-
-                    <div class="form__field">
-                        <label for="username">Username:</label>
-                        <input type="text" id="username" name="username" required>
                     </div>
 
                     <div class="form__field">
