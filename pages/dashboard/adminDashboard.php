@@ -41,9 +41,9 @@ $admin = Admin::getAdmin($_SESSION['id']);
 
             <a class="link" href="../admin/users/userList.php">User list</a>
 
-            <a class="link" href="../admin/locations/locationList.php">Calendar</a>
+            <a class="link" href="../admin/calendar/adminCalendar.php">Calendar</a>
 
-            <a class="link" href="../admin/locations/managerReports.php">Reports</a>
+            <a class="link" href="../admin/reports/adminReports.php">Reports</a>
 
         </section>
 

@@ -1,7 +1,7 @@
 <?php
 include_once("bootstrap.php");
 
-header("Location: login.php");
+header("Location: ./pages/login_logout/login.php");
 exit;
 
 ?>

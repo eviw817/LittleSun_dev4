@@ -7,8 +7,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
 
 if ($_SESSION["id"]) {
-    $managerInfo = Manager::getManagerById($_SESSION["id"]);
-    $schedules = Schedules::getSchedules($managerInfo['location'], new DateTime());
+    $schedules = Schedules::getSchedulesForAdmin(new DateTime());
 } else {
     header("Location: login.php");
     exit();
@@ -114,16 +113,15 @@ if ($view === 'daily') {
     <title>Calendar manager</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./managerCalendar.css">
+    <link rel="stylesheet" href="./adminCalendar.css">
 </head>
 
 <body>
-    <?php include_once("../../../components/headerManager.inc.php"); ?>
+    <?php include_once("../../../components/headerAdmin.inc.php"); ?>
     <main>
         <div class="nav">
             <div class="agenda-info">
                 <h1>Calender</h1>
-                <h2><?php echo $managerInfo['name']; ?></h2>
                 <a href="<?php date("d/m/y"); ?>">Today: <?php echo date("d/m/y"); ?></a>
             </div>
         </div>
@@ -219,7 +217,7 @@ if ($view === 'daily') {
                                     $top = (($startHour - 8) * 2 * 30) + ($startMinute / 30 * 30);
                                     $height = (($endHour - $startHour) * 2 + ($endMinute - $startMinute) / 30) * 30;
                                 ?>
-                                    <a class="event" href="managerEventInfo.php?id=<?php echo $schedule["id"] ?>" style="top: <?php echo $top; ?>px; height: <?php echo $height; ?>px;">
+                                    <a class="event" href="adminEventInfo.php?id=<?php echo $schedule["id"] ?>" style="top: <?php echo $top; ?>px; height: <?php echo $height; ?>px;">
                                         <?php echo $schedule['name']; ?><br><br>
                                         <?php echo $schedule['username']; ?><br><br>
                                         <?php echo $schedule['start_time']; ?><br>
@@ -278,7 +276,7 @@ if ($view === 'daily') {
                                     $top = (($startHour - 8) * 1.6 * 30) + ($startMinute / 30 * 30);
                                     $height = (($endHour - $startHour) * 1.6 + ($endMinute - $startMinute) / 30) * 30;
                             ?>
-                                    <a class="event" href="managerEventInfo.php?id=<?php echo $schedule["id"] ?>" style="top: <?php echo $top; ?>px; height: <?php echo $height; ?>px;">
+                                    <a class="event" href="adminEventInfo.php?id=<?php echo $schedule["id"] ?>" style="top: <?php echo $top; ?>px; height: <?php echo $height; ?>px;">
                                         <?php echo $schedule["name"]; ?><br><br>
                                         <?php echo $schedule['username']; ?><br><br>
                                         <?php echo $schedule['start_time']; ?><br>
@@ -324,7 +322,7 @@ if ($view === 'daily') {
                         <?php foreach ($schedules as $schedule) :
                             $scheduleDate = new DateTime($schedule['schedule_date']);
                             if ($scheduleDate->format('Y-m-d') === $currentDate->format('Y-m-d')) : ?>
-                                <a class="event" href="managerEventInfo.php?id=<?= $schedule["id"] ?>" style="top: <?= $top ?>px; height: <?= $height ?>px;">
+                                <a class="event" href="adminEventInfo.php?id=<?= $schedule["id"] ?>" style="top: <?= $top ?>px; height: <?= $height ?>px;">
                                     <?= $schedule["name"] ?><br>
                                     <?= $schedule["username"] ?><br>
                                     <?= $schedule['start_time'] ?><br>

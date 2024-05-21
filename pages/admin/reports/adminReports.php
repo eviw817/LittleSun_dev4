@@ -7,23 +7,15 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Report.php");
 
-if ($_SESSION["id"]) {
-    $managerInfo = Manager::getManagerById($_SESSION["id"]);
-} else {
+if (!isset($_SESSION['id'])) {
     header("Location: login.php");
     exit();
 }
 
 $reportData = [];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $reportType = $_POST['report_type'];
-    $startDate = $_POST['start_date'];
-    $endDate = $_POST['end_date'];
-    $userId = $_POST['user_id'] ?? null;
-    $taskId = $_POST['task_id'] ?? null;
-
     try {
-        $reportData = Report::generateReport($reportType, $startDate, $endDate, $userId, $taskId);
+        $reportData = Report::generateReport($_POST['report_type'], $_POST['start_date'], $_POST['end_date'], $_POST['user_id'] ?? null, $_POST['task_id'] ?? null);
     } catch (Exception $e) {
         $error = $e->getMessage();
     }
@@ -35,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generate Reports</title>
-    <link rel="stylesheet" href="managerReports.css">
+    <link rel="stylesheet" href="adminReports.css">
 </head>
 
 <body>
@@ -58,8 +50,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <label for="user_id">User (if applicable):</label>
         <select name="user_id" id="user_id">
             <option value="">Select User</option>
-            <?php foreach (User::getUsersByLocationAndRequests($managerInfo["location"]) as $user) : ?>
+            <?php foreach (User::getAllUsers() as $user) : ?>
                 <option value="<?php echo $user["id"]; ?>"><?php echo $user['username']; ?></option>
+            <?php endforeach; ?>
+            <?php foreach (Manager::getAllManagers() as $manager) : ?>
+                <option value="<?php echo $manager["id"]; ?>"><?php echo $manager['username']; ?></option>
             <?php endforeach; ?>
         </select>
         <label for="task_id">Task Type (if applicable):</label>

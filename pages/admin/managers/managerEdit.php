@@ -23,15 +23,7 @@ if (isset($_GET['id'])) {
 }
 
 if (isset($_POST['save'])) {
-    $location = ($_POST['location'] == "-1") ? null : $_POST['location'];
-    $username = $_POST["username"];
-    $email = $_POST["email"];
-    $newPassword = $_POST["new-password"];
-    $role = $_POST["role"];
-    $firstName = $_POST["firstName"];
-    $lastName = $_POST["lastName"];
-
-    $updatemanager = new Manager($username, $email, $newPassword, $role, $location, $firstName, $lastName);
+    $updatemanager = new Manager($_POST["username"], $_POST["email"], $_POST["new-password"], "manager", ($_POST['location'] == "-1") ? null : $_POST['location'], $_POST["firstName"], $_POST["lastName"]);
     if (!empty($newPassword)) {
         $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
     }
@@ -79,11 +71,6 @@ if (isset($_POST['save'])) {
             <div class="form__field">
                 <label for="new-password">Password:</label>
                 <input type="password" name="new-password" value="">
-            </div>
-
-            <div class="form__field">
-                <label for="role">Role:</label>
-                <input type="text" name="role" value="<?php echo isset($manager['role']) ? $manager['role'] : ''; ?>">
             </div>
 
             <div class="form__field">

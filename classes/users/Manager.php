@@ -85,4 +85,11 @@ class Manager extends ParentUser
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public static function getAllManagers()
+    {
+        $conn = Db::getConnection();
+        $statement = $conn->query("SELECT * FROM users u WHERE role = 'manager'");
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

@@ -195,6 +195,18 @@ class Schedules
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function getSchedulesForAdmin()
+    {
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT s.*, u.username, t.name, l.name
+                                    FROM schedules s
+                                    JOIN users u ON u.id = s.user_id
+                                    JOIN tasks t ON t.id = s.task_id
+                                    JOIN locations l ON l.id = s.location_id");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public static function getSheduleById($scheduleId)
     {
         $conn = Db::getConnection();

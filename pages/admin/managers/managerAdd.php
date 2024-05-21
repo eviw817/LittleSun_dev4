@@ -15,7 +15,7 @@ $admin = Admin::getAdmin($_SESSION['id']);
 if (!empty($_POST)) {
     try {
         $username = $_POST["firstName"] . '.' . $_POST["lastName"];
-        $manager = new Manager($username, $_POST['email'], $_POST['password'], $_POST['role'], $_POST['location'], $_POST['firstName'], $_POST['lastName']);
+        $manager = new Manager($username, $_POST['email'], $_POST['password'], "manager", $_POST['location'], $_POST['firstName'], $_POST['lastName']);
         if ($_FILES["img"]["size"]>0) {
             $manager->setImage('data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])));
         }
@@ -69,10 +69,6 @@ if (!empty($_POST)) {
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
                 </div>
-                <div class="form__field">
-                    <label for="role">Role:</label>
-                    <input type="text" id="role" name="role" value="manager" required>
-
 
                     <div class="form__field">
                         <label class="location" for="location">Hub location</label>
