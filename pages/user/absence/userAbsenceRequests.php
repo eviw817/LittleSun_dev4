@@ -25,7 +25,7 @@ if(!empty($_POST)){
     <title>Request Absence</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./absenceRequests.css">
+    <link rel="stylesheet" href="./userAbsenceRequests.css">
 </head>
 <body>
 <?php include_once("../../../components/headerUser.inc.php"); ?>

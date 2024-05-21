@@ -46,7 +46,7 @@ if (!empty($_POST)) {
     <title>Manager Dashboard</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./approveDecline.css">
+    <link rel="stylesheet" href="./managerApproveDecline.css">
 </head>
 <body>
 <?php include_once("../../../components/headerManager.inc.php"); ?>

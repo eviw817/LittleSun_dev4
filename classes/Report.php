@@ -22,7 +22,7 @@ class Report
                 }
                 break;
         case 'hoursOvertime':
-            $query = "SELECT u.username, t.name AS task_name, wl.clock_in_time AS start_time, wl.clock_out_time AS end_time, TIMESTAMPDIFF(HOUR, wl.clock_in_time, wl.clock_out_time) - 40 AS overtime_hours 
+            $query = "SELECT u.username, t.name AS task_name, wl._in_time AS start_time, wl.clock_out_time AS end_time, TIMESTAMPDIFF(HOUR, wl.clock_in_time, wl.clock_out_time) - 40 AS overtime_hours 
                     FROM work_logs wl
                     JOIN users u ON u.id = wl.userId
                     JOIN tasks t ON t.id = s.task_id

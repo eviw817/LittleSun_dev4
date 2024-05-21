@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Db.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Schedules.php");
@@ -23,25 +24,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['assign'])) {
     $schedule = new Schedules($user_id, null, $task_id, null, $hub_id, null, $schedule_date, $startTime, $endTime);
 
     $result = $schedule->newShift();
-    $message = $result === true ? "Shift assigned successfully." : $result;
+    //$message = $result === true ? "Shift assigned successfully." : $result;
+    
+    // Opnieuw ophalen van schema's na het toewijzen van de nieuwe dienst
+    $schedules = Schedules::getSchedules();
+    
+    $events = [];
+    foreach ($schedules as $schedule) {
+        $event = [
+            'user_name' => $schedule['user_name'],
+            'task_name' => $schedule['task_name'],
+            'location_name' => $schedule['location_name'],
+            'schedule_date' => $schedule['schedule_date'],
+            'startTime' => $schedule['startTime'],
+            'endTime' => $schedule['endTime']
+        ];
+        $events[] = $event;
+    }
+    
+
+// Sorteer de gebeurtenissen op datum
+usort($events, function($a, $b) {
+    return strtotime($a['schedule_date']) - strtotime($b['schedule_date']);
+});
 }
 
-
-if (isset($_SESSION["id"])) {
-    $userId = $_SESSION["id"];
-    $afterDate = new DateTime();  // Current date and time
-    $shifts = Schedules::getShiftsByUser($userId, $afterDate);
-    // Process and display $shifts as needed
+if($_SESSION["id"]){
+    $managerInfo = Manager::getManagerById($_SESSION["id"]);
+    $events = Schedules::getShiftsById($managerInfo['location'], new DateTime());
 } else {
     echo "Error: Session is invalid, please log-in again";
-    exit;
 }
+
 
 // Fetch schedule
 $schedules = Schedules::getSchedules();
 
-function generateDaysForMonth($year, $month)
-{
+function generateDaysForMonth($year, $month) {
     $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
     $days = [];
 
@@ -89,23 +108,91 @@ $prevDayUrl = "?view=$view&year=$year&month=$month&day=$prevDay";
 $nextDayUrl = "?view=$view&year=$year&month=$month&day=$nextDay";
 
 $allDaysThisMonth = generateDaysForMonth($year, $month);
+
+if ($view === 'daily') {
+    // Sorteer $schedules op basis van de dag
+    usort($schedules, function($a, $b) {
+        return strtotime($a['schedule_date']) - strtotime($b['schedule_date']);
+    });
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendar user</title>
+    <title>Calendar manager</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
-    <link rel="stylesheet" href="./calender2.css">
-
+    <link rel="stylesheet" href="./managerCalendar.css">
 </head>
 <body>
-<?php include_once("../../../components/headerUser.inc.php"); ?>
+<?php include_once("../../../components/headerManager.inc.php"); ?>
 <main>
-<div id="header">
+    <div class="nav">
+        <div class="agenda-info">
+            <h1>Calender</h1>
+            <h2><?php echo $managerInfo['name']; ?></h2>
+            <a href="<?php date("d/m/y"); ?>">Today: <?php echo date("d/m/y"); ?></a>
+        </div>
+    </div>
+    <?php if ($message): ?>
+        <p><?php echo $message; ?></p>
+    <?php endif; ?>
+    <form method="POST">
+        <a class="newShift" href="#popup">New Shift</a>
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                <h1>Assign Task</h1>
+                <a href="#" class="close">&times;</a>
+                <div class="hub">
+                    <p>Hub:</p>
+                    <p><?php echo $managerInfo['name']; ?></p>
+                </div>
+                <label for="user_id">User:</label>
+                <select name="user_id" id="user_id">
+                    <?php foreach (User::getUsersByLocationAndRequests($managerInfo["location"]) as $user) : ?>
+                        <option value="<?php echo $user["id"]; ?>"><?php echo $user['username']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <label for="task_id">Task:</label>
+                <select name="task_id" id="task_id" required>
+                    <?php foreach ($tasks as $task): ?>
+                        <option value="<?php echo $task['id']; ?>"><?php echo $task['name']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <label for="hub_id">Hub:</label>
+                <select name="hub_id" id="hub_id" required>
+                    <?php foreach ($hubs as $hub): ?>
+                        <option value="<?php echo $hub['id']; ?>"><?php echo $hub['name']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <label for="schedule_date">Schedule date:</label>
+                <input type="date" name="schedule_date" id="schedule_date" required>
+                <label for="start_time">Start time:</label>
+                <select name="start_time" id="start_time" required>
+                    <?php for($i = 8; $i <= 19; $i++): ?>
+                        <?php $time = sprintf("%02d:00", $i); ?>
+                        <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
+                        <?php $time = sprintf("%02d:30", $i); ?>
+                        <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
+                    <?php endfor; ?>
+                </select>
+                <label for="end_time">End time:</label>
+                <select name="end_time" id="end_time" required>
+                    <?php for($i = 8; $i <= 19; $i++): ?>
+                        <?php $time = sprintf("%02d:00", $i); ?>
+                        <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
+                        <?php $time = sprintf("%02d:30", $i); ?>
+                        <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
+                    <?php endfor; ?>
+                </select>
+                <button class="button" type="submit" name="assign">Assign</button>
+            </div>
+        </div>
+    </form>
+    <div id="header">
         <a class="buttons" href="<?php echo $prevMonthUrl; ?>">&laquo; Previous</a>
         <h1><?php echo date('F Y', strtotime("$year-$month-01")); ?></h1>
         <a class="buttons" href="<?php echo $nextMonthUrl; ?>">Next &raquo;</a>
