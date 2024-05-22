@@ -14,7 +14,7 @@ $manager = Manager::getManagerById($_SESSION['id']);
 
 $error = null;
 $task = Task::getTaskById($_GET["id"]);
-$users = User::getAllUsers();
+$users = User::getUsersByLocation($manager["location"]);
 if (!isset($task)) {
     $error = "The asked task doesn't exist";
 }
@@ -57,15 +57,6 @@ if (isset($_POST['submit'])) {
                 <p> Category: <?php if ($task) {
                                     echo $task["category"];
                                 } ?></p>
-                <!-- <p> Progress: <?php if ($task) {
-                                        echo $task["progress"];
-                                    } ?></p>
-        <p> Start Date: <?php if ($task) {
-                            echo $task["startDate"];
-                        } ?></p>
-        <p> End Date: <?php if ($task) {
-                            echo $task["endDate"];
-                        } ?></p> -->
                 <div class="form__field dropdown">
                     <label for="user">Assign user:</label>
                     <select name="user" id="user">

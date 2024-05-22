@@ -61,9 +61,13 @@ if (!isset($hub)) {
                 <p> Hub manager: </p>
                 <div class="border">
                     <ul class="managers">
-                        <?php foreach ($managers as $manager) : ?>
-                            <li><?php echo $manager['firstName'] . " " . $manager['lastName']; ?></li>
-                        <?php endforeach; ?>
+                        <?php if (!$managersAssigned) : ?>
+                            <p>No manager assigned</p>
+                        <?php else: ?>
+                            <?php foreach ($managers as $manager) : ?>
+                                <li><?php echo $manager['username']; ?></li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </div>

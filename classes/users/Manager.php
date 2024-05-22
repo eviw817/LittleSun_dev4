@@ -30,7 +30,7 @@ class Manager extends ParentUser
     public static function getByLocation($locationId)
     {
         $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT firstName, lastName FROM users WHERE location = :id AND role = 'manager'");
+        $statement = $conn->prepare("SELECT username FROM users WHERE location = :id AND role = 'manager'");
         $statement->execute([":id" => $locationId]);
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
         if (!$results) {
