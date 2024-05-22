@@ -8,12 +8,12 @@ class User extends ParentUser
     //addUser.php
     public function newUser()
     {
-        // Hash het wachtwoord
+        // Hash the password
         $hashed_password = password_hash($this->password, PASSWORD_DEFAULT, ['cost' => 12]);
 
-        //PDO connection
+        // PDO connection
         $conn = Db::getConnection();
-        //prepare query (INSERT) + bind
+        // Prepare query (INSERT) + bind
         $statement = $conn->prepare("INSERT INTO users (username, firstName, lastName, role, email, password, image, location) VALUES (:username, :firstName, :lastName, 'user', :email, :password, :image, :location);");
         $statement->bindValue(":username", $this->username);
         $statement->bindValue(":firstName", $this->firstName);
@@ -21,11 +21,9 @@ class User extends ParentUser
         $statement->bindValue(":lastName", $this->lastName);
         $statement->bindValue(":email", $this->email);
         $statement->bindValue(":location", $this->location, PDO::PARAM_INT);
-        $statement->bindValue(":password", $this->password);
         $statement->bindValue(":image", $this->image);
-        
 
-        return $statement->execute(); //terug geven het resultaat van die query
+        return $statement->execute(); // Return the result of the query
     }
 
     //user.php
