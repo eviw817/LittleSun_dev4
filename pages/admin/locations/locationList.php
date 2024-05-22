@@ -24,13 +24,6 @@ if (!isset($_SESSION['id'])) {
     <?php include_once("../../../components/headerAdmin.inc.php"); ?>
     <main>
         <h1>Hub locations</h1>
-        <?php
-            var_dump($db); // This will return NULL because no connection has been established yet.
-
-            $db = Db::getConnection(); // This will establish a connection.
-
-            var_dump($db); // This should now return the PDO instance because a connection has been established.
-        ?>
         <section>
             <ul class="locationList">
                 <?php foreach (Location::getLocations() as $location) : ?>
