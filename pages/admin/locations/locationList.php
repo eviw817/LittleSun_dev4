@@ -24,6 +24,7 @@ if (!isset($_SESSION['id'])) {
     <?php include_once("../../../components/headerAdmin.inc.php"); ?>
     <main>
         <h1>Hub locations</h1>
+        <?php var_dump($location) ?>
         <section>
             <ul class="locationList">
                 <?php foreach (Location::getLocations() as $location) : ?>
@@ -31,7 +32,7 @@ if (!isset($_SESSION['id'])) {
                         <li class="locationDetail"><?php echo $location['name']; ?>
                         </li>
                     </a>
-                    <?php var_dump($location) ?>
+                    
                 <?php endforeach; ?>
             </ul>
 
