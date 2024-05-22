@@ -8,6 +8,7 @@ section {
     align-items: center;
     justify-content: space-around;
     gap: 38px;
+    height: 100%;
 }
 
 ul {
