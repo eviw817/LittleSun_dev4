@@ -28,8 +28,13 @@ if (isset($_POST['save'])) {
     // Haal de huidige rol van de gebruiker op
     $currentUser = User::getUserById($id);
 
-    $updateuser = new User($_POST["username"], $_POST["email"], null, $currentUser['role'], ($_POST['location'] == "-1") ? null : $_POST['location'], $_POST["firstName"], $_POST["lastName"]);
+    if (!empty($newPassword)) {
+        $hashed_password = password_hash($newPassword, PASSWORD_DEFAULT, $options = ['cost' => 12]);
+    } else {
+        $hashed_password = $currentUser['password'];
+    }
 
+    $updateuser = new User($_POST["username"], $_POST["email"], $hashed_password, $currentUser['role'], ($_POST['location'] == "-1") ? null : $_POST['location'], $_POST["firstName"], $_POST["lastName"]);
     if ($_FILES["img"]["size"]>0) {
         $updateuser -> setImage('data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])));
     } else {
@@ -81,6 +86,10 @@ if (isset($_POST['save'])) {
                 <input type="text" name="email" value="<?php echo isset($user['email']) ? $user['email'] : ''; ?>">
             </div>
 
+            <div class="form__field">
+                <label for="password">Password:</label>
+                <input type="password" name="password" value="<?php echo isset($user['password']) ? $user['password'] : ''; ?>">
+            </div>
             
             <div class="form__field">
                 <label for="img">Select image:</label>

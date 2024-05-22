@@ -6,13 +6,16 @@ class Manager extends ParentUser
 {
     public function newManager()
     {
+        // Hash het wachtwoord
+        $hashed_password = password_hash($this->password, PASSWORD_DEFAULT, ['cost' => 12]);
+
         //PDO connection
         $conn = Db::getConnection();
         //prepare query (INSERT) + bind
         $statement = $conn->prepare("INSERT INTO users (username, email, password, role, location, firstName, lastName, image) VALUES (:username, :email, :password, :role, :location, :firstName, :lastName, :image);");
         $statement->bindValue(":username", $this->username);
         $statement->bindValue(":email", $this->email);
-        $statement->bindValue(":password", $this->password);
+        $statement->bindValue(":password", $hashed_password);
         $statement->bindValue(":role", $this->role);
         $statement->bindValue(":location", $this->location);
         $statement->bindValue(":firstName", $this->firstName);
@@ -53,7 +56,7 @@ class Manager extends ParentUser
         if (!empty($this->id)) {
             // Hash het wachtwoord als het niet leeg is
             if (!empty($this->password)) {
-                $hashed_password = password_hash($this->password, PASSWORD_DEFAULT);
+                $hashed_password = password_hash($this->password, PASSWORD_DEFAULT, ['cost' => 12]);
             } else {
                 // Als het wachtwoord leeg is, behoud de huidige wachtwoordwaarde
                 $hashed_password = $this->password;

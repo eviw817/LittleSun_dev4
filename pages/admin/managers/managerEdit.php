@@ -25,7 +25,7 @@ if (isset($_GET['id'])) {
 if (isset($_POST['save'])) {
     $updatemanager = new Manager($_POST["username"], $_POST["email"], $_POST["new-password"], "manager", ($_POST['location'] == "-1") ? null : $_POST['location'], $_POST["firstName"], $_POST["lastName"]);
     if (!empty($newPassword)) {
-        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+        $hashed_password = password_hash($newPassword, PASSWORD_DEFAULT, $options = ['cost' => 12]);
     }
     
     if ($_FILES["img"]["size"]>0) {

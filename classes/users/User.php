@@ -8,12 +8,16 @@ class User extends ParentUser
     //addUser.php
     public function newUser()
     {
+        // Hash het wachtwoord
+        $hashed_password = password_hash($this->password, PASSWORD_DEFAULT, ['cost' => 12]);
+
         //PDO connection
         $conn = Db::getConnection();
         //prepare query (INSERT) + bind
         $statement = $conn->prepare("INSERT INTO users (username, firstName, lastName, role, email, password, image, location) VALUES (:username, :firstName, :lastName, 'user', :email, :password, :image, :location);");
         $statement->bindValue(":username", $this->username);
         $statement->bindValue(":firstName", $this->firstName);
+        $statement->bindValue(":password", $hashed_password);
         $statement->bindValue(":lastName", $this->lastName);
         $statement->bindValue(":email", $this->email);
         $statement->bindValue(":location", $this->location, PDO::PARAM_INT);
@@ -124,16 +128,24 @@ class User extends ParentUser
     public function updateInfo()
     {
         if (!empty($this->id)) {
+            // Hash the password if it is not empty
+            if (!empty($this->password)) {
+                $hashed_password = password_hash($this->password, PASSWORD_DEFAULT, ['cost' => 12]);
+            } else {
+                // If the password is empty, keep the current password value
+                $hashed_password = $this->password;
+            }
             $conn = Db::getConnection();
-            $statement = $conn->prepare("UPDATE users SET username = :username, email = :email, location = :location, firstName = :firstName, lastName = :lastName, image = :image WHERE id = :id");
+            $statement = $conn->prepare("UPDATE users SET username = :username, email = :email, location = :location, password = :password, firstName = :firstName, lastName = :lastName, image = :image WHERE id = :id");
             $statement->execute([
                 ":username" => $this->username,
                 ":email" => $this->email,
                 ":location" => $this->location,
+                ":password" => $hashed_password, // Use the hashed password
                 ":firstName" => $this->firstName,
                 ":lastName" => $this->lastName,
-                ":id" => $this->id,
-                ":image" => $this->image
+                ":image" => $this->image,
+                ":id" => $this->id
             ]);
         } else {
             throw new Exception("id is not set.");

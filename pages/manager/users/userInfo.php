@@ -39,7 +39,7 @@ $manager = Manager::getManagerById($_SESSION['id']);
                 <?php foreach ($users as $user) : ?>
                     <div class="flex">
                         <a href="userId.php?id=<?php echo $user['id']; ?>" class="user_detail">
-                            <p><?php echo $user['firstName'] . " " . $user['lastName']; ?></p>
+                            <p><?php echo $user["username"]; ?></p>
                             <img src="<?php echo $user["image"]; ?>" alt="<?php echo $user['firstName'] . " " . $user['lastName']; ?>">
                         </a>
                     </div>
