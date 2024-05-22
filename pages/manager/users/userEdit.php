@@ -97,18 +97,6 @@ if (isset($_POST['save'])) {
             </div>
 
             <div class="form__field">
-                <label for="location">Location:</label>
-                <select name="location" id="location">
-                    <option value="-1">No location</option>
-                    <?php foreach (Location::getLocations() as $location) : ?>
-                        <option value="<?php echo $location["id"] ?>" <?php echo ($location["id"] == $user['location']) ? 'selected' : ''; ?>><?php echo $location["name"] ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-
-            <!-- hier nog tasks toevoegen om te verander -->
-
-            <div class="form__field">
                 <input type="submit" name="save" value="Save" class="btn-save">
             </div>
             <a class="button fixed-position" href="userId.php">Back</a>
