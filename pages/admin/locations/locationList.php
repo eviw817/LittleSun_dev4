@@ -31,6 +31,7 @@ if (!isset($_SESSION['id'])) {
                         <li class="locationDetail"><?php echo $location['name']; ?>
                         </li>
                     </a>
+                    <?php var_dump($location) ?>
                 <?php endforeach; ?>
             </ul>
 
