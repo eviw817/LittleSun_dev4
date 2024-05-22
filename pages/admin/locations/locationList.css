@@ -9,6 +9,13 @@ section {
     justify-content: space-around;
     gap: 38px;
     height: 100%;
+    overflow: auto;
+}
+
+section::after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 ul {
