@@ -1,6 +1,7 @@
 body {
     font-family: var(--font-nunito);
     text-align: var(--text-align);
+    margin-bottom: 20px;    
 }
 
 h1 {
