@@ -35,10 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generate Reports</title>
+    <link rel="stylesheet" href="../../../reset.css">
+    <link rel="stylesheet" href="../../../shared.css">
     <link rel="stylesheet" href="managerReport.css">
 </head>
 
 <body>
+<?php include_once("../../../components/headerManager.inc.php"); ?>
     <h1>Generate Reports</h1>
     <?php if (isset($error)) : ?>
         <p><?php echo $error; ?></p>

@@ -48,7 +48,7 @@ div input[type="password"] {
 }
 
 .input__button:hover {
-    background-color: #ffee81;
+    background-color: var(--color-light-primary);
 }
 
 .checkbox {

@@ -27,10 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generate Reports</title>
+    <link rel="stylesheet" href="../../../reset.css">
+    <link rel="stylesheet" href="../../../shared.css">
     <link rel="stylesheet" href="adminReports.css">
 </head>
 
 <body>
+<?php include_once("../../../components/headerAdmin.inc.php"); ?>
     <h1>Generate Reports</h1>
     <?php if (isset($error)) : ?>
         <p><?php echo $error; ?></p>
@@ -76,6 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <th>Task Name</th>
                     <th>Start Time</th>
                     <th>End Time</th>
+                    <?php $reportType = $_POST['report_type'] ?? ''; ?>
                     <?php if ($reportType === 'hoursWorked') : ?>
                         <th>Total Hours</th>
                     <?php elseif ($reportType === 'sickTime') : ?>

@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: var(--color-background);
 }
 
 main {
@@ -18,7 +18,7 @@ main {
     width: 100%;
     max-width: 900px;
     padding: 20px;
-    background-color: #fff;
+    background-color: var(--color-white);;
     margin-top: 20px;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
     margin-left: 40px;
@@ -30,7 +30,7 @@ main {
     grid-template-columns: repeat(7, 0.5fr);
     width: 100%;
     max-width: 860px;
-    background-color: #fff;
+    background-color: var(--color-white);;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
 }
@@ -40,7 +40,7 @@ main {
     grid-template-columns: repeat(7, 0.5fr);
     width: 100%;
     max-width: 860px;
-    background-color: #fff;
+    background-color: var(--color-white);;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     margin-left: 70px;
@@ -52,7 +52,7 @@ main {
     grid-template-columns: repeat(7, 0.5fr);
     width: 100%;
     max-width: 860px;
-    background-color: #fff;
+    background-color: var(--color-white);;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     margin-left: 70px;
@@ -64,7 +64,7 @@ main {
     grid-template-columns: repeat(7, 3fr);
     width: 100%;
     max-width: 800px;
-    background-color: #fff;
+    background-color: var(--color-white);;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     padding: 10px;
@@ -82,7 +82,7 @@ main {
 
 #days div {
     font-weight: bold;
-    background-color: #f0f0f0;
+    background-color: var(--color-off-gray);;
 }
 
 #month,
@@ -94,7 +94,7 @@ main {
 #month .day,
 #week .day,
 #day .day {
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-gray);
     height: 100px;
     display: flex;
     justify-content: flex-start;
@@ -116,7 +116,7 @@ main {
 
 .day em {
     font-style: normal;
-    color: #666;
+    color: var(--color-off-black);
     position: absolute;
     top: 5px;
     left: 5px;
@@ -172,7 +172,7 @@ td {
 #calendar-container {
     width: 90%;
     max-width: 1200px;
-    background-color: #fff;
+    background-color: var(--color-white);;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
     margin: 0;
@@ -185,20 +185,20 @@ td {
     grid-template-columns: 90px repeat(7, 0.5fr);
     align-items: center;
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--color-gray);
 }
 
 .calendar-days {
     display: grid;
     grid-template-columns: 90px repeat(7, 1fr);
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--color-gray);
 }
 
 .day {
     text-align: center;
     padding: 10px;
     font-weight: bold;
-    border-right: 1px solid #ddd;
+    border-right: 1px solid var(--color-gray);
     height: 100%;
     display: flex;
     justify-content: center;
@@ -212,12 +212,12 @@ td {
 .calendar-body {
     display: grid;
     grid-template-columns: 99px repeat(7, 1fr);
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--color-gray);
 }
 
 .time-column {
     margin-top: 10px;
-    border-right: 1px solid #ddd;
+    border-right: 1px solid var(--color-gray);
     padding-right: 20px;
     padding-left: 10px;
     text-align: right;
@@ -225,7 +225,7 @@ td {
 }
 
 .day-column {
-    border-right: 1px solid #ddd;
+    border-right: 1px solid var(--color-gray);
     padding: 15px;
     position: relative;
     height: auto;
@@ -287,7 +287,7 @@ td {
     line-height: 30px;
     text-align: right;
     padding-right: 10px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--color-gray);;
 }
 
 .day-column {
