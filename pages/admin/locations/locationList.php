@@ -24,7 +24,6 @@ if (!isset($_SESSION['id'])) {
     <?php include_once("../../../components/headerAdmin.inc.php"); ?>
     <main>
         <h1>Hub locations</h1>
-        <?php var_dump(Location::getLocations()); ?>
         <section>
             <ul class="locationList">
                 <?php foreach (Location::getLocations() as $location) : ?>
