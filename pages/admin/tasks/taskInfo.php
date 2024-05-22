@@ -56,7 +56,7 @@ if (!isset($task)) {
                 }
                 ?></p>
 
-            <a class="button fixed-position" href="../../../admin/tasks/taskEdit.php?id=<?php echo $_GET["id"]; ?>">Edit task</a>
+            <a class="button fixed-position" href="/pages/admin/tasks/taskEdit.php?id=<?php echo $_GET["id"]; ?>">Edit task</a>
             <a class="button fixed-position" href="taskList.php">Back</a>
         </section>
 
