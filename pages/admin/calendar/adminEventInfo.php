@@ -5,7 +5,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Schedules.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/User.php");
 include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php");
-include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Location.php");
+include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/");
 
 if (!isset($_SESSION['id'])) {
     header("Location: login.php");
