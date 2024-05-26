@@ -6,7 +6,8 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php
 
     if (isset($_SESSION['id'])) {
         // Veronderstel dat de locatie-ID wordt opgeslagen in de sessie onder de sleutel 'location_id'
-        $locationId = $_SESSION['id'];
+        $manager = Manager::getManagerById($_SESSION['id']);
+        $locationId = $manager['location'];
         $users = User::getUsersByLocation($locationId); // Gebruik de juiste methode om gebruikers op te halen
     
     } else {
@@ -14,7 +15,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/users/Manager.php
         exit();
     }
 
-$manager = Manager::getManagerById($_SESSION['id']);
+
 
 ?><!DOCTYPE html>
 <html lang="en">

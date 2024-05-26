@@ -26,10 +26,6 @@ p {
     margin-bottom: 30px;
 }
 
-.flex:hover {
-    background-color: var(--color-primary);
-}
-
 .user_detail {
     color: black;
     text-decoration: none;
@@ -40,7 +36,6 @@ p {
     height: 120px;
     object-fit: contain;
     border-radius: 20%;
-
 }
 
 .newuser {

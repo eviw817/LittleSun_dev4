@@ -18,36 +18,6 @@ $users = User::getAllUsers(); // Array van gebruikers
 $hubs = Schedules::getHubs();
 $timeSlots = range(8, 19); // 8am to 7pm
 
-// Assign task
-$message = "";
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['assign'])) {
-    $schedule = new Schedules($_POST['user_id'], $_POST['task_id'], $managerInfo['location'], $_POST['schedule_date'], $_POST['start_time'], $_POST['end_time']);
-
-    $result = $schedule->newShift();
-    //$message = $result === true ? "Shift assigned successfully." : $result;
-
-    // Opnieuw ophalen van schema's na het toewijzen van de nieuwe dienst
-    $schedules = Schedules::getShiftsById($managerInfo['location'], new DateTime());
-
-    $events = [];
-    foreach ($schedules as $schedule) {
-        $event = [
-            'user_id' => $schedule['user_id'],
-            'task_id' => $schedule['task_id'],
-            'location_id' => $managerInfo['location'],
-            'schedule_date' => $schedule['schedule_date'],
-            'start_time' => $schedule['start_time'],
-            'end_time' => $schedule['end_time']
-        ];
-        $events[] = $event;
-    }
-
-    // Sorteer de gebeurtenissen op datum
-    usort($events, function ($a, $b) {
-        return strtotime($a['schedule_date']) - strtotime($b['schedule_date']);
-    });
-}
-
 function generateDaysForMonth($year, $month)
 {
     $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
@@ -128,52 +98,6 @@ if ($view === 'daily') {
         <?php if ($message) : ?>
             <p><?php echo $message; ?></p>
         <?php endif; ?>
-        <form method="POST">
-            <a class="newShift" href="#popup">New Shift</a>
-            <div id="popup" class="popup">
-                <div class="popup-content">
-                    <h1>Assign Task</h1>
-                    <a href="#" class="close">&times;</a>
-                    <div class="hub">
-                        <p>Hub:</p>
-                        <p><?php echo $managerInfo['name']; ?></p>
-                    </div>
-                    <label for="user_id">User:</label>
-                    <select name="user_id" id="user_id">
-                        <?php foreach (User::getUsersByLocationAndRequests($managerInfo["location"]) as $user) : ?>
-                            <option value="<?php echo $user["id"]; ?>"><?php echo $user['username']; ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                    <label for="task_id">Task:</label>
-                    <select name="task_id" id="task_id" required>
-                        <?php foreach ($tasks as $task) : ?>
-                            <option value="<?php echo $task['id']; ?>"><?php echo $task['name']; ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                    <label for="schedule_date">Schedule date:</label>
-                    <input type="date" name="schedule_date" id="schedule_date" required>
-                    <label for="start_time">Start time:</label>
-                    <select name="start_time" id="start_time" required>
-                        <?php for ($i = 8; $i <= 19; $i++) : ?>
-                            <?php $time = sprintf("%02d:00", $i); ?>
-                            <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
-                            <?php $time = sprintf("%02d:30", $i); ?>
-                            <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
-                        <?php endfor; ?>
-                    </select>
-                    <label for="end_time">End time:</label>
-                    <select name="end_time" id="end_time" required>
-                        <?php for ($i = 8; $i <= 19; $i++) : ?>
-                            <?php $time = sprintf("%02d:00", $i); ?>
-                            <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
-                            <?php $time = sprintf("%02d:30", $i); ?>
-                            <option value="<?php echo $time; ?>"><?php echo $time; ?></option>
-                        <?php endfor; ?>
-                    </select>
-                    <button class="button" type="submit" name="assign">Assign</button>
-                </div>
-            </div>
-        </form>
 
         <div id="header">
             <a class="buttons" href="<?php echo $prevMonthUrl; ?>">&laquo; Previous</a>

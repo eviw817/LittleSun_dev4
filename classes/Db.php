@@ -6,7 +6,7 @@ abstract class Db
     public static function getConnection()
     {
         if (self::$db == null) {
-            self::$db = new PDO("mysql:host=localhost;dbname=little sun", "root", ""); //change to local configuration
+            self::$db = new PDO("mysql:host=ID437011_LittleSun.db.webhosting.be;dbname=ID437011_LittleSun", "ID437011_LittleSun", "ls24eihd4");
             return self::$db;
         } else {
             return self::$db;

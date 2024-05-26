@@ -66,7 +66,6 @@ if (isset($_GET['id'])) {
             <?php else : ?>
                 <p>No tasks assigned</p>
             <?php endif; ?>
-            <a class="edit" href='./taskAdd.php?id=<?php echo $_GET['id']; ?>'>Add Task</a>
         </div>
 
     <?php else : ?>

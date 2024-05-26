@@ -13,7 +13,7 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 
-$manager = Manager::getManagerById($_SESSION['id']);
+$managerInfo = Manager::getManagerById($_SESSION['id']);
 $requests = Request::getAbsentRequests($managerInfo['location']);
 
 // Goedkeuren of afwijzen van verlofaanvragen

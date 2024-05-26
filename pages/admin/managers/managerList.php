@@ -26,20 +26,21 @@ $admin = Admin::getAdmin($_SESSION['id']);
 <body>
     <?php include_once("../../../components/headerAdmin.inc.php"); ?>
     <h1 class="title">Hub managers</h1>
-    <div class="inline">
-        <?php foreach (Manager::getHubManagerName() as $manager) : ?>
-            <div class="flex">
-                <a href="managerInfo.php?id=<?php echo $manager['id']; ?>" class="manager_detail">
-                    <p><?php echo $manager['username']; ?></p>
+    <section>
+        <div class="inline">
+            <?php foreach (Manager::getHubManagerName() as $manager) : ?>
+                <div class="flex">
+                    <a href="managerInfo.php?id=<?php echo $manager['id']; ?>" class="manager_detail">
+                        <p><?php echo $manager['username']; ?></p>
 
-                    <img src="<?php echo $manager["image"]; ?>"></img>
-                </a>
-            </div>
-        <?php endforeach; ?>
-    </div>
-    <div class="button-container">
-        <a class="newmanager" href="managerAdd.php">Add new hub manager</a>
-    </div>
+                        <img src="<?php echo $manager["image"]; ?>"></img>
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <a class="button fixed-position" href="managerAdd.php">Add new hub manager</a>
+        <a class="button fixed-position" href="managerRemove.php">Remove managers</a>
+    </section>
 </body>
 
 </html>

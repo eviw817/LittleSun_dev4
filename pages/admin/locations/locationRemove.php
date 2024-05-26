@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit location</title>
+    <title>Remove location</title>
     <link rel="stylesheet" href="../../../reset.css">
     <link rel="stylesheet" href="../../../shared.css">
     <link rel="stylesheet" href="./locationRemove.css">
@@ -35,10 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
     <h1>Hub location</h1>
     <ul>
 
-        <?php foreach (Location::getLocationName() as $key => $location) : ?>
+        <?php foreach (Location::getLocationName() as $location) : ?>
             <li>
                 <section class="space">
-                    <a href="locationInfo.php?id=<?php echo ($key + 1) ?>" class="location_detail"><?php echo $location['name']; ?> </a>
+                    <p class="location_detail"><?php echo $location['name']; ?> </p>
                     <form action="" method="post" onsubmit="return confirm('Are you sure you want to delete this location?')">
                         <input type="hidden" name="id" value="<?php echo $location['id']; ?>">
                         <button type="submit">Remove location</button>

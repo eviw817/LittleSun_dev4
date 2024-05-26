@@ -95,4 +95,13 @@ class Manager extends ParentUser
         $statement = $conn->query("SELECT * FROM users u WHERE role = 'manager'");
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public static function deleteManager($managerId)
+    {
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("DELETE FROM users WHERE id = :id");
+        $statement->execute([":id" => $managerId]);
+    }
+
+    
 }

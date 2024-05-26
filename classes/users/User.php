@@ -96,6 +96,7 @@ class User extends ParentUser
         $statement = $conn->prepare("SELECT u.* 
                 FROM users u 
                 LEFT JOIN absence_requests a ON a.user_id = u.id
+                LEFT JOIN locations l ON l.id = u.location
                 WHERE u.location = :location_id AND u.role = 'user' AND u.id NOT IN (SELECT user_id FROM absence_requests WHERE approvalStatus = 'Approved' OR approvalStatus = 'Pending')");
         $statement->bindParam(":location_id", $locationId, PDO::PARAM_INT);
         $statement->execute();
@@ -115,9 +116,9 @@ class User extends ParentUser
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT u.* 
                                     FROM users u 
-                                    JOIN users manager ON manager.id = :manager_id
-                                    WHERE u.location = manager.location AND u.id != manager.id");
-        $statement->bindParam(":manager_id", $_SESSION['id'], PDO::PARAM_INT);
+                                    JOIN locations l ON l.id = u.location
+                                    WHERE u.location = :location_id AND u.role = 'user'");
+        $statement->bindParam(":location_id", $locationId, PDO::PARAM_INT);
         $statement->execute();
         $users = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $users;

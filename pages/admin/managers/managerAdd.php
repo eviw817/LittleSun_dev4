@@ -15,7 +15,7 @@ $admin = Admin::getAdmin($_SESSION['id']);
 if (!empty($_POST)) {
     try {
         $username = $_POST["firstName"] . '.' . $_POST["lastName"];
-        $manager = new Manager($username, $_POST['email'], $_POST['password'], "manager", $_POST['location'], $_POST['firstName'], $_POST['lastName']);
+        $manager = new Manager($username, $_POST['email'], $_POST['password'], "manager", ($_POST["location"] = "-1") ? null : $_POST['location'], $_POST['firstName'], $_POST['lastName']);
         if ($_FILES["img"]["size"]>0) {
             $manager->setImage('data:image/' . $_FILES['img']['type'] . ';base64,' . base64_encode(file_get_contents($_FILES['img']['tmp_name'])));
         }
@@ -62,7 +62,7 @@ if (!empty($_POST)) {
 
                 <div class="form__field">
                     <label for="email">Email:</label>
-                    <input type="text" id="email" name="email" required>
+                    <input type="text" id="email" name="email">
                 </div>
 
                 <div class="form__field">
@@ -72,7 +72,8 @@ if (!empty($_POST)) {
 
                     <div class="form__field">
                         <label class="location" for="location">Hub location</label>
-                        <select id="location" name="location" required>
+                        <select id="location" name="location">
+                            <option value="-1">No location</option>
                             <?php foreach (Location::getLocations() as $location) : ?>
                                 <option value="<?php echo $location['id']; ?>"><?php echo $location['name']; ?></option>
                             <?php endforeach; ?>
@@ -81,7 +82,7 @@ if (!empty($_POST)) {
 
                     <div class="form__field">
                         <label for="img">Select image:</label>
-                        <input type="file" id="img" name="img" accept="image/*" required>
+                        <input type="file" id="img" name="img" accept="image/*">
                     </div>
 
                     <button type="submit" class="btn-save">Save</button>

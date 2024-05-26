@@ -8,7 +8,7 @@ if (!(isset($_POST) && empty($_POST["username"]) && empty($_POST["password"]))) 
 
     if (!$user) {
         $error = "User does not exist. Are you already registered?";
-    } else if ($user["password"] != $_POST["password"]) {
+    } else if (!password_verify($_POST["password"], $user["password"])) {
         $error = "Credentials do not match, try again.";
     } else {
         session_start();

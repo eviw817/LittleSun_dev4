@@ -59,7 +59,7 @@ if (!isset($task)) {
                     echo "No user assigned";
                 }
                 ?></p>
-            <a class="button fixed-position" href="managerTaskAssign.php?id=<?php echo $task["id"]; ?>">Add user to task</a>
+            <a class="button fixed-position" href="managerTaskAssign.php?id=<?php echo $_GET["id"]; ?>">Add user to task</a>
 
         </section>
     </main>

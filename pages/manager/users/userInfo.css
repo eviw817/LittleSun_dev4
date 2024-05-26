@@ -22,8 +22,7 @@ p {
     padding: 20px;
     border-radius: 10px;
     background-color: var(--color-off-white);
-    margin-right: 30px;
-    margin-bottom: 30px;
+    margin: 30px;
 }
 
 .flex:hover {
@@ -40,7 +39,6 @@ p {
     height: 120px;
     object-fit: contain;
     border-radius: 20%;
-
 }
 
 .newuser {
