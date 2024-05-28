@@ -31,7 +31,7 @@ if (isset($_SESSION['id'])) {
 
     <p>Total hours worked: <?php echo isset($timetableData['total_hours']) ? $timetableData['total_hours'] : ''; ?></p>
     <p>Start time: <?php echo isset($timetableData['clock_in_time']) ? $timetableData['clock_in_time'] : ''; ?></p>
-    <p>End time: <?php echo isset($timetableData['_out_time']) ? $timetableData['clock_out_time'] : ''; ?></p>
+    <p>End time: <?php echo isset($timetableData['clock_out_time']) ? $timetableData['clock_out_time'] : ''; ?></p>
     <p>Overtime hours: <?php echo isset($timetableData['overtime_hours']) ? $timetableData['overtime_hours'] : ''; ?></p>
 
     <a class="clockin" href="../../dashboard/userDashboard.php">Back</a>
