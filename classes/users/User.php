@@ -49,7 +49,7 @@ class User extends ParentUser
     public static function getByTask($taskId)
     {
         $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT u.*, t.name FROM users u LEFT JOIN users_tasks ut ON ut.task_id = u.id LEFT JOIN tasks t ON ut.task_id = t.id WHERE t.id =  :id");
+        $statement = $conn->prepare("SELECT u.*, t.name FROM users_tasks ut LEFT JOIN users u ON ut.user_id = u.id LEFT JOIN tasks t ON ut.task_id = t.id WHERE t.id =  :id");
         $statement->execute([":id" => $taskId]);
         $results = $statement->fetchAll();
         if (!$results) {

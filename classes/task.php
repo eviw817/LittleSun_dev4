@@ -150,10 +150,21 @@ class Task
     public static function getTaskById($taskId)
     {
         $conn = Db::getConnection();
-        $statement = $conn->prepare("SELECT t.*, u.username FROM tasks t LEFT JOIN users_tasks ut ON ut.task_id = t.id LEFT JOIN users u ON ut.user_id = u.id WHERE t.id = :id");
+        $statement = $conn->prepare("SELECT t.*, u.username 
+        FROM tasks t 
+        LEFT JOIN users_tasks ut ON ut.task_id = t.id 
+        LEFT JOIN users u ON ut.user_id = u.id 
+        WHERE t.id = :id");
         $statement->execute([":id" => $taskId]);
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         return $result;
+    }
+
+    public static function getTasksByUserId($userId) {
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT t.* FROM tasks t LEFT JOIN users_tasks ut ON t.id = ut.task_id WHERE ut.user_id = :userId");
+        $statement->execute([":userId" => $userId]);
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     //database geeft mij de zaken die er al in staan voor task

@@ -66,7 +66,7 @@ if (isset($_POST['submit'])) {
                     </select>
                 </div>
 
-                <input type="submit" name="submit" value="Confirm Edit" class="button fixed.position">
+                <input type="submit" name="submit" value="Confirm Edit" >
             </section>
         </form>
     </main>

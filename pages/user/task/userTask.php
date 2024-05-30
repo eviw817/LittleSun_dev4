@@ -7,7 +7,7 @@ include_once(__DIR__ . DIRECTORY_SEPARATOR . "../../../classes/Task.php");
 if (isset($_SESSION['id'])) {
     $user = User::getUserById($_SESSION['id']);
     $userId = $_SESSION['id'];
-    $task = task::getTaskById($_SESSION['id']);
+    $tasks = Task::getTasksByUserId($_SESSION['id']); 
 } else {
     header("Location: login.php");
     exit();
@@ -28,8 +28,10 @@ if (isset($_SESSION['id'])) {
 <body>
     <?php include_once("../../../components/headerUser.inc.php"); ?>
     <h1>Hi, <?php echo $user['username']; ?></h1>
-    <h2>Your task:</h2>
-    <p><?php echo $task['name'] ?></p>
+    <h2>Your tasks:</h2>
+    <?php foreach ($tasks as $task) : ?>
+            <p><?php echo $task['name']; ?></p>
+    <?php endforeach; ?>
 </body>
 
 </html>
